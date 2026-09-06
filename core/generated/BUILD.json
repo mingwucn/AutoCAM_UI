@@ -22,6 +22,8 @@
   "verification": {
     "python_initial_action_masks": 552,
     "python_multi_action_fixtures": 900,
-    "browser_step_modes": ["milling", "turning"]
+    "browser_step_fixtures": ["box", "overhang", "stepped-shaft"],
+    "browser_step_modes": ["milling", "turning"],
+    "local_industrial_step_fixtures": ["3-29-00350", "3-29-00289"]
   }
 }

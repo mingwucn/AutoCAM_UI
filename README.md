@@ -39,9 +39,12 @@ and `npm run test:step-upload`.
 Windows browser tests use installed Edge; Linux uses Playwright Chromium.
 The reference corpus has 916 fixtures. Browser tests exercise all seven
 case/process combinations, replay, holding restrictions and asynchronous loads.
-The upload test prepares a newly generated STEP solid for milling and turning,
-applies an action, checks protected material, and verifies that no request
-contains the local file.
+The upload test prepares generated box, overhang and stepped-shaft STEP solids,
+applies milling and turning actions, checks protected material, and verifies
+that no request contains the local file. It also covers invalid input, the
+cell bound, cancellation and stale-result rejection. Set
+`AUTOCAM_STEP_FIXTURES` to a JSON array of `{path, process, pitch, axis}` rows
+to exercise private or parent-repository industrial fixtures locally.
 
 ## Offline report embed
 
