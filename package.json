@@ -1,0 +1,22 @@
+{
+  "name": "shadow-gym-react-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.cjs",
+    "build": "node scripts/build.cjs",
+    "build:embed": "node scripts/build.cjs --embed",
+    "test": "node --test tests/providers.test.mjs",
+    "test:parity": "node tests/parity.cjs",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9",
+    "playwright": "1.63.0"
+  }
+}
