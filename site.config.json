@@ -1,6 +1,6 @@
 {
   "release": "v1",
   "stepUpload": true,
-  "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/0663ceeb7e3b989e1e4270ff7dfcce6cfab1e720/releases/v1/catalog.json",
-  "dataCommit": "0663ceeb7e3b989e1e4270ff7dfcce6cfab1e720"
+  "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/2c326fb3442e8ce8d3fbffa56a4b04887887b9e1/releases/v1/catalog.json",
+  "dataCommit": "2c326fb3442e8ce8d3fbffa56a4b04887887b9e1"
 }

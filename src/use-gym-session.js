@@ -4,7 +4,7 @@ export const formatNumber = n => n.toLocaleString('en-US', {maximumFractionDigit
 
 function newSession(data, sceneId, requestedMode) {
   const scene = data.scenes.find(s => s.id === sceneId) || data.scenes[0];
-  const mode = scene.modes[requestedMode] ? requestedMode : Object.keys(scene.modes)[0];
+  const mode = scene.modes[requestedMode] ? requestedMode : scene.workflow?.default_process || Object.keys(scene.modes)[0];
   const direction = scene.ui?.directions?.[mode] || (mode === 'turning' ? 'outside' : 'mill_+0_+0_-1');
   const defaultReach = scene.ui?.reach?.[mode];
   return {
@@ -19,10 +19,17 @@ function newSession(data, sceneId, requestedMode) {
 function reduceSession(data, state, event) {
   switch (event.type) {
     case 'select': return newSession(data, event.sceneId ?? state.sceneId, event.mode);
+    case 'process': {
+      const scene=data.scenes.find(s=>s.id===state.sceneId),mode=event.mode;
+      if(!scene.modes[mode])return state;
+      const direction=scene.ui?.directions?.[mode]||(mode==='turning'?'outside':'mill_+0_+0_-1');
+      const reach=scene.ui?.reach?.[mode],lengthIndex=reach===undefined?state.lengthIndex:Math.max(0,scene.lengths.indexOf(reach));
+      return {...state,mode,direction,lengthIndex,preview:true,replay:null};
+    }
     case 'direction': return {...state, direction: event.value, preview: true, replay: null};
     case 'length': return {...state, lengthIndex: event.value, preview: true, replay: null};
     case 'view': return {...state, [event.key]: event.value};
-    case 'apply': return {...state, actions: [...state.actions, event.id], preview: false};
+    case 'apply': return {...state, actions: [...state.actions, event.action], preview: false};
     case 'reset': return {...state, actions: [], preview: true, replay: null};
     case 'preview': return {...state, preview: true, replay: null};
     case 'replay-start': return {...state, replay: {actions: event.actions.slice(), index: 0, playing: false}};
@@ -48,12 +55,16 @@ function reduceSession(data, state, event) {
   }
 }
 
-function evaluateSequence(data, sceneId, mode, actions) {
+function evaluateSequence(data, sceneId, mode, actions, playback=false) {
   const gym = new window.ShadowModel.Gym(data, sceneId, mode);
-  const history = actions.map(id => {
+  const workflow=!!gym.scene.workflow;
+  const history = actions.map(entry => {
+    const process=typeof entry==='string'?mode:entry.process,id=typeof entry==='string'?entry:entry.action_id;
+    if(workflow)gym.setMode(process);
     const row = gym.actions.get(id), result = gym.step(id);
-    return {id, label: row.label, length: row.length, removed: result.evaluation.removed_mm3};
+    return {id, process, label: row.label, length: row.length, removed: result.evaluation.removed_mm3};
   });
+  if(!playback||!history.length)gym.setMode(mode);
   return {gym, history};
 }
 
@@ -64,12 +75,13 @@ export function useGymSession(data, initialMode) {
   const live = useMemo(() => evaluateSequence(data, state.sceneId, state.mode, state.actions),
     [data, state.sceneId, state.mode, state.actions]);
   const playback = useMemo(() => state.replay
-    ? evaluateSequence(data, state.sceneId, state.mode, state.replay.actions.slice(0, state.replay.index)) : null,
+    ? evaluateSequence(data, state.sceneId, state.mode, state.replay.actions.slice(0, state.replay.index),true) : null,
     [data, state.sceneId, state.mode, state.replay?.actions, state.replay?.index]);
   const {scene, spec} = live.gym;
   const action = spec.actions.find(a => a.direction === state.direction && a.length === scene.lengths[state.lengthIndex]);
   const displayGym = playback?.gym || live.gym;
-  const observation = displayGym.observation(), evaluation = displayGym.evaluate(action.id);
+  const displayAction=state.replay&&playback?.history.length?displayGym.actions.get(playback.history.at(-1).id):action;
+  const observation = displayGym.observation(), evaluation = live.gym.evaluate(action.id);
   const isPreview = !state.replay && state.preview;
   const section = useMemo(() => ({axis: state.sectionAxis,
     station: scene.geometry.origin_mm[state.sectionAxis] + state.sectionPercent / 100 * scene.geometry.shape[state.sectionAxis] * scene.geometry.pitch_mm}),
@@ -88,9 +100,9 @@ export function useGymSession(data, initialMode) {
       .sort((a, b) => rank(a.direction) - rank(b.direction));
   }, [spec]);
 
-  const canApply = !state.replay && !observation.terminated && !observation.truncated && evaluation.available;
-  function apply() { if (canApply) dispatch({type: 'apply', id: action.id}); }
+  const canApply = !state.replay && !observation.terminated && !observation.truncated && evaluation.available && (!scene.workflow||evaluation.removed_voxels>0);
+  function apply() { if (canApply) dispatch({type: 'apply', action:scene.workflow?{process:state.mode,action_id:action.id}:action.id}); }
 
   return {state, dispatch, live, playback, scene, spec, action, displayGym, observation, evaluation,
-    isPreview, section, directions, canApply, apply};
+    displayAction,isPreview, section, directions, canApply, apply};
 }

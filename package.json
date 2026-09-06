@@ -6,7 +6,7 @@
     "dev": "node scripts/dev.cjs",
     "build": "node scripts/build.cjs",
     "build:embed": "node scripts/build.cjs --embed",
-    "test": "node --test tests/providers.test.mjs",
+    "test": "node --test tests/providers.test.mjs tests/workflow.test.cjs",
     "test:parity": "node tests/parity.cjs",
     "test:browser": "node tests/browser.cjs",
     "test:core-wasm": "node core/tests/wasm-smoke.mjs",

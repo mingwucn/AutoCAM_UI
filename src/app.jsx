@@ -10,7 +10,7 @@ function Controls({session, sceneRef, catalog, onSelectCase}) {
     <label>Shape<select id="scene" ref={sceneRef} aria-label="Shape" value={state.sceneId} onChange={e => onSelectCase(e.target.value,null)}>
       {catalog.cases.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
     </select></label>
-    <label>Process<select id="mode" aria-label="Process" value={state.mode} onChange={e => dispatch({type: 'select', mode: e.target.value})}>
+    <label>Process<select id="mode" aria-label="Process" value={state.mode} onChange={e => dispatch({type: 'process', mode: e.target.value})}>
       {Object.keys(scene.modes).map(mode => <option key={mode} value={mode}>{mode === 'milling' ? 'Milling' : 'Turning'}</option>)}
     </select></label>
     <label className="grow">Engagement direction<select id="direction" aria-label="Engagement direction" value={state.direction} onChange={e => dispatch({type: 'direction', value: e.target.value})}>
@@ -44,10 +44,10 @@ function Legend() {
 function ActionBar({session}) {
   const {state, scene, live, spec, dispatch, canApply, apply} = session;
   const replay = state.replay;
-  const baseline=spec.example_meta.kind==='greedy_geometric_baseline';
+  const example=scene.workflow||spec,baseline=['greedy_geometric_baseline','staged_greedy_geometric_baseline'].includes(example.example_meta.kind);
   const exampleLabel=baseline?'Play greedy baseline':'Play teaching sequence';
   const exampleNote=baseline
-    ? 'Greedy geometric baseline: each step maximizes new removal, with shorter reach and action ID as tie-breaks. It is not an optimal machining plan.'
+    ? scene.workflow?'Mill-turn baseline: greedily remove with Turning first, then Milling; shorter reach and action ID break ties. It is not an optimal machining plan.':'Greedy geometric baseline: each step maximizes new removal, with shorter reach and action ID as tie-breaks. It is not an optimal machining plan.'
     : 'Teaching sequence: follows the direction-and-reach lesson in the report.';
   return <>
     <div className="action-row">
@@ -55,7 +55,7 @@ function ActionBar({session}) {
       <button id="preview" type="button" onClick={() => dispatch({type: 'preview'})}>Preview next action</button>
       <button id="reset" type="button" onClick={() => dispatch({type: 'reset'})}>Reset stock</button>
       <button id="replay-own" className="secondary" type="button" disabled={!live.history.length} onClick={() => dispatch({type: 'replay-start', actions: state.actions})}>Replay my steps</button>
-      <button id="replay-example" type="button" onClick={() => dispatch({type: 'replay-start', actions: spec.example})}>{exampleLabel}</button>
+      <button id="replay-example" type="button" onClick={() => dispatch({type: 'replay-start', actions: example.example})}>{exampleLabel}</button>
     </div>
     <p id="example-note" className="sequence-note">{exampleNote}</p>
     <div id="replay-controls" hidden={!replay}>
@@ -69,14 +69,16 @@ function ActionBar({session}) {
 }
 
 function Metrics({session, data}) {
-  const {state, live, playback, observation, evaluation, isPreview, scene} = session;
+  const {state, live, playback, displayGym, observation, evaluation, isPreview, scene} = session;
   const removed = isPreview ? evaluation.removed_mm3 : (playback?.history || live.history).at(-1)?.removed || 0;
   const reasons = {
     active: isPreview ? 'Preview — Apply removes the orange material.' : 'Choose the next direction and reach.',
     excess_exhausted: 'No sampled excess remains. Target and holding material are preserved.',
     no_available_action_can_remove_more: 'No available action can remove more. Residual material remains.',
-    step_budget_reached: 'Eight actions reached. Reset to start another sequence.',
+    step_budget_reached: 'Action budget reached. Reset to start another sequence.',
   };
+  let status=reasons[observation.terminal_reason];
+  if(scene.workflow&&!observation.terminated&&!observation.process_can_remove_more)status='No further removal in '+(displayGym.mode==='turning'?'Turning':'Milling')+'. Switch process to continue.';
   let note = state.mode === 'turning'
     ? 'Spindle axis is fixed. Radial reach starts at the original stock radius; facing starts at the original end.'
     : 'Direction points into the stock. The reach reference stays at the original stock envelope.';
@@ -89,24 +91,24 @@ function Metrics({session, data}) {
     <div className="metrics">
       <div><span id="preview-label">{isPreview ? 'Would remove' : state.replay ? 'Removal at this step' : 'Just removed'}</span><strong id="preview-value">{fmt(removed)} mm³</strong></div>
       <div><span>Excess remaining</span><strong id="excess-value">{fmt(observation.residual_excess_mm3)} mm³</strong></div>
-      <div><span>Applied actions</span><strong id="step-value">{observation.step_count} / {data.maximumSteps}</strong></div>
+      <div><span>Applied actions</span><strong id="step-value">{observation.step_count}{scene.workflow?'':' / '+data.maximumSteps}</strong></div>
     </div>
-    <p id="status" role="status" aria-live="polite">{state.replay ? 'Playback · step ' + state.replay.index + ' of ' + state.replay.actions.length : reasons[observation.terminal_reason]}</p>
+    <p id="status" role="status" aria-live="polite">{state.replay ? 'Playback · '+(displayGym.mode==='turning'?'Turning':'Milling')+' · step ' + state.replay.index + ' of ' + state.replay.actions.length : status}</p>
     <p id="scene-note">{note}</p>
   </>;
 }
 
-function SequenceHistory({history}) {
+function SequenceHistory({history,workflow}) {
   return <div className="history-area">
-    <div><h3>Your sequence</h3><ol id="history">{history.length ? history.map((row, i) => <li key={i}><span>{i + 1}. {row.label} · {row.length} mm</span><strong>{fmt(row.removed)} mm³</strong></li>) : <li className="empty">Apply an action to begin your sequence.</li>}</ol></div>
-    <div><h3>What to try</h3><p>Start with the block and a short reach. Apply the same action again: it removes no additional material. Increase the reach, then try another direction. On the overhang, compare approaching from above with approaching from the right.</p><p>Both industrial parts use the same live controls: choose a part, select Milling or Turning, preview direction and reach, then Apply. Each action removes material from the current remainder. Changing the part or process starts a fresh episode.</p></div>
+    <div><h3>Your sequence</h3><ol id="history">{history.length ? history.map((row, i) => <li key={i}><span>{i + 1}. {workflow&&<b className="process-badge">{row.process==='turning'?'Turning':'Milling'}</b>} {row.label} · {row.length} mm</span><strong>{fmt(row.removed)} mm³</strong></li>) : <li className="empty">Apply an action to begin your sequence.</li>}</ol></div>
+    <div><h3>What to try</h3><p>Start with the block and a short reach. Apply the same action again: it removes no additional material. Increase the reach, then try another direction. On the overhang, compare approaching from above with approaching from the right.</p><p>Industrial and uploaded mill-turn cases start in Turning. Switch freely between Turning and Milling: both processes act on the same remaining stock. The example baseline turns first, then mills the non-axisymmetric remainder.</p></div>
   </div>;
 }
 
 export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase, initialMode, focusOnMount}) {
   const session = useGymSession(data, initialMode), viewRef = useRef(null), sceneRef = useRef(null), gymRef = useRef(null), version = useRef(0);
   const [webgl, setWebgl] = useState(false);
-  const {state, live, scene, dispatch} = session;
+  const {state, live, playback, scene, dispatch} = session;
   const launch = useCallback((sceneId, mode) => {
     onSelectCase(sceneId, mode);
     gymRef.current.scrollIntoView(); sceneRef.current.focus({preventScroll: true});
@@ -130,7 +132,7 @@ export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase,
     version.current++;
     const api = {
       snapshot: () => ({scene: scene.id, mode: state.mode, observation: live.gym.observation(), material: Array.from(live.gym.live),
-        history: live.history.map(x => ({...x})), replay: state.replay ? {index: state.replay.index, length: state.replay.actions.length} : null,
+        history: live.history.map(x => ({...x})), replay: state.replay ? {index: state.replay.index, length: state.replay.actions.length, process:playback?.gym.mode||state.mode} : null,
         renderVersion: version.current, webgl, framework: 'react'}),
       camera: () => viewRef.current?.camera.position.toArray() || null,
       caseData: () => data,
@@ -142,14 +144,14 @@ export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase,
   return <section id="gym" ref={gymRef} aria-label="Interactive shadow gym" data-framework="react">
     <div className="gym-heading"><h2>Try the shadow gym</h2><p>Choose → preview → apply → inspect.</p></div>
     <nav className="industrial-shortcuts" aria-label="Industrial cases"><strong>Industrial cases</strong>
-      {catalog.cases.filter(s => s.industrial).map(s => <a key={s.id} href={'?case=' + s.id + '&process=milling#gym'} onClick={e => { e.preventDefault(); launch(s.id, 'milling'); }}>{s.title.split(' · ').at(-1)}</a>)}
+      {catalog.cases.filter(s => s.industrial).map(s => <a key={s.id} href={'?case=' + s.id + '&process=turning#gym'} onClick={e => { e.preventDefault(); launch(s.id, 'turning'); }}>{s.title.split(' · ').at(-1)}</a>)}
       <span>Choose Milling or Turning below.</span>
     </nav>
     <p id="active-case" className="active-case" aria-live="polite">{scene.title} · {state.mode === 'milling' ? 'Milling' : 'Turning'} · {state.replay ? 'replaying recorded material' : 'live stock'}</p>
     <Controls session={session} sceneRef={sceneRef} catalog={catalog} onSelectCase={onSelectCase}/>
     <MaterialViews session={session} viewRef={viewRef} onWebGL={setWebgl} figureBaseUrl={figureBaseUrl}/>
     <ViewControls session={session} viewRef={viewRef} webgl={webgl}/>
-    <Legend/><ActionBar session={session}/><Metrics session={session} data={data}/><SequenceHistory history={live.history}/>
+    <Legend/><ActionBar session={session}/><Metrics session={session} data={data}/><SequenceHistory history={live.history} workflow={!!scene.workflow}/>
   </section>;
 }
 

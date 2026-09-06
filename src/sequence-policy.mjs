@@ -22,17 +22,29 @@ function marginalCount(live,remove) {
   return count;
 }
 
-export function greedyGeometricBaseline(data,scene,mode) {
-  const spec=scene.modes[mode],live=decode(data.masks[scene.masks.stock]);
+function greedyFromLive(data,scene,mode,live,limit=Infinity) {
+  const spec=scene.modes[mode];
   const candidates=spec.actions.filter(action=>action.evaluation.available).map(action=>({...action,mask:decode(data.masks[action.remove])}));
   const sequence=[];
-  while(sequence.length<data.maximumSteps){
+  while(sequence.length<limit){
     const ranked=candidates.map(action=>({action,removed:marginalCount(live,action.mask)})).sort((a,b)=>
       b.removed-a.removed || a.action.length-b.action.length || (a.action.id<b.action.id?-1:a.action.id>b.action.id?1:0));
     const best=ranked[0];
     if(!best || best.removed===0) break;
     sequence.push(best.action.id);
     for(let i=0;i<live.length;i++) live[i]&=~best.action.mask[i];
+  }
+  return sequence;
+}
+
+export function greedyGeometricBaseline(data,scene,mode) {
+  return greedyFromLive(data,scene,mode,decode(data.masks[scene.masks.stock]),data.maximumSteps);
+}
+
+export function stagedMillTurnBaseline(data,scene) {
+  const live=decode(data.masks[scene.masks.stock]),sequence=[];
+  for(const process of ['turning','milling']){
+    for(const action_id of greedyFromLive(data,scene,process,live))sequence.push({process,action_id});
   }
   return sequence;
 }

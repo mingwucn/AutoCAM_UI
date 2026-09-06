@@ -33,6 +33,12 @@ export function validateCase(data, id) {
     }
     if (!spec.example.every(x => ids.has(x))) fail();
   }
+  if(scene.workflow){
+    const w=scene.workflow;
+    if(w.kind!=='mill_turn'||!Array.isArray(w.processes)||w.processes.length!==2||!w.processes.every(x=>scene.modes[x])||!w.processes.includes(w.default_process)||!Array.isArray(w.example))fail();
+    const meta=w.example_meta;if(!meta||meta.kind!=='staged_greedy_geometric_baseline'||!['report','browser_generated'].includes(meta.source)||meta.objective!=='turning_then_milling')fail();
+    for(const entry of w.example)if(!entry||!w.processes.includes(entry.process)||!scene.modes[entry.process].actions.some(a=>a.id===entry.action_id))fail();
+  }
   return data;
 }
 

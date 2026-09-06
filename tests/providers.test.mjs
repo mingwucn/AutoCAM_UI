@@ -59,6 +59,8 @@ test('catalog identities and mask dimensions must be consistent',()=>{
  const duplicate=catalog(bytes);duplicate.cases.push(duplicate.cases[0]);assert.throws(()=>validateCatalog(duplicate),/Invalid/);
  assert.throws(()=>validateCase({...data,masks:{one:{...mask,bytes:2}}},'sample'),/Invalid/);
  const missingMeta=structuredClone(data);delete missingMeta.scenes[0].modes.milling.example_meta;assert.throws(()=>validateCase(missingMeta,'sample'),/Invalid/);
+ const workflow=structuredClone(data),scene=workflow.scenes[0];scene.modes.turning=structuredClone(scene.modes.milling);scene.workflow={kind:'mill_turn',default_process:'turning',processes:['turning','milling'],example:[{process:'turning',action_id:'a'},{process:'milling',action_id:'a'}],example_meta:{kind:'staged_greedy_geometric_baseline',source:'report',objective:'turning_then_milling'}};assert.equal(validateCase(workflow,'sample'),workflow);
+ const badWorkflow=structuredClone(workflow);badWorkflow.scenes[0].workflow.example[0].process='drilling';assert.throws(()=>validateCase(badWorkflow,'sample'),/Invalid/);
  assert.throws(()=>validateCase(data,'other'),/Invalid/);
 });
 test('bundled provider selects cases without network or modifying source data',async()=>{

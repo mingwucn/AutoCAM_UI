@@ -7,7 +7,7 @@ const cases=new Map(catalog.cases.map(row=>[row.id,read(row.dataset)]));
 const fixtures=read(catalog.verification),masks=Object.assign({},...Array.from(cases.values(),d=>d.masks),fixtures.masks);
 let exact=0,rejected=0;
 for(const [i,test] of fixtures.checks.entries()){
- const gym=new Gym(cases.get(test.case),test.case,test.mode);let result;
+ const gym=new Gym(cases.get(test.case),test.case,test.mode,{workflow:false});let result;
  if(test.error){assert.throws(()=>gym.step(test.actions[0]),/held_end_facing/);rejected++;continue;}
  for(const action of test.actions)result=gym.step(action);
  assert.deepStrictEqual(result.observation,test.observation,'observation '+i);assert.deepStrictEqual(result.evaluation,test.evaluation,'evaluation '+i);

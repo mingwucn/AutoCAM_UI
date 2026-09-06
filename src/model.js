@@ -16,24 +16,32 @@
     if(p!==out.length)throw new Error('Incomplete mask');return out;
   }
   class Gym {
-    constructor(data,sceneId,mode){
+    constructor(data,sceneId,mode,{workflow=true}={}){
       if(data.schema!=='shadow-gym-visual-data-1')throw new Error('Unknown data schema');
       this.data=data;this.scene=data.scenes.find(s=>s.id===sceneId);
       if(!this.scene||!this.scene.modes[mode])throw new Error('Invalid scene or process mode');
-      this.mode=mode;this.spec=this.scene.modes[mode];
+      this.workflow=workflow?this.scene.workflow||null:null;this.mode=mode;this.spec=this.scene.modes[mode];
       if(!datasets.has(data))datasets.set(data,{masks:new Map(),possible:new Map()});
-      const shared=datasets.get(data);this.cache=shared.masks;
+      const shared=datasets.get(data);this.shared=shared;this.cache=shared.masks;
       this.stock=this.mask(this.scene.masks.stock);this.target=this.mask(this.scene.masks.target);this.holding=this.mask(this.scene.masks.holding);
       this.protected=Uint8Array.from(this.target,(v,i)=>v|this.holding[i]);
       this.actions=new Map(this.spec.actions.map(a=>[a.id,a]));
-      const key=sceneId+'/'+mode;
+      const key=sceneId+'/'+(this.workflow?'workflow':mode);
       if(!shared.possible.has(key)){
         const possible=new Uint8Array(this.stock.length);
-        for(const a of this.spec.actions)if(a.evaluation.available){const m=this.mask(a.remove);for(let i=0;i<m.length;i++)possible[i]|=m[i];}
+        const modes=this.workflow?this.workflow.processes:[mode];
+        for(const name of modes)for(const a of this.scene.modes[name].actions)if(a.evaluation.available){const m=this.mask(a.remove);for(let i=0;i<m.length;i++)possible[i]|=m[i];}
         shared.possible.set(key,possible);
       }
       this.possible=shared.possible.get(key);
+      const localKey=sceneId+'/'+mode;
+      if(!shared.possible.has(localKey)){const possible=new Uint8Array(this.stock.length);for(const a of this.spec.actions)if(a.evaluation.available){const m=this.mask(a.remove);for(let i=0;i<m.length;i++)possible[i]|=m[i];}shared.possible.set(localKey,possible);}
+      this.localPossible=shared.possible.get(localKey);
       this.initialExcess=this.spec.initial.residual_excess_voxels;this.reset();
+    }
+    setMode(mode){
+      if(!this.scene.modes[mode])throw new Error('Invalid process mode');
+      this.mode=mode;this.spec=this.scene.modes[mode];this.actions=new Map(this.spec.actions.map(a=>[a.id,a]));const key=this.scene.id+'/'+mode;if(!this.shared.possible.has(key)){const possible=new Uint8Array(this.stock.length);for(const a of this.spec.actions)if(a.evaluation.available){const m=this.mask(a.remove);for(let i=0;i<m.length;i++)possible[i]|=m[i];}this.shared.possible.set(key,possible);}this.localPossible=this.shared.possible.get(key);return this.observation();
     }
     mask(id){
       if(!this.cache.has(id))this.cache.set(id,decode(this.data.masks[id]));
@@ -42,14 +50,15 @@
     }
     reset(){this.live=this.stock.slice();this.steps=0;return this.observation();}
     observation(){
-      let current=0,excess=0,possible=0;
-      for(let i=0;i<this.live.length;i++){current+=pop[this.live[i]];excess+=pop[this.live[i]&~this.protected[i]];possible+=pop[this.live[i]&this.possible[i]];}
-      const ended=excess===0||possible===0,truncated=!ended&&this.steps>=this.data.maximumSteps;
+      let current=0,excess=0,possible=0,processPossible=0;
+      for(let i=0;i<this.live.length;i++){current+=pop[this.live[i]];excess+=pop[this.live[i]&~this.protected[i]];possible+=pop[this.live[i]&this.possible[i]];processPossible+=pop[this.live[i]&this.localPossible[i]];}
+      const ended=excess===0||possible===0,truncated=!this.workflow&&!ended&&this.steps>=this.data.maximumSteps;
       const reason=excess===0?'excess_exhausted':possible===0?'no_available_action_can_remove_more':truncated?'step_budget_reached':'active';
       const cv=this.scene.geometry.cell_volume_mm3;
       return {mode:this.mode,step_count:this.steps,remaining_voxels:current,remaining_volume_mm3:current*cv,
         residual_excess_voxels:excess,residual_excess_mm3:excess*cv,cumulative_removed_voxels:count(this.stock)-current,
         cumulative_removed_mm3:(count(this.stock)-current)*cv,terminated:ended,truncated,terminal_reason:reason,
+        ...(this.workflow?{process_can_remove_more:processPossible>0}:{}),
         action_availability:Object.fromEntries(this.spec.actions.map(a=>[a.id,a.evaluation.available]))};
     }
     evaluate(id){
@@ -74,6 +83,7 @@
     step(id){
       const obs=this.observation();if(obs.terminated||obs.truncated)throw new Error('Episode ended; reset before stepping');
       const evaluation=this.evaluate(id);if(!evaluation.available)throw new Error('held_end_facing');
+      if(this.workflow&&evaluation.removed_voxels===0)throw new Error('no_material_removed');
       const remove=this.mask(this.actions.get(id).remove);
       for(let i=0;i<this.live.length;i++)this.live[i]&=~remove[i];
       this.steps++;const observation=this.observation();

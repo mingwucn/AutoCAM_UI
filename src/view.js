@@ -69,7 +69,7 @@ export class View {
   }
   stockOutline(meta){
     const [low,high]=meta.stock_bounds_mm;
-    if(meta.radius_reference==='coaxial_cylinder_surface_and_volume_closure'){
+    if(meta.radius_reference==='coaxial_cylinder_surface_and_volume_closure'||meta.radius_reference==='automatic_enclosing_cylinder'){
       const a=new THREE.Vector3(...meta.axis.direction),o=new THREE.Vector3(...meta.axis.origin_mm);
       const ref=Math.abs(a.z)<.9?new THREE.Vector3(0,0,1):new THREE.Vector3(0,1,0),u=new THREE.Vector3().crossVectors(a,ref).normalize(),v=new THREE.Vector3().crossVectors(a,u);
       const stations=[];for(const x of [low[0],high[0]])for(const y of [low[1],high[1]])for(const z of [low[2],high[2]])stations.push(new THREE.Vector3(x,y,z).sub(o).dot(a));

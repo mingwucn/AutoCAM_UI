@@ -21,17 +21,18 @@ An optional `?data=https://.../catalog.json` selects another compatible catalog.
 Data hosting must permit cross-origin requests. Curated geometry is packed
 voxel data inside each case JSON; no separate CAD download is needed.
 
-Simple cases provide report-authored teaching sequences. Industrial and local
-STEP cases provide a greedy geometric baseline that maximizes newly removed
-sampled excess at each step, then prefers shorter reach and action ID. This is
-an explanatory baseline, not an optimal or manufacturing-recommended route.
+Simple cases provide report-authored teaching sequences. Industrial cases use
+one shared stock across a mill-turn workflow: the baseline greedily applies
+positive-removal Turning actions first, then Milling actions, preferring shorter
+reach and action ID on ties. Users may switch process without resetting stock.
+There is no fixed action limit, and zero-removal actions are disabled.
 
 The standalone site also accepts a local `.step` or `.stp` file. The file is
-read inside a Web Worker and is never uploaded. The user selects milling or
-turning, voxel pitch, stock allowance and tool reaches; turning also asks for
-the spindle axis, held end and holding length. Browser OpenCascade imports and
-classifies the solid, while `core/src/shadow_core.cpp` computes directional
-shadow, finite reach and material removal. That same C++ source builds as the
+read inside a Web Worker and is never uploaded. The user selects voxel pitch,
+cylindrical stock allowance, tool reaches, spindle axis, held end and holding
+length. Browser OpenCascade imports and classifies the solid, while
+`core/src/shadow_core.cpp` computes Turning and Milling actions over the same
+stock and grid. The generated baseline turns first and then mills. That same C++ source builds as the
 native library used by the parent repository's Python adapter and as the
 browser WebAssembly module. Local preparations are experimental voxel models.
 

@@ -5,7 +5,7 @@ import {formatNumber as fmt} from './use-gym-session.js';
 export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl}) {
   const container = useRef(null), canvas = useRef(null), priorEpisode = useRef(null);
   const [webgl, setWebgl] = useState(null);
-  const {displayGym: gym, action, isPreview, section, state, scene} = session;
+  const {displayGym: gym, displayAction: action, isPreview, section, state, scene} = session;
   const phase = isPreview ? 'action' : 'remaining';
 
   useLayoutEffect(() => {
@@ -26,7 +26,7 @@ export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl}) {
   }, [viewRef, onWebGL]);
 
   useLayoutEffect(() => {
-    const episode = scene.id + '/' + state.mode;
+    const episode = scene.id;
     viewRef.current?.update(gym, action.id, {phase, section, cutaway: state.cutaway,
       keepCamera: priorEpisode.current === episode});
     priorEpisode.current = episode;
