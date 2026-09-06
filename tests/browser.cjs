@@ -38,11 +38,24 @@ async function serve(folder,prefix='',isData=false){
   assert.equal(await page.locator('#scene option').count(),5);
   assert.equal((await snap()).framework,'react');assert.equal(await page.locator('h1').count(),0);
   assert.equal(await page.locator('#apply').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(0, 64, 112)');
+  const expectedExamples={
+   'block/milling':['mill_+0_+0_-1@5mm','mill_+0_+0_-1@20mm','mill_+0_+0_+1@40mm'],
+   'overhang/milling':['mill_+0_+0_-1@40mm','mill_-1_+0_+0@40mm'],
+   'cylinder/turning':['outside@20mm'],
+   'industrial/milling':['mill_+0_+0_-1@80mm','mill_+0_+0_+1@40mm'],
+   'industrial/turning':['outside@40mm'],
+   'industrial_00289/milling':['mill_-1_+0_+0@80mm','mill_+0_+1_+0@20mm','mill_+0_-1_+0@20mm'],
+   'industrial_00289/turning':['outside@20mm']
+  };
   if(!remote)assert.deepStrictEqual(requests.filter(p=>p.endsWith('/case.json')),['cases/block/case.json']);
   const modes=[['block','milling'],['overhang','milling'],['cylinder','turning'],['industrial','milling'],['industrial','turning'],['industrial_00289','milling'],['industrial_00289','turning']];
   const receipts=[];
   for(const [id,mode] of modes){
    await choose(id,mode);const initial=await snap();
+   const contract=await page.evaluate(()=>{const d=shadowApp.caseData(),s=d.scenes[0],m=shadowApp.snapshot().mode;return {example:s.modes[m].example,meta:s.modes[m].example_meta};});
+   assert.deepStrictEqual(contract.example,expectedExamples[id+'/'+mode]);
+   assert.equal(contract.meta.source,'report');
+   assert.equal(await page.locator('#replay-example').innerText(),contract.meta.kind==='teaching_sequence'?'Play teaching sequence':'Play greedy baseline');
    const expected=await page.evaluate(()=>{const d=shadowApp.caseData(),s=d.scenes[0],m=shadowApp.snapshot().mode;return s.modes[m].actions.find(a=>a.direction===document.querySelector('#direction').value&&a.length===s.lengths[+document.querySelector('#length').value]).evaluation.removed_mm3;});
    if(mode==='turning')assert(await page.locator('#direction option:disabled').count()>0);
    await page.locator('#gym').screenshot({path:path.join(output,id+'-'+mode+'.png')});

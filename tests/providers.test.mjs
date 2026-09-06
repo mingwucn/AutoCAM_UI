@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {HttpProvider,BundledProvider,validateCase,validateCatalog} from '../src/providers.mjs';
 
 const mask={codec:'packed-lsb-rle1',bytes:1,data:'AQE='};
-const data={schema:'shadow-gym-visual-data-1',maximumSteps:8,masks:{one:mask},scenes:[{id:'sample',title:'Sample',geometry:{shape:[1,1,1],origin_mm:[0,0,0],pitch_mm:1},lengths:[1],masks:{stock:'one',target:'one',holding:'one'},modes:{milling:{actions:[{id:'a',length:1,evaluation:{available:true},remove:'one',shadow:'one'}],example:['a']}}}]};
+const data={schema:'shadow-gym-visual-data-1',maximumSteps:8,masks:{one:mask},scenes:[{id:'sample',title:'Sample',geometry:{shape:[1,1,1],origin_mm:[0,0,0],pitch_mm:1},lengths:[1],masks:{stock:'one',target:'one',holding:'one'},modes:{milling:{actions:[{id:'a',length:1,evaluation:{available:true},remove:'one',shadow:'one'}],example:['a'],example_meta:{kind:'teaching_sequence',source:'report',objective:'explain_direction_and_reach'}}}}]};
 const bytes=Buffer.from(JSON.stringify(data));
 const reference=body=>({url:'case.json',sha256:createHash('sha256').update(body).digest('hex'),size_bytes:body.length});
 const catalog=body=>({schema:'shadow-gym-catalog-1',cases:[{id:'sample',title:'Sample',processes:['milling'],dataset:reference(body),preview:{...reference(Buffer.from('image')),url:'figures/preview.png'}}]});
@@ -58,6 +58,7 @@ test('unknown cases and non-HTTP protocols are rejected',async()=>{
 test('catalog identities and mask dimensions must be consistent',()=>{
  const duplicate=catalog(bytes);duplicate.cases.push(duplicate.cases[0]);assert.throws(()=>validateCatalog(duplicate),/Invalid/);
  assert.throws(()=>validateCase({...data,masks:{one:{...mask,bytes:2}}},'sample'),/Invalid/);
+ const missingMeta=structuredClone(data);delete missingMeta.scenes[0].modes.milling.example_meta;assert.throws(()=>validateCase(missingMeta,'sample'),/Invalid/);
  assert.throws(()=>validateCase(data,'other'),/Invalid/);
 });
 test('bundled provider selects cases without network or modifying source data',async()=>{

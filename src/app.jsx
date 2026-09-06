@@ -44,14 +44,20 @@ function Legend() {
 function ActionBar({session}) {
   const {state, scene, live, spec, dispatch, canApply, apply} = session;
   const replay = state.replay;
+  const baseline=spec.example_meta.kind==='greedy_geometric_baseline';
+  const exampleLabel=baseline?'Play greedy baseline':'Play teaching sequence';
+  const exampleNote=baseline
+    ? 'Greedy geometric baseline: each step maximizes new removal, with shorter reach and action ID as tie-breaks. It is not an optimal machining plan.'
+    : 'Teaching sequence: follows the direction-and-reach lesson in the report.';
   return <>
     <div className="action-row">
       <button id="apply" className="primary" type="button" disabled={!canApply} onClick={apply}>{scene.ui?.industrial ? 'Apply to ' + scene.title.split(' · ').at(-1) : 'Apply action'}</button>
       <button id="preview" type="button" onClick={() => dispatch({type: 'preview'})}>Preview next action</button>
       <button id="reset" type="button" onClick={() => dispatch({type: 'reset'})}>Reset stock</button>
       <button id="replay-own" className="secondary" type="button" disabled={!live.history.length} onClick={() => dispatch({type: 'replay-start', actions: state.actions})}>Replay my steps</button>
-      <button id="replay-example" type="button" onClick={() => dispatch({type: 'replay-start', actions: spec.example})}>Example sequence</button>
+      <button id="replay-example" type="button" onClick={() => dispatch({type: 'replay-start', actions: spec.example})}>{exampleLabel}</button>
     </div>
+    <p id="example-note" className="sequence-note">{exampleNote}</p>
     <div id="replay-controls" hidden={!replay}>
       <button id="replay-back" type="button" aria-label="Previous replay step" onClick={() => dispatch({type: 'replay-seek', delta: -1})}>Previous</button>
       <button id="play-pause" type="button" onClick={() => dispatch({type: 'replay-play'})}>{replay?.playing ? 'Pause' : replay && replay.index === replay.actions.length ? 'Play again' : 'Play'}</button>

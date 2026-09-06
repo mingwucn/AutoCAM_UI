@@ -23,6 +23,8 @@ export function validateCase(data, id) {
   for (const role of ['stock','target','holding']) if (!data.masks[scene.masks?.[role]]) fail();
   for (const [mode, spec] of Object.entries(scene.modes)) {
     if (!['milling','turning'].includes(mode) || !Array.isArray(spec.actions) || !spec.actions.length || !Array.isArray(spec.example)) fail();
+    const meta=spec.example_meta;
+    if (!meta || !['teaching_sequence','greedy_geometric_baseline'].includes(meta.kind) || !['report','browser_generated'].includes(meta.source) || !['explain_direction_and_reach','maximize_new_removal'].includes(meta.objective)) fail();
     const ids = new Set();
     for (const a of spec.actions) {
       if (!a.id || ids.has(a.id) || !scene.lengths.includes(a.length) || !a.evaluation || typeof a.evaluation.available !== 'boolean') fail();
