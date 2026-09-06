@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import createModule from '../build-wasm-runtime/autocam_shadow_core.mjs';
+import createModule from '../generated/autocam_shadow_core.mjs';
 const module=await createModule();
 assert.equal(module.cwrap('sg_api_version','number',[])(),1);
 const apply=module.cwrap('sg_apply','number',['number','number','number']);
