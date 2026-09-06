@@ -9,7 +9,7 @@ function newSession(data, sceneId, requestedMode) {
   const defaultReach = scene.ui?.reach?.[mode];
   return {
     sceneId: scene.id, mode, direction,
-    lengthIndex: defaultReach !== undefined ? scene.lengths.indexOf(defaultReach) : scene.id === 'industrial' ? 3 : 1,
+    lengthIndex: defaultReach !== undefined ? Math.max(0,scene.lengths.indexOf(defaultReach)) : Math.min(scene.lengths.length-1,scene.id === 'industrial' ? 3 : 1),
     actions: [], preview: true, replay: null,
     sectionAxis: scene.ui?.sectionAxis ?? (scene.id === 'industrial' ? 0 : 1),
     sectionPercent: 50, cutaway: true,

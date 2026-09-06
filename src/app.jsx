@@ -151,7 +151,7 @@ let root = null;
 function unmount() { root?.unmount(); root = null; }
 function mount(host = document.getElementById('shadow-gym-root'), data = window.SHADOW_DATA) {
   if (!host) return;
-  unmount(); root = createRoot(host); root.render(<StrictMode><DataSource bundledData={data} renderGym={props => <GymApp {...props}/>}/></StrictMode>);
+  unmount(); root = createRoot(host); root.render(<StrictMode><DataSource allowStepUpload={window.SHADOW_CONFIG?.stepUpload===true} bundledData={data} renderGym={props => <GymApp {...props}/>}/></StrictMode>);
 }
 window.ShadowGymReact = {mount, unmount};
 mount();

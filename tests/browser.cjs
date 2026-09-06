@@ -13,7 +13,7 @@ async function serve(folder,prefix='',isData=false){
   const file=path.resolve(folder,relative);
   if(!file.startsWith(folder+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.statusCode=404;res.end();return;}
   if(isData){res.setHeader('Access-Control-Allow-Origin','*');requests.push(relative);}
-  res.setHeader('Content-Type',file.endsWith('.json')?'application/json':file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.png')?'image/png':'text/html');
+  res.setHeader('Content-Type',file.endsWith('.json')?'application/json':file.endsWith('.js')?'text/javascript':file.endsWith('.wasm')?'application/wasm':file.endsWith('.css')?'text/css':file.endsWith('.png')?'image/png':'text/html');
   const send=()=>res.end(fs.readFileSync(file));
   if(isData&&delayCase&&relative.includes('/'+delayCase+'/'))setTimeout(send,500);else send();
  });

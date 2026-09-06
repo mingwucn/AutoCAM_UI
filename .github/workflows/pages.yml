@@ -20,11 +20,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: npm run test:core-wasm
+      - run: npm run test:step-import
       - run: node scripts/fetch-test-data.mjs
       - run: npm run test:parity
       - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm run test:browser
+      - run: npm run test:step-upload
       - run: npm run build -- --out dist-second
       - run: diff -rq dist dist-second
       - uses: actions/upload-pages-artifact@v4

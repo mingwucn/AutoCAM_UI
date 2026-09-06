@@ -1,0 +1,27 @@
+{
+  "schema": "autocam-shadow-core-build-1",
+  "api_version": 1,
+  "emscripten": {
+    "version": "4.0.15",
+    "emsdk_commit": "389a68bc35dcff7ebae4614e1615099dafda00d1"
+  },
+  "inputs": {
+    "core/include/shadow_core.h": "526b42eeb62015dd54abf12bbf1706524f81a0587a9adaf60c9c042c956e23ec",
+    "core/src/shadow_core.cpp": "541134158274e8bc07d6038b5b5fc188687d9e8f3e0ba0c5ae97b5d345641943"
+  },
+  "outputs": {
+    "core/generated/autocam_shadow_core.mjs": {
+      "sha256": "1da4e1ac1def01b7478afee43e603c6591da00393868a45a3d1563d2ffb03640",
+      "size_bytes": 12238
+    },
+    "core/generated/autocam_shadow_core.wasm": {
+      "sha256": "b4962150da5aaa38dd23e763f15e177f86017d793f0e9ff1a02d67889e2989f4",
+      "size_bytes": 14857
+    }
+  },
+  "verification": {
+    "python_initial_action_masks": 552,
+    "python_multi_action_fixtures": 900,
+    "browser_step_modes": ["milling", "turning"]
+  }
+}

@@ -9,6 +9,10 @@ esbuild.buildSync({entryPoints:[path.join(root,'src/app.jsx')],bundle:true,minif
 for(const name of ['model.js','style.css'])fs.copyFileSync(path.join(root,'src',name),path.join(out,'assets',name));
 for(const name of ['three','react','react-dom'])fs.copyFileSync(path.join(root,'node_modules',name,'LICENSE'),path.join(out,'assets',name.toUpperCase()+'-LICENSE.txt'));
 if(!embed){
+  esbuild.buildSync({entryPoints:[path.join(root,'src/step-worker.js')],bundle:true,minify:!development,format:'esm',target:'es2022',external:['module','path','fs','url'],outfile:path.join(out,'assets/step-worker.js'),legalComments:'eof'});
+  fs.copyFileSync(path.join(root,'node_modules/opencascade.js/dist/opencascade.full.wasm'),path.join(out,'assets/opencascade.full.wasm'));
+  fs.copyFileSync(path.join(root,'core/generated/autocam_shadow_core.wasm'),path.join(out,'assets/autocam_shadow_core.wasm'));
+  fs.copyFileSync(path.join(root,'node_modules/opencascade.js/LICENSE'),path.join(out,'assets/OPENCASCADE-JS-LICENSE.txt'));
   const config=JSON.parse(fs.readFileSync(path.join(root,'site.config.json')));
   const url=option('--catalog-url',config.catalogUrl);
   fs.writeFileSync(path.join(out,'config.js'),'window.SHADOW_CONFIG='+JSON.stringify({...config,catalogUrl:url})+';\n');

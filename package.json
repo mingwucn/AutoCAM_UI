@@ -8,9 +8,13 @@
     "build:embed": "node scripts/build.cjs --embed",
     "test": "node --test tests/providers.test.mjs",
     "test:parity": "node tests/parity.cjs",
-    "test:browser": "node tests/browser.cjs"
+    "test:browser": "node tests/browser.cjs",
+    "test:core-wasm": "node core/tests/wasm-smoke.mjs",
+    "test:step-import": "node core/tests/occt-step-smoke.mjs",
+    "test:step-upload": "node tests/step-upload.cjs"
   },
   "dependencies": {
+    "opencascade.js": "2.0.0-beta.b5ff984",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "three": "0.185.1"

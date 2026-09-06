@@ -4,3 +4,4 @@ dist-*/
 .test-data/
 test-results/
 playwright-report/
+core/build*/
