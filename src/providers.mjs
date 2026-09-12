@@ -1,8 +1,13 @@
+import {validateBrepCase} from './brep-case.mjs';
+
 export function validateCatalog(value) {
-  if (value?.schema !== 'shadow-gym-catalog-1' || !Array.isArray(value.cases) || !value.cases.length) throw new Error('Unsupported case catalog.');
+  if (!['shadow-gym-catalog-1','shadow-gym-catalog-2'].includes(value?.schema) || !Array.isArray(value.cases) || !value.cases.length) throw new Error('Unsupported case catalog.');
   const ids = new Set();
   for (const row of value.cases) {
     if (typeof row.id !== 'string' || ids.has(row.id) || typeof row.title !== 'string' || !Array.isArray(row.processes) || !row.processes.length) throw new Error('Invalid case catalog entry.');
+    if(row.processes.some(p=>!['milling','turning'].includes(p))||new Set(row.processes).size!==row.processes.length||
+      (value.schema==='shadow-gym-catalog-2'&&!['voxel','brep'].includes(row.engine))||
+      (value.schema==='shadow-gym-catalog-1'&&row.engine&&row.engine!=='voxel'))throw new Error('Invalid catalog geometry engine or process.');
     ids.add(row.id);
     for (const name of ['dataset', 'preview']) {
       const ref = row[name];
@@ -48,17 +53,46 @@ function urlOf(value, base) {
   return url.href;
 }
 
+async function verifyBytes(bytes,reference){
+  if(bytes.byteLength!==reference.size_bytes)throw new Error('Dataset size does not match the catalog.');
+  if(!globalThis.crypto?.subtle)throw new Error('Use HTTPS or localhost to verify data integrity.');
+  const hash=await crypto.subtle.digest('SHA-256',bytes);
+  const actual=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
+  if(actual!==reference.sha256.toLowerCase())throw new Error('Dataset SHA-256 does not match the catalog.');
+}
+
+export async function readVerifiedStep(url,signal,reference){
+  if(!Number.isSafeInteger(reference?.size_bytes)||reference.size_bytes<=0||reference.size_bytes>100*1024*1024||
+    !/^[a-f0-9]{64}$/i.test(reference?.sha256||''))throw new Error('Invalid STEP asset reference.');
+  const response=await fetch(url,{signal,credentials:'omit',mode:'cors'});
+  if(!response.ok)throw new Error('STEP request failed (HTTP '+response.status+').');
+  // Stop a mis-sized response during download; declared byte size is already
+  // bounded by the case schema. No live session exists at this stage.
+  const chunks=[];let length=0;
+  if(response.body?.getReader){
+    const reader=response.body.getReader();
+    try{for(;;){const {done,value}=await reader.read();if(done)break;
+      length+=value.byteLength;if(length>reference.size_bytes)throw new Error('Dataset size does not match the catalog.');
+      chunks.push(value);
+    }}catch(error){await reader.cancel().catch(()=>{});throw error;}finally{reader.releaseLock();}
+  }else{const bytes=new Uint8Array(await response.arrayBuffer());length=bytes.byteLength;chunks.push(bytes);}
+  if(signal?.aborted)throw new DOMException('Request cancelled','AbortError');
+  const bytes=new Uint8Array(length);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.byteLength;}
+  await verifyBytes(bytes,reference);
+  if(signal?.aborted)throw new DOMException('Request cancelled','AbortError');
+  return bytes;
+}
+
+function freezeJSON(value){if(value&&typeof value==='object'){for(const item of Object.values(value))freezeJSON(item);Object.freeze(value);}return value;}
+const returnCase=result=>result.kind==='brep-case'?{...result,targetBytes:result.targetBytes.slice()}:result;
+
 export async function readJSON(url, signal, reference) {
   const response = await fetch(url, {signal, credentials: 'omit', mode: 'cors'});
   if (!response.ok) throw new Error('Data request failed (HTTP ' + response.status + ').');
   const bytes = await response.arrayBuffer();
   if (signal?.aborted) throw new DOMException('Request cancelled', 'AbortError');
   if (reference) {
-    if (bytes.byteLength !== reference.size_bytes) throw new Error('Dataset size does not match the catalog.');
-    if (!globalThis.crypto?.subtle) throw new Error('Use HTTPS or localhost to verify data integrity.');
-    const hash = await crypto.subtle.digest('SHA-256', bytes);
-    const actual = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2,'0')).join('');
-    if (actual !== reference.sha256.toLowerCase()) throw new Error('Dataset SHA-256 does not match the catalog.');
+    await verifyBytes(bytes,reference);
   }
   try { return JSON.parse(new TextDecoder('utf-8', {fatal:true}).decode(bytes)); }
   catch { throw new Error('The data response is not valid UTF-8 JSON.'); }
@@ -78,10 +112,19 @@ export class HttpProvider {
   async loadCase(id, {signal} = {}) {
     const catalog = await this.listCases({signal});
     if (signal?.aborted) throw new DOMException('Request cancelled','AbortError');
-    if (this.cache.has(id)) return this.cache.get(id);
+    if (this.cache.has(id)) return returnCase(this.cache.get(id));
     const row = catalog.cases.find(c => c.id === id);
     if (!row) throw new Error('Unknown case: ' + id);
-    const data = validateCase(await readJSON(urlOf(row.dataset.url,this.url), signal, row.dataset), id);
+    const datasetUrl=urlOf(row.dataset.url,this.url);
+    if(catalog.schema==='shadow-gym-catalog-2'&&row.engine==='brep'){
+      const spec=validateBrepCase(await readJSON(datasetUrl,signal,row.dataset),row);
+      const targetBytes=await readVerifiedStep(urlOf(spec.target.url,datasetUrl),signal,spec.target);
+      const result=Object.freeze({kind:'brep-case',case:freezeJSON(spec),targetBytes,
+        provenance:freezeJSON({catalog_url:this.url,case_url:datasetUrl,case_sha256:row.dataset.sha256.toLowerCase()})});
+      if(signal?.aborted)throw new DOMException('Request cancelled','AbortError');
+      this.cache.set(id,result);return returnCase(result);
+    }
+    const data = validateCase(await readJSON(datasetUrl, signal, row.dataset), id);
     if (signal?.aborted) throw new DOMException('Request cancelled','AbortError');
     const result = {data, figureBaseUrl: new URL('.',urlOf(row.preview.url,this.url)).href};
     this.cache.set(id,result);

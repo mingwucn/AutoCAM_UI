@@ -1,6 +1,14 @@
 {
   "release": "v1",
   "stepUpload": true,
-  "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/2c326fb3442e8ce8d3fbffa56a4b04887887b9e1/releases/v1/catalog.json",
-  "dataCommit": "2c326fb3442e8ce8d3fbffa56a4b04887887b9e1"
+  "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
+  "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
+  "adaptiveRuntimeRelease": {
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/adaptive-20260912/runtime/release.json",
+    "sha256": "dc5b2156640702d11db84f1a6fddd97161cd0425dc51cd523ecba513a193c7d0"
+  },
+  "adaptiveCadRelease": {
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/adaptive-20260912/cad/release.json",
+    "sha256": "d167ed7cac616a9f2c4ed0bb15192960e43730efe1fd09ba3e1c2428ade70de5"
+  }
 }
