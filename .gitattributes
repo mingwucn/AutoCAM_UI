@@ -1,2 +1,15 @@
 * text=auto eol=lf
 *.png binary
+
+# Preserve the verified source snapshot and hash-bound worker bytes.
+src/** -text
+scripts/** -text
+tests/** -text
+core/** -text
+.github/** -text
+package.json -text
+package-lock.json -text
+site.config.json -text
+index.html -text
+README.md -text
+.gitignore -text

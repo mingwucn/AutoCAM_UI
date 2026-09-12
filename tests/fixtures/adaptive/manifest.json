@@ -1,0 +1,109 @@
+{
+  "schema": "autocam-ui-test-fixtures-1",
+  "source_index_sha256": "823f954146476156f4167db6fc72c5c2b6138cf41835b60c14303893a58d8266",
+  "source_verification": "packaged-node-regression-02",
+  "files": [
+    {
+      "path": "cad.json",
+      "sha256": "57c332d6b1cf83ea6b4a05a64453bd902dfff5adbba2206296d2ae29bd5b768e",
+      "size_bytes": 11143772,
+      "gzip_sha256": "ef9ba0cf1787a9ee3748f4216c80de863faefd1f32a76ade52200a2ddeb0f3dc",
+      "gzip_size_bytes": 810891
+    },
+    {
+      "path": "combined-completion/browser-observe-6-view.json",
+      "sha256": "b1759a86147caac6038e59b94c99584227325d5d70b7ccc02dbdfaf24beea413",
+      "size_bytes": 7678528,
+      "gzip_sha256": "fd32fd172f589eb7a2f84e3f537db25dcc968ee21505ce9fb7988784ed695d83",
+      "gzip_size_bytes": 91089
+    },
+    {
+      "path": "combined-completion/browser-observe-initial-view.json",
+      "sha256": "d91cfec39dd30586f7b58848a2a4210c3fe2d17fdc773fcd39452efe04eaa33b",
+      "size_bytes": 7690170,
+      "gzip_sha256": "015714e8daaa747def104af0a31a30a0fc9989008c59282f25232e711d28bbf5",
+      "gzip_size_bytes": 89188
+    },
+    {
+      "path": "combined-completion/configuration.json",
+      "sha256": "b14cf7a0f33f2ada5d9011dc8f8feda405225033d36157389c72497813dc8f4d",
+      "size_bytes": 9312,
+      "gzip_sha256": "f4c4ab1d6edb9f4f339a202d63331ce8ffd71ce336b2a04fb7cb2b87244e02a0",
+      "gzip_size_bytes": 1829
+    },
+    {
+      "path": "indexed/response-1.json",
+      "sha256": "d3633e07224d556946e8f022c1a1515183e2a01effb191269d53c8d42135282f",
+      "size_bytes": 1396945,
+      "gzip_sha256": "7a3a6f7c183c429afba755260026bc95c491818cf3c1ea54ecd3c5cfaa820c43",
+      "gzip_size_bytes": 85769
+    },
+    {
+      "path": "indexed/response-10.json",
+      "sha256": "5b96d2cf73c9b397d15ac461675e5bdea02a5eb8ea62fd8ff136608ad17e1a45",
+      "size_bytes": 1397371,
+      "gzip_sha256": "6949d9f350c54f702620d5ec64b32d2f93d22391157a02da11c7e50681583e94",
+      "gzip_size_bytes": 85993
+    },
+    {
+      "path": "indexed/task.json",
+      "sha256": "c7fd0f911607f151830bcf9c2ec5ca7f441557dac0095a3e8d4d802fc7dc2b1b",
+      "size_bytes": 4309,
+      "gzip_sha256": "32ad15e8c77b469b5b4258eb7c8c099fa9b6f0adab42405bdd1d34f6e906c8af",
+      "gzip_size_bytes": 1023
+    },
+    {
+      "path": "legacy.json",
+      "sha256": "40c080ae186b2c7bb1f5df898940a202995e48d1538c4d6f72b120879c0784d6",
+      "size_bytes": 13670811,
+      "gzip_sha256": "0147ede2648b99d2547429a851994c4fea8042dc05d101915569ab426ba3091a",
+      "gzip_size_bytes": 1055436
+    },
+    {
+      "path": "live-view.json",
+      "sha256": "0c0dea2df46e55c88e6261f30f7ee568c8c4cf28d50bacaa0002ec3e2759c06b",
+      "size_bytes": 5838546,
+      "gzip_sha256": "de314970a4b49ff5cb7fefee73422ac4a204406882399568ddad824bbbfa5a45",
+      "gzip_size_bytes": 348306
+    },
+    {
+      "path": "periodic.json",
+      "sha256": "6069d0773c0510e7b28fb85ac5445832d87c1c4a3f8f260c0fab088e1fd09d87",
+      "size_bytes": 11566263,
+      "gzip_sha256": "849d01f0de62b9178e11e29746946f871fb259285d0068413b946249ff8e7eba",
+      "gzip_size_bytes": 844350
+    },
+    {
+      "path": "side.json",
+      "sha256": "c741831be725bbda21f2a2089db7d0f9e963ce14418c438bc66764b434cf8df2",
+      "size_bytes": 8199109,
+      "gzip_sha256": "54b05b861b86c568391552bf8210394c2f3c11221ebcf76e0a78ea874cab3ad8",
+      "gzip_size_bytes": 657748
+    },
+    {
+      "path": "tools.json",
+      "sha256": "ef05e3413dc838887aa50a893e2f1d291bceb1fb139bb76e521aef626a4fe146",
+      "size_bytes": 2918389,
+      "gzip_sha256": "7e344ddd214ba9d70eaf675bc078288fec15717b45c06137262c5763ee97da38",
+      "gzip_size_bytes": 232466
+    },
+    {
+      "path": "turning.json",
+      "sha256": "abba8025941ef17b8d293f69a5816253b0be18a58e3d9147b750078797a39104",
+      "size_bytes": 7092531,
+      "gzip_sha256": "f5abc0ea8015560a35ae2edf98cd6e9d1008f33cd5f28fed73e90582e60a26ed",
+      "gzip_size_bytes": 615624
+    }
+  ],
+  "environment": {
+    "ADAPTIVE_INSPECTION_BUNDLE": "legacy.json",
+    "ADAPTIVE_TOOL_BUNDLE": "tools.json",
+    "ADAPTIVE_CAD_BUNDLE": "cad.json",
+    "ADAPTIVE_PERIODIC_BUNDLE": "periodic.json",
+    "ADAPTIVE_SIDE_BUNDLE": "side.json",
+    "ADAPTIVE_TURNING_BUNDLE": "turning.json",
+    "ADAPTIVE_LIVE_VIEW": "live-view.json",
+    "INDEXED_BROWSER_FIXTURE": "indexed",
+    "COMBINED_COMPLETION_BROWSER_FIXTURE": "combined-completion"
+  }
+}

@@ -1,6 +1,14 @@
 import {Component,useEffect,useMemo,useState} from 'react';
 import {BundledProvider,HttpProvider} from './providers.mjs';
 import {StepUpload} from './step-upload.jsx';
+import {AdaptiveCadUpload} from './adaptive-cad-upload.jsx';
+import {BrepGym} from './brep-gym.jsx';
+import {AdaptiveInspector,AdaptiveUpload} from './adaptive-inspector.jsx';
+import {AdaptiveLiveGym,AdaptiveLiveLoader} from './adaptive-live-gym.jsx';
+import {CombinedLiveGym} from './combined-live-gym.jsx';
+import {IndexedLiveGym} from './indexed-live-gym.jsx';
+import {CylindricalLiveGym} from './cylindrical-live-gym.jsx';
+import {EquivalentGrooveComparison} from './equivalent-groove-comparison.jsx';
 
 class DatasetBoundary extends Component {
   state={error:null};
@@ -15,6 +23,7 @@ export function DataSource({bundledData,renderGym,allowStepUpload=false}) {
   const [request,setRequest]=useState({id:query.get('case'),mode:query.get('process'),serial:0,focus:false});
   const [catalog,setCatalog]=useState(null),[result,setResult]=useState(null),[error,setError]=useState(null);
   const [localData,setLocalData]=useState(null);
+  useEffect(()=>()=>localData?.client?.close(),[localData]);
   const provider=useMemo(()=>{
     try { return source ? new HttpProvider(source) : bundledData ? new BundledProvider(bundledData) : null; }
     catch(error) { return {listCases:async()=>{throw error;}}; }
@@ -35,7 +44,14 @@ export function DataSource({bundledData,renderGym,allowStepUpload=false}) {
     })().catch(e=>{if(!controller.signal.aborted)setError(e.message);});
     return ()=>controller.abort();
   },[provider,request]);
-  const uploader=<StepUpload enabled={allowStepUpload} hasLocalData={!!localData} onClear={()=>setLocalData(null)} onPrepared={data=>setLocalData(data)}/>;
+  const uploader=<><AdaptiveCadUpload configuration={window.SHADOW_CONFIG?.adaptiveCad} runtimeConfiguration={window.SHADOW_CONFIG?.adaptiveRuntime} showStockPreview={!localData} onPrepared={setLocalData} onInvalidate={()=>setLocalData(previous=>previous?.origin==='uploaded-step'?null:previous)}/><AdaptiveLiveLoader configuration={window.SHADOW_CONFIG?.adaptiveRuntime} onPrepared={setLocalData}/><StepUpload enabled={allowStepUpload} hasLocalData={!!localData} onClear={()=>setLocalData(null)} onPrepared={data=>setLocalData(data)}/><AdaptiveUpload onPrepared={setLocalData}/></>;
+  if(localData?.kind==='equivalent-groove')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><EquivalentGrooveComparison {...localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='combined-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><CombinedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='indexed-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><IndexedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='cylindrical-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><CylindricalLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='adaptive-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><AdaptiveLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='adaptive')return <>{uploader}<DatasetBoundary key={localData.bundle.bundle_hash} retry={()=>setLocalData(null)}><AdaptiveInspector prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='brep')return <>{uploader}<DatasetBoundary key={localData.id} retry={()=>setLocalData(null)}><BrepGym prepared={localData}/></DatasetBoundary></>;
   if(localData){const localCatalog={schema:'shadow-gym-case-catalog-1',cases:localData.scenes.map(scene=>({id:scene.id,title:scene.title,industrial:false,processes:Object.keys(scene.modes)}))},localMode=localData.scenes[0].workflow?.default_process||Object.keys(localData.scenes[0].modes)[0];return <>{uploader}<DatasetBoundary key={localData.scenes[0].title+'/'+localMode} retry={()=>setLocalData(null)}>{renderGym({data:localData,catalog:localCatalog,onSelectCase:()=>{},initialMode:localMode,focusOnMount:true,figureBaseUrl:''})}</DatasetBoundary></>;}
   if (result) return <>{uploader}<DatasetBoundary key={result.selected+'/'+result.serial} retry={retry}>{renderGym({...result,catalog,onSelectCase:selectCase,initialMode:request.mode,focusOnMount:request.focus})}</DatasetBoundary></>;
   return <>{uploader}<section id="gym" aria-label="Load Shadow Gym data"><h2>{error?'Unable to load the shadow gym':provider?'Loading the shadow gym':'Open a shadow gym dataset'}</h2>

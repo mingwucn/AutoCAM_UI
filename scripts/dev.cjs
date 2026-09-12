@@ -8,6 +8,6 @@ http.createServer((req,res)=>{
  const file=path.resolve(out,'.'+(pathname==='/'?'/index.html':pathname));
  if(!file.startsWith(out+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);res.end();return;}
  res.setHeader('Cache-Control','no-store');
- res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');
+ res.setHeader('Content-Type',/\.m?js$/.test(file)?'text/javascript':file.endsWith('.wasm')?'application/wasm':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');
  fs.createReadStream(file).pipe(res);
 }).listen(5173,'127.0.0.1',()=>console.log('Shadow Gym: http://127.0.0.1:5173'));
