@@ -1,7 +1,8 @@
 import {readCadPreview} from './adaptive-cad-preview.mjs';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {AdaptiveCadMachining} from './adaptive-cad-machining.jsx';
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
+import {inspectInitialCellFaces} from './cad-initial-faces.mjs';
 import {prepareCadFile} from './adaptive-cad-client.mjs';
 import {exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
 
@@ -12,6 +13,17 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
   const [allowance,setAllowance]=useState('0');
   const [busy,setBusy]=useState(false),[phase,setPhase]=useState(''),[error,setError]=useState(''),[result,setResult]=useState(null);
   const pending=useRef(null),ticket=useRef(0);
+  const inspectionPending=useRef(null);
+  useEffect(()=>()=>{inspectionPending.current?.abort();inspectionPending.current=null;},[result,configuration]);
+  const sourceInspection=useMemo(()=>result?.preview.status==='ready'?{
+    sourceFaceContext:result.output.preview.snapshot_sha256,
+    cancelSourceFaces:()=>inspectionPending.current?.abort(),
+    loadSourceFaces:async index=>{
+      inspectionPending.current?.abort();const controller=new AbortController();inspectionPending.current=controller;
+      try{return await inspectInitialCellFaces(result.preview.bundle,index,{...configuration,signal:controller.signal});}
+      finally{if(inspectionPending.current===controller)inspectionPending.current=null;}
+    }
+  }:null,[result,configuration]);
   useEffect(()=>{setResult(null);setBusy(false);setPhase('');return()=>{ticket.current++;pending.current?.abort();};},[configuration]);
   function edit(set,value){set(value);setResult(null);setError('');setPhase('');onInvalidate?.();}
   function cancel(){ticket.current++;pending.current?.abort();pending.current=null;setBusy(false);setPhase('Preparation canceled.');}
@@ -40,19 +52,19 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
   }
   if(!configuration)return null;
   return <details className="step-upload adaptive-cad-upload" open><summary>Prepare stock from your STEP file</summary><div className="step-upload-body">
-    <p>Your file stays in this browser. Supported now: axis-aligned planar solids and coaxial cylindrical parts. {runtimeConfiguration&&typeof onPrepared==='function'?'Prepare the stock, then supply a machining setup to generate roughing actions.':'Download the prepared stock for the next machining step.'}</p>
+    <p>Your file stays in this browser. Supported now: axis-aligned planar solids, coaxial cylindrical parts and complete principal-frame spheres. {profile!=='spherical_nominal'&&runtimeConfiguration&&typeof onPrepared==='function'?'Prepare the stock, then supply a machining setup to generate roughing actions.':'Download the prepared stock for the next machining step.'}</p>
     <form onSubmit={prepare}><div className="controls">
       <label>STEP file<input aria-label="Adaptive STEP file" type="file" accept=".step,.stp" disabled={busy} onChange={e=>edit(setFile,e.target.files?.[0]||null)}/></label>
-      <label>Part geometry<select aria-label="STEP geometry profile" value={profile} disabled={busy} onChange={e=>edit(setProfile,e.target.value)}><option value="rectilinear">Axis-aligned planar solid</option><option value="periodic_nominal">Coaxial cylindrical part</option></select></label>
+      <label>Part geometry<select aria-label="STEP geometry profile" value={profile} disabled={busy} onChange={e=>edit(setProfile,e.target.value)}><option value="rectilinear">Axis-aligned planar solid</option><option value="periodic_nominal">Coaxial cylindrical part</option><option value="spherical_nominal">Complete principal-frame sphere</option></select></label>
       <label>Stock shape<select aria-label="STEP stock shape" value={mode} disabled={busy} onChange={e=>edit(setMode,e.target.value)}><option value="box">Box</option><option value="cylinder">Cylinder</option></select></label>
       <label>Stock margin (mm)<input aria-label="STEP stock margin" type="number" min="0.001" step="any" value={margin} disabled={busy} onChange={e=>edit(setMargin,e.target.value)}/></label>
       <label>Finishing allowance (mm)<input aria-label="STEP finishing allowance" type="number" min="0" max={margin} step="any" value={allowance} disabled={busy} onChange={e=>edit(setAllowance,e.target.value)}/></label>
       <label>Spindle direction<select aria-label="STEP spindle direction" value={axis} disabled={busy} onChange={e=>edit(setAxis,Number(e.target.value))}>{['X','Y','Z'].map((v,i)=><option key={v} value={i}>{v}</option>)}</select></label>
       <label>Partition detail<select aria-label="STEP partition detail" value={depth} disabled={busy} onChange={e=>edit(setDepth,Number(e.target.value))}><option value={4}>Coarse · faster</option><option value={6}>Finer · slower</option></select></label>
-    </div><p>Stock margin sizes the starting material. Finishing allowance reserves material around the part for finishing; it must fit within that margin. Positive allowance supports planar solids and coaxial cylindrical parts, including through-bores.</p><div className="action-row"><button className="primary" disabled={busy||!file} type="submit">Prepare STEP stock</button>{busy&&<button type="button" onClick={cancel}>Cancel STEP preparation</button>}</div></form>
+    </div><p>Stock margin sizes the starting material. Finishing allowance reserves material around the part for finishing; it must fit within that margin. Positive allowance supports planar solids, complete spheres and coaxial cylindrical parts, including through-bores.</p><div className="action-row"><button className="primary" disabled={busy||!file} type="submit">Prepare STEP stock</button>{busy&&<button type="button" onClick={cancel}>Cancel STEP preparation</button>}</div></form>
     {phase&&<p role="status">{phase}</p>}{error&&<p role="alert" className="step-error">{error}</p>}
     {result&&<section aria-label="Prepared STEP stock"><h3>{result.name}</h3><p>{result.dimensions}</p><p>Finishing allowance: {fmt(exactNumber(parseAdaptiveJson(result.output.proposedPreparation).uniform_allowance_mm||[0,1]))} mm.</p><p>{result.cells.toLocaleString('en-US')} partition cells. {result.stop==='depth_budget'?'Reached the selected detail level; boundary uncertainty remains.':result.stop==='leaf_budget'?'Reached the cell limit; boundary uncertainty remains.':result.stop==='time_budget'?'Reached the preparation time limit; boundary uncertainty remains.':'Preparation stopped: '+result.stop}</p><p>Automatic stock is a conservative proposal. Holding and fixture clearance have not been assessed.</p><div className="action-row"><button onClick={()=>download('initial','initial.bin')}>Download initial stock</button><button onClick={()=>download('certificate','target-construction.json')}>Download target certificate</button><button onClick={()=>download('proposedPreparation','stock-proposal.json')}>Download stock proposal</button></div>
-      <AdaptiveCadMachining key={result.output.preview.snapshot_sha256} initial={result.output.initial} name={result.name} configuration={configuration} runtimeConfiguration={runtimeConfiguration} onPrepared={onPrepared} onInvalidate={onInvalidate}/>
-      {showStockPreview&&(result.preview.status==='ready'?<AdaptiveInspector key={result.preview.bundle.bundle_hash} prepared={{name:result.name,bundle:result.preview.bundle}} initialStock/>:<p role="status">The geometry preview exceeds its size limit. Your prepared stock files are still available above.</p>)}</section>}
+      {profile==='spherical_nominal'?<p>Sphere stock preparation and face inspection are available. Sphere machining preparation is not available yet.</p>:<AdaptiveCadMachining key={result.output.preview.snapshot_sha256} initial={result.output.initial} name={result.name} configuration={configuration} runtimeConfiguration={runtimeConfiguration} onPrepared={onPrepared} onInvalidate={onInvalidate}/>}
+      {showStockPreview&&(result.preview.status==='ready'?<AdaptiveInspector key={result.preview.bundle.bundle_hash} prepared={{name:result.name,bundle:result.preview.bundle}} initialStock sourceInspection={sourceInspection}/>:<p role="status">The geometry preview exceeds its size limit. Your prepared stock files are still available above.</p>)}</section>}
   </div></details>;
 }

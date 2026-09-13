@@ -1,6 +1,6 @@
 // Display-only tessellation of already verified nominal construction faces.
 // These meshes never participate in material, incidence or access predicates.
-import {ShapeUtils,Vector2} from 'three';
+import {ShapeUtils,Vector2,SphereGeometry} from 'three';
 import {exactNumber} from './adaptive-provider.mjs';
 
 const fail=()=>{throw Error('Original CAD face exceeds the supported display profile.');};
@@ -18,15 +18,26 @@ const vector=v=>{if(!Array.isArray(v)||v.length!==3)fail();return v.map(sourceHe
 
 export function sourceFaceDisplay(certificate,faceIndices){
   if(!certificate||!Array.isArray(faceIndices)||faceIndices.length>256||new Set(faceIndices).size!==faceIndices.length)fail();
-  const periodic=certificate.schema==='adaptive-periodic-construction-1';
-  if(!periodic&&!['adaptive-rectilinear-construction-1','adaptive-rectilinear-construction-2'].includes(certificate.schema))fail();
+  const periodic=certificate.schema==='adaptive-periodic-construction-1',spherical=certificate.schema==='adaptive-spherical-construction-1';
+  if(!periodic&&!spherical&&!['adaptive-rectilinear-construction-1','adaptive-rectilinear-construction-2'].includes(certificate.schema))fail();
   return faceIndices.map(index=>{
     if(!Number.isSafeInteger(index)||index<1)fail();
     const mapped=certificate.face_map.find(f=>f.session_index===index);
-    const face=certificate.extraction.faces.find(f=>f.session_index===index);
+    const face=certificate.extraction.faces.find(f=>(spherical?f.index:f.session_index)===index);
     if(!mapped||!face)fail();
     let points=[],triangles=[];
-    if(!periodic){
+    if(spherical){
+      if(index!==1||mapped.kind!=='sphere'||mapped.outward_sign!==1||face.surface?.type!=='Geom_SphericalSurface')fail();
+      const center=vector(face.surface.origin),radius=sourceHexNumber(face.surface.radius);
+      if(radius<=0||certificate.geometry?.kind!=='sphere'||radius!==exactNumber(certificate.geometry.radius)||
+         center.some((v,k)=>v!==exactNumber(certificate.geometry.center[k])))fail();
+      const sphere=new SphereGeometry(radius,SEGMENTS,SEGMENTS/2);
+      try{
+        const positions=sphere.getAttribute('position');
+        for(let i=0;i<positions.count;i++)points.push([positions.getX(i)+center[0],positions.getY(i)+center[1],positions.getZ(i)+center[2]]);
+        const indices=sphere.getIndex().array;for(let i=0;i<indices.length;i+=3)triangles.push([indices[i],indices[i+1],indices[i+2]]);
+      }finally{sphere.dispose();}
+    }else if(!periodic){
       if(!Array.isArray(face.edges)||face.edges.length<4||face.edges.length>512)fail();
       points=face.edges.map(e=>vector(e.start));
       const axes=[0,1,2].filter(k=>k!==mapped.axis);
@@ -65,9 +76,9 @@ export function sourceFaceDisplay(certificate,faceIndices){
       const u=positions[b].map((v,k)=>v-positions[a][k]),v=positions[c].map((x,k)=>x-positions[a][k]);
       if([u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]].every(x=>x===0))fail();
     }
-    return {sourceFaceIndex:index,origin,positions:positions.flat(),indices:triangles.flat(),displayOnly:true,curved:periodic,
+    return {sourceFaceIndex:index,origin,positions:positions.flat(),indices:triangles.flat(),displayOnly:true,curved:periodic||spherical,
       sourceReference:{raw_source_sha256:certificate.binding.raw_source_sha256,imported_snapshot_sha256:certificate.binding.imported_snapshot_sha256,session_index:index},
-      approximation:{profile:periodic?'periodic-angular-tessellation':'planar-boundary-triangulation',angular_segments:periodic?SEGMENTS:null,
+      approximation:{profile:spherical?'spherical-angular-tessellation':periodic?'periodic-angular-tessellation':'planar-boundary-triangulation',angular_segments:(periodic||spherical)?SEGMENTS:null,
         vertex_storage:'float32-face-local',certified_error_bound_mm:null}};
   });
 }

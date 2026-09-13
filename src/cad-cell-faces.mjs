@@ -31,12 +31,16 @@ export async function readCadCellFaces(raw,view,index){
     r.session_epoch!==view.session_epoch||r.head!==view.observation.head||r.cell_index!==index||
     r.material_hash!==frame.state_hash||r.domain_hash!==frame.domain_hash||!same(r.address,leaf.address)||
     r.associations_sha256!==await adaptiveHash(a))fail();
+  return readCadFaceAssociations(a,c,exactSourceCellBounds(source.root,leaf.address));
+}
+
+export async function readCadFaceAssociations(a,c,cell){
   fields(a,['schema','certificate_sha256','source_scope','source_binding','frame','cell','relation','faces','access_assessed','machining_task_generated']);
   const pin=await adaptiveHash(c);
   if(a.schema!=='adaptive-cad-cell-faces-1'||a.certificate_sha256!==pin||a.source_scope!==c.scope||
     !same(a.source_binding,c.binding)||a.frame!=='original_part'||
     a.relation!=='closed_cell_closed_nominal_face_intersection'||
-    !same(a.cell,exactSourceCellBounds(source.root,leaf.address))||a.access_assessed!==false||
+    !same(a.cell,cell)||a.access_assessed!==false||
     a.machining_task_generated!==false||!Array.isArray(a.faces)||a.faces.length>256)fail();
   let previous=0;
   for(const face of a.faces){
