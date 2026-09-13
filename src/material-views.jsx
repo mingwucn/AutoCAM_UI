@@ -41,7 +41,7 @@ export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl, layers}
     <figure className="view-panel">
       <header><strong id="view-phase">{state.replay ? 'Recorded remaining material' : isPreview ? 'Action preview' : 'Remaining material'}</strong><span>Drag to rotate · scroll to zoom</span></header>
       <div id="view3d" ref={container}>{webgl === false && <div className="fallback"><p>3D is unavailable in this browser. The section and removal controls remain usable.</p><img src={figureBaseUrl + fallback + '.png'} alt={'Static geometry for ' + scene.title}/></div>}</div>
-      <figcaption>Dashed outline: original stock. Preview shows the target through the removal region.</figcaption>
+      <figcaption>Remaining stock is the initial stock minus applied cuts. Coloured layers mark regions within it; hide them to see the stock beneath. Dashed outline: original stock.</figcaption>
     </figure>
     <figure className="view-panel">
       <header><strong>Linked 2D section</strong><span id="section-value">{['X', 'Y', 'Z'][section.axis]} = {fmt(section.station)} mm</span></header>
