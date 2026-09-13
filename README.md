@@ -159,7 +159,10 @@ nominal face; display triangles and finishing allowance do not define that test.
 The result can be empty, and contact does not prove tool access. Highlight all
 touching faces, choose one face, hide the overlay or cancel a running query.
 
-Sphere upload currently supports stock preparation and inspection. Sphere
-machining routes are not yet available. The nominal construction keeps original
+Sphere uploads support stock preparation, inspection and outside-envelope
+turning through the machining setup form. Supply a machine/tool setup and
+roughing requirements, then open the live gym to apply and record actions.
+Curved-surface finishing is not available yet, and material can remain after
+roughing. The nominal construction keeps original
 import tolerances unchanged; it does not repair industrial CAD or establish
 manufacturing qualification. Files stay in the browser.
