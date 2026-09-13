@@ -1,5 +1,6 @@
 import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-json.mjs';
 import {verifyInspectionVolumes} from './adaptive-inspection-volumes.mjs';
+import {scopeAssessment,displayedScope} from './adaptive-scope.mjs';
 export {canonicalAdaptive,parseAdaptiveJson};
 const fail=message=>{throw new Error(message);};
 const hashPattern=/^[0-9a-f]{64}$/;
@@ -245,6 +246,15 @@ export async function readAdaptiveBundle(raw){
   const text=typeof raw==='string'?raw:new TextDecoder('utf-8',{fatal:true}).decode(raw);
   if(text.length>64*1024*1024)fail('Adaptive bundle exceeds the 64 MiB viewer profile.');
   const wrapper=parseAdaptiveJson(text);fields(wrapper,['schema','payload_sha256','payload']);
+  if(wrapper.schema==='adaptive-scoped-inspection-bundle-1'){
+    if(!hashPattern.test(wrapper.payload_sha256)||canonicalAdaptive(wrapper)!==text||await adaptiveHash(wrapper.payload)!==wrapper.payload_sha256)fail('Scoped inspection identity mismatch.');
+    const s=wrapper.payload;fields(s,['schema','original_bundle','displayed_episode_scope','frame_assessments','interpretation']);
+    if(s.schema!=='adaptive-scoped-inspection-payload-1'||s.interpretation!=='producer_recorded_scope_metadata_only'||s.original_bundle?.schema!=='adaptive-inspection-bundle-1')fail('Unsupported scoped inspection profile.');
+    const original=await readAdaptiveBundle(canonicalAdaptive(s.original_bundle));
+    const expected=original.frames.map((f,i)=>({frame_index:i,frame_state_hash:f.state_hash,assessment:original.scope_assessments[i]}));
+    if(canonicalAdaptive(s.frame_assessments)!==canonicalAdaptive(expected)||s.displayed_episode_scope!==original.displayed_episode_scope)fail('Recorded scope summary differs from outcome.');
+    return Object.freeze({...original,scope_wrapper_hash:wrapper.payload_sha256});
+  }
   if(wrapper.schema!=='adaptive-inspection-bundle-1'||!hashPattern.test(wrapper.payload_sha256))fail('Unsupported adaptive bundle schema.');
   // Canonical bytes preserve arbitrary exact integers and reject alternate encodings.
   if(canonicalAdaptive(wrapper)!==text)fail('Adaptive bundle is not canonical.');
@@ -385,5 +395,6 @@ export async function readAdaptiveBundle(raw){
     Object.values(f.volumes).forEach(interval);
     verifyInspectionVolumes(f,root);
   }
-  return Object.freeze({...p,bundle_hash:wrapper.payload_sha256,catalog_id:catalogId});
+  const scope_assessments=await Promise.all(p.frames.map(f=>scopeAssessment(f.outcome,adaptiveHash)));
+  return Object.freeze({...p,bundle_hash:wrapper.payload_sha256,catalog_id:catalogId,scope_assessments,displayed_episode_scope:displayedScope(scope_assessments)});
 }
