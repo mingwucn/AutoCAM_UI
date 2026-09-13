@@ -8,7 +8,7 @@
     "sha256": "dc5b2156640702d11db84f1a6fddd97161cd0425dc51cd523ecba513a193c7d0"
   },
   "adaptiveCadRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/ca9ff81afb60e6ab2b806940147b00b1756ac6d4/releases/adaptive-spherical-roughing-20260913/release.json",
-    "sha256": "2d770acc47c0bf2a2ce5c088b9137866913f707a1d66c52e189b42e0461e67ca"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/e1dd9209958782f5631e9208c05d3705018befdc/releases/adaptive-spherical-bands-v1/release.json",
+    "sha256": "29035b5b685ac1fc230b699ff2839136e68ef8a369ef342ff916b7d09691419b"
   }
 }
