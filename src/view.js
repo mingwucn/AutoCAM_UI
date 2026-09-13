@@ -239,6 +239,7 @@ export class View {
     this.group.add(mesh);return true;
   }
   updateAdaptive(bundle,frame,{layers,section,cutaway,selected,keepCamera=true,toolPosition=1,showSweep=true,showTool=true,previewAction=undefined,workpiecePose=null,sourceFaceMeshes=[],pickMode='cell',pickedSourceFace=null}){
+    const changedSource=this.adaptiveDisplayBinding?.source_geometry_id!==bundle.source_geometry_id;
     this.adaptivePickMode=pickMode;
     this.clear();this.renderer.localClippingEnabled=true;
     const source=bundle.source,[low,high]=adaptiveGeometryBounds(source.stock)||[source.root.origin.map(exactNumber),source.root.origin.map(v=>exactNumber(v)+exactNumber(source.root.side))],span=high.map((v,k)=>v-low[k]);
@@ -360,7 +361,7 @@ export class View {
     }
     this.adaptiveDisplayBinding={state_hash:frame.state_hash,source_geometry_id:bundle.source_geometry_id};
     this.group.traverse(object=>{if(object.geometry)object.userData.adaptiveDisplayBinding={...this.adaptiveDisplayBinding};});
-    if(!keepCamera||changedTool)this.home();else this.draw();
+    if(!keepCamera||changedSource||changedTool)this.home();else this.draw();
   }
   adaptiveDisplayMetadata(expectedState,expectedSource){
     const binding=this.adaptiveDisplayBinding;

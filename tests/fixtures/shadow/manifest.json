@@ -1,0 +1,103 @@
+{
+  "schema": "autocam-ui-shadow-fixtures-1",
+  "groups": [
+    {
+      "id": "annular",
+      "source_verification": "cad-annular-allowance-03",
+      "source_index_sha256": "218a1f767978ae3f95e2ed551dfff5b81b3f32bdec7855259ab99a9c748b5408",
+      "files": [
+        {
+          "path": "coaxial-tube.step",
+          "sha256": "e38ebd6a9e5005b65a1c9dd5502392139177f4f7f583ce11f54099fed19b744e",
+          "size_bytes": 9217,
+          "gzip_sha256": "40a2dedb72c3162869b4c2bf401fa763f4641b647f551c38aca44a3266452b11",
+          "gzip_size_bytes": 2344
+        },
+        {
+          "path": "coaxial-tube-certificate.json",
+          "sha256": "3a1fd723e81d86854edad0a2f8f4330be75188763327a59cba74dd8080f92cb2",
+          "size_bytes": 15301,
+          "gzip_sha256": "3a1ce31b0d93c0b817cb427a056e7c2893d8562a9ce7b1b5dc7f635d61cbaee3",
+          "gzip_size_bytes": 2600
+        },
+        {
+          "path": "coaxial-tube-allowance.bin",
+          "sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+          "size_bytes": 429007,
+          "gzip_sha256": "a2d345633b9fd64fb3dfc009635d6ba61ff43c1837abc7b96871341eb734e045",
+          "gzip_size_bytes": 8758
+        },
+        {
+          "path": "coaxial-tube-allowance-proposal.json",
+          "sha256": "69a1b197ead50c92063ea342b3edf6ca47563f44cddceefd49e13ae5afe941cb",
+          "size_bytes": 315,
+          "gzip_sha256": "aa5964c316079d8c43d75111a9379e4b5a54c6379a075ee11b296619ab2918fc",
+          "gzip_size_bytes": 229
+        },
+        {
+          "path": "coaxial-tube-allowance-preview.json",
+          "sha256": "d3134ddf802bb0b5e5eb535f63c930cda81a6906402d60bece3bf2da3f483e9d",
+          "size_bytes": 3104952,
+          "gzip_sha256": "241274a4c1e54e440c49ea0b5132b61a8e86e57978b12aed36d9eb4769793b0c",
+          "gzip_size_bytes": 190931
+        }
+      ]
+    },
+    {
+      "id": "refined",
+      "source_verification": "refined-regional-browser-01",
+      "source_index_sha256": "2f21efe5c1779131bfe27c34e02ed7db14deb91f85a694037f9091d3b15f1cf8",
+      "files": [
+        {
+          "path": "configuration.json",
+          "sha256": "f753d19dd35d9bcabb502de09f2b1e6e260df88d85f857152e7b4e46341351f7",
+          "size_bytes": 6486,
+          "gzip_sha256": "09e2522a0d11ca78eff06fcaf190dab8e4e834c909d0bc08634f2dd165ce0ac1",
+          "gzip_size_bytes": 1689
+        },
+        {
+          "path": "preparation.json",
+          "sha256": "15059fb4fc6ead36acdc8e450dd7a0da2795a2d510c2bc88060e3ab8d3ffc069",
+          "size_bytes": 3900,
+          "gzip_sha256": "85f347f0a28d4bc201c6ffb5d35c1ebaa8c5a75bdb0e97967ed3ebc28b55560c",
+          "gzip_size_bytes": 1655
+        },
+        {
+          "path": "turn-expected.json",
+          "sha256": "77debb6d4bebe96584dd25e05bd395e96cc0f04406f916310fa0a7bfe74ba88c",
+          "size_bytes": 13118,
+          "gzip_sha256": "1de8f0689706724a36824e14c454bcadb6ac4f7d32bb2ee97ebc054573cdcb85",
+          "gzip_size_bytes": 3163
+        },
+        {
+          "path": "view-expected.json",
+          "sha256": "48e74aaf21e2ba00bd2f0f7a4930425f5ce241f50d620dbf437c996dec79ca64",
+          "size_bytes": 471886,
+          "gzip_sha256": "8c370a56054372999e70fc3076fe51f2a4d40c7d673776655ce557d8a14cc018",
+          "gzip_size_bytes": 12675
+        },
+        {
+          "path": "coaxial-tube-allowance.bin",
+          "sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+          "size_bytes": 429007,
+          "gzip_sha256": "a2d345633b9fd64fb3dfc009635d6ba61ff43c1837abc7b96871341eb734e045",
+          "gzip_size_bytes": 8758
+        },
+        {
+          "path": "setup.json",
+          "sha256": "767f1672629937a81a2c4d752eb8132f440d3378154b03b531549451eaf81f76",
+          "size_bytes": 4753,
+          "gzip_sha256": "2b462fdfe7564395d88f1ce11eb39946fd68d70aabc88a62825e886027d053aa",
+          "gzip_size_bytes": 1119
+        },
+        {
+          "path": "policy.json",
+          "sha256": "69a6c79401b52277f5dcfa40a3fcc822316c1ae0e535b75dc4d974b20e4b1f8a",
+          "size_bytes": 590,
+          "gzip_sha256": "e449a0b39b19e5451c8d4f6333fc03a04c85dcdf71c5cfa64e3aed37081b1d24",
+          "gzip_size_bytes": 328
+        }
+      ]
+    }
+  ]
+}
