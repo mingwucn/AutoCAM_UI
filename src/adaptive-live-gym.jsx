@@ -6,7 +6,7 @@ import {operationNames,readLiveView} from './adaptive-live-view.mjs';
 import {prepareComparison} from './prepared-comparison.mjs';
 import {createPreparedLiveCase} from './adaptive-prepared-case.mjs';
 import {preparedCaseConfiguration} from './adaptive-runtime-selection.mjs';
-import {task5TrainingGuide} from './adaptive-training-guide.mjs';
+import {recordedTrainingGuide} from './adaptive-training-guide.mjs';
 
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const interval=v=>`${fmt(exactNumber(v.lower_mm3))} – ${fmt(exactNumber(v.upper_mm3))}`;
@@ -95,7 +95,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
   function cancel(){epoch.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setError('Stopped. Restore the last completed state to continue.');}
   async function download(operation='export'){await run(operation==='inspection'?'Replaying recorded actions for inspection…':'Preparing decision download…',async(session,token)=>{
     const raw=await session.invoke(JSON.stringify({operation}));
-    const guide=operation==='export'&&task.schema==='adaptive-mill-turn-core-roughing-task-5'&&JSON.parse(raw).records.length>1?await task5TrainingGuide(raw):null;
+    const guide=operation==='export'&&['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&JSON.parse(raw).records.length>1?await recordedTrainingGuide(raw):null;
     if(token!==epoch.current)return null;
     saveText(raw,operation==='inspection'?'shadow-gym-inspection.json':'shadow-gym-decisions.json','application/json');
     if(operation==='export')setTrainingGuide(guide);
@@ -121,7 +121,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
         <button disabled={blocked} onClick={()=>invoke({operation:'step',action:task.candidates.length},'Refining material…')}>Refine cells</button>
         <button disabled={busy||!view||stale} onClick={()=>invoke({operation:'reset',seed:prepared.seed},'Resetting stock…')}>Reset stock</button>
         <button disabled={busy||!owner.current?.ready} onClick={()=>download()}>Download decisions</button>
-        {task.schema==='adaptive-mill-turn-core-roughing-task-5'&&<button disabled={busy||!owner.current?.ready} onClick={()=>download('inspection')}>Download inspection</button>}
+        {['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&<button disabled={busy||!owner.current?.ready} onClick={()=>download('inspection')}>Download inspection</button>}
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing material view…',async()=>null)}>Refresh material view</button>}
@@ -130,7 +130,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
         <button disabled={blocked||!view?.checkpoint_sha256} onClick={()=>invoke({operation:'infer_step',policy:'model',seed:320},'Running model…')}>Run model</button>
         <button disabled={blocked||!view?.checkpoint_sha256} onClick={()=>invoke({operation:'infer_step',policy:'model_mcts',seed:321},'Searching with model + MCTS…')}>Run model + MCTS</button>
         <p>{view?.checkpoint_sha256?'Compatible weights loaded · qualification not assessed':'Load a compatible checkpoint for inference.'} Training runs locally outside this browser.</p>
-        {task.schema==='adaptive-mill-turn-core-roughing-task-5'&&<details><summary>Train from your decisions</summary>
+        {['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&<details><summary>Train from your decisions</summary>
           <p>Download decisions after recording actions. Use a local AutoCAM checkout to train, then load the resulting checkpoint here.</p>
           <button disabled={busy||!trainingGuide} onClick={()=>saveText(trainingGuide.text,'shadow-gym-training.md','text/markdown;charset=utf-8')}>Training guide for last download</button>
         </details>}
@@ -138,8 +138,9 @@ export function AdaptiveLiveGym({prepared,onClose}){
       {view&&<div className="metrics"><div>Removable material remaining<strong>{interval(view.remaining)} mm³</strong></div><div>Core regions fulfilled<strong>{view.critical_obligations_satisfied} / {view.critical_obligations_total}</strong></div><div>Recorded actions<strong>{view.step_count} / {task.horizon}</strong></div></div>}
       <p className="adaptive-small">Completion requires all core regions and an upper residual ≤ {fmt(exactNumber(task.residual_budget_mm3))} mm³. {finished?'Episode finished.':''}</p>
       {task.schema==='adaptive-mill-turn-core-roughing-task-5'&&<p className="adaptive-small">Side-tool clearance uses remaining stock. The view shows current stock; download decisions for the recorded actions.</p>}
+      {task.schema==='adaptive-mill-turn-core-roughing-task-6'&&<p className="adaptive-small">Side-tool clearance checks the complete shank and holder against current stock, including space cleared by earlier cuts.</p>}
       {phase&&<p role="status" aria-live="polite">{phase} The last completed stock stays visible.</p>}{error&&<p className="step-error" role="alert">{error}</p>}
     </section>
-    {view&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification. Restore or refresh before continuing.</p>}<AdaptiveInspector prepared={{bundle:view.bundle,name:prepared.name}} onClose={onClose} live={{previewAction:choice?.candidate.action||null}}/></div>}
+    {view&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification. Restore or refresh before continuing.</p>}<AdaptiveInspector prepared={{bundle:view.bundle,name:prepared.name}} onClose={onClose} live={{previewAction:choice?.candidate.action||null,sideClearanceProfile:task.side_clearance_profile}}/></div>}
   </div>;
 }

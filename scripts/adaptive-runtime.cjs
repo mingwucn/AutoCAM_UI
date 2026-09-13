@@ -29,11 +29,13 @@ module.exports=function copyAdaptiveRuntime(directory,out){
   const cases=manifest.cases.map(item=>{
     if(typeof item.id!=='string'||!/^[a-z0-9_-]+$/.test(item.id)||ids.has(item.id)||typeof item.title!=='string'||!Number.isInteger(item.seed)||item.seed<0||item.seed>2**32-1)throw Error('Invalid prepared case identity/seed.');ids.add(item.id);
     const remainingWeights=Object.hasOwn(item,'remainingWeights');
+    const packedDomain=Object.hasOwn(item,'packedDomain');
+    if(packedDomain&&(item.packedDomain!==true||item.removalWeights!==true||item.remainingWeights!==true))throw Error('Invalid case packed domain selection.');
     const removalWeights=Object.hasOwn(item,'removalWeights');
     if(removalWeights&&(item.removalWeights!==true||item.remainingWeights!==true))throw Error('Invalid case removal weights selection.');
     if(remainingWeights&&(item.remainingWeights!==true||!historyQuery||!volumeQuery))throw Error('Invalid case remaining weights selection.');
     const taskURL=copy(item.task.path,item.task.sha256,32*1024**2);
-    if(remainingWeights&&JSON.parse(fs.readFileSync(path.join(out,taskURL),'utf8')).schema!=='adaptive-mill-turn-core-roughing-task-5')
+    if(remainingWeights&&!['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(JSON.parse(fs.readFileSync(path.join(out,taskURL),'utf8')).schema))
       throw Error('Remaining weights case requires task5.');
     let comparison;
     if(item.comparison){
@@ -42,7 +44,7 @@ module.exports=function copyAdaptiveRuntime(directory,out){
         estimatesURL:copy(c.estimates.path,c.estimates.sha256,64*1024),estimatesSHA256:c.estimates.sha256};
     }
     return {id:item.id,title:item.title,seed:item.seed,taskURL,taskSHA256:item.task.sha256,
-      initialURL:copy(item.initial.path,item.initial.sha256,64*1024**2),initialSHA256:item.initial.sha256,...(comparison?{comparison}:{}),...(remainingWeights?{remainingWeights:true}:{}),...(removalWeights?{removalWeights:true}:{})};
+      initialURL:copy(item.initial.path,item.initial.sha256,64*1024**2),initialSHA256:item.initial.sha256,...(comparison?{comparison}:{}),...(remainingWeights?{remainingWeights:true}:{}),...(removalWeights?{removalWeights:true}:{}),...(packedDomain?{packedDomain:true}:{})};
   });
   return {workerURL:'assets/adaptive-python-worker.js',assets:{runtimeBaseURL:'assets/adaptive/runtime/',codeURL,codeSHA256:manifest.codeSHA256},cases,...(volumeQuery?{volumeQuery}:{}),...(historyQuery?{historyQuery:true}:{})};
 };

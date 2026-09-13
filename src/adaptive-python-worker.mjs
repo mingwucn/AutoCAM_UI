@@ -1,6 +1,6 @@
 let py=null,initialized=false,attempted=false,busy=false,lastID=0;
 let indexed=false,combined=false,regional=false,objective=false,choices=false,choicePolicy=false;
-let remainingSide=false;
+let remainingSide=false,clearedHolder=false;
 let volumeEnabled=false,volumeQueryCalls=0;
 let historyEnabled=false,historyQueryCalls=0;
 let remainingEnabled=false,remainingQueryCalls=0;
@@ -32,23 +32,26 @@ async function initialize(message){
   const useHistoryQuery=Object.hasOwn(message.assets??{},'historyQuery');
   const useRemaining=Object.hasOwn(message.assets??{},'remainingWeights');
   const useRemoval=Object.hasOwn(message.assets??{},'removalWeights');
-  attempted=true;closed(message.assets,['runtimeBaseURL','codeURL','codeSHA256',...(useVolumeQuery?['volumeQuery']:[]),...(useHistoryQuery?['historyQuery']:[]),...(useRemaining?['remainingWeights']:[]),...(useRemoval?['removalWeights']:[])]);
+  const usePacked=Object.hasOwn(message.assets??{},'packedDomain');
+  attempted=true;closed(message.assets,['runtimeBaseURL','codeURL','codeSHA256',...(useVolumeQuery?['volumeQuery']:[]),...(useHistoryQuery?['historyQuery']:[]),...(useRemaining?['remainingWeights']:[]),...(useRemoval?['removalWeights']:[]),...(usePacked?['packedDomain']:[])]);
   if(useHistoryQuery&&(!useVolumeQuery||message.assets.historyQuery!==true))throw new Error('Invalid history query selection.');
   if(useRemaining&&(!useHistoryQuery||message.assets.remainingWeights!==true))throw new Error('Invalid remaining weights selection.');
   if(useRemoval&&(!useRemaining||message.assets.removalWeights!==true))throw new Error('Invalid removal weights selection.');
+  if(usePacked&&(!useRemoval||message.assets.packedDomain!==true))throw new Error('Invalid packed domain selection.');
   const runtime=assetURL(message.assets.runtimeBaseURL),code=assetURL(message.assets.codeURL);
   if(!runtime.pathname.endsWith('/')||!digest(message.assets.codeSHA256))throw new Error('Invalid simulator asset configuration.');
   const task=bytes(message.task,32*1024**2,'task'),initial=bytes(message.initial,64*1024**2,'initial snapshot');
   const schema=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(task))?.schema;
   indexed=schema==='adaptive-indexed-browser-config-1';
-  remainingSide=schema==='adaptive-mill-turn-core-roughing-task-5';
+  clearedHolder=schema==='adaptive-mill-turn-core-roughing-task-6';
+  remainingSide=clearedHolder||schema==='adaptive-mill-turn-core-roughing-task-5';
   choicePolicy=['adaptive-cylindrical-policy-browser-config-1','adaptive-cylindrical-policy-browser-config-2','adaptive-cylindrical-policy-browser-config-3'].includes(schema);
   choices=choicePolicy||['adaptive-cylindrical-choice-browser-config-1','adaptive-cylindrical-choice-browser-config-2','adaptive-cylindrical-choice-browser-config-3','adaptive-cylindrical-choice-browser-config-4','adaptive-cylindrical-choice-browser-config-5','adaptive-cylindrical-choice-browser-config-6'].includes(schema);
   objective=schema==='adaptive-combined-browser-config-3';
   regional=objective||schema==='adaptive-combined-browser-config-2';
   combined=regional||schema==='adaptive-combined-browser-config-1';
-  if(useVolumeQuery&&!objective&&!(remainingSide&&useRemaining))throw new Error('Volume queries currently require the objective v3 Gym or selected task5 remaining weights.');
-  if(useRemaining&&!remainingSide)throw new Error('Remaining weights require task5.');
+  if(useVolumeQuery&&!objective&&!(remainingSide&&useRemaining))throw new Error('Volume queries currently require the objective v3 Gym or selected task5/task6 remaining weights.');
+  if(useRemaining&&!remainingSide)throw new Error('Remaining weights require task5 or task6.');
   self.postMessage({id:message.id,type:'progress',phase:'loading_runtime'});
   const response=await fetch(code.href);
   if(!response.ok||new URL(response.url).origin!==self.location.origin)throw new Error('Simulator code archive is unavailable.');
@@ -84,6 +87,10 @@ def capture(call):
     ?'from autocam.adaptive_delta.combined_browser_session import CombinedBrowserSession as BrowserSession'
     :indexed
     ?'from autocam.adaptive_delta.indexed_browser_session import IndexedBrowserSession as BrowserSession'
+    :clearedHolder
+    ?(usePacked?'from autocam.adaptive_delta.packed_wasm_gym import PackedClearedHolderBrowserSession as BrowserSession':'from autocam.adaptive_delta.cleared_holder_browser_session import ClearedHolderBrowserSession as BrowserSession')
+    :usePacked
+    ?'from autocam.adaptive_delta.packed_wasm_gym import PackedRemainingSideBrowserSession as BrowserSession'
     :remainingSide
     ?'from autocam.adaptive_delta.remaining_side_browser_session import RemainingSideBrowserSession as BrowserSession'
     :'import numpy, gymnasium; from autocam.adaptive_delta.browser_view import BrowserViewSession as BrowserSession');
@@ -151,8 +158,10 @@ removal_assessor = WasmRemovalAssessor(wasm_history_query, wasm_removal_weights)
     ?'json.dumps(dict(python=sys.version,profile="combined_1",platform=sys.platform,guard=guard.to_data()))'
     :indexed
     ?'json.dumps(dict(python=sys.version,profile="indexed_1",platform=sys.platform,guard=guard.to_data()))'
+    :usePacked
+    ?'json.dumps(dict(python=sys.version,profile="'+(clearedHolder?'cleared_holder_6':'remaining_side_5')+'",packedDomain=True,platform=sys.platform,guard=guard.to_data()))'
     :remainingSide
-    ?'json.dumps(dict(python=sys.version,profile="remaining_side_5",platform=sys.platform,guard=guard.to_data()))'
+    ?'json.dumps(dict(python=sys.version,profile="'+(clearedHolder?'cleared_holder_6':'remaining_side_5')+'",platform=sys.platform,guard=guard.to_data()))'
     :'json.dumps(dict(python=sys.version,numpy=numpy.__version__,gymnasium=gymnasium.__version__,platform=sys.platform,guard=guard.to_data()))');
 }
 async function execute(message){
@@ -201,7 +210,7 @@ self.onmessage=async event=>{
       :indexed
       ?'json.dumps(dict(profile="indexed_1",material_state_type=type(session.gym._journal.material).__name__,session_epoch=session.epoch))'
       :remainingSide
-      ?'json.dumps(dict(profile="remaining_side_5",material_state_type=type(session.env.service.state).__name__ if session.env.service is not None else None))'
+      ?'json.dumps(dict(profile="'+(clearedHolder?'cleared_holder_6':'remaining_side_5')+'",session_type=type(session).__name__,domain_type=type(session.env.service.state.domain).__name__ if session.env.service is not None else None,domain_rows=(session.env.service.state.domain.count if hasattr(session.env.service.state.domain,"count") else len(session.env.service.state.domain.leaves)) if session.env.service is not None else None,material_state_type=type(session.env.service.state).__name__ if session.env.service is not None else None))'
       :'json.dumps(dict(session.env.cell_relations.to_data(), material_state_type=type(session.env.service.state).__name__ if session.env.service is not None else None))'));
     if(volumeEnabled){
       diagnostics.wasm_query_calls=volumeQueryCalls;

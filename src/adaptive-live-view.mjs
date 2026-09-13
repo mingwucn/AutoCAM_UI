@@ -13,8 +13,8 @@ export function directionLabel(candidate){
   return 'Approach '+axis(m.axis,m.sign);
 }
 export async function readLiveView(raw,task,expected){
-  const remainingSide=task?.schema==='adaptive-mill-turn-core-roughing-task-5';
-  if(!remainingSide&&task?.schema!=='adaptive-mill-turn-core-roughing-task-4')fail('A prepared version-4 or version-5 task is required.');
+  const remainingSide=['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task?.schema);
+  if(!remainingSide&&task?.schema!=='adaptive-mill-turn-core-roughing-task-4')fail('A prepared version-4, version-5 or version-6 task is required.');
   const wrapper=parseAdaptiveJson(raw);fields(wrapper,['schema','payload_sha256','payload']);
   if(wrapper.schema!=='adaptive-browser-view-1'||canonicalAdaptive(wrapper)!==raw||await adaptiveHash(wrapper.payload)!==wrapper.payload_sha256)fail('Live-view checksum or canonical bytes differ.');
   const p=wrapper.payload;

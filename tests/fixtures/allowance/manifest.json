@@ -1,0 +1,42 @@
+{
+  "schema": "autocam-ui-allowance-fixtures-1",
+  "source_index_sha256": "37019ca5dd83837c31eeb765ce90ecc8bfaf73bda206859a4d5962182f994fc9",
+  "source_verification": "cad-uniform-allowance-03",
+  "files": [
+    {
+      "path": "box.step",
+      "sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "size_bytes": 15418,
+      "gzip_sha256": "da0e624523813a9fd29b668dec85436cbb36db65bf7cc39cdce59f2e88730b56",
+      "gzip_size_bytes": 3382
+    },
+    {
+      "path": "box-certificate.json",
+      "sha256": "2b9a971ed05e1ed210d771d7f45e3d61fe62f0b8fe6aae7e505e779025b15bf3",
+      "size_bytes": 10250,
+      "gzip_sha256": "60a69bc8331b2ff87936649cb138822f25488cf79bd9cc18f08f5d1d886a641a",
+      "gzip_size_bytes": 1130
+    },
+    {
+      "path": "box-allowance.bin",
+      "sha256": "aace13f914df71b2d989d1f22c00a7bff6f26a6d1862b258c17858079c40f1bb",
+      "size_bytes": 1102605,
+      "gzip_sha256": "09df533d837c3788beb722ac9581110f3f7f9e7fa86812f5039d3b0695f94aba",
+      "gzip_size_bytes": 15100
+    },
+    {
+      "path": "box-allowance-proposal.json",
+      "sha256": "0d5d612fbab8bc3a089451b862896807c5010acba176534ca2e8bdf7140127bd",
+      "size_bytes": 305,
+      "gzip_sha256": "f2362544d6a68b96486deac3c986e547901490193e4a169fb2d1d3c7de50ed81",
+      "gzip_size_bytes": 216
+    },
+    {
+      "path": "box-allowance-preview.json",
+      "sha256": "875898263ef8fde495442bc66173c04c88e07f1b599dcf9cf4e69959d6a0a81b",
+      "size_bytes": 8121999,
+      "gzip_sha256": "af73f9034201974102d76ecff857845456c2412b8b08aaec39f71eaef56fa428",
+      "gzip_size_bytes": 492032
+    }
+  ]
+}

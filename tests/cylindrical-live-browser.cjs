@@ -8,7 +8,8 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
   const restartRecovery=process.argv.includes('--restart-recovery');
   if(restartRecovery&&!localRecovery)throw Error('Restart verification requires local recovery.');
   const noWebGL=process.argv.includes('--no-webgl');
-  const browserChannel=process.argv.includes('--edge')?'msedge':'chrome';
+  const browserChannel=process.argv.includes('--headless-shell')?'chromium-headless-shell':process.argv.includes('--edge')?'msedge':'chrome';
+  const launchChannel=browserChannel==='chromium-headless-shell'?undefined:browserChannel;
   let facing=false;
   fs.mkdirSync(out,{recursive:false});
   for(const pin of JSON.parse(fs.readFileSync(path.join(fixture,'index.json')))){
@@ -80,8 +81,8 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
     const contextOptions={viewport:{width:1440,height:1000},acceptDownloads:true};
     const profile=restartRecovery?fs.mkdtempSync(path.join(require('node:os').tmpdir(),'autocam-recovery-test-')):null;
     let context;
-    if(restartRecovery){context=await chromium.launchPersistentContext(profile,{channel:browserChannel,headless:true,downloadsPath:path.join(profile,'downloads'),...contextOptions});browser=context.browser();}
-    else{browser=await chromium.launch({channel:browserChannel,headless:true});context=await browser.newContext(contextOptions);}
+    if(restartRecovery){context=await chromium.launchPersistentContext(profile,{channel:launchChannel,headless:true,downloadsPath:path.join(profile,'downloads'),...contextOptions});browser=context.browser();}
+    else{browser=await chromium.launch({channel:launchChannel,headless:true});context=await browser.newContext(contextOptions);}
     const page=await context.newPage();
     if(noWebGL)await page.addInitScript(()=>{
       const original=HTMLCanvasElement.prototype.getContext;
@@ -353,7 +354,7 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
       const url=page.url();await page.close();
       if(restartRecovery){
         await browser.close();assert(!browser.isConnected());
-        context=await chromium.launchPersistentContext(profile,{channel:browserChannel,headless:true,downloadsPath:path.join(profile,'downloads'),...contextOptions});browser=context.browser();
+        context=await chromium.launchPersistentContext(profile,{channel:launchChannel,headless:true,downloadsPath:path.join(profile,'downloads'),...contextOptions});browser=context.browser();
       }
       const reopened=await context.newPage();
       if(restartRecovery){

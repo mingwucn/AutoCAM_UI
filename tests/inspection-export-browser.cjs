@@ -69,20 +69,32 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
       else assert(display.display.objects.some(o=>o.parameters.radialSegments===48));
       assert.equal(display.display.camera.projection_matrix.length,16);
       assert.equal(await page.evaluate(()=>window.displayGuardsPassed),true);assert.equal(await state.innerText(),before);
-      if(mode==='timeline'&&process.argv.includes('--remaining-side')){
-        const accepted=fixture.payload.frames.findLastIndex(f=>f.outcome?.action?.schema==='adaptive-action-6'&&f.outcome.result.status==='ACCEPTED');
-        const rejected=fixture.payload.frames.findIndex(f=>f.outcome?.action?.schema==='adaptive-action-6'&&f.outcome.result.status==='REJECTED');
+      if(mode==='timeline'&&(process.argv.includes('--remaining-side')||process.argv.includes('--cleared-holder'))){
+        const cleared=process.argv.includes('--cleared-holder'),actionSchema=cleared?'adaptive-action-7':'adaptive-action-6';
+        if(cleared){
+          await page.getByText('Tools available in this recorded episode. Tool reach is the tip-to-holder distance. Cleared-holder actions check the full assembly against current stock.',{exact:true}).waitFor();
+          assert.equal(await page.getByText('Reach is measured from the original stock boundary.',{exact:false}).count(),0);
+        }
+        const accepted=fixture.payload.frames.findLastIndex(f=>f.outcome?.action?.schema===actionSchema&&f.outcome.result.status==='ACCEPTED');
+        const rejected=fixture.payload.frames.findIndex(f=>f.outcome?.action?.schema===actionSchema&&f.outcome.result.status==='REJECTED');
         assert(accepted>=0&&rejected>=0);
         await page.locator('.adaptive-timeline button').nth(accepted).click();
         await page.waitForFunction(expected=>document.querySelector('.adaptive-evidence code')?.textContent===expected,fixture.payload.frames[accepted].state_hash);
         await page.getByText('Recorded tool checks',{exact:true}).click();
-        await page.getByText('Shank and holder clearance uses remaining stock after earlier recorded cuts. Reach and entry restrictions still use the original stock.',{exact:true}).waitFor();
+        await page.getByText(cleared?'The complete shank and holder sweep is checked against current stock, including space cleared by earlier cuts. The tool still enters from outside the original stock.':'Shank and holder clearance uses remaining stock after earlier recorded cuts. Reach and entry restrictions still use the original stock.',{exact:true}).waitFor();
         const check=page.locator('dt').filter({hasText:/^shank_remaining_stock$/});
         assert.match(await check.locator('..').innerText(),/PASS/);
+        if(cleared)assert.match(await page.locator('dt').filter({hasText:/^holder_remaining_stock$/}).locator('..').innerText(),/PASS/);
         const lastState=await state.innerText();
         await page.getByLabel('Recorded tool position',{exact:true}).fill('70');
         assert.equal(await state.innerText(),lastState);
         await page.screenshot({path:path.join(out,'remaining-side-desktop.png'),fullPage:true});
+        if(cleared){
+          await page.setViewportSize({width:390,height:844});
+          assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+          await page.screenshot({path:path.join(out,'cleared-holder-mobile.png'),fullPage:true});
+          await page.setViewportSize({width:1440,height:1000});
+        }
         await page.locator('.adaptive-timeline button').nth(rejected).click();
         await page.waitForFunction(expected=>document.querySelector('.adaptive-evidence code')?.textContent===expected,fixture.payload.frames[rejected].state_hash);
         assert.match(await page.locator('.step-error').innerText(),/REJECTED/);

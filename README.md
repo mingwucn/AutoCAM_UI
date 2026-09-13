@@ -120,3 +120,30 @@ Run `npm run test:release` to check transport integrity and rejection behavior.
 
 Third-party license notices are included in built assets. `private: true` in
 package.json prevents accidental npm publication; this Git repository is public.
+
+### Local STEP finishing allowance
+
+Set Finishing allowance separately from the starting stock margin. The current
+profile supports positive allowance for axis-aligned planar solids and solid
+coaxial cylindrical parts; bores and general CAD require other preparation.
+The reserve remains attached to the geometry during indexed workpiece rotation.
+A setup whose turning allowance or planar standoff conflicts with the reserve
+is rejected. The app does not change the supplied machining requirements.
+
+The new CAD package supplies both preparation and inference for uploaded STEP
+tasks. The existing ordered synthetic catalogue retains its original runtime.
+This is an experimental geometric simulator, not a manufacturing-qualified
+planner. Training stays local. Regional-completion tasks currently support
+manual actions and recordings; their model-inference controls remain disabled.
+
+`npm test` expands and verifies the five allowance fixtures into a fresh ignored
+cache, alongside the existing test fixtures. It requires no parent-repository
+artifacts or environment settings. `npm run test:release` includes corrupted
+fixture and unsafe membership rejection checks. Test fixtures are not deployed.
+
+Inspection uploads also verify all five reported volume intervals against the
+recorded sparse cells and removal coverage using exact integer arithmetic.
+Changed summaries reject even when the outer checksum is recomputed. This
+checks internal consistency; it does not replace native geometry or replay
+verification. The standalone launcher rejects missing declared test files
+before extracting fixtures or running tests.

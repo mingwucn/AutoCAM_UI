@@ -1,4 +1,5 @@
 import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-json.mjs';
+import {verifyInspectionVolumes} from './adaptive-inspection-volumes.mjs';
 export {canonicalAdaptive,parseAdaptiveJson};
 const fail=message=>{throw new Error(message);};
 const hashPattern=/^[0-9a-f]{64}$/;
@@ -52,6 +53,11 @@ function sourceGeometry(shape,depth=0,counter={count:0}){
     fields(shape,['kind','center','radius']);vector(shape.center,3);
     if(exactNumber(shape.radius)<=0)fail('Invalid source sphere.');return;
   }
+  if(shape?.kind==='rounded_cylinder_1'){
+    fields(shape,['kind','base','allowance']);
+    if(shape.base?.kind!=='cylinder'||exactNumber(shape.allowance)<=0)fail('Invalid rounded cylinder.');
+    sourceGeometry(shape.base,depth+1,counter);return;
+  }
   if(shape?.kind==='union'||shape?.kind==='cutout'){
     const children=shape.kind==='union'?shape.children:shape.cutters;
     fields(shape,shape.kind==='union'?['kind','children']:['kind','base','cutters']);
@@ -74,6 +80,10 @@ export function adaptiveGeometryBounds(shape){
   }
   if(shape.kind==='box')return [shape.bounds.low.map(exactNumber),shape.bounds.high.map(exactNumber)];
   if(shape.kind==='cutout')return adaptiveGeometryBounds(shape.base);
+  if(shape.kind==='rounded_cylinder_1'){
+    const [low,high]=adaptiveGeometryBounds(shape.base),a=exactNumber(shape.allowance);
+    return [low.map(v=>v-a),high.map(v=>v+a)];
+  }
   if(shape.kind==='sphere'){const center=shape.center.map(exactNumber),r=exactNumber(shape.radius);return [center.map(x=>x-r),center.map(x=>x+r)];}
   if(shape.kind==='cylinder'){
     const low=[0,0,0],high=[0,0,0],r=exactNumber(shape.radius);let radial=0;
@@ -167,20 +177,30 @@ function recordedToolAction(frame,catalog,catalogId,sourceId,rootId,profiles,set
 async function recordedRemainingSide(frame,prior,catalog,catalogId,sourceId,rootId,profiles,source){
   if(!prior)fail('Remaining side action requires its preceding state.');
   const a=frame.outcome.action,p=frame.outcome.safety?.witness?.tool_assessment;
+  const cleared=a.schema==='adaptive-action-7';
   fields(a,['schema','envelope','scope','axis','sign','catalog_id','tool_id','motion','access_model','clearance_profile','finite_tool_access','continuous_motion']);
-  if(a.clearance_profile!=='remaining_stock_v1'||a.access_model!=='exact-monotone-side-remaining-1'||
-    a.finite_tool_access!=='REQUIRES_REMAINING_SIDE_MILL_CHECKS'||!profiles.includes(a.access_model))fail('Unsupported remaining side profile.');
-  fields(p,['schema','material_hash','baseline','clearance','checks','status','reason','scope','material_event']);
-  if(p.schema!=='adaptive-side-remaining-assessment-1'||p.material_hash!==prior.state_hash||
+  if(a.clearance_profile!==(cleared?'remaining_stock_side_entry_v2':'remaining_stock_v1')||a.access_model!==(cleared?'exact-monotone-side-cleared-holder-1':'exact-monotone-side-remaining-1')||
+    a.finite_tool_access!==(cleared?'REQUIRES_CLEARED_HOLDER_SIDE_CHECKS':'REQUIRES_REMAINING_SIDE_MILL_CHECKS')||!profiles.includes(a.access_model))fail('Unsupported remaining side profile.');
+  fields(p,['schema','material_hash','baseline','clearance','checks','status','reason','scope','material_event',...(cleared?['not_assessed']:[])]);
+  if(p.schema!==(cleared?'adaptive-side-cleared-holder-assessment-1':'adaptive-side-remaining-assessment-1')||p.material_hash!==prior.state_hash||
     frame.outcome.result.before_hash!==prior.state_hash||frame.outcome.result.after_hash!==frame.state_hash||
-    p.scope!=='READ_ONLY_SIDE_SWEEP_WITH_ORIGINAL_ENTRY_REACH_NOT_MANUFACTURING_ACCESS'||p.material_event!==null)fail('Remaining assessment state mismatch.');
+    p.scope!==(cleared?'READ_ONLY_FINITE_SIDE_ENTRY_CURRENT_STOCK_NOT_MACHINE_ACCESS':'READ_ONLY_SIDE_SWEEP_WITH_ORIGINAL_ENTRY_REACH_NOT_MANUFACTURING_ACCESS')||p.material_event!==null)fail('Remaining assessment state mismatch.');
+  if(cleared&&canonicalAdaptive(p.not_assessed)!==canonicalAdaptive(['fixtures','machine_kinematics','spindle_housing','deflection','general_paths','manufacturing_access']))fail('Cleared-holder scope exclusions differ.');
   const b=p.baseline;
   fields(b,['schema','construction','source_geometry_id','root_frame_id','original_stock_id','catalog_id','tool_id','motion','budget','reach_from_original_stock','envelopes','checks','status','reason','scope','material_event','not_assessed']);
   fields(b.budget,['depth','maximum_queries']);
   if(!Number.isInteger(b.budget.depth)||b.budget.depth<0||b.budget.depth>20||!Number.isInteger(b.budget.maximum_queries)||b.budget.maximum_queries<1||b.budget.maximum_queries>100000||b.original_stock_id!==await adaptiveHash(source.stock))fail('Invalid remaining assessment budget/source.');
   const legacy={...a,schema:'adaptive-action-3',access_model:'exact-monotone-side-mill-1',finite_tool_access:'REQUIRES_RESTRICTED_SIDE_MILL_CHECKS'};delete legacy.clearance_profile;
   recordedToolAction({...frame,outcome:{action:legacy,safety:{status:b.status,witness:{tool_assessment:b}},result:{status:'REJECTED'}}},catalog,catalogId,sourceId,rootId,['exact-monotone-side-mill-1'],null);
-  const expected={...b.checks},active=Object.hasOwn(expected,'shank');
+  const expected=cleared?Object.fromEntries(Object.entries(b.checks).filter(([name])=>['source','entry'].includes(name))):{...b.checks};
+  if(cleared&&b.checks.reach?.reason==='side_mill_tip_does_not_enter_original_stock_depth')expected.depth=b.checks.reach;
+  if(cleared){
+    fields(b.envelopes,['cutting','shank','holder']);Object.values(b.envelopes).forEach(sourceGeometry);
+    if(!Object.keys(expected).length||b.scope!=='READ_ONLY_RESTRICTED_SIDE_MILL_GEOMETRY'||b.material_event!==null)fail('Missing cleared-holder entry/source gates.');
+    if(expected.source&&(expected.source.status!=='UNRESOLVED'||!['unsupported_analytic_source','source_containment_not_proven'].includes(expected.source.reason)))fail('Invalid source gate.');
+  }
+  const active=cleared?expected.entry?.status==='PASS'&&!Object.hasOwn(expected,'depth'):Object.hasOwn(expected,'shank');
+  if(cleared&&active)expected.cutting=p.checks?.cutting;
   fields(p.clearance,active?['shank','holder']:[]);
   if(active){
     delete expected.shank;
@@ -203,7 +223,7 @@ async function recordedRemainingSide(frame,prior,catalog,catalogId,sourceId,root
   if(canonicalAdaptive(p.checks)!==canonicalAdaptive(expected))fail('Remaining check composition differs.');
   const failures=Object.values(expected).filter(c=>c.status!=='PASS');
   const failure=failures.find(c=>c.status==='REJECTED')||failures[0],status=failure?.status||'PASS';
-  if(p.status!==status||p.reason!==(failure?.reason||'restricted_remaining_side_sweep_checks_passed')||frame.outcome.safety.status!==status||
+  if(p.status!==status||p.reason!==(failure?.reason||(cleared?'complete_finite_side_assembly_clearance_passed':'restricted_remaining_side_sweep_checks_passed'))||frame.outcome.safety.status!==status||
     (frame.outcome.result.status==='ACCEPTED'?status!=='PASS':frame.outcome.result.status!==status))fail('Remaining outcome contradicts evidence.');
 }
 export function adaptiveCellBounds(root,address){
@@ -221,20 +241,30 @@ export async function readAdaptiveBundle(raw){
   // Canonical bytes preserve arbitrary exact integers and reject alternate encodings.
   if(canonicalAdaptive(wrapper)!==text)fail('Adaptive bundle is not canonical.');
   const p=wrapper.payload;
-  const remainingMixed=p.schema==='adaptive-inspection-payload-7',remainingEpisode=remainingMixed||p.schema==='adaptive-inspection-payload-6',compact=p.schema==='adaptive-inspection-payload-5',turningEpisode=remainingMixed||compact||p.schema==='adaptive-inspection-payload-4',mixedMotion=remainingEpisode||turningEpisode||p.schema==='adaptive-inspection-payload-3',toolEpisode=mixedMotion||p.schema==='adaptive-inspection-payload-2';
+  const clearedMixed=p.schema==='adaptive-inspection-payload-9',clearedEpisode=clearedMixed||p.schema==='adaptive-inspection-payload-8';
+  const remainingMixed=clearedMixed||p.schema==='adaptive-inspection-payload-7',remainingEpisode=clearedEpisode||remainingMixed||p.schema==='adaptive-inspection-payload-6',compact=p.schema==='adaptive-inspection-payload-5',turningEpisode=remainingMixed||compact||p.schema==='adaptive-inspection-payload-4',mixedMotion=remainingEpisode||turningEpisode||p.schema==='adaptive-inspection-payload-3',toolEpisode=mixedMotion||p.schema==='adaptive-inspection-payload-2';
   fields(p,['schema','source','source_geometry_id','frames','certificates','replay','provenance','scope','evidence_grade','limitations',...(toolEpisode?['tool_catalog']:[]),...(mixedMotion?['motion_profiles']:[]),...(turningEpisode?['turning_axis']:[]),...(compact?['certificate_mode']:[])]);
   if(compact&&(p.certificate_mode!=='on_demand'||p.frames?.length!==1||!p.certificates||Array.isArray(p.certificates)||Object.keys(p.certificates).length))fail('Invalid on-demand certificate profile.');
   if((toolEpisode?p.scope!=='FINITE_TOOL_SHADOW_PLANNING':p.schema!=='adaptive-inspection-payload-1'||p.scope!=='DIRECTIONAL_SHADOW_PLANNING')||p.evidence_grade!=='bounded')fail('Unsupported adaptive inspection scope.');
   const profiles=mixedMotion?p.motion_profiles:['exact-monotone-plunge-1'];
-  if(!Array.isArray(profiles)||(!turningEpisode&&!profiles.length)||profiles.length>(remainingMixed?4:remainingEpisode||turningEpisode?3:2)||profiles.some(v=>!['exact-monotone-plunge-1','exact-monotone-side-mill-1',...(remainingEpisode?['exact-monotone-side-remaining-1']:[]),...(turningEpisode?['full_angle_meridional_shadow_1']:[])].includes(v))||canonicalAdaptive(profiles)!==canonicalAdaptive([...new Set(profiles)].sort())||(remainingMixed||mixedMotion&&!turningEpisode)&&!profiles.includes(remainingEpisode?'exact-monotone-side-remaining-1':'exact-monotone-side-mill-1'))fail('Unsupported tool motion profiles.');
+  const allowedProfiles=['exact-monotone-plunge-1','exact-monotone-side-mill-1',...(remainingEpisode?['exact-monotone-side-remaining-1']:[]),...(clearedEpisode?['exact-monotone-side-cleared-holder-1']:[]),...(turningEpisode?['full_angle_meridional_shadow_1']:[])];
+  const requiredProfile=clearedEpisode?'exact-monotone-side-cleared-holder-1':remainingEpisode?'exact-monotone-side-remaining-1':'exact-monotone-side-mill-1';
+  if(!Array.isArray(profiles)||(!turningEpisode&&!profiles.length)||profiles.length>allowedProfiles.length||profiles.some(v=>!allowedProfiles.includes(v))||canonicalAdaptive(profiles)!==canonicalAdaptive([...new Set(profiles)].sort())||(clearedEpisode||remainingMixed||mixedMotion&&!turningEpisode)&&!profiles.includes(requiredProfile))fail('Unsupported tool motion profiles.');
+  if(clearedEpisode&&(!Array.isArray(p.frames)||!p.frames.some(f=>f.outcome?.action?.schema==='adaptive-action-7')))fail('Cleared-holder payload requires its recorded action.');
   if(await adaptiveHash(p)!==wrapper.payload_sha256)fail('Adaptive payload checksum mismatch.');
   const source=p.source,root=source.root;
   const constructed=source.schema==='adaptive-source-domain-2';
   fields(source,['schema','stock','target','protected','root','policy',...(constructed?['target_construction']:[])]);
   fields(root,['schema','units','origin','side','frame']);vector(root.origin,3);
   if(exactNumber(root.side)<=0||typeof root.frame!=='string'||!root.frame)fail('Invalid adaptive root.');
-  fields(source.policy,['schema','version','allowance_description','cell_boundary','units']);
-  if(source.policy.schema!=='adaptive-policy-1'||source.policy.version!=='analytic-closed-cell-1'||source.policy.cell_boundary!=='half_open_index_closed_predicate'||source.policy.units!=='mm')fail('Unsupported geometry policy.');
+  const uniform=source.policy?.schema==='adaptive-policy-2';
+  fields(source.policy,['schema','version','allowance_description','cell_boundary','units',...(uniform?['uniform_allowance_mm','allowance_construction']:[])]);
+  if(!['adaptive-policy-1','adaptive-policy-2'].includes(source.policy.schema)||source.policy.version!=='analytic-closed-cell-1'||source.policy.cell_boundary!=='half_open_index_closed_predicate'||source.policy.units!=='mm')fail('Unsupported geometry policy.');
+  if(uniform){
+    exactNumber(source.policy.uniform_allowance_mm);
+    if(compareQ(source.policy.uniform_allowance_mm,[0,1])<0||source.policy.allowance_description!=='uniform_euclidean_allowance'||
+       !['euclidean_box_sphere_union_1','euclidean_box_sphere_cylinder_union_1'].includes(source.policy.allowance_construction))fail('Unsupported uniform allowance policy.');
+  }
   [source.stock,source.target,source.protected].forEach(s=>sourceGeometry(s));
   if(!['adaptive-source-domain-1','adaptive-source-domain-2'].includes(source.schema)||root.schema!=='adaptive-root-1'||root.units!=='mm')fail('Unsupported adaptive source.');
   const geometryBinding={stock:source.stock,target:source.target,protected:source.protected,policy:source.policy};
@@ -288,8 +318,9 @@ export async function readAdaptiveBundle(raw){
     if(toolEpisode){
       if(canonicalAdaptive(f.material.tool_catalog)!==canonicalAdaptive(p.tool_catalog))fail('Frame changes frozen tool catalog.');
       if(turningEpisode&&canonicalAdaptive(f.material.turning_axis)!==canonicalAdaptive(p.turning_axis))fail('Frame changes frozen spindle axis.');
-      if(f.outcome?.action?.schema==='adaptive-action-6'){
+      if(['adaptive-action-6','adaptive-action-7'].includes(f.outcome?.action?.schema)){
         if(!remainingEpisode)fail('Remaining action requires payload6 or payload7.');
+        if(f.outcome.action.schema==='adaptive-action-7'&&!clearedEpisode)fail('Cleared-holder action requires payload8 or payload9.');
         await recordedRemainingSide(f,p.frames[frameIndex-1],p.tool_catalog,catalogId,geometryId,rootId,profiles,source);
       }else recordedToolAction(f,p.tool_catalog,catalogId,geometryId,rootId,profiles,setup);
     }
@@ -310,6 +341,7 @@ export async function readAdaptiveBundle(raw){
     for(const leaf of leaves){const a=leaf.address;for(let depth=0;depth<a.depth;depth++)if(seen.has(depth+':'+(BigInt(a.morton_prefix)>>BigInt(3*(a.depth-depth)))))fail('Overlapping adaptive partition.');}
     if(coverageUnits!==(1n<<60n))fail('Incomplete adaptive partition.');
     Object.values(f.volumes).forEach(interval);
+    verifyInspectionVolumes(f,root);
   }
   return Object.freeze({...p,bundle_hash:wrapper.payload_sha256,catalog_id:catalogId});
 }

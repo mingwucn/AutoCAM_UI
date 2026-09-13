@@ -81,7 +81,7 @@ self.onmessage=async({data})=>{
     const automatic=data.operation==='prepare_auto',preparing=data.operation==='prepare'||automatic,inspecting=data.operation==='inspect_directions';
     closed(data,['id','operation','assets','source','sourceSHA256','profile',...(automatic?['stockOptions']:preparing?['preparation']:inspecting?['directionSetup']:[])]);
     if(!Number.isSafeInteger(id)||id<1||!['construct','prepare','prepare_auto','inspect_directions'].includes(data.operation))throw Error('Invalid CAD operation.');
-    if(automatic)closed(data.stockOptions,['mode','margin','axis','depth']);
+    if(automatic)closed(data.stockOptions,['mode','margin','axis','depth',...(Object.hasOwn(data.stockOptions??{},'allowance')?['allowance']:[])]);
     else if(preparing)closed(data.preparation,['stock','root','budget']);
     else if(inspecting){
       closed(data.directionSetup,['machineJSON','machineSHA256','advanceSign']);

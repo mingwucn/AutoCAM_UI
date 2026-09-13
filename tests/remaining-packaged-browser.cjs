@@ -4,6 +4,8 @@ const {chromium}=require('playwright');
 
 (async()=>{
   const [siteArg,checkpointArg,outArg]=process.argv.slice(2),site=path.resolve(siteArg),out=path.resolve(outArg);
+  const cleared=JSON.parse(await fs.readFile(path.resolve(checkpointArg),'utf8')).schema==='adaptive-linear-q-checkpoint-6';
+  const caseID=cleared?'cleared_holder_access':'remaining_tool_clearance';
   await fs.mkdir(out,{recursive:false});
   const sha=raw=>createHash('sha256').update(raw).digest('hex');
   const manifestBytes=await fs.readFile(path.join(site,'build-manifest.json')),manifest=JSON.parse(manifestBytes);
@@ -28,9 +30,13 @@ const {chromium}=require('playwright');
       window.remainingDiagnostics=[];const Original=window.Worker;
       window.Worker=class extends Original{constructor(...args){super(...args);this.addEventListener('message',event=>{if(event.data.diagnostics)window.remainingDiagnostics.push(event.data.diagnostics);});}};
     });
-    page.setDefaultTimeout(120000);await page.goto(origin+'/AutoCAM_UI/');
-    const removal=await page.evaluate(()=>window.SHADOW_CONFIG.adaptiveRuntime.cases.find(c=>c.id==='remaining_tool_clearance')?.removalWeights===true);
-    await page.getByLabel('Prepared adaptive case').selectOption('remaining_tool_clearance');
+    page.setDefaultTimeout(cleared?300000:120000);await page.goto(origin+'/AutoCAM_UI/');
+    await page.waitForFunction(()=>window.shadowApp?.snapshot().scene==='block');
+    assert.ok(requests.some(r=>r.url.endsWith('/catalogue/catalog.json')&&r.status===200),'Legacy catalogue must load');
+    assert.equal(await page.getByText('Unable to load the shadow gym',{exact:true}).count(),0);
+    const packed=await page.evaluate(id=>window.SHADOW_CONFIG.adaptiveRuntime.cases.find(c=>c.id===id)?.packedDomain===true,caseID);
+    const removal=await page.evaluate(id=>window.SHADOW_CONFIG.adaptiveRuntime.cases.find(c=>c.id===id)?.removalWeights===true,caseID);
+    await page.getByLabel('Prepared adaptive case').selectOption(caseID);
     await page.getByRole('button',{name:'Open case',exact:true}).click();
     const panel=page.locator('.adaptive-live');
     const ready=()=>page.waitForFunction(()=>document.querySelector('.adaptive-live')?.dataset.stale==='false'&&!document.querySelector('[role="status"]'));
@@ -44,7 +50,7 @@ const {chromium}=require('playwright');
     await (await pending).saveAs(path.join(out,'episode.json'));await ready();
     const episodeBytes=await fs.readFile(path.join(out,'episode.json'));
     const episode=JSON.parse(episodeBytes);
-    assert.equal(episode.task.schema,'adaptive-mill-turn-core-roughing-task-5');assert.equal(episode.records.length,2);
+    assert.equal(episode.task.schema,cleared?'adaptive-mill-turn-core-roughing-task-6':'adaptive-mill-turn-core-roughing-task-5');assert.equal(episode.records.length,2);
     assert.equal(episode.records[1].trace.mode,'model_mcts');assert.equal(episode.training_performed,false);
     assert.equal(episode.final_state_hash,await panel.getAttribute('data-state-hash'));
     assert.equal(episode.checkpoint_sha256,sha(await fs.readFile(path.resolve(checkpointArg))));
@@ -54,6 +60,17 @@ const {chromium}=require('playwright');
     assert.ok(guide.includes('--expected-sha256 '+sha(episodeBytes)));
     assert.ok(guide.includes('train_recorded_remaining.py'));
     assert.equal(await panel.getAttribute('data-state-hash'),episode.final_state_hash);
+    if(cleared){
+      assert.ok(guide.includes('compatible task-6 Gym'));
+      await page.getByText('Side-tool clearance checks the complete shank and holder against current stock, including space cleared by earlier cuts.',{exact:true}).waitFor();
+      assert.equal(await page.getByText('Reach is measured from the original stock boundary.',{exact:false}).count(),0);
+      const inspectionDownload=page.waitForEvent('download');await page.getByRole('button',{name:'Download inspection',exact:true}).click();
+      await (await inspectionDownload).saveAs(path.join(out,'inspection.json'));await ready();
+      const inspection=JSON.parse(await fs.readFile(path.join(out,'inspection.json'),'utf8')).payload;
+      assert.equal(inspection.frames.length,2);assert.equal(inspection.frames.at(-1).state_hash,episode.final_state_hash);
+      assert.equal(inspection.provenance.projection,'task6_live_episode_replay');assert.equal(inspection.replay.status,'passed');
+      assert.equal(await panel.getAttribute('data-state-hash'),episode.final_state_hash);
+    }
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
     await page.setViewportSize({width:390,height:844});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
@@ -74,6 +91,11 @@ const {chromium}=require('playwright');
     assert.ok(diagnostics.some(row=>row.wasm_remaining_calls>0));assert.ok(diagnostics.every(row=>row.remaining_backend==='WasmRemainingAssessor'));
     assert.ok(diagnostics.filter(row=>row.material_state_type===null).length>=2,'Recovery must initialize a fresh worker');
     assert.ok(diagnostics.at(-1).wasm_remaining_calls>0,'Recovered session must retain the WASM assessor');
+    if(packed){
+      assert.ok(diagnostics.every(row=>row.session_type===(cleared?'PackedClearedHolderBrowserSession':'PackedRemainingSideBrowserSession')));
+      assert.ok(diagnostics.filter(row=>row.domain_type).every(row=>row.domain_type==='PackedDomainSnapshot'&&row.material_state_type==='PackedWasmMaterialState'));
+      assert.equal(diagnostics.at(-1).domain_type,'PackedDomainSnapshot');
+    }
     if(removal){
       assert.ok(diagnostics.some(row=>row.wasm_removal_calls>0));
       assert.ok(diagnostics.every(row=>row.removal_backend==='WasmRemovalAssessor'));
@@ -90,6 +112,7 @@ const {chromium}=require('playwright');
     const localDiagnostics=(await page.evaluate(()=>window.remainingDiagnostics)).slice(diagnostics.length);
     await fs.writeFile(path.join(out,'diagnostics.json'),JSON.stringify({accelerated:diagnostics,local:localDiagnostics},null,2));
     assert.ok(localDiagnostics.length>0);
+    if(packed)assert.ok(localDiagnostics.filter(row=>row.domain_type).every(row=>row.domain_type==='DomainSnapshot'&&row.session_type===(cleared?'ClearedHolderBrowserSession':'RemainingSideBrowserSession')));
     assert.ok(localDiagnostics.every(row=>!Object.hasOwn(row,'remaining_backend')&&!Object.hasOwn(row,'wasm_remaining_calls')&&!Object.hasOwn(row,'history_backend_enabled')));
     assert.ok(localDiagnostics.every(row=>!Object.hasOwn(row,'removal_backend')&&!Object.hasOwn(row,'wasm_removal_calls')));
     await panel.locator('.action-row > button.primary').click();await ready();
@@ -112,7 +135,7 @@ const {chromium}=require('playwright');
     assert.deepEqual(errors,[]);assert.ok(requests.some(row=>row.url.endsWith('/volume-query.wasm')&&row.status===200));
     await verify();
     const result={status:'passed',browser:browser.version(),buildManifestSHA256:sha(manifestBytes),diagnostics,requests,errors,
-      catalogue:true,modelMCTS:true,download:true,trainingGuideExact:true,lateGuideDownloadSuppressed:true,mobileOverflowFree:true,reset:true,recoveryExact:true,localReferenceIsolated:true,localDiagnostics,removalWeights:removal,
+      taskSchema:episode.task.schema,catalogue:true,modelMCTS:true,download:true,inspectionDownloaded:cleared,trainingGuideExact:true,lateGuideDownloadSuppressed:true,mobileOverflowFree:true,reset:true,recoveryExact:true,localReferenceIsolated:true,localDiagnostics,removalWeights:removal,packedDomain:packed,
       externalNetworkBlocked:true,deployed:false,fullPlanComplete:false};
     await fs.writeFile(path.join(out,'result.json'),JSON.stringify(result,null,2));
     const index=[];for(const name of await fs.readdir(out))index.push({path:name,sha256:sha(await fs.readFile(path.join(out,name)))});
