@@ -1,5 +1,6 @@
 const encoder=new TextEncoder();
 let attempted=false,machiningAttempt=false,machiningInvalidated=false,machiningErrorSent=false;
+let inspectionAttempt=false,inspectionInvalidated=false;
 const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
 function closed(value,keys){
   if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!==[...keys].sort().join(','))throw Error('Unknown or missing CAD message fields.');
@@ -18,6 +19,42 @@ async function asset(address,pin,limit){
   return bytes;
 }
 function machiningActive(){if(machiningInvalidated)throw Error('Machining preparation was invalidated.');}
+async function inspectSourceCell(data){
+  closed(data,['id','operation','assets','certificate','certificateSHA256','cell','cellSHA256']);
+  if(data.id!==1)throw Error('Invalid source-cell request identity.');
+  if(!(data.certificate instanceof Uint8Array)||!(data.certificate.buffer instanceof ArrayBuffer)||!data.certificate.length||data.certificate.length>8*1024**2)throw Error('Invalid source certificate bytes.');
+  if(typeof data.cell!=='string'||!data.cell.length||encoder.encode(data.cell).length>16*1024)throw Error('Invalid exact cell JSON.');
+  if(await hash(data.certificate)!==data.certificateSHA256||await hash(encoder.encode(data.cell))!==data.cellSHA256)throw Error('Source-cell input identity differs.');
+  const a=data.assets;
+  closed(a,['runtimeBaseURL','codeURL','codeSHA256','cadModuleURL','cadModuleSHA256','cadWasmURL','cadWasmSHA256']);
+  for(const key of ['runtimeBaseURL','codeURL','cadModuleURL','cadWasmURL']){
+    if(typeof a[key]!=='string'||!a[key].length||a[key].length>4096)throw Error('Invalid source inspection asset URL.');url(a[key]);
+  }
+  for(const key of ['codeSHA256','cadModuleSHA256','cadWasmSHA256'])
+    if(typeof a[key]!=='string'||!/^[0-9a-f]{64}$/.test(a[key]))throw Error('Invalid source inspection asset hash.');
+  const runtime=url(a.runtimeBaseURL);if(!runtime.endsWith('/'))throw Error('Invalid Python runtime URL.');
+  const active=()=>{if(inspectionInvalidated)throw Error('Source inspection was invalidated.');};
+  active();self.postMessage({id:data.id,type:'progress',phase:'Loading shared source-face queries'});
+  const archive=await asset(a.codeURL,a.codeSHA256,32*1024**2);active();
+  const {loadPyodide}=await import(new URL('pyodide.mjs',runtime).href);active();
+  const py=await loadPyodide({indexURL:runtime});active();
+  py.unpackArchive(archive,'zip',{extractDir:'/app'});
+  py.runPython('import sys; sys.dont_write_bytecode=True; sys.path[:0]=["/app/sources","/app/deps"]');
+  py.FS.mkdirTree('/inspection');py.FS.writeFile('/inspection/certificate.json',data.certificate);py.FS.writeFile('/inspection/cell.json',encoder.encode(data.cell));
+  py.FS.writeFile('/inspection/pin.txt',encoder.encode(data.certificateSHA256));
+  const associations=py.runPython(`
+from pathlib import Path
+from autocam.adaptive_delta.cad_cell_faces import CadCellFaceIndex
+from autocam.adaptive_delta.codec import parse_canonical
+from autocam.adaptive_delta.domain import Bounds, canonical
+inspection_index=CadCellFaceIndex(Path('/inspection/certificate.json').read_bytes(),expected_sha256=Path('/inspection/pin.txt').read_text())
+inspection_cell=Bounds.from_data(parse_canonical(Path('/inspection/cell.json').read_bytes(),maximum_bytes=16384))
+canonical(inspection_index.query(inspection_cell)).decode()
+`);
+  if(typeof associations!=='string'||!associations.length||encoder.encode(associations).length>1024**2)throw Error('Source-face response exceeds its byte budget.');
+  const associationsSHA256=await hash(encoder.encode(associations));active();
+  self.postMessage({id:data.id,type:'result',operation:'inspect_source_cell',certificateSHA256:data.certificateSHA256,cellSHA256:data.cellSHA256,associations,associationsSHA256});
+}
 async function prepareMachining(data){
   const {id}=data;
   closed(data,['id','operation','assets','initial','initialSHA256','setup','setupSHA256','policy','policySHA256']);
@@ -75,8 +112,9 @@ None
 self.onmessage=async({data})=>{
   const id=data?.id;
   try{
-    if(attempted){if(machiningAttempt)machiningInvalidated=true;throw Error(machiningAttempt?'This CAD worker has already attempted machining preparation.':'This CAD worker has already attempted an import.');}
+    if(attempted){if(machiningAttempt)machiningInvalidated=true;if(inspectionAttempt)inspectionInvalidated=true;throw Error(machiningAttempt?'This CAD worker has already attempted machining preparation.':inspectionAttempt?'This CAD worker has already attempted source inspection.':'This CAD worker has already attempted an import.');}
     attempted=true;
+    if(data.operation==='inspect_source_cell'){inspectionAttempt=true;await inspectSourceCell(data);return;}
     if(data.operation==='prepare_machining'){machiningAttempt=true;await prepareMachining(data);return;}
     const automatic=data.operation==='prepare_auto',preparing=data.operation==='prepare'||automatic,inspecting=data.operation==='inspect_directions';
     closed(data,['id','operation','assets','source','sourceSHA256','profile',...(automatic?['stockOptions']:preparing?['preparation']:inspecting?['directionSetup']:[])]);
@@ -89,7 +127,7 @@ self.onmessage=async({data})=>{
       if(typeof data.directionSetup.machineJSON!=='string'||!data.directionSetup.machineJSON.length||encoder.encode(data.directionSetup.machineJSON).length>1024**2)throw Error('Invalid or oversized exact machine JSON.');
       if(typeof data.directionSetup.machineSHA256!=='string'||!/^[0-9a-f]{64}$/.test(data.directionSetup.machineSHA256)||await hash(encoder.encode(data.directionSetup.machineJSON))!==data.directionSetup.machineSHA256)throw Error('Exact machine identity differs.');
     }
-    if(!['rectilinear','periodic_nominal'].includes(data.profile))throw Error('Explicit supported source construction profile required.');
+    if(!['rectilinear','periodic_nominal','spherical_nominal'].includes(data.profile))throw Error('Explicit supported source construction profile required.');
     if(!(data.source instanceof Uint8Array)||!data.source.length||data.source.length>100*1024**2||await hash(data.source)!==data.sourceSHA256)throw Error('STEP source bytes or identity differ.');
     const a=data.assets;
     closed(a,['runtimeBaseURL','codeURL','codeSHA256','cadModuleURL','cadModuleSHA256','cadWasmURL','cadWasmSHA256']);
@@ -103,7 +141,7 @@ self.onmessage=async({data})=>{
     finally{URL.revokeObjectURL(moduleURL);}
     self.postMessage({id,type:'progress',phase:'Reading STEP without geometry repair'});
     cad.FS.writeFile('/source.step',data.source);
-    if(cad.callMain(['step','/source.step','0.000001','/imported.brep'])!==0)throw Error('STEP reader or source audit failed.');
+    if(cad.callMain(['step','/source.step','0.000001','/imported.brep',...(data.profile==='spherical_nominal'?['spherical_nominal']:[])])!==0)throw Error('STEP reader or source audit failed.');
     const snapshot=cad.FS.readFile('/imported.brep');
     const line=stdout.findLast(s=>s.startsWith('{"schema":"adaptive-cad-audit-1"'));
     if(!line)throw Error('CAD audit output missing.');

@@ -4,8 +4,9 @@ Interactive React explorer for direction and finite tool reach in milling and
 axis-based turning. Five cases include simple shapes and parts 3-29-00350 and
 3-29-00289. The theme uses KU Leuven blue `#004070`.
 
-This is an experimental voxel shadow model, not a qualified machining or
-toolpath simulator. React owns controls and session state; the existing
+The teaching catalogue uses an experimental voxel shadow model. The separate
+adaptive STEP workflow uses the shared Python material model in the browser.
+Neither workflow is a qualified machining or toolpath simulator. React owns controls and session state; the existing
 Three.js renderer and numerical model retain their original behavior.
 
 ## Develop
@@ -74,7 +75,7 @@ The parent AutoCAM repository owns report prose, figures and export scripts.
 
 GitHub Pages uses the Actions workflow and publishes only `dist/`. Main-branch
 deployments follow provider, parity and browser checks. In repository Settings
-â†’ Pages, select GitHub Actions as the source.
+Ã¢â€ â€™ Pages, select GitHub Actions as the source.
 
 Publish a new data commit first, then update `dataCommit` and `catalogUrl`
 together and rerun verification. Commit and push the UI; the parent repository
@@ -124,8 +125,9 @@ package.json prevents accidental npm publication; this Git repository is public.
 ### Local STEP finishing allowance
 
 Set Finishing allowance separately from the starting stock margin. The current
-profile supports positive allowance for axis-aligned planar solids and solid
-coaxial cylindrical parts; bores and general CAD require other preparation.
+profile supports positive allowance for axis-aligned planar solids, complete
+principal-frame spheres and coaxial cylindrical parts, including through-bores.
+General CAD remains unsupported by this bounded preparation profile.
 The reserve remains attached to the geometry during indexed workpiece rotation.
 A setup whose turning allowance or planar standoff conflicts with the reserve
 is rejected. The app does not change the supplied machining requirements.
@@ -147,3 +149,17 @@ Changed summaries reject even when the outer checksum is recomputed. This
 checks internal consistency; it does not replace native geometry or replay
 verification. The standalone launcher rejects missing declared test files
 before extracting fixtures or running tests.
+
+### Original face inspection before machining
+
+Choose Complete principal-frame sphere for a supported spherical STEP solid.
+After preparing stock, select an adaptive cell and choose Load original CAD
+faces. The shared Python code checks exact closed-cell contact with the original
+nominal face; display triangles and finishing allowance do not define that test.
+The result can be empty, and contact does not prove tool access. Highlight all
+touching faces, choose one face, hide the overlay or cancel a running query.
+
+Sphere upload currently supports stock preparation and inspection. Sphere
+machining routes are not yet available. The nominal construction keeps original
+import tolerances unchanged; it does not repair industrial CAD or establish
+manufacturing qualification. Files stay in the browser.

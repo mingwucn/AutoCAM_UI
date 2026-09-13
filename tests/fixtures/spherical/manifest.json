@@ -1,0 +1,9 @@
+{
+  "schema": "spherical-preview-test-fixture-1",
+  "source_proof_index_sha256": "1be1fa89771b75153019bf40f72fb22679b6a094e41c7b6263ab2b86f10b07bd",
+  "source_leaf": "sphere-origin-zero-preview.json",
+  "source_leaf_sha256": "a34c93e50fb354539a9967b095cf9343e611f9d030ed1f79248b3023ef65c642",
+  "bytes": 1312287,
+  "sha256": "903d55098b35deaa699b75555fb24a47acae358a07d403509915ed594790741a",
+  "compressed_sha256": "1438c6d87dd936db228531c20c5a9a506861cb40eca816aae0f52fd937ff343b"
+}

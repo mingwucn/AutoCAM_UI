@@ -8,7 +8,7 @@
     "sha256": "dc5b2156640702d11db84f1a6fddd97161cd0425dc51cd523ecba513a193c7d0"
   },
   "adaptiveCadRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/e23c1cbe29da4091495fd6104771b0a92b80a764/releases/adaptive-annular-refined-20260913/release.json",
-    "sha256": "552b7452a73fceeeca7f5188d910cd828e286147949c6d4c09425d362aa1b808"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/dc5fdc2d5934253084e80086d3d386f0baee7fc2/releases/adaptive-spherical-inspection-20260913/release.json",
+    "sha256": "4c13dbc25bc31021e46c434fb0526cf0ce4fdd8ea2598b52b85bab4f1ff850ef"
   }
 }

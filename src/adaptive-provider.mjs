@@ -277,6 +277,39 @@ export async function readAdaptiveBundle(raw){
   const geometryBinding={stock:source.stock,target:source.target,protected:source.protected,policy:source.policy};
   if(constructed){
     const c=source.target_construction;
+    if(c.schema==='adaptive-spherical-construction-1'){
+      // Transport/display checks only. The Python runtime regenerates admission.
+      fields(c,['schema','scope','binding','extraction','geometry','spherical_convention','construction',
+        'literal_parameterized_trim_equality','source_step_import_equivalence_proved','manufactured_surface_tolerance_proved',
+        'pi_interval','native_period_error_upper_rad','continuous_face_parameter_discrepancy_upper_mm',
+        'continuous_seam_pair_discrepancy_upper_mm','poles','original_tolerance_ceiling_mm','face_map',
+        'pi_volume_coefficient_mm3','volume_bounds_mm3']);
+      if(c.scope!=='spherical_nominal_solid'||c.spherical_convention!=='principal_sphere_chart_uv_scaled_to_two_pi_1'||
+         c.construction!=='complete_oriented_spherical_chart_quotient'||c.literal_parameterized_trim_equality!==false||
+         c.source_step_import_equivalence_proved!==false||c.manufactured_surface_tolerance_proved!==false)fail('Unsupported spherical CAD construction scope.');
+      fields(c.binding,['raw_source_sha256','imported_snapshot_sha256']);
+      if(Object.values(c.binding).some(v=>typeof v!=='string'||!/^[0-9a-f]{64}$/.test(v)))fail('Invalid CAD source binding.');
+      if(c.geometry?.kind!=='sphere'||canonicalAdaptive(c.geometry)!==canonicalAdaptive(source.target))fail('CAD target/construction mismatch.');
+      const bounded=q=>{if(exactNumber(q)<0||compareQ(q,[1,10000000])>=0)fail('Invalid spherical discrepancy bound.');};
+      if(exactNumber(c.native_period_error_upper_rad)<0)fail('Invalid spherical period bound.');
+      bounded(c.continuous_face_parameter_discrepancy_upper_mm);bounded(c.continuous_seam_pair_discrepancy_upper_mm);
+      if(canonicalAdaptive(c.original_tolerance_ceiling_mm)!=='[1,10000000]')fail('Invalid spherical tolerance profile.');
+      if(!Array.isArray(c.pi_interval)||c.pi_interval.length!==2||exactNumber(c.pi_interval[0])<3||exactNumber(c.pi_interval[1])>4||compareQ(...c.pi_interval)>=0||exactNumber(c.pi_volume_coefficient_mm3)<=0)fail('Invalid spherical volume proof.');
+      interval(c.volume_bounds_mm3);
+      if(!Array.isArray(c.poles)||c.poles.length!==2||c.poles[0].sign!==-1||c.poles[1].sign!==1)fail('Invalid spherical poles.');
+      for(const pole of c.poles){
+        fields(pole,['edge_index','vertex_index','sign','vertex_l1_displacement_mm','pcurve_vertex_upper_mm','wrapped_circle_vertex_upper_mm']);
+        if(!Number.isSafeInteger(pole.edge_index)||pole.edge_index<1||pole.edge_index>3||!Number.isSafeInteger(pole.vertex_index)||pole.vertex_index<1||pole.vertex_index>2)fail('Invalid spherical pole identity.');
+        bounded(pole.vertex_l1_displacement_mm);bounded(pole.pcurve_vertex_upper_mm);bounded(pole.wrapped_circle_vertex_upper_mm);
+      }
+      const e=c.extraction;
+      fields(e,['schema','status','root_orientation','root_location','shell_orientation','shell_location','counts','faces']);
+      if(e.schema!=='adaptive-sphere-extraction-1'||e.status!=='EXTRACTED'||e.root_orientation!==0||e.shell_orientation!==0||
+         canonicalAdaptive(e.counts)!==canonicalAdaptive({COMPOUND:0,COMPSOLID:0,SOLID:1,SHELL:1,FACE:1,WIRE:1,EDGE:3,VERTEX:2})||
+         !Array.isArray(e.faces)||e.faces.length!==1||e.faces[0].index!==1||!Array.isArray(c.face_map)||c.face_map.length!==1)fail('Invalid spherical source topology.');
+      const face=c.face_map[0];fields(face,['session_index','kind','outward_sign','ordered_occurrences','seam_edge_index']);
+      if(face.session_index!==1||face.kind!=='sphere'||face.outward_sign!==1||face.ordered_occurrences!==4||!Number.isSafeInteger(face.seam_edge_index)||face.seam_edge_index<1||face.seam_edge_index>3)fail('Invalid spherical face mapping.');
+    }else{
     const periodic=c.schema==='adaptive-periodic-construction-1';
     const common=['schema','scope','binding','extraction','geometry','face_map','arrangement_cells','occupied_cells','boundary_tiles_checked','construction','source_step_import_equivalence_proved','manufactured_surface_tolerance_proved'];
     fields(c,[...common,...(periodic?['periodic_convention','literal_parameterized_trim_equality','seam_diagnostic','continuous_parameter_discrepancy_upper_mm','axis','transverse_center_mm','pi_volume_coefficient_mm3','volume_bounds_mm3']:['exact_volume_mm3','continuous_curve_pcurve_discrepancy_mm'])]);
@@ -297,6 +330,7 @@ export async function readAdaptiveBundle(raw){
     if(canonicalAdaptive(c.geometry)!==canonicalAdaptive(source.target))fail('CAD target/construction mismatch.');
     if(!Number.isSafeInteger(c.arrangement_cells)||c.arrangement_cells<1||c.arrangement_cells>20000||!Number.isSafeInteger(c.occupied_cells)||c.occupied_cells<1||c.occupied_cells>c.arrangement_cells||!Number.isSafeInteger(c.boundary_tiles_checked)||c.boundary_tiles_checked<1)fail('Invalid CAD construction counts.');
     if(c.extraction?.schema!==(periodic?'adaptive-revolution-extraction-1':'adaptive-rectilinear-extraction-1')||c.extraction.status!=='EXTRACTED'||!Array.isArray(c.extraction.faces)||c.extraction.faces.length<(periodic?3:6)||c.extraction.faces.length>256||!Array.isArray(c.face_map)||c.face_map.length!==c.extraction.faces.length)fail('Invalid CAD face construction.');
+    }
     geometryBinding.target_construction_id=await adaptiveHash(c);
   }
   const geometryId=await adaptiveHash(geometryBinding);

@@ -127,3 +127,57 @@ test('shared turning/milling episode binds axis, insert family, full-angle seman
   await tamper(p=>{p.frames[2].outcome.safety.witness.tool_assessment.budget.maximum_queries=0;},/assessment budget/);
   await tamper(p=>{p.motion_profiles=['exact-monotone-plunge-1'];},/Unsupported tool action/);
 });
+
+
+test('actual spherical browser preview preserves source identity and rejects altered construction claims',async()=>{
+  const {gunzipSync}=await import('node:zlib');const {createHash}=await import('node:crypto');
+  const fixture=new URL('./fixtures/spherical/',import.meta.url);
+  const manifest=JSON.parse(await fs.readFile(new URL('manifest.json',fixture),'utf8'));
+  const compressed=await fs.readFile(new URL('origin-preview.json.gz',fixture));
+  assert.equal(createHash('sha256').update(compressed).digest('hex'),manifest.compressed_sha256);
+  const bytes=gunzipSync(compressed,{maxOutputLength:2*1024**2});
+  assert.equal(bytes.length,manifest.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),manifest.sha256);
+  const raw=bytes.toString('utf8'),original=parseAdaptiveJson(raw),bundle=await readAdaptiveBundle(raw);
+  assert.equal(bundle.source.target_construction.spherical_convention,'principal_sphere_chart_uv_scaled_to_two_pi_1');
+  assert.equal(canonicalAdaptive(bundle.source.target),canonicalAdaptive({kind:'sphere',center:[[0,1],[0,1],[0,1]],radius:[4,1]}));
+  assert.equal(bundle.frames.length,1);
+  async function tamper(edit,pattern){const changed=structuredClone(original);edit(changed.payload.source.target_construction);changed.payload_sha256=await adaptiveHash(changed.payload);await assert.rejects(readAdaptiveBundle(canonicalAdaptive(changed)),pattern);}
+  await tamper(c=>{c.spherical_convention='rounded_import';},/construction scope/);
+  await tamper(c=>{c.literal_parameterized_trim_equality=true;},/construction scope/);
+  await tamper(c=>{c.source_step_import_equivalence_proved=true;},/construction scope/);
+  await tamper(c=>{c.manufactured_surface_tolerance_proved=true;},/construction scope/);
+  await tamper(c=>{c.geometry.radius=[5,1];},/target\/construction mismatch/);
+  await tamper(c=>{c.continuous_seam_pair_discrepancy_upper_mm=[29,5000];},/discrepancy bound/);
+  await tamper(c=>{c.poles[1].wrapped_circle_vertex_upper_mm=[1,1000000];},/discrepancy bound/);
+  await tamper(c=>{c.poles[1].sign=-1;},/spherical poles/);
+  await tamper(c=>{c.original_tolerance_ceiling_mm=[1,1000];},/tolerance profile/);
+  await tamper(c=>{c.extraction.counts.SOLID=2;},/source topology/);
+  await tamper(c=>{c.face_map[0].outward_sign=-1;},/face mapping/);
+  await tamper(c=>{c.volume_bounds_mm3={lower_mm3:[2,1],upper_mm3:[1,1]};},/volume interval/);
+  await tamper(c=>{c.binding.imported_snapshot_sha256='0'.repeat(64);},/source identity mismatch/);
+  await tamper(c=>{c.extra=true;},/Unknown or missing/);
+});
+
+
+test('spherical source-face display preserves the source and forms an outward bounded mesh',async()=>{
+  const {gunzipSync}=await import('node:zlib');const {sourceFaceDisplay}=await import('../src/cad-face-display.mjs');
+  const bytes=await fs.readFile(new URL('./fixtures/spherical/origin-preview.json.gz',import.meta.url));
+  const wrapper=parseAdaptiveJson(gunzipSync(bytes).toString('utf8')),certificate=wrapper.payload.source.target_construction;
+  const before=canonicalAdaptive(certificate),[mesh]=sourceFaceDisplay(certificate,[1]);
+  assert.equal(canonicalAdaptive(certificate),before);assert.equal(mesh.sourceFaceIndex,1);
+  assert.equal(mesh.displayOnly,true);assert.equal(mesh.curved,true);
+  assert.equal(mesh.approximation.profile,'spherical-angular-tessellation');assert.equal(mesh.approximation.certified_error_bound_mm,null);
+  assert.equal(mesh.sourceReference.raw_source_sha256,certificate.binding.raw_source_sha256);
+  assert.equal(mesh.sourceReference.imported_snapshot_sha256,certificate.binding.imported_snapshot_sha256);
+  const points=Array.from({length:mesh.positions.length/3},(_,i)=>mesh.origin.map((v,k)=>v+mesh.positions[3*i+k]));
+  for(const p of points)assert.ok(Math.abs(Math.hypot(...p)-4)<2e-6);
+  let volume=0;
+  for(let i=0;i<mesh.indices.length;i+=3){
+    const [a,b,c]=mesh.indices.slice(i,i+3).map(j=>points[j]),u=b.map((x,k)=>x-a[k]),v=c.map((x,k)=>x-a[k]);
+    const cross=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+    const determinant=cross.reduce((sum,x,k)=>sum+x*a[k],0);assert.ok(determinant>0);volume+=determinant/6;
+  }
+  assert.ok(volume<256*Math.PI/3&&volume>.99*256*Math.PI/3);
+  for(const indices of [[1,1],[2],[true]])assert.throws(()=>sourceFaceDisplay(certificate,indices));
+  const changed=structuredClone(certificate);changed.geometry.radius=[5,1];assert.throws(()=>sourceFaceDisplay(changed,[1]));
+});
