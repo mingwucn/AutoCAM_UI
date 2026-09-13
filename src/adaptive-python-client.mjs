@@ -58,7 +58,8 @@ export class AdaptivePythonClient {
     const historyQuery=Object.hasOwn(assets??{},'historyQuery');
     const remainingWeights=Object.hasOwn(assets??{},'remainingWeights');
     const removalWeights=Object.hasOwn(assets??{},'removalWeights');
-    const assetFields=['codeSHA256','codeURL','runtimeBaseURL',...(volumeQuery?['volumeQuery']:[]),...(historyQuery?['historyQuery']:[]),...(remainingWeights?['remainingWeights']:[]),...(removalWeights?['removalWeights']:[])];
+    const packedDomain=Object.hasOwn(assets??{},'packedDomain');
+    const assetFields=['codeSHA256','codeURL','runtimeBaseURL',...(volumeQuery?['volumeQuery']:[]),...(historyQuery?['historyQuery']:[]),...(remainingWeights?['remainingWeights']:[]),...(removalWeights?['removalWeights']:[]),...(packedDomain?['packedDomain']:[])];
     if(!assets||typeof assets!=='object'||Object.keys(assets).sort().join(',')!==assetFields.sort().join(',')
        ||typeof assets.codeURL!=='string'||typeof assets.runtimeBaseURL!=='string'||!isDigest(assets.codeSHA256)){
       throw new TypeError('Invalid trusted simulator assets.');
@@ -66,6 +67,7 @@ export class AdaptivePythonClient {
     if(historyQuery&&(!volumeQuery||assets.historyQuery!==true))throw new TypeError('Invalid trusted history query selection.');
     if(remainingWeights&&(!historyQuery||assets.remainingWeights!==true))throw new TypeError('Invalid trusted remaining weights selection.');
     if(removalWeights&&(!remainingWeights||assets.removalWeights!==true))throw new TypeError('Invalid trusted removal weights selection.');
+    if(packedDomain&&(!removalWeights||assets.packedDomain!==true))throw new TypeError('Invalid trusted packed domain selection.');
     if(volumeQuery){
       const v=assets.volumeQuery;
       if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).sort().join(',')!=='moduleSHA256,moduleURL,wasmSHA256,wasmURL'

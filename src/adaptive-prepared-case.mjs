@@ -14,7 +14,7 @@ export function createPreparedLiveCase({taskBytes,initialBytes,name,seed=0,confi
   const indexed=parsed.schema==='adaptive-indexed-browser-config-1';
   const cylindrical=['adaptive-cylindrical-choice-browser-config-1','adaptive-cylindrical-choice-browser-config-2','adaptive-cylindrical-choice-browser-config-3','adaptive-cylindrical-choice-browser-config-4','adaptive-cylindrical-choice-browser-config-5','adaptive-cylindrical-choice-browser-config-6','adaptive-cylindrical-policy-browser-config-1','adaptive-cylindrical-policy-browser-config-2','adaptive-cylindrical-policy-browser-config-3'].includes(parsed.schema);
   const combined=['adaptive-combined-browser-config-1','adaptive-combined-browser-config-2','adaptive-combined-browser-config-3'].includes(parsed.schema);
-  const remainingSide=parsed.schema==='adaptive-mill-turn-core-roughing-task-5';
+  const remainingSide=['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(parsed.schema);
   if(!indexed&&!combined&&!cylindrical&&!remainingSide&&parsed.schema!=='adaptive-mill-turn-core-roughing-task-4')
     throw Error('Select a compatible prepared mill-turn task.');
   return {kind:cylindrical?'cylindrical-live':combined?'combined-live':indexed?'indexed-live':'adaptive-live',key:crypto.randomUUID(),

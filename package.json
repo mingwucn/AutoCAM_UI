@@ -6,7 +6,7 @@
     "dev": "node scripts/dev.cjs",
     "build": "node scripts/build.cjs",
     "build:release": "node scripts/build-release.mjs",
-    "test:release": "node --test tests/release-assets.test.mjs tests/test-fixtures.test.mjs",
+    "test:release": "node --test tests/release-assets.test.mjs tests/test-fixtures.test.mjs tests/allowance-fixtures.test.mjs",
     "build:embed": "node scripts/build.cjs --embed",
     "test": "node scripts/test.mjs",
     "test:adaptive-browser": "node tests/adaptive-browser.cjs",
@@ -16,7 +16,7 @@
     "test:core-wasm": "node core/tests/wasm-smoke.mjs",
     "test:step-import": "node core/tests/occt-step-smoke.mjs",
     "test:step-upload": "node tests/step-upload.cjs",
-    "test:unit": "node --test tests/providers.test.mjs tests/workflow.test.cjs tests/brep-client.test.mjs tests/adaptive-provider.test.mjs tests/adaptive-tool-model.test.mjs tests/adaptive-mill-turn-model.test.mjs tests/adaptive-bounded-mill-turn-model.test.mjs tests/adaptive-turning-view.test.mjs tests/adaptive-python-client.test.mjs tests/adaptive-python-session.test.mjs tests/adaptive-live-view.test.mjs tests/indexed-python-session.test.mjs tests/indexed-live-view.test.mjs tests/adaptive-profile-view.test.mjs tests/prepared-comparison.test.mjs tests/adaptive-runtime-selection.test.mjs tests/adaptive-prepared-case.test.mjs tests/adaptive-training-guide.test.mjs tests/adaptive-cad-machining-client.test.mjs tests/combined-completion-profile.test.mjs"
+    "test:unit": "node --test tests/providers.test.mjs tests/workflow.test.cjs tests/brep-client.test.mjs tests/adaptive-provider.test.mjs tests/adaptive-tool-model.test.mjs tests/adaptive-mill-turn-model.test.mjs tests/adaptive-bounded-mill-turn-model.test.mjs tests/adaptive-turning-view.test.mjs tests/adaptive-python-client.test.mjs tests/adaptive-python-session.test.mjs tests/adaptive-live-view.test.mjs tests/indexed-python-session.test.mjs tests/indexed-live-view.test.mjs tests/adaptive-profile-view.test.mjs tests/prepared-comparison.test.mjs tests/adaptive-runtime-selection.test.mjs tests/adaptive-packed-selection.test.mjs tests/cleared-holder-selection.test.mjs tests/adaptive-prepared-case.test.mjs tests/adaptive-training-guide.test.mjs tests/adaptive-cad-machining-client.test.mjs tests/combined-completion-profile.test.mjs tests/cad-allowance-client.test.mjs"
   },
   "dependencies": {
     "opencascade.js": "2.0.0-beta.b5ff984",

@@ -89,6 +89,17 @@ test('build copies pinned query assets and rejects wrong hashes and extra fields
   manifest.cases[0].removalWeights=true;put('manifest.json',JSON.stringify(manifest));
   const removal=copyRuntime(root,path.join(dir,'removal'));
   assert.equal(removal.cases[0].removalWeights,true);assert.equal(removal.removalWeights,undefined);
+  manifest.cases[0].packedDomain=true;put('manifest.json',JSON.stringify(manifest));
+  const packed=copyRuntime(root,path.join(dir,'packed'));
+  assert.equal(packed.cases[0].packedDomain,true);assert.equal(packed.packedDomain,undefined);
+  for(const value of [false,1,'true',null]){
+    manifest.cases[0].packedDomain=value;put('manifest.json',JSON.stringify(manifest));
+    assert.throws(()=>copyRuntime(root,path.join(dir,'packed-invalid')),/packed domain selection/);
+  }
+  manifest.cases[0].packedDomain=true;delete manifest.cases[0].removalWeights;
+  put('manifest.json',JSON.stringify(manifest));
+  assert.throws(()=>copyRuntime(root,path.join(dir,'packed-missing')),/packed domain selection/);
+  delete manifest.cases[0].packedDomain;manifest.cases[0].removalWeights=true;
   manifest.cases[0].removalWeights=1;put('manifest.json',JSON.stringify(manifest));
   assert.throws(()=>copyRuntime(root,path.join(dir,'removal-invalid')),/removal weights selection/);
   delete manifest.cases[0].removalWeights;

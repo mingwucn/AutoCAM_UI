@@ -9,3 +9,5 @@ core/build*/
 .cache/releases/
 .cache/test-fixtures/
 core/brep/**/__pycache__/
+
+.cache/allowance-fixtures/

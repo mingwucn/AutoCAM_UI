@@ -112,8 +112,38 @@ export async function prepareCadMachining(input,{workerURL,assets,signal,onProgr
   });
 }
 
+function allowanceRatio(value=0){
+  const text=typeof value==='number'&&Number.isSafeInteger(value)?String(value):value;
+  if(typeof text!=='string'||text.length>128)throw Error('Invalid finishing allowance.');
+  const ratio=/^([+-]?\d+)\/(\d+)$/.exec(text);
+  let n,d;
+  if(ratio){n=BigInt(ratio[1]);d=BigInt(ratio[2]);}
+  else{
+    const m=/^([+-]?)(\d*)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(text);
+    if(!m||!(m[2]||m[3])||Math.abs(Number(m[4]||0))>100)throw Error('Invalid finishing allowance.');
+    n=BigInt((m[1]==='-'?'-':'')+(m[2]||'0')+(m[3]||''));d=10n**BigInt((m[3]||'').length);
+    const exponent=Number(m[4]||0);if(exponent>=0)n*=10n**BigInt(exponent);else d*=10n**BigInt(-exponent);
+  }
+  if(d<=0n||n<0n||n>1000000n*d)throw Error('Invalid finishing allowance.');
+  return [n,d];
+}
+function checkPreparedAllowance(data,expected){
+  const proposal=parseAdaptiveJson(data.proposedPreparation),snapshot=parseAdaptiveJson(data.initial);
+  const same=value=>Array.isArray(value)&&value.length===2&&
+    ['bigint','number'].includes(typeof value[0])&&['bigint','number'].includes(typeof value[1])&&
+    BigInt(value[1])>0n&&BigInt(value[0])*expected[1]===expected[0]*BigInt(value[1]);
+  const policy=snapshot.logical?.source?.policy;
+  if(expected[0]===0n){
+    if(Object.hasOwn(proposal,'uniform_allowance_mm')||policy?.schema!=='adaptive-policy-1')throw Error('Prepared finishing allowance differs from the requested value.');
+  }else if(!same(proposal.uniform_allowance_mm)||policy?.schema!=='adaptive-policy-2'||
+    policy.allowance_construction!=='euclidean_box_sphere_cylinder_union_1'||!same(policy.uniform_allowance_mm))
+    throw Error('Prepared finishing allowance differs from the requested value.');
+}
+
 export async function prepareCadFile(file,{workerURL,assets,stockOptions,profile,signal,onProgress=()=>{}}){
   if(signal?.aborted)throw abortError();
+  stockOptions={...stockOptions};
+  const expectedAllowance=allowanceRatio(stockOptions.allowance);
   if(!file||!Number.isSafeInteger(file.size)||file.size<1||file.size>100*1024**2)throw Error('STEP file exceeds its size limit.');
   const source=new Uint8Array(await file.arrayBuffer());
   if(signal?.aborted)throw abortError();
@@ -140,6 +170,7 @@ export async function prepareCadFile(file,{workerURL,assets,stockOptions,profile
         if(data.type==='error'){finish(Error(data.message));return;}
         if(data.type!=='result'||data.sourceSHA256!==sourceSHA256||data.profile!==profile||
            typeof data.certificate!=='string'||typeof data.initial!=='string'||typeof data.proposedPreparation!=='string')throw Error('Incomplete STEP preparation response.');
+        checkPreparedAllowance(data,expectedAllowance);
         await readCadPreview(data.preview,data.initial);
         finish(null,data);
       }catch(error){finish(error);}
