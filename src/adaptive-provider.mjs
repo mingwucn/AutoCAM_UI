@@ -1,4 +1,5 @@
 import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-json.mjs';
+import {verifyInspectionVolumes} from './adaptive-inspection-volumes.mjs';
 export {canonicalAdaptive,parseAdaptiveJson};
 const fail=message=>{throw new Error(message);};
 const hashPattern=/^[0-9a-f]{64}$/;
@@ -340,6 +341,7 @@ export async function readAdaptiveBundle(raw){
     for(const leaf of leaves){const a=leaf.address;for(let depth=0;depth<a.depth;depth++)if(seen.has(depth+':'+(BigInt(a.morton_prefix)>>BigInt(3*(a.depth-depth)))))fail('Overlapping adaptive partition.');}
     if(coverageUnits!==(1n<<60n))fail('Incomplete adaptive partition.');
     Object.values(f.volumes).forEach(interval);
+    verifyInspectionVolumes(f,root);
   }
   return Object.freeze({...p,bundle_hash:wrapper.payload_sha256,catalog_id:catalogId});
 }

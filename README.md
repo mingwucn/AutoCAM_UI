@@ -140,3 +140,10 @@ manual actions and recordings; their model-inference controls remain disabled.
 cache, alongside the existing test fixtures. It requires no parent-repository
 artifacts or environment settings. `npm run test:release` includes corrupted
 fixture and unsafe membership rejection checks. Test fixtures are not deployed.
+
+Inspection uploads also verify all five reported volume intervals against the
+recorded sparse cells and removal coverage using exact integer arithmetic.
+Changed summaries reject even when the outer checksum is recomputed. This
+checks internal consistency; it does not replace native geometry or replay
+verification. The standalone launcher rejects missing declared test files
+before extracting fixtures or running tests.
