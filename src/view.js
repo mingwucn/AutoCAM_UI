@@ -4,6 +4,7 @@ import {adaptiveCellBounds,adaptiveGeometryBounds,canonicalAdaptive,exactNumber,
 import {annularDisplaySegments,previewTool,turningPreview} from './adaptive-turning-view.mjs';
 import {cylinderFlatsProfile,throughSlotProfile,profileFrameReflected} from './adaptive-profile-view.mjs';
 import {visibleSourceFaceHit} from './cad-face-picking.mjs';
+import {visibleMaterialLabels} from './material-layers.js';
 
 const C=['#ffffff','#087f8c','#526079','#f5a544','#9d8ac7','#8dc9e8','#dde7eb'];
 
@@ -153,9 +154,9 @@ export class View {
     for(const x of [low[0],high[0]])for(const y of [low[1],high[1]])for(const z of [low[2],high[2]])maximum=Math.max(maximum,new THREE.Vector3(x,y,z).dot(d)-entry);
     if(action.length<maximum)this.line(points,'#336f91',true);
   }
-  update(gym,id,{phase='action',section=null,cutaway=false,keepCamera=true}={}){
+  update(gym,id,{phase='action',section=null,cutaway=false,keepCamera=true,layers}={}){
     const changed=this.sceneId!==gym.scene.id;this.sceneId=gym.scene.id;this.meta=gym.scene.geometry;this.clear();
-    const labels=gym.labels(id,phase),meta=this.meta,dims=meta.shape;
+    const labels=visibleMaterialLabels(gym.labels(id,phase),layers),meta=this.meta,dims=meta.shape;
     if(cutaway&&section){
       const strides=[dims[1]*dims[2],dims[2],1],cut=Math.floor((section.station-meta.origin_mm[section.axis])/meta.pitch_mm);
       for(let i=0;i<labels.length;i++){

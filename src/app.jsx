@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {useGymSession, formatNumber as fmt} from './use-gym-session.js';
 import {MaterialViews} from './material-views.jsx';
 import {DataSource} from './data-source.jsx';
+import {MATERIAL_LAYERS, allMaterialLayers} from './material-layers.js';
 
 function Controls({session, sceneRef, catalog, onSelectCase}) {
   const {state, scene, directions, dispatch, live} = session;
@@ -34,11 +35,15 @@ function ViewControls({session, viewRef, webgl}) {
   </div>;
 }
 
-function Legend() {
-  return <div className="legend" aria-label="Material colors">
-    {[['Target', '#087f8c'], ['Holding', '#526079'], ['Remove', '#f5a544'], ['In shadow', '#9d8ac7'], ['Beyond reach', '#8dc9e8'], ['Remaining stock', '#e8eef1']]
-      .map(([label, color]) => <span key={label}><i className="swatch" style={{background: color}}/>{label}</span>)}
-  </div>;
+function Legend({layers, setLayers}) {
+  return <fieldset className="legend material-layers">
+    <legend>Show layers</legend>
+    {MATERIAL_LAYERS.map(([id, label, color]) => <label key={id}>
+      <input type="checkbox" checked={layers[id]} onChange={e => { const visible = e.target.checked; setLayers(current => ({...current, [id]: visible})); }}/>
+      <i className="swatch" style={{background: color}}/>{label}
+    </label>)}
+    <button type="button" onClick={() => setLayers(allMaterialLayers())}>Show all</button>
+  </fieldset>;
 }
 
 function ActionBar({session}) {
@@ -108,6 +113,7 @@ function SequenceHistory({history,workflow}) {
 export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase, initialMode, focusOnMount}) {
   const session = useGymSession(data, initialMode), viewRef = useRef(null), sceneRef = useRef(null), gymRef = useRef(null), version = useRef(0);
   const [webgl, setWebgl] = useState(false);
+  const [layers, setLayers] = useState(allMaterialLayers);
   const {state, live, playback, scene, dispatch} = session;
   const launch = useCallback((sceneId, mode) => {
     onSelectCase(sceneId, mode);
@@ -149,9 +155,10 @@ export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase,
     </nav>
     <p id="active-case" className="active-case" aria-live="polite">{scene.title} · {state.mode === 'milling' ? 'Milling' : 'Turning'} · {state.replay ? 'replaying recorded material' : 'live stock'}</p>
     <Controls session={session} sceneRef={sceneRef} catalog={catalog} onSelectCase={onSelectCase}/>
-    <MaterialViews session={session} viewRef={viewRef} onWebGL={setWebgl} figureBaseUrl={figureBaseUrl}/>
+    <Legend layers={layers} setLayers={setLayers}/>
+    <MaterialViews session={session} viewRef={viewRef} onWebGL={setWebgl} figureBaseUrl={figureBaseUrl} layers={layers}/>
     <ViewControls session={session} viewRef={viewRef} webgl={webgl}/>
-    <Legend/><ActionBar session={session}/><Metrics session={session} data={data}/><SequenceHistory history={live.history} workflow={!!scene.workflow}/>
+    <ActionBar session={session}/><Metrics session={session} data={data}/><SequenceHistory history={live.history} workflow={!!scene.workflow}/>
   </section>;
 }
 
