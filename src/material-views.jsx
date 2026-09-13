@@ -2,7 +2,7 @@ import {useLayoutEffect, useRef, useState} from 'react';
 import {drawSection, sectionDescription} from './section.js';
 import {formatNumber as fmt} from './use-gym-session.js';
 
-export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl}) {
+export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl, layers}) {
   const container = useRef(null), canvas = useRef(null), priorEpisode = useRef(null);
   const [webgl, setWebgl] = useState(null);
   const {displayGym: gym, displayAction: action, isPreview, section, state, scene} = session;
@@ -27,14 +27,14 @@ export function MaterialViews({session, viewRef, onWebGL, figureBaseUrl}) {
 
   useLayoutEffect(() => {
     const episode = scene.id;
-    viewRef.current?.update(gym, action.id, {phase, section, cutaway: state.cutaway,
+    viewRef.current?.update(gym, action.id, {phase, section, cutaway: state.cutaway, layers,
       keepCamera: priorEpisode.current === episode});
     priorEpisode.current = episode;
-    drawSection(canvas.current, gym, action.id, phase, section);
-    const observer = new ResizeObserver(() => drawSection(canvas.current, gym, action.id, phase, section));
+    drawSection(canvas.current, gym, action.id, phase, section, layers);
+    const observer = new ResizeObserver(() => drawSection(canvas.current, gym, action.id, phase, section, layers));
     observer.observe(canvas.current);
     return () => observer.disconnect();
-  }, [gym, action.id, phase, section, state.cutaway, scene.id, state.mode, viewRef]);
+  }, [gym, action.id, phase, section, state.cutaway, scene.id, state.mode, viewRef, layers]);
 
   const fallback = scene.ui?.fallback || {block: '05_block_3d', overhang: '06_overhang_3d', cylinder: '07_cylinder_3d', industrial: '08_real_part'}[scene.id];
   return <div className="views">

@@ -1,11 +1,12 @@
 import {formatNumber as fmt} from './use-gym-session.js';
+import {visibleMaterialLabels} from './material-layers.js';
 
 export function sectionDescription(gym,s){
   const m=gym.scene.geometry, fixed=Math.max(0,Math.min(m.shape[s.axis]-1,Math.floor((s.station-m.origin_mm[s.axis])/m.pitch_mm)));
   return 'Section at '+['X','Y','Z'][s.axis]+' = '+fmt(m.origin_mm[s.axis]+(fixed+.5)*m.pitch_mm)+' mm · same material state';
 }
 
-export function drawSection(canvas,gym,id,phase,s){
+export function drawSection(canvas,gym,id,phase,s,layers){
     const dpr=Math.min(devicePixelRatio||1,2),rect=canvas.getBoundingClientRect();
     canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);
     const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);const width=rect.width,height=rect.height;
@@ -13,7 +14,7 @@ export function drawSection(canvas,gym,id,phase,s){
     const m=gym.scene.geometry,dims=m.shape,other=[0,1,2].filter(x=>x!==s.axis),strides=[dims[1]*dims[2],dims[2],1];
     const fixed=Math.max(0,Math.min(dims[s.axis]-1,Math.floor((s.station-m.origin_mm[s.axis])/m.pitch_mm)));
     const nx=dims[other[0]],ny=dims[other[1]],scale=Math.min((width-60)/nx,(height-80)/ny),ox=(width-nx*scale)/2,oy=(height-ny*scale)/2;
-    const labels=gym.labels(id,phase),colors=['#fff','#087f8c','#526079','#f5a544','#9d8ac7','#8dc9e8','#e8eef1'];
+    const labels=visibleMaterialLabels(gym.labels(id,phase),layers),colors=['#fff','#087f8c','#526079','#f5a544','#9d8ac7','#8dc9e8','#e8eef1'];
     const sample=(x,y)=>labels[fixed*strides[s.axis]+x*strides[other[0]]+y*strides[other[1]]];
     // Paint one exact section image, then scale without cell-edge antialiasing.
     const tile=document.createElement('canvas');tile.width=nx;tile.height=ny;
