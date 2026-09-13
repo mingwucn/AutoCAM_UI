@@ -156,7 +156,7 @@ export class View {
   }
   update(gym,id,{phase='action',section=null,cutaway=false,keepCamera=true,layers}={}){
     const changed=this.sceneId!==gym.scene.id;this.sceneId=gym.scene.id;this.meta=gym.scene.geometry;this.clear();
-    const labels=visibleMaterialLabels(gym.labels(id,phase),layers),meta=this.meta,dims=meta.shape;
+    const labels=visibleMaterialLabels(gym.labels(id,phase),layers,gym.labels(id,'stock')),meta=this.meta,dims=meta.shape;
     if(cutaway&&section){
       const strides=[dims[1]*dims[2],dims[2],1],cut=Math.floor((section.station-meta.origin_mm[section.axis])/meta.pitch_mm);
       for(let i=0;i<labels.length;i++){
