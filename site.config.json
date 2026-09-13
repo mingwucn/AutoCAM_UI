@@ -8,7 +8,7 @@
     "sha256": "dc5b2156640702d11db84f1a6fddd97161cd0425dc51cd523ecba513a193c7d0"
   },
   "adaptiveCadRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/976782adefb016764970a243387a495757682abd/releases/adaptive-allowance-20260913/cad/release.json",
-    "sha256": "99da8ce8e9b11ea3f1aedb5c88509db5e3c9c2c5bb0c3e20d84c292f41ab8291"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/e23c1cbe29da4091495fd6104771b0a92b80a764/releases/adaptive-annular-refined-20260913/release.json",
+    "sha256": "552b7452a73fceeeca7f5188d910cd828e286147949c6d4c09425d362aa1b808"
   }
 }

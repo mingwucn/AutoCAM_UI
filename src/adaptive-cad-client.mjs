@@ -44,7 +44,8 @@ async function checkedMachiningResult(data,pins,setupText,policyText){
   const setup=machiningJSON(setupText),policy=machiningJSON(policyText);
   const snapshot=machiningJSON(new TextDecoder('utf-8',{fatal:true}).decode(initial));
   const source=snapshot.logical?.source,certificate=source?.target_construction;
-  if(configuration.schema!=='adaptive-combined-browser-config-3'||ledger.schema!=='adaptive-cad-machining-preparation-1'||snapshot.schema!=='adaptive-snapshot-envelope-1'||source?.schema!=='adaptive-source-domain-2'||!certificate||setup.schema!=='adaptive-cad-machining-setup-1'||policy.schema!=='adaptive-cad-machining-policy-1')throw Error('Unsupported machining result or source schema.');
+  if(configuration.schema!=='adaptive-combined-browser-config-3'||ledger.schema!=='adaptive-cad-machining-preparation-1'||snapshot.schema!=='adaptive-snapshot-envelope-1'||source?.schema!=='adaptive-source-domain-2'||!certificate||setup.schema!=='adaptive-cad-machining-setup-1'||!['adaptive-cad-machining-policy-1','adaptive-cad-machining-policy-2'].includes(policy.schema))throw Error('Unsupported machining result or source schema.');
+  if(policy.schema==='adaptive-cad-machining-policy-2'&&(policy.completion_query_profile!=='regional_refined_history_1'||configuration.completion?.query_profile!==policy.completion_query_profile))throw Error('Machining completion profile differs from requested policy.');
   if(configuration.initial_domain_sha256!==pins.initial||configuration.genesis?.initial_snapshot_id!==pins.initial||ledger.initial_snapshot_sha256!==pins.initial||ledger.setup_sha256!==pins.setup||ledger.policy_sha256!==pins.policy||ledger.configuration_sha256!==data.configurationSHA256||ledger.snapshot_unchanged!==true||ledger.target_unchanged!==true||ledger.accepted_machining!==false||ledger.general_curved_routes_generated!==false||ledger.industrial_qualified!==false||!machiningDigest(ledger.task_id))throw Error('Machining configuration and ledger bindings differ.');
   const same=(a,b)=>canonicalAdaptive(a)===canonicalAdaptive(b);
   const setupKeys=['catalog','context','machine','orientation_id','station','cost_model','rotating_fixture','stationary_geometry','turning_seconds_per_mm','spindle_start_seconds','stop_lock_seconds'];
@@ -127,6 +128,19 @@ function allowanceRatio(value=0){
   if(d<=0n||n<0n||n>1000000n*d)throw Error('Invalid finishing allowance.');
   return [n,d];
 }
+function preparedAllowanceProfile(target){
+  const pending=[target];let visited=0;
+  while(pending.length){
+    const shape=pending.pop();
+    if(++visited>128||visited+pending.length>128||!shape)throw Error('Invalid prepared allowance target.');
+    if(shape.kind==='cutout')return 'euclidean_box_sphere_annular_union_1';
+    if(shape.kind==='union'){
+      if(!Array.isArray(shape.children))throw Error('Invalid prepared allowance target.');
+      pending.push(...shape.children);
+    }else if(shape.kind==='indexed_solid_1')pending.push(shape.base);
+  }
+  return 'euclidean_box_sphere_cylinder_union_1';
+}
 function checkPreparedAllowance(data,expected){
   const proposal=parseAdaptiveJson(data.proposedPreparation),snapshot=parseAdaptiveJson(data.initial);
   const same=value=>Array.isArray(value)&&value.length===2&&
@@ -136,7 +150,7 @@ function checkPreparedAllowance(data,expected){
   if(expected[0]===0n){
     if(Object.hasOwn(proposal,'uniform_allowance_mm')||policy?.schema!=='adaptive-policy-1')throw Error('Prepared finishing allowance differs from the requested value.');
   }else if(!same(proposal.uniform_allowance_mm)||policy?.schema!=='adaptive-policy-2'||
-    policy.allowance_construction!=='euclidean_box_sphere_cylinder_union_1'||!same(policy.uniform_allowance_mm))
+    policy.allowance_construction!==preparedAllowanceProfile(snapshot.logical?.source?.target)||!same(policy.uniform_allowance_mm))
     throw Error('Prepared finishing allowance differs from the requested value.');
 }
 

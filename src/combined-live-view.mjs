@@ -61,7 +61,7 @@ export async function readCombinedView(raw,configuration,expected){
     const profileFields=completionVersion===2?['query_profile']:[];
     fields(s,['schema','source_geometry_id','global_budget','regions',...profileFields]);
     fields(r,['schema','specification_id','source_geometry_id','material_hash','residual_profile','global_remaining','global_budget','global_passed','regions','completed',...profileFields]);
-    if(!completionVersion||r.schema!==`adaptive-regional-completion-report-${completionVersion}`||completionVersion===2&&(s.query_profile!=='regional_positive_volume_box_1'||r.query_profile!==s.query_profile))fail('Regional completion profile differs.');
+    if(!completionVersion||r.schema!==`adaptive-regional-completion-report-${completionVersion}`||completionVersion===2&&(!['regional_positive_volume_box_1','regional_refined_history_1'].includes(s.query_profile)||r.query_profile!==s.query_profile))fail('Regional completion profile differs.');
     if(r.specification_id!==await adaptiveHash(s)||r.source_geometry_id!==bundle.source_geometry_id||s.source_geometry_id!==r.source_geometry_id||r.material_hash!==o.material_hash||r.residual_profile!=='initial_material_minus_accepted_shadow_union_1'||!same(r.global_remaining,o.remaining)||!same(r.global_budget,s.global_budget)||!same(r.global_budget,configuration.residual_budget)||r.global_passed!==(compareQ(o.remaining.upper_mm3,r.global_budget)<=0))fail('Regional completion binding differs.');
     nonnegative(r.global_budget);
     if(!Array.isArray(s.regions)||s.regions.length<1||s.regions.length>32||!Array.isArray(r.regions)||r.regions.length!==s.regions.length||new Set(s.regions.map(v=>v.name)).size!==s.regions.length)fail('Regional obligation denominator differs.');

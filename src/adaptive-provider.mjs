@@ -58,6 +58,13 @@ function sourceGeometry(shape,depth=0,counter={count:0}){
     if(shape.base?.kind!=='cylinder'||exactNumber(shape.allowance)<=0)fail('Invalid rounded cylinder.');
     sourceGeometry(shape.base,depth+1,counter);return;
   }
+  if(shape?.kind==='rounded_annulus_1'){
+    fields(shape,['kind','base','inner_radius','allowance']);
+    if(shape.base?.kind!=='cylinder')fail('Invalid rounded annulus.');
+    sourceGeometry(shape.base,depth+1,counter);exactNumber(shape.inner_radius);exactNumber(shape.allowance);
+    if(compareQ(shape.inner_radius,[0,1])<=0||compareQ(shape.inner_radius,shape.base.radius)>=0||compareQ(shape.allowance,[0,1])<=0)fail('Invalid rounded annulus.');
+    return;
+  }
   if(shape?.kind==='union'||shape?.kind==='cutout'){
     const children=shape.kind==='union'?shape.children:shape.cutters;
     fields(shape,shape.kind==='union'?['kind','children']:['kind','base','cutters']);
@@ -80,7 +87,7 @@ export function adaptiveGeometryBounds(shape){
   }
   if(shape.kind==='box')return [shape.bounds.low.map(exactNumber),shape.bounds.high.map(exactNumber)];
   if(shape.kind==='cutout')return adaptiveGeometryBounds(shape.base);
-  if(shape.kind==='rounded_cylinder_1'){
+  if(shape.kind==='rounded_cylinder_1'||shape.kind==='rounded_annulus_1'){
     const [low,high]=adaptiveGeometryBounds(shape.base),a=exactNumber(shape.allowance);
     return [low.map(v=>v-a),high.map(v=>v+a)];
   }
@@ -263,7 +270,7 @@ export async function readAdaptiveBundle(raw){
   if(uniform){
     exactNumber(source.policy.uniform_allowance_mm);
     if(compareQ(source.policy.uniform_allowance_mm,[0,1])<0||source.policy.allowance_description!=='uniform_euclidean_allowance'||
-       !['euclidean_box_sphere_union_1','euclidean_box_sphere_cylinder_union_1'].includes(source.policy.allowance_construction))fail('Unsupported uniform allowance policy.');
+       !['euclidean_box_sphere_union_1','euclidean_box_sphere_cylinder_union_1','euclidean_box_sphere_annular_union_1'].includes(source.policy.allowance_construction))fail('Unsupported uniform allowance policy.');
   }
   [source.stock,source.target,source.protected].forEach(s=>sourceGeometry(s));
   if(!['adaptive-source-domain-1','adaptive-source-domain-2'].includes(source.schema)||root.schema!=='adaptive-root-1'||root.units!=='mm')fail('Unsupported adaptive source.');
