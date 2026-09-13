@@ -10,6 +10,7 @@
     "build:embed": "node scripts/build.cjs --embed",
     "test": "node scripts/test.mjs",
     "test:adaptive-browser": "node tests/adaptive-browser.cjs",
+    "test:spherical-bands": "node tests/spherical-bands-browser.mjs",
     "test:brep-browser": "node tests/brep-browser.cjs",
     "test:parity": "node tests/parity.cjs",
     "test:browser": "node tests/browser.cjs",

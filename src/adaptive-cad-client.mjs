@@ -1,5 +1,6 @@
 import {readCadPreview} from './adaptive-cad-preview.mjs';
 import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-json.mjs';
+import {bindCadFaceActions} from './cad-face-actions.mjs';
 const abortError=()=>Object.assign(Error('STEP preparation canceled.'),{name:'AbortError'});
 const machiningAbort=()=>Object.assign(Error('Machining preparation canceled.'),{name:'AbortError'});
 const machiningEncoder=new TextEncoder();
@@ -44,8 +45,9 @@ async function checkedMachiningResult(data,pins,setupText,policyText){
   const setup=machiningJSON(setupText),policy=machiningJSON(policyText);
   const snapshot=machiningJSON(new TextDecoder('utf-8',{fatal:true}).decode(initial));
   const source=snapshot.logical?.source,certificate=source?.target_construction;
-  if(configuration.schema!=='adaptive-combined-browser-config-3'||ledger.schema!=='adaptive-cad-machining-preparation-1'||snapshot.schema!=='adaptive-snapshot-envelope-1'||source?.schema!=='adaptive-source-domain-2'||!certificate||setup.schema!=='adaptive-cad-machining-setup-1'||!['adaptive-cad-machining-policy-1','adaptive-cad-machining-policy-2'].includes(policy.schema))throw Error('Unsupported machining result or source schema.');
-  if(policy.schema==='adaptive-cad-machining-policy-2'&&(policy.completion_query_profile!=='regional_refined_history_1'||configuration.completion?.query_profile!==policy.completion_query_profile))throw Error('Machining completion profile differs from requested policy.');
+  const bands=policy.schema==='adaptive-cad-machining-policy-3';
+  if(configuration.schema!=='adaptive-combined-browser-config-3'||ledger.schema!==(bands?'adaptive-cad-machining-preparation-2':'adaptive-cad-machining-preparation-1')||snapshot.schema!=='adaptive-snapshot-envelope-1'||source?.schema!=='adaptive-source-domain-2'||!certificate||setup.schema!=='adaptive-cad-machining-setup-1'||!['adaptive-cad-machining-policy-1','adaptive-cad-machining-policy-2','adaptive-cad-machining-policy-3'].includes(policy.schema))throw Error('Unsupported machining result or source schema.');
+  if(policy.schema!=='adaptive-cad-machining-policy-1'&&(policy.completion_query_profile!=='regional_refined_history_1'||configuration.completion?.query_profile!==policy.completion_query_profile))throw Error('Machining completion profile differs from requested policy.');
   if(configuration.initial_domain_sha256!==pins.initial||configuration.genesis?.initial_snapshot_id!==pins.initial||ledger.initial_snapshot_sha256!==pins.initial||ledger.setup_sha256!==pins.setup||ledger.policy_sha256!==pins.policy||ledger.configuration_sha256!==data.configurationSHA256||ledger.snapshot_unchanged!==true||ledger.target_unchanged!==true||ledger.accepted_machining!==false||ledger.general_curved_routes_generated!==false||ledger.industrial_qualified!==false||!machiningDigest(ledger.task_id))throw Error('Machining configuration and ledger bindings differ.');
   const same=(a,b)=>canonicalAdaptive(a)===canonicalAdaptive(b);
   const setupKeys=['catalog','context','machine','orientation_id','station','cost_model','rotating_fixture','stationary_geometry','turning_seconds_per_mm','spindle_start_seconds','stop_lock_seconds'];
@@ -61,6 +63,14 @@ async function checkedMachiningResult(data,pins,setupText,policyText){
   if(!Array.isArray(certificate.face_map)||!Array.isArray(ledger.faces)||ledger.face_count!==certificate.face_map.length||ledger.faces.length!==ledger.face_count||ledger.face_count>256)throw Error('Machining source-face ledger is incomplete.');
   const faceIDs=await Promise.all(certificate.face_map.map(face=>machiningHashValue({certificate_sha256:certificateID,source_face_index:face.session_index})));
   if(ledger.faces.some((face,i)=>face.source_face_index!==certificate.face_map[i].session_index||face.source_face_id!==faceIDs[i]||!Array.isArray(face.candidate_ids)||face.candidate_ids.some(id=>!candidateIDs.includes(id))))throw Error('Machining source-face identities differ.');
+  if(bands){
+    const bank=ledger.spherical_turning_bands;
+    if(!bank||bank.root_frame_id!==await machiningHashValue(source.root)||
+      !same(bank.rows?.map(r=>r.stations_mm),policy.spherical_turning_stations_mm)||
+      !same(bank.radial_grid_mm,policy.radial_grid_mm)||!same(bank.radial_standoff_mm,policy.spherical_turning_standoff_mm)||
+      !same(bank.entry_clearance_mm,policy.entry_clearance_mm))throw Error('Spherical band recipe differs from requested policy.');
+    await bindCadFaceActions(data.preparation,configuration,certificate);
+  }
   return {...data,initial};
 }
 

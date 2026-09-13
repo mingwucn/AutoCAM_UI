@@ -137,10 +137,11 @@ function recordedToolAction(frame,catalog,catalogId,sourceId,rootId,profiles,set
   if(!['adaptive-action-2','adaptive-action-3','adaptive-action-4'].includes(action.schema)||action.scope!=='FINITE_TOOL_SHADOW_PLANNING'||action.access_model!==profile||!profiles.includes(profile)||action.finite_tool_access!==(turning?'REQUIRES_RESTRICTED_TURNING_CHECKS':side?'REQUIRES_RESTRICTED_SIDE_MILL_CHECKS':'REQUIRES_RESTRICTED_PLUNGE_CHECKS')||action.continuous_motion!==(turning?'FULL_ANGLE_MERIDIONAL_SHADOW':side?'EXACT_MONOTONE_LATERAL_SWEEP':'EXACT_MONOTONE_AXIAL_SWEEP'))fail('Unsupported tool action.');
   const motion=action.motion;
   if(turning){
-    fields(motion,['schema','spindle_axis','radial_axis','radial_sign','mode','facing_sign','rotation_model','start_radius','end_radius','start_station','end_station']);
+    const band=motion.schema==='adaptive-turning-motion-2';
+    fields(motion,['schema','spindle_axis','radial_axis','radial_sign','mode','facing_sign','rotation_model','start_radius','end_radius','start_station','end_station',...(band?['clearance_profile']:[])]);
     validateTurningAxis(motion.spindle_axis);
     for(const key of ['start_radius','end_radius','start_station','end_station'])exactNumber(motion[key]);
-    if(motion.schema!=='adaptive-turning-motion-1'||motion.rotation_model!==profile||!['OUTSIDE','FACING'].includes(motion.mode)||!Number.isInteger(motion.radial_axis)||motion.radial_axis<0||motion.radial_axis>2||motion.radial_axis===motion.spindle_axis.axis||![-1,1].includes(motion.radial_sign))fail('Unsupported turning motion.');
+    if(!['adaptive-turning-motion-1','adaptive-turning-motion-2'].includes(motion.schema)||band&&(motion.clearance_profile!=='spherical_band_exclusion_1'||motion.mode!=='OUTSIDE')||motion.rotation_model!==profile||!['OUTSIDE','FACING'].includes(motion.mode)||!Number.isInteger(motion.radial_axis)||motion.radial_axis<0||motion.radial_axis>2||motion.radial_axis===motion.spindle_axis.axis||![-1,1].includes(motion.radial_sign))fail('Unsupported turning motion.');
     if(compareQ(motion.end_radius,[0,1])<0||compareQ(motion.start_radius,motion.end_radius)<=0)fail('Turning radial feed must advance inward.');
     if(motion.mode==='OUTSIDE'?(motion.facing_sign!==null||action.axis!==motion.radial_axis||action.sign!==-motion.radial_sign):(![-1,1].includes(motion.facing_sign)||compareQ(motion.start_station,motion.end_station)*motion.facing_sign>=0||action.axis!==motion.spindle_axis.axis||action.sign!==motion.facing_sign))fail('Turning motion direction mismatch.');
     if(!setup||canonicalAdaptive(motion.spindle_axis)!==canonicalAdaptive(setup.axis)){

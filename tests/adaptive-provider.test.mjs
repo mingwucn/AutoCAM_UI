@@ -159,6 +159,26 @@ test('actual spherical browser preview preserves source identity and rejects alt
 });
 
 
+test('recorded turning transport accepts only the explicit band profile and keeps assessment binding',{skip:!process.env.ADAPTIVE_TURNING_BUNDLE},async()=>{
+  // Transport-only version extension of retained geometry. The native band
+  // verifier separately executes and proves the new spherical profile.
+  const original=parseAdaptiveJson(await fs.readFile(process.env.ADAPTIVE_TURNING_BUNDLE,'utf8'));
+  async function changed(edit){
+    const value=structuredClone(original),frame=value.payload.frames[2];
+    edit(frame.outcome.action.motion);
+    frame.outcome.safety.witness.tool_assessment.motion=structuredClone(frame.outcome.action.motion);
+    value.payload_sha256=await adaptiveHash(value.payload);
+    return readAdaptiveBundle(canonicalAdaptive(value));
+  }
+  const valid=await changed(m=>Object.assign(m,{schema:'adaptive-turning-motion-2',clearance_profile:'spherical_band_exclusion_1'}));
+  assert.equal(valid.frames[2].outcome.action.motion.clearance_profile,'spherical_band_exclusion_1');
+  for(const edit of [m=>m.clearance_profile='spherical_band_exclusion_1',
+    m=>Object.assign(m,{schema:'adaptive-turning-motion-2',clearance_profile:'whole_cell_1'}),
+    m=>Object.assign(m,{schema:'adaptive-turning-motion-2',clearance_profile:'unknown'}),
+    m=>Object.assign(m,{schema:'adaptive-turning-motion-2',clearance_profile:'spherical_band_exclusion_1',mode:'FACING'})])
+    await assert.rejects(changed(edit));
+});
+
 test('spherical source-face display preserves the source and forms an outward bounded mesh',async()=>{
   const {gunzipSync}=await import('node:zlib');const {sourceFaceDisplay}=await import('../src/cad-face-display.mjs');
   const bytes=await fs.readFile(new URL('./fixtures/spherical/origin-preview.json.gz',import.meta.url));

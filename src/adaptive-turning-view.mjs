@@ -10,7 +10,9 @@ export function previewTool(bundle,action){
 }
 
 export function turningPreview(tool,motion,position){
-  if(tool.schema!=='adaptive-turning-insert-1'||motion.schema!=='adaptive-turning-motion-1'||!Number.isFinite(position))throw new Error('Unsupported turning preview.');
+  const known=motion.schema==='adaptive-turning-motion-1'&&!Object.hasOwn(motion,'clearance_profile')||
+    motion.schema==='adaptive-turning-motion-2'&&motion.clearance_profile==='spherical_band_exclusion_1'&&motion.mode==='OUTSIDE';
+  if(tool.schema!=='adaptive-turning-insert-1'||!known||!Number.isFinite(position))throw new Error('Unsupported turning preview.');
   const origin=motion.spindle_axis.origin.map(exactNumber),axis=motion.spindle_axis.axis,radial=motion.radial_axis;
   const other=[0,1,2].find(k=>k!==axis&&k!==radial),a=exactNumber(motion.start_radius),b=exactNumber(motion.end_radius),start=exactNumber(motion.start_station),end=exactNumber(motion.end_station);
   const outside=motion.mode==='OUTSIDE',vertices=[[a,start],outside?[b,start]:[a,end],[b,end]];

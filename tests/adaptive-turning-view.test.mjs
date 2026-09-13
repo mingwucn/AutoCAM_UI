@@ -31,6 +31,17 @@ test('groove preview handles zero axial feed and omits an absent shank',()=>{
   assert.throws(()=>turningPreview(t,m,NaN));
 });
 
+test('explicit spherical band profile preserves physical previews and rejects profile smuggling',()=>{
+  for(let axis=0;axis<3;axis++)for(let radial=0;radial<3;radial++)if(axis!==radial){
+    const old=motion(axis,radial,1),band={...old,schema:'adaptive-turning-motion-2',clearance_profile:'spherical_band_exclusion_1'};
+    for(const position of [0,.25,.5,1])assert.deepEqual(turningPreview(tool,band,position),turningPreview(tool,old,position));
+    for(const bad of [{...old,clearance_profile:'spherical_band_exclusion_1'},
+      {...band,clearance_profile:'whole_cell_1'},{...band,clearance_profile:'unknown'},
+      {...band,mode:'FACING'},{...band,schema:'adaptive-turning-motion-3'}])
+      assert.throws(()=>turningPreview(tool,bad,.5),/Unsupported turning preview/);
+  }
+});
+
 test('annular display keeps through bores and rejects end disks, offset and overlapping stacks',()=>{
   const cylinder=(radius,low,high)=>({kind:'cylinder',axis:2,center:[q(0),q(0)],radius:q(radius),low:q(low),high:q(high)});
   const ring={kind:'cutout',base:cylinder(10,2,8),cutters:[cylinder(3,-1,25)]};

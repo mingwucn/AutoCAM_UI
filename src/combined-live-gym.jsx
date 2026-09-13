@@ -88,7 +88,10 @@ export function CombinedLiveGym({prepared,onClose}){
     const kind=c.candidate.kind,tool=view.catalog.tools.find(t=>t.tool_id===(kind==='turn'?view.turning_context.tool_id:c.candidate.tool_id));
     const name={turn:'Turning',transfer:'Stop, lock and change tool',index:'Index workpiece',mill:c.candidate.motion?.schema==='adaptive-side-mill-1'?'Side milling':'Axial milling'}[kind];
     const toolText=tool?` · ${tool.profile==='BALL_END'?'Ball-end':tool.profile==='FLAT_END'?'Flat-end':'Turning blade'} · ${fmt(exactNumber(tool.usable_reach))} mm reach`:'';
-    return `${name}${toolText} · ${angle(c.pose)} · ${view.finished?'episode ended':c.allowed?fmt(c.estimatedSeconds)+' s':'not feasible'}`;
+    const motion=c.candidate.motion,band=kind==='turn'&&motion?.schema==='adaptive-turning-motion-2';
+    const station=band?`${fmt(exactNumber(motion.start_station))}${canonicalAdaptive(motion.start_station)===canonicalAdaptive(motion.end_station)?'':' to '+fmt(exactNumber(motion.end_station))}`:'';
+    const bandText=band?` band · ${'XYZ'[motion.spindle_axis.axis]} ${station} mm · radius ${fmt(exactNumber(motion.end_radius))} mm`:'';
+    return `${name}${bandText}${toolText} · ${angle(c.pose)} · ${view.finished?'episode ended':c.allowed?fmt(c.estimatedSeconds)+' s':'not feasible'}`;
   }
   return <div className="adaptive-live combined-live" data-state-hash={view?.observation.material_hash||''} data-orientation-id={view?.observation.orientation_id||''} data-stale={stale} data-process-phase={view?.observation.phase||''}>
     <section className="adaptive-live-controls" aria-label="Combined mill-turn controls">
