@@ -1,0 +1,16 @@
+[
+  {
+    "path": "search-0.json",
+    "sha256": "87c6865d93017f2f6cabf4553478b8ded06110e7045212a1d379f98b36d76ee9",
+    "origin": "artifacts/shadow-gym/adaptive-delta/r5-mixed-learning-worker-01/expected-8.json",
+    "origin_sha256": "1793ee33a1226dc40ef8e0d4755b70a92a7355407e98146413dd62407a544626",
+    "scope": "actual native inference output; parent strict browser comparison failed at response28 prior"
+  },
+  {
+    "path": "search-3.json",
+    "sha256": "7451ea83c9cadeadc57a142570578681c529c53341eb173540359fa6302c1269",
+    "origin": "artifacts/shadow-gym/adaptive-delta/r5-mixed-learning-worker-01/expected-28.json",
+    "origin_sha256": "7661b5ee52cabd9eafcd4cf6a62a156db905ef4f224548e6ce66e6f65925c4ab",
+    "scope": "actual native inference output; parent strict browser comparison failed at response28 prior"
+  }
+]

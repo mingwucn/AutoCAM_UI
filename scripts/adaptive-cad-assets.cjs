@@ -5,7 +5,8 @@ module.exports=function copyAdaptiveCadAssets(directory,out,{expectedManifestSHA
  const root=fs.realpathSync(directory),manifestPath=path.join(root,'manifest.json');
  if(!/^[0-9a-f]{64}$/.test(expectedManifestSHA256)||sha(manifestPath)!==expectedManifestSHA256)throw Error('CAD asset manifest identity differs.');
  const manifest=JSON.parse(fs.readFileSync(manifestPath,'utf8'));
- if(!closed(manifest,['schema','worker_sha256','files'])||manifest.schema!=='adaptive-cad-ui-assets-1'||manifest.worker_sha256!==sha(workerSource)||!Array.isArray(manifest.files)||manifest.files.length>32)throw Error('CAD package schema or application worker differs.');
+ const rational=Object.hasOwn(manifest,'rational_source');
+ if(!closed(manifest,['schema','worker_sha256','files',...(rational?['rational_source']:[])])||manifest.schema!=='adaptive-cad-ui-assets-1'||manifest.worker_sha256!==sha(workerSource)||!Array.isArray(manifest.files)||manifest.files.length>32)throw Error('CAD package schema or application worker differs.');
  const required=['worker.mjs','python-code.zip','cad-audit.mjs','cad-audit.wasm','runtime/pyodide.mjs','runtime/pyodide.asm.mjs','runtime/pyodide.asm.wasm','runtime/python_stdlib.zip','runtime/pyodide-lock.json'];
  const seen=new Set(),validated=[];let total=0;
  for(const row of manifest.files){
@@ -16,8 +17,20 @@ module.exports=function copyAdaptiveCadAssets(directory,out,{expectedManifestSHA
   validated.push({...row,source});
  }
  if(required.some(name=>!seen.has(name))||manifest.files.find(r=>r.path==='worker.mjs').sha256!==manifest.worker_sha256)throw Error('CAD package required assets differ.');
+ let rationalAssets;
+ if(rational){
+  const r=manifest.rational_source;
+  if(!closed(r,['audit_module','audit_wasm','module','wasm']))throw Error('Invalid rational runtime selection.');
+  const values={};
+  for(const [key,prefix,suffix] of [['audit_module','cadModule','.mjs'],['audit_wasm','cadWasm','.wasm'],['module','rationalModule','.mjs'],['wasm','rationalWasm','.wasm']]){
+   const ref=r[key];
+   if(!closed(ref,['path','sha256'])||typeof ref.path!=='string'||!ref.path.endsWith(suffix)||!seen.has(ref.path)||manifest.files.find(f=>f.path===ref.path).sha256!==ref.sha256)throw Error('Rational runtime file identity differs.');
+   values[prefix+'URL']='./'+ref.path;values[prefix+'SHA256']=ref.sha256;
+  }
+  rationalAssets=values;
+ }
  const target=path.resolve(out,'assets/adaptive-cad');
  for(const row of validated){const dest=path.join(target,row.path);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(row.source,dest);}
  const pin=name=>manifest.files.find(r=>r.path===name).sha256;
- return {workerURL:'assets/adaptive-cad/worker.mjs',assets:{runtimeBaseURL:'./runtime/',codeURL:'./python-code.zip',codeSHA256:pin('python-code.zip'),cadModuleURL:'./cad-audit.mjs',cadModuleSHA256:pin('cad-audit.mjs'),cadWasmURL:'./cad-audit.wasm',cadWasmSHA256:pin('cad-audit.wasm')}};
+ return {workerURL:'assets/adaptive-cad/worker.mjs',assets:{runtimeBaseURL:'./runtime/',codeURL:'./python-code.zip',codeSHA256:pin('python-code.zip'),cadModuleURL:'./cad-audit.mjs',cadModuleSHA256:pin('cad-audit.mjs'),cadWasmURL:'./cad-audit.wasm',cadWasmSHA256:pin('cad-audit.wasm')},...(rationalAssets?{rationalAssets}:{})};
 };

@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "family": "mixed",
+      "index_sha256": "7d3979238e6d66eb50bc0699d6b958c628faa0b62a343971a7c911de1600f805",
+      "responses": 4
+    },
+    {
+      "family": "full",
+      "index_sha256": "435f5129d8323e9fdf5eb4d8697da8366941b55358bf31a7e9cd13e49b3e38dc",
+      "responses": 4
+    }
+  ],
+  "generator_sha256": "e0a754c87aaf1fd08b3a539e0faa7f0ecb6464c054a0405118b515ab85053f20",
+  "manufacturing_evidence": false
+}

@@ -36,12 +36,72 @@ export function indexedPoseMatrix(pose){
 
 function interval(value){fields(value,['lower_mm3','upper_mm3']);const low=exactNumber(value.lower_mm3);exactNumber(value.upper_mm3);if(low<0||compareQ(value.upper_mm3,value.lower_mm3)<0)fail('Invalid volume interval.');}
 function vector(value,length){if(!Array.isArray(value)||value.length!==length)fail('Invalid exact coordinate vector.');return value.map(exactNumber);}
+export function validateRationalGeometry(shape){
+  fields(shape,['kind','upper_cap','uv_low','uv_high','thickness_mm']);
+  if(shape.kind!=='nominal_rational_grid_prism_1')fail('Unsupported rational display geometry.');
+  fields(shape.upper_cap,['schema','homogeneous']);
+  const rows=shape.upper_cap.homogeneous;
+  if(shape.upper_cap.schema!=='adaptive-rational-bezier-patch-1'||!Array.isArray(rows)||rows.length<2||rows.length>4||
+     !Array.isArray(rows[0])||rows[0].length<2||rows[0].length>4||rows.some(row=>!Array.isArray(row)||row.length!==rows[0].length))fail('Invalid rational display control net.');
+  for(const row of rows)for(const p of row){vector(p,4);if(exactNumber(p[3])<=0)fail('Positive rational display weights required.');}
+  vector(shape.uv_low,2);vector(shape.uv_high,2);
+  if(shape.uv_low.some((q,i)=>compareQ(q,[0,1])<0||compareQ(q,shape.uv_high[i])>=0||compareQ(shape.uv_high[i],[1,1])>0)||exactNumber(shape.thickness_mm)<=0)fail('Invalid rational display domain.');
+}
+export async function validateRationalConstruction(c,target){
+  fields(c,['schema','scope','binding','observation_utf8','audit_utf8','correspondence','geometry','construction',
+    'literal_parameterized_trim_equality','source_step_import_equivalence_proved','manufactured_surface_tolerance_proved','original_tolerance_ceiling_mm']);
+  if(c.schema!=='adaptive-rational-prism-construction-1'||c.scope!=='trimmed_rational_nominal_solid'||
+     c.construction!=='original_positive_grid_cap_supporting_rectangle_and_vertical_extrusion_1'||
+     c.literal_parameterized_trim_equality!==false||c.source_step_import_equivalence_proved!==false||c.manufactured_surface_tolerance_proved!==false||
+     canonicalAdaptive(c.original_tolerance_ceiling_mm)!=='[1,10000000]')fail('Unsupported rational CAD construction scope.');
+  fields(c.binding,['raw_source_sha256','imported_snapshot_sha256','observation_sha256','audit_sha256']);
+  if(Object.values(c.binding).some(v=>typeof v!=='string'||!hashPattern.test(v)))fail('Invalid rational CAD source binding.');
+  for(const [key,pin] of [['observation_utf8','observation_sha256'],['audit_utf8','audit_sha256']]){
+    if(typeof c[key]!=='string')fail('Missing original rational source text.');
+    const bytes=new TextEncoder().encode(c[key]);
+    if(!bytes.length||bytes.length>4*1024**2)fail('Original rational text exceeds display limit.');
+    const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
+    if(hash!==c.binding[pin])fail('Original rational text identity differs.');
+  }
+  validateRationalGeometry(c.geometry);
+  if(canonicalAdaptive(c.geometry)!==canonicalAdaptive(target))fail('CAD target/construction mismatch.');
+  const p=c.correspondence,m=p?.nominal_model;
+  if(p?.schema!=='adaptive-original-nominal-prism-correspondence-1'||p.status!=='PROVED_NOMINAL_CORRESPONDENCE'||
+    p.source_admitted!==false||p.original_exact_solid_claim!==false||p.original_trim_filled!==false||p.material_query_supported!==false||
+    p.embedded_nominal_solid_proved!==true||p.nominal_outward_orientation_proved!==true||p.original_cap_translation_exact!==true)fail('Unsupported rational correspondence scope.');
+  fields(m,['schema','upper_cap','uv_rectangle','thickness_mm','source_pins']);
+  const pins={step_sha256:c.binding.raw_source_sha256,imported_snapshot_sha256:c.binding.imported_snapshot_sha256,
+    observation_sha256:c.binding.observation_sha256,audit_sha256:c.binding.audit_sha256};
+  if(m.schema!=='adaptive-nominal-positive-grid-prism-1'||canonicalAdaptive(p.source_pins)!==canonicalAdaptive(pins)||
+    canonicalAdaptive(m.source_pins)!==canonicalAdaptive(pins)||await adaptiveHash(m)!==p.nominal_model_id||
+    canonicalAdaptive(m.upper_cap)!==canonicalAdaptive(target.upper_cap)||canonicalAdaptive(m.uv_rectangle)!==canonicalAdaptive([target.uv_low,target.uv_high])||
+    canonicalAdaptive(m.thickness_mm)!==canonicalAdaptive(target.thickness_mm))fail('Rational source/model binding differs.');
+}
 function sourceGeometry(shape,depth=0,counter={count:0}){
   if(depth>64||++counter.count>4096)fail('Adaptive source complexity exceeds the viewer profile.');
   if(shape?.kind==='indexed_solid_1'){
     fields(shape,['kind','base','pose']);indexedPoseMatrix(shape.pose);sourceGeometry(shape.base,depth+1,counter);return;
   }
   if(shape?.kind==='empty'){fields(shape,['kind']);return;}
+  if(shape?.kind==='nominal_rational_grid_prism_1'){validateRationalGeometry(shape);return;}
+  if(shape?.kind==='finite_annular_sweep_1'){
+    fields(shape,['kind','axis','travel_axis','transverse_center','start','end','inner_radius','outer_radius','low','high']);
+    for(const k of ['transverse_center','start','end','inner_radius','outer_radius','low','high'])exactNumber(shape[k]);
+    if(![shape.axis,shape.travel_axis].every(a=>Number.isInteger(a)&&a>=0&&a<=2)||shape.axis===shape.travel_axis||
+      compareQ(shape.inner_radius,[0,1])<=0||compareQ(shape.inner_radius,shape.outer_radius)>=0||
+      compareQ(shape.start,shape.end)>0||compareQ(shape.low,shape.high)>=0)fail('Invalid finite annular sweep.');return;
+  }
+  if(shape?.kind==='drill_conical_point_1'){
+    fields(shape,['kind','axis','sign','tip','radius','height']);vector(shape.tip,3);
+    if(!Number.isInteger(shape.axis)||shape.axis<0||shape.axis>2||![-1,1].includes(shape.sign)||exactNumber(shape.radius)<=0||exactNumber(shape.height)<=0)fail('Invalid drill point.');return;
+  }
+  if(shape?.kind==='drill_cutting_profile_1'){
+    fields(shape,['kind','cylinder','point']);const c=shape.cylinder,p=shape.point;
+    if(c?.kind!=='cylinder'||p?.kind!=='drill_conical_point_1')fail('Invalid joined drill profile.');
+    sourceGeometry(c,depth+1,counter);sourceGeometry(p,depth+1,counter);
+    const shoulder=addQ(p.tip[p.axis],[-BigInt(p.sign)*BigInt(p.height[0]),BigInt(p.height[1])]);
+    if(c.axis!==p.axis||compareQ(c.radius,p.radius)!==0||compareQ(p.sign===1?c.high:c.low,shoulder)!==0||c.center.some((q,i)=>compareQ(q,p.tip.filter((_,k)=>k!==p.axis)[i])!==0))fail('Drill shoulder differs.');return;
+  }
   if(shape?.kind==='box'){
     fields(shape,['kind','bounds']);fields(shape.bounds,['low','high']);const low=vector(shape.bounds.low,3),high=vector(shape.bounds.high,3);
     if(low.some((v,k)=>v>=high[k]))fail('Invalid source box.');return;
@@ -77,6 +137,25 @@ function sourceGeometry(shape,depth=0,counter={count:0}){
 }
 export function adaptiveGeometryBounds(shape){
   if(shape.kind==='empty')return null;
+  if(shape.kind==='nominal_rational_grid_prism_1'){
+    validateRationalGeometry(shape);
+    const points=shape.upper_cap.homogeneous.flat().map(p=>{const h=p.map(exactNumber);return h.slice(0,3).map(v=>v/h[3]);}),height=exactNumber(shape.thickness_mm);
+    const result=[[0,1,2].map(k=>Math.min(...points.map(p=>p[k]))-(k===2?height:0)),[0,1,2].map(k=>Math.max(...points.map(p=>p[k])))];
+    if(result.flat().some(v=>!Number.isFinite(v)))fail('Rational display bounds exceed finite limits.');
+    return result; // Conservative full-control-net camera enclosure, not trimmed source bounds.
+  }
+  if(shape.kind==='finite_annular_sweep_1'){
+    sourceGeometry(shape);const low=Array(3),high=Array(3),r=exactNumber(shape.outer_radius),cross=3-shape.axis-shape.travel_axis;
+    low[shape.axis]=exactNumber(shape.low);high[shape.axis]=exactNumber(shape.high);
+    low[shape.travel_axis]=exactNumber(shape.start)-r;high[shape.travel_axis]=exactNumber(shape.end)+r;
+    low[cross]=exactNumber(shape.transverse_center)-r;high[cross]=exactNumber(shape.transverse_center)+r;
+    return [low,high];
+  }
+  if(shape.kind==='drill_conical_point_1'){
+    const tip=shape.tip.map(exactNumber),r=exactNumber(shape.radius),base=tip[shape.axis]-shape.sign*exactNumber(shape.height);
+    return [tip.map((v,k)=>k===shape.axis?Math.min(v,base):v-r),tip.map((v,k)=>k===shape.axis?Math.max(v,base):v+r)];
+  }
+  if(shape.kind==='drill_cutting_profile_1')return adaptiveGeometryBounds({kind:'union',children:[shape.cylinder,shape.point]});
   if(shape.kind==='indexed_solid_1'){
     const bounds=adaptiveGeometryBounds(shape.base);if(!bounds)return null;
     const m=indexedPoseMatrix(shape.pose),points=[];
@@ -102,16 +181,45 @@ export function adaptiveGeometryBounds(shape){
   fail('Unsupported display bounds.');
 }
 export const compareQ=(a,b)=>{const d=BigInt(a[0])*BigInt(b[1])-BigInt(b[0])*BigInt(a[1]);return d<0n?-1:d>0n?1:0;};
+const addQ=(a,b)=>[BigInt(a[0])*BigInt(b[1])+BigInt(b[0])*BigInt(a[1]),BigInt(a[1])*BigInt(b[1])];
+export function validateDrillTool(tool){
+  const dimensions=['radius','point_height','active_length','usable_reach','shank_radius','holder_radius','holder_length'];
+  fields(tool,['schema','assembly_id','revision','family','profile','designation','provenance','mount_interface','units','gauge_reference','capabilities','supported_machine_modes','additional_components','overall_length',...dimensions]);
+  if(tool.schema!=='adaptive-drill-tool-1'||tool.family!=='DRILL'||tool.profile!=='SYNTHETIC_CONICAL_POINT_DRILL_V1'||tool.designation!=='SYNTHETIC'||tool.units!=='mm'||tool.gauge_reference!=='POINT_TIP'||canonicalAdaptive(tool.capabilities)!=='["AXIAL_DRILL"]'||canonicalAdaptive(tool.supported_machine_modes)!=='["INDEXED_LIVE_TOOL"]'||canonicalAdaptive(tool.additional_components)!=='[]')fail('Unsupported drill assembly profile.');
+  if([tool.assembly_id,tool.revision,tool.mount_interface].some(x=>typeof x!=='string'||!/^[-A-Za-z0-9_.]+$/.test(x)||!/[A-Za-z0-9]/.test(x[0])||x.length>96)||typeof tool.provenance!=='string'||!tool.provenance.trim()||tool.provenance.length>1024)fail('Invalid drill assembly identity.');
+  for(const field of [...dimensions,'overall_length'])if(exactNumber(tool[field])<=0)fail('Drill dimensions must be positive.');
+  if(compareQ(addQ(tool.point_height,tool.active_length),tool.usable_reach)>0||compareQ(addQ(tool.usable_reach,tool.holder_length),tool.overall_length)!==0)fail('Inconsistent drill dimensions.');
+  return tool;
+}
 export function validateTurningAxis(axis){
   fields(axis,['schema','axis','origin','units']);vector(axis.origin,3);
   if(axis.schema!=='adaptive-turning-axis-1'||axis.units!=='mm'||!Number.isInteger(axis.axis)||axis.axis<0||axis.axis>2)fail('Unsupported turning spindle axis.');
   return axis;
 }
+export function validateFaceTool(tool){
+  const dimensions=['inner_radius','outer_radius','active_height','body_radius','body_back','arbor_radius','usable_reach','holder_radius','holder_length'];
+  fields(tool,['schema','assembly_id','revision','family','profile','designation','provenance','mount_interface','entering_profile','units','gauge_reference','capabilities','supported_machine_modes','additional_components','overall_length',...dimensions]);
+  if(tool.schema!=='adaptive-face-mill-tool-1'||tool.family!=='FACE_MILL'||tool.profile!=='SYNTHETIC_FACE_MILL_V1'||tool.designation!=='SYNTHETIC'||tool.entering_profile!=='SQUARE_90_DEGREE'||tool.units!=='mm'||tool.gauge_reference!=='LOWEST_FACE_DATUM'||canonicalAdaptive(tool.capabilities)!=='["EXTERNAL_PLANAR_FACE_MILL"]'||canonicalAdaptive(tool.supported_machine_modes)!=='["INDEXED_LIVE_TOOL"]'||canonicalAdaptive(tool.additional_components)!=='[]')fail('Unsupported face assembly profile.');
+  if([tool.assembly_id,tool.revision,tool.mount_interface].some(x=>typeof x!=='string'||!/^[-A-Za-z0-9_.]+$/.test(x)||!/[A-Za-z0-9]/.test(x[0])||x.length>96)||typeof tool.provenance!=='string'||!tool.provenance.trim()||tool.provenance.length>1024)fail('Invalid face assembly identity.');
+  for(const field of [...dimensions,'overall_length'])if(exactNumber(tool[field])<=0)fail('Face dimensions must be positive.');
+  if(compareQ(tool.inner_radius,tool.outer_radius)>=0||compareQ(tool.inner_radius,tool.body_radius)>=0||compareQ(tool.active_height,tool.body_back)>=0||compareQ(tool.body_back,tool.usable_reach)>=0||compareQ(addQ(tool.usable_reach,tool.holder_length),tool.overall_length)!==0)fail('Inconsistent face dimensions.');
+  return tool;
+}
 export function validateAdaptiveCatalog(catalog){
   fields(catalog,['schema','tools']);
-  if(!['adaptive-tool-catalog-1','adaptive-tool-catalog-2'].includes(catalog.schema)||!Array.isArray(catalog.tools)||!catalog.tools.length||catalog.tools.length>64)fail('Unsupported tool catalog.');
-  let previous=null,turningCount=0;
+  if(!['adaptive-tool-catalog-1','adaptive-tool-catalog-2','adaptive-tool-catalog-3','adaptive-tool-catalog-4'].includes(catalog.schema)||!Array.isArray(catalog.tools)||!catalog.tools.length||catalog.tools.length>64)fail('Unsupported tool catalog.');
+  let previous=null,turningCount=0,drillCount=0,faceCount=0;
   for(const tool of catalog.tools){
+    if(tool.schema==='adaptive-face-mill-tool-1'){
+      validateFaceTool(tool);
+      if(previous!==null&&tool.assembly_id<=previous)fail('Invalid or unordered tool identity.');
+      previous=tool.assembly_id;faceCount++;continue;
+    }
+    if(tool.schema==='adaptive-drill-tool-1'){
+      validateDrillTool(tool);
+      if(previous!==null&&tool.assembly_id<=previous)fail('Invalid or unordered tool identity.');
+      previous=tool.assembly_id;drillCount++;continue;
+    }
     const turning=tool.schema==='adaptive-turning-insert-1';
     const dimensions=turning?['cutting_width','tangential_half_width','cutting_length','usable_reach','shank_width','shank_tangential_half_width','holder_width','holder_tangential_half_width','holder_length']:['radius','usable_reach','flute_length','shank_radius','holder_radius','holder_length'];
     fields(tool,['schema','tool_id','revision','profile','units',...dimensions]);
@@ -122,7 +230,7 @@ export function validateAdaptiveCatalog(catalog){
     if(compareQ(turning?tool.cutting_length:tool.flute_length,tool.usable_reach)>0||tool.profile==='BALL_END'&&BigInt(tool.flute_length[0])*BigInt(tool.radius[1])<2n*BigInt(tool.radius[0])*BigInt(tool.flute_length[1]))fail('Inconsistent tool dimensions.');
     if(turning)turningCount++;
   }
-  if(catalog.schema!==(turningCount?'adaptive-tool-catalog-2':'adaptive-tool-catalog-1'))fail('Tool catalog version differs from its profiles.');
+  if(catalog.schema!==(faceCount?'adaptive-tool-catalog-4':drillCount?'adaptive-tool-catalog-3':turningCount?'adaptive-tool-catalog-2':'adaptive-tool-catalog-1'))fail('Tool catalog version differs from its profiles.');
   return catalog;
 }
 function recordedToolAction(frame,catalog,catalogId,sourceId,rootId,profiles,setup){
@@ -259,8 +367,9 @@ export async function readAdaptiveBundle(raw){
   // Canonical bytes preserve arbitrary exact integers and reject alternate encodings.
   if(canonicalAdaptive(wrapper)!==text)fail('Adaptive bundle is not canonical.');
   const p=wrapper.payload;
+  const drillState=p.schema==='adaptive-inspection-payload-10',faceState=p.schema==='adaptive-inspection-payload-11';
   const clearedMixed=p.schema==='adaptive-inspection-payload-9',clearedEpisode=clearedMixed||p.schema==='adaptive-inspection-payload-8';
-  const remainingMixed=clearedMixed||p.schema==='adaptive-inspection-payload-7',remainingEpisode=clearedEpisode||remainingMixed||p.schema==='adaptive-inspection-payload-6',compact=p.schema==='adaptive-inspection-payload-5',turningEpisode=remainingMixed||compact||p.schema==='adaptive-inspection-payload-4',mixedMotion=remainingEpisode||turningEpisode||p.schema==='adaptive-inspection-payload-3',toolEpisode=mixedMotion||p.schema==='adaptive-inspection-payload-2';
+  const remainingMixed=clearedMixed||p.schema==='adaptive-inspection-payload-7',remainingEpisode=clearedEpisode||remainingMixed||p.schema==='adaptive-inspection-payload-6',compact=p.schema==='adaptive-inspection-payload-5',turningEpisode=faceState||drillState||remainingMixed||compact||p.schema==='adaptive-inspection-payload-4',mixedMotion=remainingEpisode||turningEpisode||p.schema==='adaptive-inspection-payload-3',toolEpisode=mixedMotion||p.schema==='adaptive-inspection-payload-2';
   fields(p,['schema','source','source_geometry_id','frames','certificates','replay','provenance','scope','evidence_grade','limitations',...(toolEpisode?['tool_catalog']:[]),...(mixedMotion?['motion_profiles']:[]),...(turningEpisode?['turning_axis']:[]),...(compact?['certificate_mode']:[])]);
   if(compact&&(p.certificate_mode!=='on_demand'||p.frames?.length!==1||!p.certificates||Array.isArray(p.certificates)||Object.keys(p.certificates).length))fail('Invalid on-demand certificate profile.');
   if((toolEpisode?p.scope!=='FINITE_TOOL_SHADOW_PLANNING':p.schema!=='adaptive-inspection-payload-1'||p.scope!=='DIRECTIONAL_SHADOW_PLANNING')||p.evidence_grade!=='bounded')fail('Unsupported adaptive inspection scope.');
@@ -288,7 +397,9 @@ export async function readAdaptiveBundle(raw){
   const geometryBinding={stock:source.stock,target:source.target,protected:source.protected,policy:source.policy};
   if(constructed){
     const c=source.target_construction;
-    if(c.schema==='adaptive-spherical-construction-1'){
+    if(c.schema==='adaptive-rational-prism-construction-1'){
+      await validateRationalConstruction(c,source.target);
+    }else if(c.schema==='adaptive-spherical-construction-1'){
       // Transport/display checks only. The Python runtime regenerates admission.
       fields(c,['schema','scope','binding','extraction','geometry','spherical_convention','construction',
         'literal_parameterized_trim_equality','source_step_import_equivalence_proved','manufactured_surface_tolerance_proved',
@@ -347,6 +458,8 @@ export async function readAdaptiveBundle(raw){
   const geometryId=await adaptiveHash(geometryBinding);
   const rootId=await adaptiveHash(root);
   const catalogId=toolEpisode?await adaptiveHash(validateAdaptiveCatalog(p.tool_catalog)):null;
+  if((p.tool_catalog?.schema==='adaptive-tool-catalog-3')!==drillState||drillState&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Drill state-only payload differs.');
+  if((p.tool_catalog?.schema==='adaptive-tool-catalog-4')!==faceState||faceState&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Face state-only payload differs.');
   const setup=turningEpisode?{axis:validateTurningAxis(p.turning_axis),axisId:await adaptiveHash(p.turning_axis),stockId:await adaptiveHash(source.stock)}:null;
   if(!turningEpisode&&p.tool_catalog?.schema==='adaptive-tool-catalog-2')fail('Turning catalog requires its frozen axis payload.');
   if(geometryId!==p.source_geometry_id)fail('Adaptive source identity mismatch.');

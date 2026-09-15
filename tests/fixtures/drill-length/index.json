@@ -1,0 +1,38 @@
+[
+  {
+    "path": "geometry.json",
+    "sha256": "b641b328a02c320c74ebeeab42d6362ecc5c2331ce41e81bd3aa9bdfa82c00b2"
+  },
+  {
+    "path": "initial.bin",
+    "sha256": "1e9e24259f42a0695e7cf0dc7255b7e7f9dc273150ed32bad18357f0da2c61f7"
+  },
+  {
+    "path": "length-4.json",
+    "sha256": "c7b98d635739b81a2d1277df523ebc6edf056f2802a697b4481e8fbdb7e86ace"
+  },
+  {
+    "path": "length-5.json",
+    "sha256": "22323253a69617cbf540747ec7e584d1f383d67aa92d03468321c443a24ebb0e"
+  },
+  {
+    "path": "length-6.json",
+    "sha256": "fd1b02639ba9a211730c95de103147398ddfdfab09cf44c89b1209754ec92e68"
+  },
+  {
+    "path": "length-7.json",
+    "sha256": "f0d69e22950c6ab3a672a966fad2c05178418f9b37c9fbe46c2e70d7e4069075"
+  },
+  {
+    "path": "provenance.json",
+    "sha256": "c237b0d418748d74ce9e73218b1a88a7eecfee29e5d7a86d559ab76892dc3afb"
+  },
+  {
+    "path": "task.json",
+    "sha256": "963a152847483db8cd286c75c28a29b591f4f6636fbd0f65ced6159fadf7ea2a"
+  },
+  {
+    "path": "view.json",
+    "sha256": "71cd908e567b8fa5718b75990bce2625b11a934fbaa151a286ec5a74092daf8d"
+  }
+]

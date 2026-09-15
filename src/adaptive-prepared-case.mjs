@@ -12,12 +12,17 @@ export function createPreparedLiveCase({taskBytes,initialBytes,name,seed=0,confi
   const task=new Uint8Array(taskBytes),initial=new Uint8Array(initialBytes);
   const parsed=parseAdaptiveJson(new TextDecoder('utf-8',{fatal:true}).decode(task));
   const indexed=parsed.schema==='adaptive-indexed-browser-config-1';
+  const drill=parsed.schema==='adaptive-drill-browser-config-1';
+  const mixed=parsed.schema==='adaptive-mill-turn-browser-config-2';
+  const full=parsed.schema==='adaptive-full-mill-turn-browser-config-1';
+  const learning=parsed.schema==='adaptive-mixed-learning-browser-config-1';
+  const face=parsed.schema==='adaptive-face-browser-config-1';
   const cylindrical=['adaptive-cylindrical-choice-browser-config-1','adaptive-cylindrical-choice-browser-config-2','adaptive-cylindrical-choice-browser-config-3','adaptive-cylindrical-choice-browser-config-4','adaptive-cylindrical-choice-browser-config-5','adaptive-cylindrical-choice-browser-config-6','adaptive-cylindrical-policy-browser-config-1','adaptive-cylindrical-policy-browser-config-2','adaptive-cylindrical-policy-browser-config-3'].includes(parsed.schema);
   const combined=['adaptive-combined-browser-config-1','adaptive-combined-browser-config-2','adaptive-combined-browser-config-3'].includes(parsed.schema);
   const remainingSide=['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(parsed.schema);
-  if(!indexed&&!combined&&!cylindrical&&!remainingSide&&parsed.schema!=='adaptive-mill-turn-core-roughing-task-4')
+  if(!learning&&!full&&!mixed&&!face&&!drill&&!indexed&&!combined&&!cylindrical&&!remainingSide&&parsed.schema!=='adaptive-mill-turn-core-roughing-task-4')
     throw Error('Select a compatible prepared mill-turn task.');
-  return {kind:cylindrical?'cylindrical-live':combined?'combined-live':indexed?'indexed-live':'adaptive-live',key:crypto.randomUUID(),
+  return {kind:learning?'mixed-learning-live':full?'full-mill-turn-live':mixed?'mill-turn-live':face?'face-live':drill?'drill-live':cylindrical?'cylindrical-live':combined?'combined-live':indexed?'indexed-live':'adaptive-live',key:crypto.randomUUID(),
     name,seed,taskBytes:task,initialBytes:initial,task:parsed,
-    configuration:preparedRuntimeConfiguration(configuration,parsed.schema,baseURL,{backend:cylindrical||(remainingSide&&!Object.hasOwn(configuration??{},'remainingWeights'))?'reference':backend})};
+    configuration:preparedRuntimeConfiguration(configuration,parsed.schema,baseURL,{backend:learning||full||mixed||face||drill||cylindrical||(remainingSide&&!Object.hasOwn(configuration??{},'remainingWeights'))?'reference':backend})};
 }

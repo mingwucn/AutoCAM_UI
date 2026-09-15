@@ -1,0 +1,14 @@
+import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-provider.mjs';
+import {readFaceAssembly} from './face-assembly-view.mjs';
+import {readDrillLength} from './drill-length-view.mjs';
+
+export async function readFullToolInspection(raw,view,batchId,candidateId,sessionEpoch,suffixEpoch,diagnostic){
+  const v=parseAdaptiveJson(raw);
+  if(canonicalAdaptive(v)!==raw||Object.keys(v).sort().join('|')!=='diagnostic|observation|response|schema|session_epoch'||
+    v.schema!=='adaptive-full-mill-turn-diagnostic-1'||view.phase!=='indexed_milling'||!view.suffix||
+    !Number.isSafeInteger(v.session_epoch)||v.session_epoch<0||v.session_epoch!==sessionEpoch||
+    canonicalAdaptive(v.observation)!==canonicalAdaptive(view.observation)||v.diagnostic!==diagnostic||
+    !['assembly_view','length_view'].includes(diagnostic))throw Error('Full tool inspection differs from current phase/state.');
+  const reader=diagnostic==='assembly_view'?readFaceAssembly:readDrillLength;
+  return reader(canonicalAdaptive(v.response),view.suffix,batchId,candidateId,suffixEpoch);
+}

@@ -30,6 +30,10 @@
 .adaptive-stale-banner{background:#fff4d8;border:1px solid #e5ac48;padding:12px;border-radius:6px}
 .adaptive-live-stale .adaptive-inspector{opacity:.68}
 .adaptive-live-loader label{font-size:13px}
+@media(max-width:600px){.adaptive-live-controls{padding:14px}.adaptive-live-controls .controls{display:grid;grid-template-columns:minmax(0,1fr)}.adaptive-live-controls .controls label,.adaptive-live-controls .controls label.grow{min-width:0;width:100%}.adaptive-live-controls .controls select{max-width:100%;width:100%}.adaptive-inference input{max-width:100%}}
+@media(max-width:900px){.adaptive-tool-cards,.adaptive-tool-cards.mill-turn{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.adaptive-tool-card{gap:2px;padding:7px 5px}.adaptive-tool-card.selected{padding:6px 4px}.adaptive-tool-card svg{width:32px}.adaptive-tool-card strong{font-size:11px}.adaptive-tool-reach{font-size:15px}.adaptive-tool-card small{font-size:9px}}
+
 .adaptive-scope-checks{border:1px solid #d2e1eb;border-radius:8px;padding:14px;margin-bottom:18px;color:#004070;background:#f8fbfd}
 .adaptive-scope-checks>p,.adaptive-scope-checks details{font-size:12px}
 .adaptive-scope-checks dl{margin:10px 0}
@@ -38,6 +42,3 @@
 .adaptive-scope-checks dd small{display:block;font-size:11px;margin-top:3px}
 .adaptive-scope-checks [data-status="NOT_ASSESSED"] dd,.adaptive-scope-checks [data-status="NOT_SUPPORTED"] dd{color:#627486}
 .adaptive-scope-checks [data-status="REJECTED"] dd{color:#9b3b31}
-@media(max-width:600px){.adaptive-live-controls{padding:14px}.adaptive-live-controls .controls{display:grid;grid-template-columns:minmax(0,1fr)}.adaptive-live-controls .controls label,.adaptive-live-controls .controls label.grow{min-width:0;width:100%}.adaptive-live-controls .controls select{max-width:100%;width:100%}.adaptive-inference input{max-width:100%}}
-@media(max-width:900px){.adaptive-tool-cards,.adaptive-tool-cards.mill-turn{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:420px){.adaptive-tool-card{gap:2px;padding:7px 5px}.adaptive-tool-card.selected{padding:6px 4px}.adaptive-tool-card svg{width:32px}.adaptive-tool-card strong{font-size:11px}.adaptive-tool-reach{font-size:15px}.adaptive-tool-card small{font-size:9px}}

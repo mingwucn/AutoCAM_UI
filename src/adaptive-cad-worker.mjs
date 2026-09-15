@@ -127,10 +127,12 @@ self.onmessage=async({data})=>{
       if(typeof data.directionSetup.machineJSON!=='string'||!data.directionSetup.machineJSON.length||encoder.encode(data.directionSetup.machineJSON).length>1024**2)throw Error('Invalid or oversized exact machine JSON.');
       if(typeof data.directionSetup.machineSHA256!=='string'||!/^[0-9a-f]{64}$/.test(data.directionSetup.machineSHA256)||await hash(encoder.encode(data.directionSetup.machineJSON))!==data.directionSetup.machineSHA256)throw Error('Exact machine identity differs.');
     }
-    if(!['rectilinear','periodic_nominal','spherical_nominal'].includes(data.profile))throw Error('Explicit supported source construction profile required.');
+    const rational=data.profile==='rational_nominal';
+    if(!['rectilinear','periodic_nominal','spherical_nominal','rational_nominal'].includes(data.profile))throw Error('Explicit supported source construction profile required.');
+    if(rational&&!['construct','prepare','prepare_auto'].includes(data.operation))throw Error('Rational source supports construction and stock preparation only.');
     if(!(data.source instanceof Uint8Array)||!data.source.length||data.source.length>100*1024**2||await hash(data.source)!==data.sourceSHA256)throw Error('STEP source bytes or identity differ.');
     const a=data.assets;
-    closed(a,['runtimeBaseURL','codeURL','codeSHA256','cadModuleURL','cadModuleSHA256','cadWasmURL','cadWasmSHA256']);
+    closed(a,['runtimeBaseURL','codeURL','codeSHA256','cadModuleURL','cadModuleSHA256','cadWasmURL','cadWasmSHA256',...(rational?['rationalModuleURL','rationalModuleSHA256','rationalWasmURL','rationalWasmSHA256']:[])]);
     const runtime=url(a.runtimeBaseURL);if(!runtime.endsWith('/'))throw Error('Invalid Python runtime URL.');
     self.postMessage({id,type:'progress',phase:'Loading CAD and Python code'});
     const [moduleBytes,wasm,archive]=await Promise.all([
@@ -141,11 +143,33 @@ self.onmessage=async({data})=>{
     finally{URL.revokeObjectURL(moduleURL);}
     self.postMessage({id,type:'progress',phase:'Reading STEP without geometry repair'});
     cad.FS.writeFile('/source.step',data.source);
-    if(cad.callMain(['step','/source.step','0.000001','/imported.brep',...(data.profile==='spherical_nominal'?['spherical_nominal']:[])])!==0)throw Error('STEP reader or source audit failed.');
+    if(cad.callMain(['step','/source.step',rational?'0.0000001':'0.000001','/imported.brep',...(data.profile==='spherical_nominal'?['spherical_nominal']:[])])!==0)throw Error('STEP reader or source audit failed.');
     const snapshot=cad.FS.readFile('/imported.brep');
     const line=stdout.findLast(s=>s.startsWith('{"schema":"adaptive-cad-audit-1"'));
     if(!line)throw Error('CAD audit output missing.');
     const audit=encoder.encode(line),snapshotSHA256=await hash(snapshot),auditSHA256=await hash(audit);
+    let rationalInputs=null;
+    if(rational){
+      self.postMessage({id,type:'progress',phase:'Reading original rational surfaces and checking preserved geometry'});
+      if(await hash(cad.FS.readFile('/source.step'))!==data.sourceSHA256)throw Error('STEP source changed during audit.');
+      const [extractorBytes,extractorWasm]=await Promise.all([
+        asset(a.rationalModuleURL,a.rationalModuleSHA256,8*1024**2),asset(a.rationalWasmURL,a.rationalWasmSHA256,128*1024**2)]);
+      const extractorURL=URL.createObjectURL(new Blob([extractorBytes],{type:'text/javascript'}));
+      let extractor;const extracted=[];
+      try{const {default:create}=await import(extractorURL);extractor=await create({wasmBinary:extractorWasm,locateFile:()=>url(a.rationalWasmURL),noInitialRun:true,print:s=>extracted.push(s),printErr:()=>{}});}
+      finally{URL.revokeObjectURL(extractorURL);}
+      extractor.FS.writeFile('/source.step',data.source);extractor.FS.writeFile('/reference.brep',snapshot);
+      if(extractor.callMain(['/source.step','/reference.brep','/before.brep'])!==0)throw Error('Original rational source extraction failed.');
+      const before=extractor.FS.readFile('/before.brep'),after=extractor.FS.readFile('/before.brep.after.brep');
+      if(await hash(extractor.FS.readFile('/source.step'))!==data.sourceSHA256||await hash(extractor.FS.readFile('/reference.brep'))!==snapshotSHA256||await hash(before)!==snapshotSHA256||await hash(after)!==snapshotSHA256)throw Error('Original rational source or retained import changed.');
+      const observationLine=extracted.findLast(s=>s.startsWith('{"schema":"adaptive-rational-patch-source-2"'));
+      if(!observationLine)throw Error('Original rational observation missing.');
+      const observation=encoder.encode(observationLine);
+      rationalInputs={before,after,observation,observationSHA256:await hash(observation),execution:{
+        audit_module_sha256:a.cadModuleSHA256,audit_wasm_sha256:a.cadWasmSHA256,
+        extractor_module_sha256:a.rationalModuleSHA256,extractor_wasm_sha256:a.rationalWasmSHA256,
+        audit_returncode:0,extractor_returncode:0}};
+    }
     self.postMessage({id,type:'progress',phase:'Proving the imported target with shared Python'});
     const {loadPyodide}=await import(new URL('pyodide.mjs',runtime).href);
     const py=await loadPyodide({indexURL:runtime});
@@ -153,7 +177,18 @@ self.onmessage=async({data})=>{
     py.runPython('import sys; sys.dont_write_bytecode=True; sys.path[:0]=["/app/sources","/app/deps"]');
     py.FS.mkdirTree('/cad');py.FS.writeFile('/cad/source.step',data.source);py.FS.writeFile('/cad/imported.brep',snapshot);py.FS.writeFile('/cad/audit.json',audit);
     py.FS.writeFile('/cad/pins.json',encoder.encode(JSON.stringify({source_sha256:data.sourceSHA256,snapshot_sha256:snapshotSHA256,audit_sha256:auditSHA256,profile:data.profile})));
-    const certificate=py.runPython(`
+    let certificate;
+    if(rational){
+      for(const [key,name] of [['before','before.brep'],['after','after.brep'],['observation','observation.json']])py.FS.writeFile('/cad/'+name,rationalInputs[key]);
+      py.FS.writeFile('/cad/rational-pins.json',encoder.encode(JSON.stringify({source_sha256:data.sourceSHA256,snapshot_sha256:snapshotSHA256,audit_sha256:auditSHA256,observation_sha256:rationalInputs.observationSHA256,execution:rationalInputs.execution})));
+      certificate=py.runPython(`
+import json
+from pathlib import Path
+from autocam.adaptive_delta.cad_browser_rational import construct_browser_rational
+from autocam.adaptive_delta.domain import canonical
+canonical(construct_browser_rational(*(Path('/cad/'+name).read_bytes() for name in ('source.step','imported.brep','audit.json','observation.json','before.brep','after.brep')),**json.loads(Path('/cad/rational-pins.json').read_bytes()))).decode()
+`);
+    }else certificate=py.runPython(`
 import json
 from pathlib import Path
 from autocam.adaptive_delta.cad_browser_construction import construct_browser_import

@@ -49,6 +49,14 @@ try {
     await write('result.json',{status:'passed_fixture_integrity',browser_verified:false,files:27,actions:27});
   } else {
     const site=path.join(root,'dist');
+    const productionBuild=await json(path.join(site,'build-manifest.json'));
+    const codePath='assets/adaptive-cad/python-code.zip';
+    const codeRow=productionBuild.files.find(row=>row.path===codePath);
+    assert(codeRow,'Production CAD Python archive must be indexed');
+    const productionCodeSHA=sha(await read(path.join(site,codePath)));
+    assert.equal(productionCodeSHA,codeRow.sha256,'Production CAD Python bytes differ from build manifest');
+    await write('runtime-identities.json',{fixture_code_sha256:config.code_sha256,production_code_sha256:productionCodeSHA,
+      build_manifest_sha256:sha(await read(path.join(site,'build-manifest.json'))),historical_fixtures_unchanged:true});
     server=http.createServer(async(req,res)=>{
       const url=new URL(req.url,'http://localhost');requests.push({method:req.method,path:url.pathname});
       try{
@@ -123,7 +131,8 @@ try {
       await button('Open machining gym').click();await ready(c.initial_hash);
       assert.equal(await panel().getByLabel('Mill-turn action',{exact:true}).locator('option').count(),c.candidates);
       const assets=await page.evaluate(()=>window.sphericalBandInitializations);
-      assert(assets.some(a=>a?.codeSHA256===config.code_sha256&&new URL(a.codeURL).origin===origin),'Expected local production Python package');
+      assert(assets.some(a=>a?.codeSHA256===productionCodeSHA&&new URL(a.codeURL).origin===origin&&
+        new URL(a.codeURL).pathname==='/AutoCAM_UI/'+codePath),'Expected indexed local production Python package');
       await panel().getByLabel('3D pick mode',{exact:true}).selectOption('face');
       await panel().getByLabel('Original CAD face',{exact:true}).selectOption('1');
       await panel().getByLabel('Selected face machining proposals',{exact:true}).getByRole('button',{name:'Select action 2',exact:true}).click();

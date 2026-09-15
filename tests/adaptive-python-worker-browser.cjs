@@ -1,9 +1,20 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');const path=require('node:path');const http=require('node:http');
 const {chromium}=require('playwright');
+const {compareWorkerResponse}=require('./mixed-worker-response-compare.cjs');
 
 (async()=>{
   const directory=path.resolve(process.argv[2]),requests=[],blocked=[];
+  const verificationInputs=JSON.parse(fs.readFileSync(path.join(directory,'worker-inputs.json'),'utf8'));
+  const declaredCommands=JSON.parse(fs.readFileSync(path.join(directory,'commands.json'),'utf8'));
+  const priorDifferences=[];
+  function compare(index,actual,phase){
+    const command=declaredCommands[index];
+    const allow=verificationInputs.mixedLearningPriorULP===1&&command.kind==='invoke'&&JSON.parse(command.request_raw).operation==='search';
+    const result=compareWorkerResponse(fs.readFileSync(path.join(directory,'expected-'+index+'.json'),'utf8'),actual,{allowMixedPriorULP:allow});
+    for(const difference of result.priorDifferences)priorDifferences.push({index,phase,...difference});
+    return result;
+  }
   const types={'.mjs':'text/javascript','.html':'text/html','.json':'application/json','.wasm':'application/wasm'};
   const server=http.createServer((request,response)=>{
     requests.push({method:request.method,url:request.url});
@@ -15,7 +26,12 @@ const {chromium}=require('playwright');
     fs.createReadStream(file).pipe(response);
   });
   fs.writeFileSync(path.join(directory,'index.html'),'<!doctype html><meta charset="utf-8"><title>Shared simulator worker test</title>');
-  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
+  // Avoid Chrome-blocked low ports assigned by Windows listen(0).
+  for(let port=49152;port<49216&&!server.listening;port++){
+    try{await new Promise((resolve,reject)=>{const fail=error=>{server.removeListener('listening',done);reject(error);};const done=()=>{server.removeListener('error',fail);resolve();};server.once('error',fail);server.once('listening',done);server.listen(port,'127.0.0.1');});}
+    catch(error){if(error.code!=='EADDRINUSE')throw error;}
+  }
+  if(!server.listening)throw Error('No available local verification port.');let browser;
   try{
     const origin='http://127.0.0.1:'+server.address().port;
     browser=await chromium.launch({channel:'chrome',headless:true});
@@ -28,10 +44,11 @@ const {chromium}=require('playwright');
     await page.exposeFunction('saveWorkerEvent',event=>{
       if(event.type==='response'){
         fs.writeFileSync(path.join(directory,'response-'+event.index+'.json'),event.raw);responseCount++;
-        assert.equal(event.raw,fs.readFileSync(path.join(directory,'expected-'+event.index+'.json'),'utf8'));
+        compare(event.index,event.raw,'response');
         console.log(JSON.stringify({phase:'matched_response',index:event.index}));
       }else{phases.push(event);console.log(JSON.stringify(event));}
     });
+    await page.exposeFunction('compareAcknowledgedWorkerResponse',(index,raw)=>compare(index,raw,'recovery_owner'));
     await page.goto(origin+'/index.html');
     const outcome=await page.evaluate(async()=>{
       const {AdaptivePythonClient}=await import('./client.mjs');
@@ -39,6 +56,12 @@ const {chromium}=require('playwright');
       const read=async name=>new Uint8Array(await (await fetch('./'+name)).arrayBuffer());
       const [task,initial,checkpoint]=await Promise.all(['task.json','initial.bin','checkpoint.json'].map(read));
       const commands=await (await fetch('./commands.json')).json();
+      const drillReader=config.drillGeometryReader?await import('./drill-live-view.mjs'):null;
+      const drillInputs=drillReader?await drillReader.readDrillInputs(task,initial):null;
+      let drillGeometryViewsChecked=0;
+      const faceReader=config.faceGeometryReader?await import('./face-geometry-view.mjs'):null;
+      const faceSource=faceReader?(await import('./adaptive-provider.mjs')).parseAdaptiveJson(new TextDecoder().decode(initial)).logical.source:null;
+      let faceGeometryViewsChecked=0;
       const assets={runtimeBaseURL:new URL('./runtime/',location.href).href,codeURL:new URL('./python-code.zip',location.href).href,codeSHA256:config.codeSHA256};
       if(config.volumeQuery) assets.volumeQuery={...config.volumeQuery,
         moduleURL:new URL('./volume-query.mjs',location.href).href,wasmURL:new URL('./volume-query.wasm',location.href).href};
@@ -72,6 +95,19 @@ const {chromium}=require('playwright');
             value={ok:true,raw:await pending};
           }catch(error){value={error_type:error.name,message:error.message,ok:false};}
           await window.saveWorkerEvent({type:'response',index,raw:JSON.stringify(value)});
+          if(drillReader&&JSON.parse(command.request_raw).operation==='geometry'){
+            if(!value.ok)throw Error('Drill geometry response failed');
+            const {parseAdaptiveJson}=await import('./adaptive-provider.mjs');
+            const acknowledged=parseAdaptiveJson(await client.invoke('{"operation":"observe"}'));
+            const view=await drillReader.readDrillView(await client.invoke('{"operation":"view"}'),drillInputs,acknowledged);
+            await drillReader.readDrillGeometry(value.raw,view);drillGeometryViewsChecked++;
+          }
+          if(faceReader&&JSON.parse(command.request_raw).operation==='geometry'){
+            if(!value.ok)throw Error('Face geometry response failed');
+            const {parseAdaptiveJson}=await import('./adaptive-provider.mjs');
+            const observation=parseAdaptiveJson(await client.invoke('{"operation":"observe"}'));
+            await faceReader.readFaceGeometry(value.raw,{source:faceSource,observation});faceGeometryViewsChecked++;
+          }
           commandTimings.push({index,seconds:(performance.now()-commandStarted)/1000});
         }
         const executionSeconds=(performance.now()-before)/1000;client.dispose();
@@ -132,10 +168,18 @@ const {chromium}=require('playwright');
         const cancelled=make(),pending=cancelled.initialize(assets,task,initial);cancelled.dispose();
         try{await pending;throw Error('Disposed setup completed');}catch(error){if(error.name!=='AbortError')throw error;}
         let sessionRecovery=null;
-        if(config.choiceSessionRecovery){
+        if(config.choiceSessionRecovery||config.drillSessionRecovery||config.faceSessionRecovery||config.fullMillTurnSessionRecovery||config.mixedLearningSessionRecovery){
           await window.saveWorkerEvent({type:'phase',phase:'choice_recovery_started'});
-          const {CylindricalPythonSession}=await import('./cylindrical-python-session.mjs');
-          const owner=new CylindricalPythonSession(new URL('./worker.mjs',location.href));
+          const Session=config.mixedLearningSessionRecovery
+            ?(await import('./mixed-learning-python-session.mjs')).MixedLearningPythonSession
+            :config.fullMillTurnSessionRecovery
+            ?(await import('./full-mill-turn-python-session.mjs')).FullMillTurnPythonSession
+            :config.faceSessionRecovery
+            ?(await import('./face-python-session.mjs')).FacePythonSession
+            :config.drillSessionRecovery
+            ?(await import('./drill-python-session.mjs')).DrillPythonSession
+            :(await import('./cylindrical-python-session.mjs')).CylindricalPythonSession;
+          const owner=new Session(new URL('./worker.mjs',location.href));
           try{
             await owner.initialize(assets,task,initial);
             let successfulMutations=0;
@@ -143,10 +187,11 @@ const {chromium}=require('playwright');
               const command=commands[index];let value;
               try{
                 const raw=command.kind==='invoke'?await owner.invoke(command.request_raw):await owner.loadModel(checkpoint,command.expected_sha256);value={ok:true,raw};
-                if(command.kind==='load_model'||['execute','reset','restore'].includes(JSON.parse(command.request_raw).operation))successfulMutations++;
+                if(command.kind==='load_model'||owner.mutationOperations.has(JSON.parse(command.request_raw).operation))successfulMutations++;
               }catch(error){value={error_type:error.name,message:error.message,ok:false};}
               const expected=await (await fetch('./expected-'+index+'.json')).text();
-              if(JSON.stringify(value)!==expected)throw Error('Recovery owner response differs at '+index);
+              if(config.mixedLearningPriorULP===1)await window.compareAcknowledgedWorkerResponse(index,JSON.stringify(value));
+              else if(JSON.stringify(value)!==expected)throw Error('Recovery owner response differs at '+index);
               await window.saveWorkerEvent({type:'phase',phase:'choice_recovery_response_matched',index});
             }
             if(owner.journal.length!==successfulMutations||owner.journal.some(e=>e.kind==='invoke'&&JSON.parse(e.raw).operation==='preview'))
@@ -167,10 +212,20 @@ const {chromium}=require('playwright');
                 throw Error('Recovered policy outcome differs');
             }
             sessionRecovery={status:'passed',restored_commands:successfulMutations,complete_export_equal:true};
+            if(config.mixedLearningSessionRecovery){
+              const capsule=await owner.exportRecoveryCapsule(),fresh=new Session(new URL('./worker.mjs',location.href));
+              try{
+                const inference=await owner.invoke(lastSearch.request_raw);
+                await fresh.initialize(assets,task,initial);await fresh.restoreRecoveryCapsule(capsule);
+                if(await fresh.invoke('{"operation":"export"}')!==before||await fresh.invoke(lastSearch.request_raw)!==inference)
+                  throw Error('Learning capsule episode or loaded model differs');
+                sessionRecovery.capsule_model_and_episode_equal=true;
+              }finally{fresh.dispose();}
+            }
             await window.saveWorkerEvent({type:'phase',phase:'choice_recovery_complete',commands:successfulMutations});
           }finally{owner.dispose();}
         }
-        return {status:'passed',runtime,responses:commands.length,execution_seconds:executionSeconds,session_recovery:sessionRecovery,
+        return {status:'passed',runtime,responses:commands.length,execution_seconds:executionSeconds,session_recovery:sessionRecovery,drill_geometry_views_checked:drillGeometryViewsChecked,face_geometry_views_checked:faceGeometryViewsChecked,
                 elapsed_seconds:(performance.now()-started)/1000,main_thread_ticks:ticks,
                 overlapping_command_rejected:true,disposal_checked:true,asset_rejections:negative,
                 wasm_history_enabled:config.historyQuery===true,raw_history_rejections:rawHistoryRejections,
@@ -178,6 +233,9 @@ const {chromium}=require('playwright');
       }finally{clearInterval(timer);client.dispose();}
     });
     outcome.browser=browser.version();outcome.saved_responses=responseCount;
+    outcome.comparison_profile=verificationInputs.mixedLearningPriorULP===1?'mixed-root-prior-one-ulp-1':'strict-response-bytes-1';
+    outcome.strict_response_byte_parity=priorDifferences.length===0;
+    outcome.prior_differences=priorDifferences;
     const expectedCount=JSON.parse(fs.readFileSync(path.join(directory,'worker-inputs.json'),'utf8')).response_count??23;
     assert.equal(responseCount,expectedCount);assert.equal(blocked.length,0);assert.equal(outcome.runtime.guard.status,'passed');
     assert(outcome.main_thread_ticks>0);
@@ -185,6 +243,7 @@ const {chromium}=require('playwright');
     fs.writeFileSync(path.join(directory,'browser-phases.json'),JSON.stringify(phases,null,2));
     console.log(JSON.stringify(outcome));
   }finally{
+    fs.writeFileSync(path.join(directory,'prior-comparison.json'),JSON.stringify({priorDifferences},null,2));
     fs.writeFileSync(path.join(directory,'network-requests.json'),JSON.stringify({requests,blocked},null,2));
     if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));
   }

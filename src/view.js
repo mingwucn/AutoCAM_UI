@@ -2,9 +2,12 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {adaptiveCellBounds,adaptiveGeometryBounds,canonicalAdaptive,exactNumber,indexedPoseMatrix} from './adaptive-provider.mjs';
 import {annularDisplaySegments,previewTool,turningPreview} from './adaptive-turning-view.mjs';
+import {faceToolPreview} from './face-tool-preview.mjs';
+import {faceAssemblyMesh} from './face-tool-mesh.mjs';
 import {cylinderFlatsProfile,throughSlotProfile,profileFrameReflected} from './adaptive-profile-view.mjs';
 import {visibleSourceFaceHit} from './cad-face-picking.mjs';
 import {visibleMaterialLabels} from './material-layers.js';
+import {rationalPrismMesh} from './adaptive-rational-view.mjs';
 
 const C=['#ffffff','#087f8c','#526079','#f5a544','#9d8ac7','#8dc9e8','#dde7eb'];
 
@@ -203,6 +206,13 @@ export class View {
       return result;
     }
     if(shape.kind==='empty')return true;
+    if(shape.kind==='nominal_rational_grid_prism_1'){
+      const data=rationalPrismMesh(shape),geometry=new THREE.BufferGeometry();
+      geometry.setAttribute('position',new THREE.Float32BufferAttribute(data.positions,3));geometry.setIndex(data.indices);geometry.computeVertexNormals();
+      const mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color,roughness:.5,metalness:.15,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide,clippingPlanes:planes,flatShading:true}));
+      mesh.userData.rationalDisplayApproximation=data.approximation;this.group.add(mesh);return true;
+    }
+    if(shape.kind==='drill_cutting_profile_1')return this.adaptivePrimitive({kind:'union',children:[shape.cylinder,shape.point]},{color,opacity,planes});
     const flats=cylinderFlatsProfile(shape)||throughSlotProfile(shape);
     if(flats){
       const section=new THREE.Shape(flats.points.map(p=>new THREE.Vector2(...p)));
@@ -229,27 +239,44 @@ export class View {
         this.group.add(mesh);
       }return true;
     }
-    const drawable=s=>['box','cylinder','sphere','empty'].includes(s.kind)||s.kind==='union'&&s.children.every(drawable);
+    const drawable=s=>['box','cylinder','sphere','empty','drill_conical_point_1'].includes(s.kind)||s.kind==='drill_cutting_profile_1'&&drawable(s.cylinder)&&drawable(s.point)||s.kind==='union'&&s.children.every(drawable);
     if(!drawable(shape))return false;
     if(shape.kind==='union'){shape.children.forEach(s=>this.adaptivePrimitive(s,{color,opacity,planes}));return true;}
     const [a,b]=adaptiveGeometryBounds(shape),center=a.map((v,k)=>(v+b[k])/2);
-    const geometry=shape.kind==='sphere'?new THREE.SphereGeometry(exactNumber(shape.radius),40,24):shape.kind==='cylinder'?new THREE.CylinderGeometry(exactNumber(shape.radius),exactNumber(shape.radius),b[shape.axis]-a[shape.axis],48):new THREE.BoxGeometry(...b.map((v,k)=>v-a[k]));
+    const cone=shape.kind==='drill_conical_point_1';
+    const geometry=shape.kind==='sphere'?new THREE.SphereGeometry(exactNumber(shape.radius),40,24):cone||shape.kind==='cylinder'?new THREE.CylinderGeometry(cone?0:exactNumber(shape.radius),exactNumber(shape.radius),b[shape.axis]-a[shape.axis],48):new THREE.BoxGeometry(...b.map((v,k)=>v-a[k]));
     const mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color,roughness:.5,metalness:.15,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide,clippingPlanes:planes}));
     mesh.position.set(...center);
-    if(shape.kind==='cylinder')mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3().setComponent(shape.axis,1));
+    if(cone||shape.kind==='cylinder')mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3().setComponent(shape.axis,cone?shape.sign:1));
     this.group.add(mesh);return true;
   }
-  updateAdaptive(bundle,frame,{layers,section,cutaway,selected,keepCamera=true,toolPosition=1,showSweep=true,showTool=true,previewAction=undefined,workpiecePose=null,sourceFaceMeshes=[],pickMode='cell',pickedSourceFace=null}){
+  updateAdaptive(bundle,frame,{layers,acceptedStock=null,proposedRemoval=null,lengthDisplay=null,assemblyDisplay=null,section,cutaway,selected,keepCamera=true,toolPosition=1,showSweep=true,showTool=true,previewAction=undefined,workpiecePose=null,sourceFaceMeshes=[],pickMode='cell',pickedSourceFace=null}){
     const changedSource=this.adaptiveDisplayBinding?.source_geometry_id!==bundle.source_geometry_id;
+    const changedAssembly=!!assemblyDisplay&&this.adaptiveAssemblyProjection!==assemblyDisplay.projection_id;
+    this.adaptiveAssemblyProjection=assemblyDisplay?.projection_id??null;
     this.adaptivePickMode=pickMode;
     this.clear();this.renderer.localClippingEnabled=true;
     const source=bundle.source,[low,high]=adaptiveGeometryBounds(source.stock)||[source.root.origin.map(exactNumber),source.root.origin.map(v=>exactNumber(v)+exactNumber(source.root.side))],span=high.map((v,k)=>v-low[k]);
     this.meta={origin_mm:low,shape:span,pitch_mm:1,stock_bounds_mm:[low,high],radius_reference:'box'};
     const planes=cutaway?[new THREE.Plane(new THREE.Vector3().setComponent(section.axis,-1),section.station)]:[];
-    const palette={target:'#afcbd9',definite:'#004070',uncertain:'#e5ac48',removed:'#3aa99d'};
+    const palette={target:'#afcbd9',definite:'#004070',uncertain:'#e5ac48',removed:'#3aa99d',remove:'#f5a544',reach:'#df654c',cuttingLength:'#b8942a',assemblyCutting:'#e5ac48',assemblyBody:'#647e8c',assemblyArbor:'#8b9da6',assemblyHolder:'#004070',assemblyFixed:'#c84d40'};
+    const solidStock=['adaptive-inspection-payload-10','adaptive-inspection-payload-11'].includes(bundle.schema);
+    if(acceptedStock&&(acceptedStock.state_hash!==frame.state_hash||acceptedStock.source_geometry_id!==bundle.source_geometry_id))throw Error('Accepted-stock display binding differs.');
+    if(proposedRemoval&&(proposedRemoval.state_hash!==frame.state_hash||proposedRemoval.source_geometry_id!==bundle.source_geometry_id))throw Error('Proposed-removal display binding differs.');
+    if(lengthDisplay&&(lengthDisplay.state_hash!==frame.state_hash||lengthDisplay.source_geometry_id!==bundle.source_geometry_id))throw Error('Length display binding differs.');
+    if(assemblyDisplay&&(assemblyDisplay.state_hash!==frame.state_hash||assemblyDisplay.source_geometry_id!==bundle.source_geometry_id))throw Error('Assembly display binding differs.');
+    if(solidStock&&acceptedStock){
+      for(const [role,data] of Object.entries({...acceptedStock.meshes,...(proposedRemoval?.meshes??{}),...(lengthDisplay?.meshes??{}),...(assemblyDisplay?.meshes??{})})){
+        if(!layers[role]||!data.indices.length)continue;
+        const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(data.positions,3));geometry.setIndex(new THREE.BufferAttribute(data.indices,1));geometry.computeVertexNormals();
+        const assemblyRole=role.startsWith('assembly'),lengthRole=role==='reach'||role==='cuttingLength',opacity=assemblyRole?.65:lengthRole?.8:role==='target'?.16:role==='removed'?.08:1;
+        const material=new THREE.MeshStandardMaterial({color:role==='remaining'?'#004070':role==='holding'?'#cb7d36':palette[role],roughness:.55,metalness:.08,flatShading:true,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide,clippingPlanes:planes,depthTest:role!=='remove'&&!lengthRole&&!assemblyRole,polygonOffset:role==='target',polygonOffsetFactor:1,polygonOffsetUnits:1});
+        const mesh=new THREE.Mesh(geometry,material);if(role==='remove')mesh.renderOrder=3;if(assemblyRole)mesh.renderOrder=6;if(lengthRole)mesh.renderOrder=role==='reach'?5:4;mesh.userData.stockDisplayRole=role;mesh.userData.displayVolume=data.display_volume_mm3;this.group.add(mesh);
+      }
+    }
     let smoothTarget=false;
-    if(layers.target)smoothTarget=this.adaptivePrimitive(source.target,{color:palette.target,planes});
-    if(layers.target&&source.target.kind==='cutout'&&source.target.base.kind==='box'){
+    if(!solidStock&&layers.target)smoothTarget=this.adaptivePrimitive(source.target,{color:palette.target,planes});
+    if(!solidStock&&layers.target&&source.target.kind==='cutout'&&source.target.base.kind==='box'){
       const base=source.target.base.bounds,a=base.low.map(exactNumber),b=base.high.map(exactNumber),cuts=source.target.cutters;
       const supported=cuts.every(c=>c.kind==='box'&&exactNumber(c.bounds.low[0])>a[0]&&exactNumber(c.bounds.high[0])<b[0]&&exactNumber(c.bounds.low[1])>a[1]&&exactNumber(c.bounds.high[1])<b[1]||
         c.kind==='cylinder'&&c.axis===2&&exactNumber(c.center[0])-exactNumber(c.radius)>a[0]&&exactNumber(c.center[0])+exactNumber(c.radius)<b[0]&&exactNumber(c.center[1])-exactNumber(c.radius)>a[1]&&exactNumber(c.center[1])+exactNumber(c.radius)<b[1]);
@@ -271,7 +298,7 @@ export class View {
     }
     const groups={target:[],definite:[],uncertain:[],removed:[]};
     frame.domain.leaves.forEach((leaf,i)=>{const removed=frame.coverage[i],kind=removed[0]?'removed':leaf.delta_lower&&!removed[1]?'definite':leaf.delta_upper?'uncertain':leaf.target==='inside'?'target':null;
-      if(kind&&layers[kind]&&!(kind==='target'&&smoothTarget))groups[kind].push(i);});
+      if(kind&&layers[kind]&&!(kind==='target'&&smoothTarget)&&!(solidStock&&['target','removed'].includes(kind)))groups[kind].push(i);});
     for(const [kind,indices] of Object.entries(groups)){
       if(!indices.length)continue;const opacity=kind==='uncertain'?.2:kind==='removed'?.55:1;
       const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:palette[kind],roughness:.65,transparent:opacity<1,opacity,depthWrite:opacity===1,clippingPlanes:planes});
@@ -306,7 +333,7 @@ export class View {
     const action=previewAction===undefined?frame.outcome?.action:previewAction;
     const rejected=previewAction===undefined&&frame.outcome?.result?.status==='REJECTED';
     const tool=previewTool(bundle,action);
-    const actionKey=tool?canonicalAdaptive(action.motion)+tool.tool_id:'';
+    const actionKey=tool?canonicalAdaptive(action.motion)+(tool.tool_id??tool.assembly_id):'';
     const changedTool=actionKey!==this.adaptiveActionKey;this.adaptiveActionKey=actionKey;
     if(tool&&['adaptive-action-4','adaptive-combined-turning-preview-1'].includes(action.schema)){
       const preview=turningPreview(tool,action.motion,toolPosition),color=rejected?'#b64b35':'#004070';
@@ -322,15 +349,26 @@ export class View {
       }
       const a=low.map((v,k)=>Math.min(v,preview.bounds[0][k])),b=high.map((v,k)=>Math.max(v,preview.bounds[1][k]));
       this.meta.origin_mm=a;this.meta.shape=b.map((v,k)=>v-a[k]);
+    }else if(tool?.schema==='adaptive-face-mill-tool-1'){
+      const preview=faceToolPreview(tool,action.motion,toolPosition);
+      if(showTool)this.group.add(faceAssemblyMesh(preview));
+      this.line(preview.path,'#805bad',true);
+      // Proposed material is supplied by the accepted-stock mesh worker above.
+      // Do not substitute a disc or bounding box for the annular cutting sweep.
+      const a=this.meta.origin_mm.map((v,k)=>Math.min(v,preview.bounds[0][k]));
+      const b=this.meta.origin_mm.map((v,k)=>Math.max(v+this.meta.shape[k],preview.bounds[1][k]));
+      this.meta.origin_mm=a;this.meta.shape=b.map((v,k)=>v-a[k]);
     }else if(tool){
       const motion=action.motion,axis=motion.axis,sign=motion.sign,start=motion.start_tip.map(exactNumber),end=motion.end_tip.map(exactNumber);
-      const tip=start.map((v,k)=>v+(end[k]-v)*toolPosition),r=exactNumber(tool.radius),flute=exactNumber(tool.flute_length),reach=exactNumber(tool.usable_reach),holder=exactNumber(tool.holder_length),holderR=exactNumber(tool.holder_radius),shankR=exactNumber(tool.shank_radius);
+      const drill=tool.schema==='adaptive-drill-tool-1',point=drill?exactNumber(tool.point_height):0;
+      const tip=start.map((v,k)=>v+(end[k]-v)*toolPosition),r=exactNumber(tool.radius),flute=drill?exactNumber(tool.active_length)+point:exactNumber(tool.flute_length),reach=exactNumber(tool.usable_reach),holder=exactNumber(tool.holder_length),holderR=exactNumber(tool.holder_radius),shankR=exactNumber(tool.shank_radius);
       const color=rejected?'#b64b35':'#004070';
       if(showSweep)this.adaptivePrimitive(action.envelope,{color:rejected?'#b64b35':'#805bad',opacity:.12,planes});
       const cylinder=(back,front,radius,materialColor)=>{if(back===front)return;const geometry=new THREE.CylinderGeometry(radius,radius,back-front,48),mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color:materialColor,roughness:.35,metalness:.25}));mesh.position.set(...tip);mesh.position.setComponent(axis,tip[axis]-sign*(back+front)/2);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3().setComponent(axis,1));this.group.add(mesh);};
       if(showTool){
         cylinder(reach+holder,reach,holderR,'#526079');cylinder(reach,flute,shankR,'#8b9da6');
-        cylinder(flute,tool.profile==='BALL_END'?r:0,r,color);
+        cylinder(flute,drill?point:tool.profile==='BALL_END'?r:0,r,color);
+        if(drill){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(0,r,point,48),new THREE.MeshStandardMaterial({color:'#087f8c',roughness:.35,metalness:.25}));mesh.position.set(...tip);mesh.position.setComponent(axis,tip[axis]-sign*point/2);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3().setComponent(axis,sign));mesh.userData.drillPoint=true;this.group.add(mesh);}
         if(tool.profile==='BALL_END'){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,40,24),new THREE.MeshStandardMaterial({color,roughness:.35,metalness:.25}));mesh.position.set(...tip);mesh.position.setComponent(axis,tip[axis]-sign*r);this.group.add(mesh);}
       }
       this.line([start,end],'#805bad',true);
@@ -360,9 +398,20 @@ export class View {
       this.adaptiveSelectionBounds=new THREE.Box3(new THREE.Vector3(...selectedBounds[0]),new THREE.Vector3(...selectedBounds[1]));
       if(partMatrix)this.adaptiveSelectionBounds.applyMatrix4(partMatrix);
     }
+    if(assemblyDisplay){
+      const bounds=new THREE.Box3();
+      // Fit all components regardless of visibility, without moving the camera on toggles.
+      for(const data of Object.values(assemblyDisplay.meshes))for(let i=0;i<data.positions.length;i+=3){
+        const point=new THREE.Vector3(...data.positions.slice(i,i+3));if(partMatrix)point.applyMatrix4(partMatrix);bounds.expandByPoint(point);
+      }
+      if(!bounds.isEmpty()){
+        const a=this.meta.origin_mm,b=a.map((v,k)=>v+this.meta.shape[k]),lo=bounds.min.toArray(),hi=bounds.max.toArray();
+        this.meta.origin_mm=a.map((v,k)=>Math.min(v,lo[k]));this.meta.shape=b.map((v,k)=>Math.max(v,hi[k])-this.meta.origin_mm[k]);
+      }
+    }
     this.adaptiveDisplayBinding={state_hash:frame.state_hash,source_geometry_id:bundle.source_geometry_id};
     this.group.traverse(object=>{if(object.geometry)object.userData.adaptiveDisplayBinding={...this.adaptiveDisplayBinding};});
-    if(!keepCamera||changedSource||changedTool)this.home();else this.draw();
+    if(!keepCamera||changedSource||changedTool||changedAssembly)this.home();else this.draw();
   }
   adaptiveDisplayMetadata(expectedState,expectedSource){
     const binding=this.adaptiveDisplayBinding;

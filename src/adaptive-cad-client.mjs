@@ -196,6 +196,18 @@ export async function prepareCadFile(file,{workerURL,assets,stockOptions,profile
            typeof data.certificate!=='string'||typeof data.initial!=='string'||typeof data.proposedPreparation!=='string')throw Error('Incomplete STEP preparation response.');
         checkPreparedAllowance(data,expectedAllowance);
         await readCadPreview(data.preview,data.initial);
+        if(profile==='rational_nominal'){
+          const c=parseAdaptiveJson(data.certificate),s=parseAdaptiveJson(data.initial).logical?.source;
+          if(c.schema!=='adaptive-rational-prism-construction-1'||canonicalAdaptive(c)!==canonicalAdaptive(s?.target_construction)||
+             c.binding?.raw_source_sha256!==sourceSHA256||c.binding?.imported_snapshot_sha256!==data.snapshotSHA256)
+            throw Error('Rational STEP response source binding differs.');
+          const audit=JSON.parse(c.audit_utf8),provenance=JSON.parse(audit.limitations.at(-1)),e=provenance.execution;
+          const rawHash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(provenance.raw_audit_utf8)))].map(v=>v.toString(16).padStart(2,'0')).join('');
+          if(provenance.schema!=='adaptive-browser-rational-provenance-1'||provenance.runtime!=='emscripten-browser'||rawHash!==data.auditSHA256||provenance.raw_audit_sha256!==rawHash||
+             e.audit_module_sha256!==assets.cadModuleSHA256||e.audit_wasm_sha256!==assets.cadWasmSHA256||
+             e.extractor_module_sha256!==assets.rationalModuleSHA256||e.extractor_wasm_sha256!==assets.rationalWasmSHA256||
+             e.audit_returncode!==0||e.extractor_returncode!==0)throw Error('Rational STEP response module or audit identity differs.');
+        }
         finish(null,data);
       }catch(error){finish(error);}
     };

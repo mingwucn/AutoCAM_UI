@@ -1,0 +1,14 @@
+{
+  "exact_replay": true,
+  "fixture_sha256": "38054d3a88183a1365446824bc890c176223d0d251b2d1a6e121a049a9f2722e",
+  "parent_index_sha256": "69eb643558391e81d4081b485aa9ce4c6beb8c1d6fe17007cf9efd4d79168ce5",
+  "passed": true,
+  "previews": 6,
+  "reference_episode_equal": true,
+  "source_unchanged": true,
+  "states": 7,
+  "generator": "tools/shadow_gym/generate_mixed_learning_view_fixture.py",
+  "run": "artifacts/shadow-gym/adaptive-delta/r5-mixed-learning-view-fixture-01",
+  "source_pins_sha256": "35864cac25a3afb096ad83cb09cbb39a2b7445fb8437c6664a06254ead248f52",
+  "index_sha256": "2123ff5ad57d34e18dad8366f9bfac9c8964217ad49b518e4324b1663db641dd"
+}

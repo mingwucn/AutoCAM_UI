@@ -166,3 +166,23 @@ Curved-surface finishing is not available yet, and material can remain after
 roughing. The nominal construction keeps original
 import tolerances unchanged; it does not repair industrial CAD or establish
 manufacturing qualification. Files stay in the browser.
+
+## Finite drilling and face milling examples
+
+The adaptive catalogue includes six synthetic tool examples followed by its
+two existing indexed examples. Start with drilling or face milling, then use
+the full sequence to turn the initial stock, transfer, index the workpiece,
+face mill, exchange tools and drill. Choices are finite physical assemblies,
+including short and long variants.
+
+A saved face preview shows the cutting band, carrier, arbor, holder and fixed
+obstacles. All five controls start on; select a motion segment to inspect its
+occupied sweep. Drilling separates usable reach from cutting length, including
+for rejected short tools. These displays preserve accepted stock and recorded
+actions. They are diagnostic geometry, not additional clearance certificates.
+
+The synthetic learning example loads its compatible checkpoint, suggests with
+the policy or MCTS, and downloads accepted decisions. Training runs locally.
+The checkpoint and costs are experimental, not an industrial optimum.
+Rational STEP preparation supports the selected nominal prism profile;
+arbitrary STEP machining remains outside the supported profiles.

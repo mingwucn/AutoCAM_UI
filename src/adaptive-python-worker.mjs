@@ -1,5 +1,5 @@
 let py=null,initialized=false,attempted=false,busy=false,lastID=0;
-let indexed=false,combined=false,regional=false,objective=false,choices=false,choicePolicy=false;
+let indexed=false,combined=false,regional=false,objective=false,choices=false,choicePolicy=false,drill=false,face=false,millTurn=false,fullMillTurn=false,mixedLearning=false;
 let remainingSide=false,clearedHolder=false;
 let volumeEnabled=false,volumeQueryCalls=0;
 let historyEnabled=false,historyQueryCalls=0;
@@ -43,6 +43,11 @@ async function initialize(message){
   const task=bytes(message.task,32*1024**2,'task'),initial=bytes(message.initial,64*1024**2,'initial snapshot');
   const schema=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(task))?.schema;
   indexed=schema==='adaptive-indexed-browser-config-1';
+  drill=schema==='adaptive-drill-browser-config-1';
+  face=schema==='adaptive-face-browser-config-1';
+  millTurn=['adaptive-mill-turn-browser-config-1','adaptive-mill-turn-browser-config-2'].includes(schema);
+  fullMillTurn=schema==='adaptive-full-mill-turn-browser-config-1';
+  mixedLearning=schema==='adaptive-mixed-learning-browser-config-1';
   clearedHolder=schema==='adaptive-mill-turn-core-roughing-task-6';
   remainingSide=clearedHolder||schema==='adaptive-mill-turn-core-roughing-task-5';
   choicePolicy=['adaptive-cylindrical-policy-browser-config-1','adaptive-cylindrical-policy-browser-config-2','adaptive-cylindrical-policy-browser-config-3'].includes(schema);
@@ -60,7 +65,7 @@ async function initialize(message){
   const actual=[...new Uint8Array(await crypto.subtle.digest('SHA-256',archive))].map(v=>v.toString(16).padStart(2,'0')).join('');
   if(actual!==message.assets.codeSHA256)throw new Error('Simulator code archive identity differs.');
   const {loadPyodide}=await import(new URL('pyodide.mjs',runtime).href);
-  py=await loadPyodide({indexURL:runtime.href});if(!indexed&&!combined&&!choices)await py.loadPackage('numpy');
+  py=await loadPyodide({indexURL:runtime.href});if(!indexed&&!combined&&!choices&&!drill&&!face&&!millTurn&&!fullMillTurn&&!mixedLearning)await py.loadPackage('numpy');
   py.unpackArchive(archive,'zip',{extractDir:'/app'});
   py.runPython('import sys; sys.dont_write_bytecode = True; sys.path[:0] = ["/app/sources", "/app/deps"]');
   py.runPython(String.raw`
@@ -75,7 +80,17 @@ def capture(call):
     except (ValueError, KeyError, TypeError) as error:
         return json.dumps(dict(ok=False, message=str(error), error_type=type(error).__name__))
 `);
-  py.runPython(choicePolicy
+  py.runPython(mixedLearning
+    ?'from autocam.adaptive_delta.mixed_learning_browser_session import MixedLearningBrowserSession as BrowserSession'
+    :fullMillTurn
+    ?'from autocam.adaptive_delta.full_mill_turn_browser_session import FullMillTurnBrowserSession as BrowserSession'
+    :millTurn
+    ?'from autocam.adaptive_delta.mill_turn_browser_session import MillTurnBrowserSession as BrowserSession'
+    :face
+    ?'from autocam.adaptive_delta.face_browser_session import FaceBrowserSession as BrowserSession'
+    :drill
+    ?'from autocam.adaptive_delta.drill_browser_session import DrillBrowserSession as BrowserSession'
+    :choicePolicy
     ?'from autocam.adaptive_delta.cylindrical_policy_browser_session import CylindricalPolicyBrowserSession as BrowserSession'
     :choices
     ?'from autocam.adaptive_delta.cylindrical_browser_session import CylindricalBrowserSession as BrowserSession'
@@ -146,7 +161,17 @@ removal_assessor = WasmRemovalAssessor(wasm_history_query, wasm_removal_weights)
   self.postMessage({id:message.id,type:'progress',phase:'preparing_session'});
   py.runPython('session = BrowserSession(Path("/input/task.json").read_bytes(), Path("/input/initial.bin").read_bytes()'+(useRemaining?', remaining_assessor=remaining_assessor':useVolumeQuery?', completion_assessor=volume_assessor':'')+(useRemoval?', removal_assessor=removal_assessor':'')+')');
   py.FS.unlink('/input/task.json');py.FS.unlink('/input/initial.bin');initialized=true;
-  return py.runPython(choicePolicy
+  return py.runPython(mixedLearning
+    ?'json.dumps(dict(python=sys.version,profile="mixed-learning_1",platform=sys.platform,guard=guard.to_data()))'
+    :fullMillTurn
+    ?'json.dumps(dict(python=sys.version,profile="full-mill-turn_1",platform=sys.platform,guard=guard.to_data()))'
+    :millTurn
+    ?'json.dumps(dict(python=sys.version,profile="mill-turn_1",platform=sys.platform,guard=guard.to_data()))'
+    :face
+    ?'json.dumps(dict(python=sys.version,profile="face_1",platform=sys.platform,guard=guard.to_data()))'
+    :drill
+    ?'json.dumps(dict(python=sys.version,profile="drill_1",platform=sys.platform,guard=guard.to_data()))'
+    :choicePolicy
     ?'json.dumps(dict(python=sys.version,profile="cylindrical_policy_1",platform=sys.platform,guard=guard.to_data()))'
     :choices
     ?'json.dumps(dict(python=sys.version,profile="cylindrical_choices_1",platform=sys.platform,guard=guard.to_data()))'
@@ -169,12 +194,16 @@ async function execute(message){
   if(!initialized)throw new Error('Initialize the simulator before sending commands.');
   if(message.operation==='invoke'){
     closed(message,['id','operation','raw']);
-    if(typeof message.raw!=='string'||!encoder.encode(message.raw).length||encoder.encode(message.raw).length>(combined||choices?65*1024**2:indexed?32*1024**2:4096))throw new Error('Invalid command bytes.');
+    if(typeof message.raw!=='string'||!encoder.encode(message.raw).length||encoder.encode(message.raw).length>(drill||face||millTurn||fullMillTurn||mixedLearning?64*1024**2:combined||choices?65*1024**2:indexed?32*1024**2:4096))throw new Error('Invalid command bytes.');
     py.globals.set('request_raw',message.raw);
     try{return captured('capture(lambda: session.invoke(request_raw.encode("utf-8")))');}
     finally{py.runPython('del request_raw');}
   }
   if(message.operation==='load_model'){
+    if(millTurn)throw new Error('This mixed-session profile does not support model loading yet.');
+    if(fullMillTurn)throw new Error('This full mill-turn profile does not support model loading yet.');
+    if(face)throw new Error('This face-session profile does not support model loading yet.');
+    if(drill)throw new Error('This drill-session profile does not support model loading yet.');
     if(choices&&!choicePolicy)throw new Error('This choice-session profile does not support model loading yet.');
     closed(message,['id','operation','checkpoint','expectedSHA256']);
     const checkpoint=bytes(message.checkpoint,1024**2,'checkpoint');
@@ -199,7 +228,17 @@ self.onmessage=async event=>{
   try{
     const raw=await execute(message);
     if(typeof raw!=='string')throw new Error('Simulator returned an invalid response.');
-    const diagnostics=JSON.parse(py.runPython(choices
+    const diagnostics=JSON.parse(py.runPython(mixedLearning
+      ?'json.dumps(dict(profile="mixed-learning_1",material_state_type=type(session.material).__name__,session_epoch=session.epoch,manifest_id=session.gym.manifest.id,training_modules_imported=any(name in sys.modules for name in ("autocam.adaptive_delta.mixed_learning_training","autocam.adaptive_delta.combined_training","autocam.adaptive_delta.regional_recorded_training"))))'
+      :fullMillTurn
+      ?'json.dumps(dict(profile="full-mill-turn_1",material_state_type=type(session.material).__name__,session_epoch=session.epoch,phase=session.phase))'
+      :millTurn
+      ?'json.dumps(dict(profile="mill-turn_1",material_state_type=type(session.session._journal.material).__name__,session_epoch=session.epoch))'
+      :face
+      ?'json.dumps(dict(profile="face_1",material_state_type=type(session.session._journal.material).__name__,session_epoch=session.epoch))'
+      :drill
+      ?'json.dumps(dict(profile="drill_1",material_state_type=type(session.session._journal.material).__name__,session_epoch=session.epoch))'
+      :choices
       ?'json.dumps(dict(profile="'+(choicePolicy?'cylindrical_policy_1':'cylindrical_choices_1')+'",material_state_type=type(session.session._journal.material).__name__,session_epoch=session.epoch))'
       :objective
       ?'json.dumps(dict(profile="combined_3",material_state_type=type(session.gym._journal.material).__name__,session_epoch=session.epoch))'

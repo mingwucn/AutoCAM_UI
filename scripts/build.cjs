@@ -5,6 +5,7 @@ const source=path.resolve(option('--ui-source',path.join(root,'src')));
 const out=path.resolve(option('--out',path.join(root,'dist'))),development=args.includes('--development');
 const embed=args.includes('--embed');
 fs.mkdirSync(path.join(out,'assets'),{recursive:true});
+require('./accepted-stock-assets.cjs')({source,out:path.join(out,'assets'),minify:!development});
 esbuild.buildSync({entryPoints:[path.join(source,'view.js')],bundle:true,minify:true,format:'iife',target:'es2020',outfile:path.join(out,'assets/view.js'),legalComments:'eof',nodePaths:[path.join(root,'node_modules')]});
 esbuild.buildSync({entryPoints:[path.join(source,'app.jsx')],bundle:true,minify:!development,format:'iife',target:'es2020',jsx:'automatic',define:{'process.env.NODE_ENV':JSON.stringify(development?'development':'production')},outfile:path.join(out,'assets/app.js'),legalComments:'eof',sourcemap:false,nodePaths:[path.join(root,'node_modules')]});
 fs.copyFileSync(path.join(source,'model.js'),path.join(out,'assets/model.js'));

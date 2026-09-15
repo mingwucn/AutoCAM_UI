@@ -1,0 +1,60 @@
+{
+  "files": [
+    {
+      "path": "geometry-after.json",
+      "sha256": "72cee0ef9348fc9ec79b98571479c7bae1f78d7570d29ab5275da2895caf821d"
+    },
+    {
+      "path": "geometry-before.json",
+      "sha256": "a6e493326da291289d8f6fdb58753cb174a06e7a170452ce79849464b5975134"
+    },
+    {
+      "path": "geometry-pending.json",
+      "sha256": "2c277ba3f28f4dc1c1a7ef7a03efdf9afedf04a472a7dfacbdded474295b2c2b"
+    },
+    {
+      "path": "geometry-reset.json",
+      "sha256": "5d0a9a644374a29cff734802ab0e69674ccceb40746d4a6e4053c6b2435af11a"
+    },
+    {
+      "path": "geometry-restored.json",
+      "sha256": "9aacf7f58129cbf85046a22f5cdd6cae26926e45ad4509d1e50241176e938616"
+    },
+    {
+      "path": "initial.bin",
+      "sha256": "1e9e24259f42a0695e7cf0dc7255b7e7f9dc273150ed32bad18357f0da2c61f7"
+    },
+    {
+      "path": "task.json",
+      "sha256": "bc4ebf982b0f541df354be53ff69c0f3fb89e6b348d3c46ec5b40c3718d7b09e"
+    },
+    {
+      "path": "view-after.json",
+      "sha256": "3a92b2e083bc79d81be8eaac3b4aa70eb281df5f9fbdb53807781bbbfbcade1f"
+    },
+    {
+      "path": "view-before.json",
+      "sha256": "0a24903ad06824edd56c00ec604a9cc6f44b14e3a3a0869010f1502e7539431f"
+    },
+    {
+      "path": "view-pending.json",
+      "sha256": "c1bf8baa9b2190e6653863dc3436d1950bba2c3496fb5b85f61d3805fd81d7d7"
+    },
+    {
+      "path": "view-reset.json",
+      "sha256": "0a24903ad06824edd56c00ec604a9cc6f44b14e3a3a0869010f1502e7539431f"
+    },
+    {
+      "path": "view-restored.json",
+      "sha256": "3a92b2e083bc79d81be8eaac3b4aa70eb281df5f9fbdb53807781bbbfbcade1f"
+    }
+  ],
+  "generator_sha256": "b33fe470c17ed770168724cfdbc273aa7fee5bb145283a3e3aedb122379cd152",
+  "kind": "synthetic_development_test_data",
+  "manufacturing_evidence": false,
+  "original_responses_matched": 16,
+  "producer_source_pins_sha256": "0393aedfab1a79effcccaa2c833539aa6352983a6da72423efb43b01817a4d91",
+  "read_only_captures": 5,
+  "reference_index_sha256": "11bc2ed54a2958a2359b13d94205b995614c054c9f2b9d2cf7c1ff083f9fe94d",
+  "schema": "drill-geometry-ui-fixtures-1"
+}

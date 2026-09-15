@@ -32,6 +32,15 @@ export async function exportRuntimeRelease(directory,indexSHA256,output){
     for(const item of manifest.cases){
       for(const ref of [item.task,item.initial,...(item.comparison?[item.comparison.highTask,item.comparison.estimates]:[])])select(ref.path,ref.sha256);
     }
+    if(Object.hasOwn(manifest,'model_files')){
+      if(!Array.isArray(manifest.model_files)||manifest.model_files.length>32)throw Error('Invalid model file inventory.');
+      const models=new Set();
+      for(const ref of manifest.model_files){
+        if(!ref||Object.keys(ref).sort().join(',')!=='path,sha256'||typeof ref.path!=='string'||!ref.path.endsWith('.json')||models.has(ref.path))throw Error('Invalid model file reference.');
+        models.add(ref.path);select(ref.path,ref.sha256);
+        if((await read(ref.path)).length>1024**2)throw Error('Model exceeds byte budget.');
+      }
+    }
   }else if(manifest.schema==='adaptive-cad-ui-assets-1'){
     for(const ref of manifest.files)select(ref.path,ref.sha256);
   }else throw Error('Unsupported package manifest.');

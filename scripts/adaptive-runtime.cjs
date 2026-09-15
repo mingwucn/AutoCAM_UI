@@ -12,6 +12,14 @@ module.exports=function copyAdaptiveRuntime(directory,out){
     fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(source,dest);return 'assets/adaptive/'+name;
   }
   const codeURL=copy('python-code.zip',manifest.codeSHA256,32*1024**2);
+  if(Object.hasOwn(manifest,'model_files')){
+    if(!Array.isArray(manifest.model_files)||manifest.model_files.length>32)throw Error('Invalid model file inventory.');
+    const models=new Set();
+    for(const model of manifest.model_files){
+      if(!model||Object.keys(model).sort().join(',')!=='path,sha256'||typeof model.path!=='string'||!model.path.endsWith('.json')||models.has(model.path))throw Error('Invalid model file reference.');
+      models.add(model.path);copy(model.path,model.sha256,1024**2);
+    }
+  }
   let volumeQuery;
   if(Object.hasOwn(manifest,'volumeQuery')){
     const v=manifest.volumeQuery;

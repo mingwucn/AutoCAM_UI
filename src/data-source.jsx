@@ -7,6 +7,9 @@ import {AdaptiveInspector,AdaptiveUpload} from './adaptive-inspector.jsx';
 import {AdaptiveLiveGym,AdaptiveLiveLoader} from './adaptive-live-gym.jsx';
 import {CombinedLiveGym} from './combined-live-gym.jsx';
 import {IndexedLiveGym} from './indexed-live-gym.jsx';
+import {DrillLiveGym} from './drill-live-gym.jsx';
+import {FaceLiveGym} from './face-live-gym.jsx';
+import {MixedLearningLiveGym} from './mixed-learning-live-gym.jsx';
 import {CylindricalLiveGym} from './cylindrical-live-gym.jsx';
 import {EquivalentGrooveComparison} from './equivalent-groove-comparison.jsx';
 
@@ -48,6 +51,11 @@ export function DataSource({bundledData,renderGym,allowStepUpload=false}) {
   if(localData?.kind==='equivalent-groove')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><EquivalentGrooveComparison {...localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='combined-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><CombinedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='indexed-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><IndexedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='mixed-learning-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><MixedLearningLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='full-mill-turn-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><FaceLiveGym full prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='mill-turn-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><FaceLiveGym mixed prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='face-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><FaceLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
+  if(localData?.kind==='drill-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><DrillLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='cylindrical-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><CylindricalLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='adaptive-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><AdaptiveLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='adaptive')return <>{uploader}<DatasetBoundary key={localData.bundle.bundle_hash} retry={()=>setLocalData(null)}><AdaptiveInspector prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;

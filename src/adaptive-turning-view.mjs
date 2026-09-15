@@ -3,7 +3,9 @@ import {canonicalAdaptive,compareQ,exactNumber} from './adaptive-provider.mjs';
 
 export function previewTool(bundle,action){
   if(!action||action.catalog_id!==bundle.catalog_id)return null;
-  const tool=bundle.tool_catalog?.tools.find(t=>t.tool_id===action.tool_id);
+  const tool=bundle.tool_catalog?.tools.find(t=>(t.tool_id??t.assembly_id)===action.tool_id);
+  if(tool?.schema==='adaptive-face-mill-tool-1')return action.schema==='adaptive-face-display-preview-1'?tool:null;
+  if(tool?.schema==='adaptive-drill-tool-1')return action.schema==='adaptive-drill-display-preview-1'?tool:null;
   if(!tool||(['adaptive-action-4','adaptive-combined-turning-preview-1'].includes(action.schema))!==(tool.schema==='adaptive-turning-insert-1'))return null;
   if(['adaptive-action-4','adaptive-combined-turning-preview-1'].includes(action.schema)&&canonicalAdaptive(action.motion.spindle_axis)!==canonicalAdaptive(bundle.turning_axis))return null;
   return tool;

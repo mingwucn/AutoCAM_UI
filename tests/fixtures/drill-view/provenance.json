@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "path": "initial.bin",
+      "sha256": "1e9e24259f42a0695e7cf0dc7255b7e7f9dc273150ed32bad18357f0da2c61f7"
+    },
+    {
+      "path": "observe-before.json",
+      "sha256": "3315303009638d7d7fb04360e6563e4d203b0708aa18fd4e7bc0f2c1d2dbea78"
+    },
+    {
+      "path": "preview-current.json",
+      "sha256": "f05e59632896f24ebf92c9c6c0fc52bc858978eb3a5fb14109fbaad4768597d1"
+    },
+    {
+      "path": "preview-historical.json",
+      "sha256": "0814c5f6bc96a22f98407dc1dd4c7807c048228bd2d802cdf199cd2e82141e72"
+    },
+    {
+      "path": "task.json",
+      "sha256": "bc4ebf982b0f541df354be53ff69c0f3fb89e6b348d3c46ec5b40c3718d7b09e"
+    },
+    {
+      "path": "view-after.json",
+      "sha256": "3a92b2e083bc79d81be8eaac3b4aa70eb281df5f9fbdb53807781bbbfbcade1f"
+    },
+    {
+      "path": "view-before.json",
+      "sha256": "0a24903ad06824edd56c00ec604a9cc6f44b14e3a3a0869010f1502e7539431f"
+    },
+    {
+      "path": "view-pending.json",
+      "sha256": "c1bf8baa9b2190e6653863dc3436d1950bba2c3496fb5b85f61d3805fd81d7d7"
+    },
+    {
+      "path": "view-restored.json",
+      "sha256": "3a92b2e083bc79d81be8eaac3b4aa70eb281df5f9fbdb53807781bbbfbcade1f"
+    }
+  ],
+  "generator_sha256": "2dd29613843f5ff8374cef4e88769eb22d6c74e4dea010b1dc36df4890cf575d",
+  "kind": "synthetic_development_test_data",
+  "manufacturing_evidence": false,
+  "pending_view": "native read after byte-identical first three saved commands",
+  "producer_index": "pending",
+  "producer_source_pins_sha256": "41a4a4cce5e5f5606ca485216cb8831800b48a5350b73dcfd465ed2f6f90098a",
+  "schema": "drill-ui-test-fixtures-1",
+  "source_index_sha256": "828b898ab621bf93f8e319589e7f26ed44099e23885975b83ba6797772c3b65a"
+}

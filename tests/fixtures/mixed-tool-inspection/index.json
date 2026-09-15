@@ -1,0 +1,118 @@
+[
+  {
+    "path": "full/geometry-0.json",
+    "sha256": "ebbe364eab2028d4b6d4ecdd1698023b5fa8af067e7ddf0accf05d006b940e4b"
+  },
+  {
+    "path": "full/geometry-1.json",
+    "sha256": "c5a8726eaea8c25c4baa4ab31a7b06a81f8a5af380775e18f9fbe9f805b6b853"
+  },
+  {
+    "path": "full/geometry-2.json",
+    "sha256": "0f588ffd334906e0eb442735f51ad02ece3a4bc6433ca12b2694021a958d17f0"
+  },
+  {
+    "path": "full/geometry-3.json",
+    "sha256": "ec6ddccabd96c27a2b66ea81658bd3dd30a747641efb946f4e23d8674332565a"
+  },
+  {
+    "path": "full/initial.bin",
+    "sha256": "cb2ed5aa32e6419b01208849aa41994bd80895fc4ade70eab48b42a44a26375e"
+  },
+  {
+    "path": "full/inspection-0.json",
+    "sha256": "42138035a0616bdaa2a84fae3ea3ee086d61515acbcf7bbd71061413a21defa2"
+  },
+  {
+    "path": "full/inspection-1.json",
+    "sha256": "fdf98656d74f2833421723a8e874f41c7c24149554f6ef859af491384f80a89e"
+  },
+  {
+    "path": "full/inspection-2.json",
+    "sha256": "2c86b7b727722d693774ab827c695a51321ccae61a9c4aee4948ca0291b3bf99"
+  },
+  {
+    "path": "full/inspection-3.json",
+    "sha256": "cbccb94f698ce5d00add8098489a0bced762fda2c9e54cb705a6d54ba1706072"
+  },
+  {
+    "path": "full/task.json",
+    "sha256": "130c87cc70f01e5915e1ab9a1a650e4808b136f94a027977ab8f60fed793799e"
+  },
+  {
+    "path": "full/view-0.json",
+    "sha256": "f3356898c5f688a2274e9ec7300f95cc13038ab9942b9c4157d5b61f954c15c3"
+  },
+  {
+    "path": "full/view-1.json",
+    "sha256": "5e1a9f0e4e189ee58d78af2dfc96f379aa84f30bf567c00684a70e4cbcb2fedb"
+  },
+  {
+    "path": "full/view-2.json",
+    "sha256": "8345310a8b38e335676fa0df44ed85f18af9d01c59a0862843a5293e4551f70a"
+  },
+  {
+    "path": "full/view-3.json",
+    "sha256": "8345310a8b38e335676fa0df44ed85f18af9d01c59a0862843a5293e4551f70a"
+  },
+  {
+    "path": "mixed/geometry-0.json",
+    "sha256": "b408fcfdc73b5073ff3d67c16580235f5bbe71010d1cb10ac14c272aa16b4ec6"
+  },
+  {
+    "path": "mixed/geometry-1.json",
+    "sha256": "200e7606d3d40119d1e13d746c3553edf624178bc82e8ae22ea096eb60421701"
+  },
+  {
+    "path": "mixed/geometry-2.json",
+    "sha256": "00626c1f7aa7dcb2899b158fcda8782389c5dd39500f37c4534fc0c6b1750022"
+  },
+  {
+    "path": "mixed/geometry-3.json",
+    "sha256": "025de06805dee5f970ce29c7fb7cdb641f3981900df243d75cae3dcfb03d701d"
+  },
+  {
+    "path": "mixed/initial.bin",
+    "sha256": "cb2ed5aa32e6419b01208849aa41994bd80895fc4ade70eab48b42a44a26375e"
+  },
+  {
+    "path": "mixed/inspection-0.json",
+    "sha256": "386323e27d7acce2d38d13fe1fa7adabc67c6f88de4924d9bc3edc1cff50d6a8"
+  },
+  {
+    "path": "mixed/inspection-1.json",
+    "sha256": "7a863fc306be8020bfdb21bf3a48a9babed7fb4268a6940b8b152feacff8e11c"
+  },
+  {
+    "path": "mixed/inspection-2.json",
+    "sha256": "e5570279cbedddb179c2ced59bcec4d27c41231b4f13b2ffbab5ed3cffbcf0b5"
+  },
+  {
+    "path": "mixed/inspection-3.json",
+    "sha256": "5e8d98164d2e3eadefd8fc6891dd38906c5c08147636e44b62c973cf1caee325"
+  },
+  {
+    "path": "mixed/task.json",
+    "sha256": "5dd66b3d2b91fe60479f0652c40168f9c39521f88c5aa2bc3efead93e6f90a15"
+  },
+  {
+    "path": "mixed/view-0.json",
+    "sha256": "7f3ef0d71e02d430dc3a876c5de92b5e531bb68af34576b785864074a1192529"
+  },
+  {
+    "path": "mixed/view-1.json",
+    "sha256": "7ad2936e6773066844507a6a40d222041c4e3d93fb77c64a77a4902ddd8c5363"
+  },
+  {
+    "path": "mixed/view-2.json",
+    "sha256": "fd7ed5f02db0108e5e08d52c3a8ccfbc0a8473145778f082480c7eafb23e3d30"
+  },
+  {
+    "path": "mixed/view-3.json",
+    "sha256": "fd7ed5f02db0108e5e08d52c3a8ccfbc0a8473145778f082480c7eafb23e3d30"
+  },
+  {
+    "path": "provenance.json",
+    "sha256": "fa05e5b4d472cfbacce4dc43d14a07d41b3eb8837db2e71e3ecf08a0cdf1b010"
+  }
+]

@@ -139,6 +139,24 @@ test('routes rejection-memory policy configuration',()=>{
   assert.equal(createPreparedLiveCase(input('adaptive-cylindrical-policy-browser-config-3')).kind,'cylindrical-live');
 });
 
+test('face case uses its dedicated controller and reference runtime without changing drill dispatch',()=>{
+  for(const [schema,kind] of [['adaptive-face-browser-config-1','face-live'],['adaptive-drill-browser-config-1','drill-live']]){
+    const value=input(schema),before=structuredClone(value.configuration),result=createPreparedLiveCase(value);
+    assert.equal(result.kind,kind);assert.deepEqual(result.taskBytes,value.taskBytes);
+    for(const container of [result.configuration,result.configuration.assets])for(const key of ['volumeQuery','historyQuery','remainingWeights','removalWeights','packedDomain'])assert.equal(Object.hasOwn(container,key),false);
+    assert.deepEqual(value.configuration,before);
+  }
+  assert.throws(()=>createPreparedLiveCase(input('adaptive-face-browser-config-2')),/compatible/);
+});
+
+test('prepared drill tasks select the existing reference worker without packed volume side effects',()=>{
+  const values=input('adaptive-drill-browser-config-1'),original=structuredClone(values.configuration);
+  const prepared=createPreparedLiveCase(values);
+  assert.equal(prepared.kind,'drill-live');assert.equal(prepared.configuration.volumeQuery,undefined);
+  assert.equal(prepared.configuration.historyQuery,undefined);assert.deepEqual(values.configuration,original);
+  assert.deepEqual(prepared.taskBytes,values.taskBytes);assert.deepEqual(prepared.initialBytes,values.initialBytes);
+});
+
 test('task5 selects the shared live controls and reference assets',()=>{
   const values=input('adaptive-mill-turn-core-roughing-task-5');
   const before=structuredClone(values.configuration);
@@ -157,4 +175,14 @@ test('task5 rejects malformed explicit remaining selection and honors explicit r
   const reference=createPreparedLiveCase({...values,backend:'reference'});
   assert.equal(reference.configuration.remainingWeights,undefined);
   assert.equal(reference.configuration.assets.remainingWeights,undefined);
+});
+
+test('learning profile selects its controller and reference assets without changing the full profile',()=>{
+  for(const [schema,kind] of [['adaptive-mixed-learning-browser-config-1','mixed-learning-live'],['adaptive-full-mill-turn-browser-config-1','full-mill-turn-live']]){
+    const value=input(schema),original=structuredClone(value.configuration),result=createPreparedLiveCase(value);
+    assert.equal(result.kind,kind);assert.deepEqual(result.taskBytes,value.taskBytes);
+    assert.equal(result.configuration.assets.volumeQuery,undefined);assert.equal(result.configuration.remainingWeights,undefined);
+    assert.deepEqual(value.configuration,original);
+  }
+  assert.throws(()=>createPreparedLiveCase(input('adaptive-mixed-learning-browser-config-2')),/compatible/);
 });
