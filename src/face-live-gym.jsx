@@ -12,6 +12,7 @@ import {readDrillLength} from './drill-length-view.mjs';
 import {readDirectionalShadow} from './directional-shadow-view.mjs';
 import {readFullToolInspection} from './mixed-tool-inspection.mjs';
 import {readTurningShadow} from './turning-shadow-view.mjs';
+import {readStationaryTurningShadow} from './stationary-turning-shadow-view.mjs';
 
 const detailText=detail=>typeof detail==='string'?detail:detail===null?'':canonicalAdaptive(detail);
 const spacing=row=>row.parameters.stepover?`${fmt(exactNumber(row.parameters.stepover))} mm spacing · feed ${'XYZ'[row.parameters.feed_axis]}`:`${row.parameters.depth_reference} · ${fmt(exactNumber(row.parameters.stand_off))} mm stand-off`;
@@ -186,14 +187,25 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
   function inspectTurning(){run('Inspecting turning shadow…',async(session,token)=>{
     setShadowPreview(null);setShadowError('');
     try{
-      const raw=await session.invoke(canonicalAdaptive({operation:'turning_shadow_view',candidate_id:initialCandidate,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id}));check(token);
-      const value=await readTurningShadow(raw,fullView,initialCandidate,geometry.sessionEpoch);check(token);
+      const request={operation:'stationary_turning_shadow_view',candidate_id:initialCandidate,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id};
+      let raw,reader=readStationaryTurningShadow;
+      try{raw=await session.invoke(canonicalAdaptive(request));}catch(error){
+        check(token);
+        if(error.message!=='Unsupported full mill-turn operation')throw error;
+        reader=readTurningShadow;raw=await session.invoke(canonicalAdaptive({...request,operation:'turning_shadow_view'}));
+      }
+      check(token);const value=await reader(raw,fullView,initialCandidate,geometry.sessionEpoch);check(token);
       setShadowPreview({key:initialCandidate,semanticId:fullView.observation.semantic_id,value});
     }catch(error){
       check(token);
       const unavailable=['Unsupported full mill-turn operation','Turning shadow requires structurally empty stationary obstacles',
         'Turning point-shadow blocker requires box or coaxial analytic geometry','Box cutout turning shadow lacks a preserved complete extremal witness',
-        'Turning point-shadow requires one common through bore','Blockers must lie strictly within the declared exterior'];
+        'Turning point-shadow requires one common through bore','Blockers must lie strictly within the declared exterior',
+        'Stationary turning shadow requires an identity setup frame','Unsupported stationary turning point-shadow geometry',
+        'Stationary blockers must lie strictly within declared exterior','Stationary round blocker requires coaxial principal geometry',
+        'Unsupported stationary box cutout predicate','Stationary box cutout lacks a complete fixed-plane extremal witness',
+        'Stationary cylinder union requires one common through bore','Stationary through-bore union requires cylinder components',
+        'Unsupported empty stationary difference'];
       if(unavailable.includes(error.message))setShadowError('Turning shadow is unavailable for this geometry, obstacle setup or runtime.');else throw error;
     }
   },{refreshView:false});}

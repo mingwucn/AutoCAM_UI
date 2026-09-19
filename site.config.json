@@ -4,11 +4,11 @@
   "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
   "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
   "adaptiveRuntimeRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/d33f2c5c8f81dcf511fa2c4f4f23018a926f2ae9/releases/adaptive-turning-shadow-20260919/runtime/release.json",
-    "sha256": "e9dad55ee1144c26c37bea363a43e6fec19ea5cc5625832ebffbd0cb719dd5f0"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/d16ead672c43e3ba83fdca42c14548f1d55328a2/releases/adaptive-stationary-turning-shadow-20260919/runtime/release.json",
+    "sha256": "b829abbf96219056dc8e2f51511d96300c2b5bec92c7aeaf027b2ed61be49555"
   },
   "adaptiveCadRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/d33f2c5c8f81dcf511fa2c4f4f23018a926f2ae9/releases/adaptive-turning-shadow-20260919/cad/release.json",
-    "sha256": "b9c2286cb615f0dd250d9fd6cc57857c629825624cceb47628719c1661348e00"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/d16ead672c43e3ba83fdca42c14548f1d55328a2/releases/adaptive-stationary-turning-shadow-20260919/cad/release.json",
+    "sha256": "0046f4488d27a1d2ff5c359afd4b9a44a297c14725c872a025dcf1efb4c4f609"
   }
 }

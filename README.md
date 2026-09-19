@@ -217,13 +217,16 @@ are approximations; unresolved cells remain explicit.
 ## Turning shadow inspection
 
 The full mill-turn example offers Inspect turning shadow before preparation and
-again after an accepted turning cut. Results bind to the configured candidate,
-spindle and current accepted stock. Radial and signed facing approaches use the
-shared exact Python point-shadow profile; display meshes are approximations.
-In shadow and Unresolved shadow cells remain separate default-on controls.
-Inspection does not prepare, execute or record a machining action. Transfer
-candidates cannot request this diagnostic. All twelve examples remain available.
+after an accepted turning cut. Results bind to the candidate, spindle, mounted
+setup and current accepted stock. The shared Python diagnostic includes bounded
+fixed-bearing stationary obstacles in an identity setup. Display meshes are
+approximations. In shadow and Unresolved shadow cells have independent default-on
+controls. Axis-only contacts have zero volume and are reported without solid
+surfaces. Inspection never prepares, executes or records a machining action.
+Transfer candidates cannot request it. All twelve examples remain available.
 
-This bounded principal-axis profile does not assess stationary obstacles,
-finite-tool accessibility or full machine kinematics. General CAD and oblique
-geometry remain outside the profile. Earlier immutable releases remain available.
+An older runtime falls back only for an unsupported operation and explicitly
+reports stationary obstacles as unassessed. Unsupported geometry or setup remains
+unavailable. Point shadow does not certify finite-tool access or whole-machine
+collision. General stationary CAD and oblique/nonidentity setups remain outside
+this profile. Earlier immutable releases remain available.
