@@ -28,6 +28,7 @@ export class AcceptedStockClient{
       if(request.proposal&&(result.preparation_id!==request.proposal.preparation_id||result.semantic_id!==request.proposal.semantic_id)){fail('Removal display response identity differs.');return;}
       if(request.length&&(result.projection_id!==request.length.projection_id||result.semantic_id!==request.length.semantic_id||result.candidate_id!==request.length.candidate_id)){fail('Length display response identity differs.');return;}
       if(request.assembly&&['projection_id','semantic_id','candidate_id','segment_index'].some(k=>result[k]!==request.assembly[k])){fail('Assembly display response identity differs.');return;}
+      if(request.shadow&&['projection_id','semantic_id','candidate_id'].some(k=>result[k]!==request.shadow[k])){fail('Shadow display response identity differs.');return;}
       clearTimeout(pending.timer);this.pending=null;
       this.cache.set(request.request_id,result);while(this.cache.size>3)this.cache.delete(this.cache.keys().next().value);
       resolve(result);

@@ -1,0 +1,6 @@
+{
+  "worker_index_sha256": "a0f59f46b86adfec71718ccedf38e720e56a6cbfa2dc4f1349198e270541baab",
+  "generator_sha256": "5ed67804d1765f7eaa5e6d900bb27f0d77d16545313d61dd6a03773d13e8d6f6",
+  "projections": 8,
+  "scope": "display_test_fixtures"
+}

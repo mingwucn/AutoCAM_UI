@@ -1,0 +1,142 @@
+[
+  {
+    "path": "geometry-15.json",
+    "sha256": "d702353349f262408ac391593ea1ec3cee93f527a5ddcb6fe18b3ac65f7154a9"
+  },
+  {
+    "path": "geometry-19.json",
+    "sha256": "fc46d5918a4b20865a2b0ea01a2840f03e29512d4151dde8b89574cf7a943ac2"
+  },
+  {
+    "path": "geometry-22.json",
+    "sha256": "16fa1c37818f90524266b75709e6e7de0249d90ac86658eb089e5a9b48a6c448"
+  },
+  {
+    "path": "geometry-27.json",
+    "sha256": "595d8e9a62cdf213a38d7acd0580bb21be408c53a1f9482354bdf72254971901"
+  },
+  {
+    "path": "geometry-32.json",
+    "sha256": "d88a65e176cf67c795f9bdd71ac97d491edb4e4ca935b2b9e693f5340c34f647"
+  },
+  {
+    "path": "geometry-5.json",
+    "sha256": "45603bd69a69848d45424efcd53edca2a0c165605febeac3a02f67985985662d"
+  },
+  {
+    "path": "geometry-6.json",
+    "sha256": "45603bd69a69848d45424efcd53edca2a0c165605febeac3a02f67985985662d"
+  },
+  {
+    "path": "geometry-7.json",
+    "sha256": "45603bd69a69848d45424efcd53edca2a0c165605febeac3a02f67985985662d"
+  },
+  {
+    "path": "initial.bin",
+    "sha256": "0dea1e4acdfdcbdaed92e3a6b34850822cdaa1d8227e957a8d20d22d18545e26"
+  },
+  {
+    "path": "provenance.json",
+    "sha256": "61cad482e77e3caa3c612e22948053794b5fc2874ea1e8b1db3362253a795e2e"
+  },
+  {
+    "path": "queries-15.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-19.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-22.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-27.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-32.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-5.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-6.json",
+    "sha256": "3bbadbd1152768f86d2604ae55c108d93c105c2167a03873626bc6f5f1733496"
+  },
+  {
+    "path": "queries-7.json",
+    "sha256": "d22f22f4235c60683b4739db1d38679b18ccefa6ae37dc58dcbd1a619b580a0c"
+  },
+  {
+    "path": "shadow-15.json",
+    "sha256": "2f627490f8156f5e1244c414c77fbb23e23c39af2337493c39142ef2a5700c41"
+  },
+  {
+    "path": "shadow-19.json",
+    "sha256": "abfb808f67f125fba4b3b9465e146e28acdc171ded3e8e992a67aef94ae44155"
+  },
+  {
+    "path": "shadow-22.json",
+    "sha256": "7a2745bd2fb2bf661d6de09a323f10782f45a5950ab40f28e530b67fdf64569f"
+  },
+  {
+    "path": "shadow-27.json",
+    "sha256": "af582689acfa903e76e71296c3843550595cbf7048893a90efe1679463743d5c"
+  },
+  {
+    "path": "shadow-32.json",
+    "sha256": "c7a6dd7cda9a07bac6abd6622ce724e32f57f588882ead1a8ffdf07471c93d28"
+  },
+  {
+    "path": "shadow-5.json",
+    "sha256": "7433ea425d47678bb346d276b764906cf1771624db29b727e97b2db47955b015"
+  },
+  {
+    "path": "shadow-6.json",
+    "sha256": "7433ea425d47678bb346d276b764906cf1771624db29b727e97b2db47955b015"
+  },
+  {
+    "path": "shadow-7.json",
+    "sha256": "822e7c0a8580df59881a9577709ec53cd298ef4266641d7ff13183e459690c42"
+  },
+  {
+    "path": "task.json",
+    "sha256": "5cef3ec14256cd540b9656812cf2a5ca652e9aae716bd4c316273875a4c3b4a5"
+  },
+  {
+    "path": "view-15.json",
+    "sha256": "076d1ce4d821937b8e4b655f6eb9ff6bcd7a240995b826f43baddfadff5c2dc6"
+  },
+  {
+    "path": "view-19.json",
+    "sha256": "b208c078b0e27150d52e5c9b6c60ce615d52271a433872bc0708f9ce5574795f"
+  },
+  {
+    "path": "view-22.json",
+    "sha256": "5b06b61eaefc009d917d8aebb7ab6087d9d4edee4ad2793d36656f04b682fe55"
+  },
+  {
+    "path": "view-27.json",
+    "sha256": "c82f73fac18dcbff7c0c0fa6fb230128373a8027d01df90ca278c68e2cd7ef69"
+  },
+  {
+    "path": "view-32.json",
+    "sha256": "c82f73fac18dcbff7c0c0fa6fb230128373a8027d01df90ca278c68e2cd7ef69"
+  },
+  {
+    "path": "view-5.json",
+    "sha256": "448f1423ab5661f0fbf5c4f4abd4b6fa8a5710c92ca716ffa0968d7dc05f87b5"
+  },
+  {
+    "path": "view-6.json",
+    "sha256": "448f1423ab5661f0fbf5c4f4abd4b6fa8a5710c92ca716ffa0968d7dc05f87b5"
+  },
+  {
+    "path": "view-7.json",
+    "sha256": "448f1423ab5661f0fbf5c4f4abd4b6fa8a5710c92ca716ffa0968d7dc05f87b5"
+  }
+]

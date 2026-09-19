@@ -1,0 +1,6 @@
+{
+  "worker_index_sha256": "a0f59f46b86adfec71718ccedf38e720e56a6cbfa2dc4f1349198e270541baab",
+  "generator_sha256": "0c421741ca19a39f936acbd91ac73d569cc4ab228994a4945a886eee66128087",
+  "expected_shadow_volume_mm3": 16,
+  "description": "4 by 4 mm upstream fixture occludes the 1 mm facing allowance; diagnostic-only case"
+}

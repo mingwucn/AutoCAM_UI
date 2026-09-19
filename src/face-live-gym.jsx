@@ -9,6 +9,7 @@ import {readMillTurnInputs,readMillTurnView,readMillTurnGeometry,readMillTurnPre
 import {adaptiveHash,canonicalAdaptive,exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
 import {readFaceAssembly} from './face-assembly-view.mjs';
 import {readDrillLength} from './drill-length-view.mjs';
+import {readDirectionalShadow} from './directional-shadow-view.mjs';
 import {readFullToolInspection} from './mixed-tool-inspection.mjs';
 
 const detailText=detail=>typeof detail==='string'?detail:detail===null?'':canonicalAdaptive(detail);
@@ -30,7 +31,8 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
   const [selection,setSelection]=useState(''),[preview,setPreview]=useState(null),[decision,setDecision]=useState(null);
   const [assemblyPreview,setAssemblyPreview]=useState(null),[assemblyError,setAssemblyError]=useState('');
   const [lengthPreview,setLengthPreview]=useState(null),[lengthError,setLengthError]=useState('');
-  function clearAssembly(){setAssemblyPreview(null);setAssemblyError('');setLengthPreview(null);setLengthError('');}
+  const [shadowPreview,setShadowPreview]=useState(null),[shadowError,setShadowError]=useState('');
+  function clearAssembly(){setAssemblyPreview(null);setAssemblyError('');setLengthPreview(null);setLengthError('');setShadowPreview(null);setShadowError('');}
   const [initialCandidate,setInitialCandidate]=useState(''),[initialSelection,setInitialSelection]=useState(''),[initialPreview,setInitialPreview]=useState(null);
   const [toolId,setToolId]=useState(''),[poseId,setPoseId]=useState(''),[depth,setDepth]=useState('all'),[direction,setDirection]=useState('0'),[feed,setFeed]=useState('0');
   const [saveStatus,setSaveStatus]=useState('Opening local save…'),[saveError,setSaveError]=useState('');
@@ -98,6 +100,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
   const selected=choices.find(c=>c.key===selection),currentPreview=preview?.key===selection&&preview.semanticId===view?.observation.semantic_id?preview.value:null;
   const currentAssembly=!stale&&currentPreview&&assemblyPreview?.key===selection&&assemblyPreview.semanticId===view?.observation.semantic_id?assemblyPreview.value:null;
   const currentLength=!stale&&currentPreview&&lengthPreview?.key===selection&&lengthPreview.semanticId===view?.observation.semantic_id?lengthPreview.value:null;
+  const currentShadow=!stale&&currentPreview&&shadowPreview?.key===selection&&shadowPreview.semanticId===view?.observation.semantic_id?shadowPreview.value:null;
   const poses=view?.raw.machine.orientations??[];
   const poseChoices=poses.map(pose=>({pose,id:null})); // IDs are supplied by the checked view below.
   if(view)for(const row of poseChoices)row.id=view.orientationIDs.get(canonicalAdaptive(row.pose));
@@ -136,6 +139,22 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
         check(token);
         const legacy=isFace?['Unsupported drill browser operation','Unsupported full mill-turn operation']:['Unsupported full mill-turn operation','Length projection requires the drill session family'];
         if(legacy.includes(error.message))(isFace?setAssemblyError:setLengthError)(isFace?'Tool assembly display is unavailable in this runtime.':'Tool reach display is unavailable in this runtime.');
+        else throw error;
+      }
+      try{
+        const selectionFields={batch_id:selected.batch.id,candidate_id:selected.choice.candidateId},diagnostic='shadow_view';
+        const rawShadow=await session.invoke(canonicalAdaptive(full
+          ?{operation:'inspect_suffix',diagnostic,...selectionFields,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id}
+          :{operation:diagnostic,...selectionFields,session_epoch:geometry.sessionEpoch,expected_semantic_id:view.observation.semantic_id}));check(token);
+        const inspected=full?await readFullToolInspection(rawShadow,fullView,selected.batch.id,selected.choice.candidateId,geometry.sessionEpoch,geometry.suffixSessionEpoch,diagnostic)
+          :await readDirectionalShadow(rawShadow,view,selected.batch.id,selected.choice.candidateId,geometry.sessionEpoch);check(token);
+        setShadowPreview({key:selection,semanticId:view.observation.semantic_id,value:inspected});
+      }catch(error){
+        check(token);
+        const unavailable=['Unsupported drill browser operation','Unsupported full mill-turn operation','Unsupported suffix diagnostic',
+          'Point-shadow profile requires exact Box, Empty or Union blockers','Point-shadow obstacle geometry is unsupported',
+          'Point-shadow boxes require an exact signed-permutation pose','Blockers must lie strictly within the declared exterior'];
+        if(unavailable.includes(error.message))setShadowError('In shadow: unavailable for this source, pose or runtime.');
         else throw error;
       }
     }
@@ -208,6 +227,6 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
       {decision&&<p className="adaptive-action-status" data-decision-status={decision.status}>{decision.status} · {decision.reason}{decision.seconds&&` · ${fmt(exactNumber(decision.seconds))} s`}</p>}
       {phase&&<p role="status">{phase}</p>}{error&&<p role="alert" className="step-error">{error}</p>}
     </section>
-    {snapshot&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification.</p>}{action&&<p className="adaptive-small">Preview illustrates the saved tool motion and full physical assembly. The orange Remove layer shows proposed material. Accepted stock stays unchanged. Separate shadow and beyond-reach volumes are not supplied by this profile.</p>}<AdaptiveInspector prepared={{bundle:geometry.bundle,name:prepared.name}} onClose={onClose} live={{busy:blocked,previewAction:action,removalPreview,assemblyPreview:currentAssembly,assemblyError,lengthPreview:currentLength,lengthError,drillLayers:true,toolOnlyPreview:true,workpiecePose:initialPhase?fullView.initialPose.pose:view.pose.pose,activeToolID:currentTool,initialSectionAxis:initialPhase?fullView.inputs.genesis.machine.live_tool_axis:view.raw.machine.live_tool_axis}}/></div>}
+    {snapshot&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification.</p>}{action&&<p className="adaptive-small">Preview illustrates the saved tool motion and full physical assembly. The orange Remove layer shows proposed material. Accepted stock stays unchanged. Tool reach and directional shadow are separate diagnostics when supported.</p>}<AdaptiveInspector prepared={{bundle:geometry.bundle,name:prepared.name}} onClose={onClose} live={{busy:blocked,previewAction:action,removalPreview,assemblyPreview:currentAssembly,assemblyError,lengthPreview:currentLength,lengthError,shadowPreview:currentShadow,shadowError,drillLayers:true,toolOnlyPreview:true,workpiecePose:initialPhase?fullView.initialPose.pose:view.pose.pose,activeToolID:currentTool,initialSectionAxis:initialPhase?fullView.inputs.genesis.machine.live_tool_axis:view.raw.machine.live_tool_axis}}/></div>}
   </div>;
 }

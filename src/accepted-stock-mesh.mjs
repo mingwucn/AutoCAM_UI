@@ -1,11 +1,12 @@
 import {adaptiveHash,canonicalAdaptive,exactNumber,indexedPoseMatrix,adaptiveGeometryBounds} from './adaptive-provider.mjs';
 import {validateDrillLengthProjection} from './drill-length-view.mjs';
 import {validateFaceAssemblyProjection} from './face-assembly-view.mjs';
+import {validateShadowProjection} from './directional-shadow-view.mjs';
 
 // Presentation only. Neither these triangles nor their volumes enter the simulator.
 export const STOCK_DISPLAY_PROFILE='accepted-stock-mesh-1';
 export const STOCK_DISPLAY_LIMITS=Object.freeze({nodes:512,depth:40,triangles:200000,segments:96});
-export async function stockDisplayRequest(bundle,frame,proposal=null,length=null,assembly=null){
+export async function stockDisplayRequest(bundle,frame,proposal=null,length=null,assembly=null,shadow=null){
   const request={schema:STOCK_DISPLAY_PROFILE,source:bundle.source,material:frame.material,
     source_geometry_id:bundle.source_geometry_id,state_hash:frame.state_hash};
   if(proposal){
@@ -20,6 +21,11 @@ export async function stockDisplayRequest(bundle,frame,proposal=null,length=null
     if(proposal||length||assembly.semantic_id!==bundle.provenance.semantic_id)throw Error('Assembly preview semantic identity differs.');
     const {projection,projection_id,semantic_id,candidate_id,segment_index}=assembly;
     request.assembly={projection,projection_id,semantic_id,candidate_id,segment_index};
+  }
+  if(shadow){
+    if(proposal||length||assembly||shadow.semantic_id!==bundle.provenance.semantic_id)throw Error('Shadow preview semantic identity differs.');
+    const {projection,projection_id,semantic_id,candidate_id}=shadow;
+    request.shadow={projection,projection_id,semantic_id,candidate_id};
   }
   return {...request,request_id:await adaptiveHash(request)};
 }
@@ -48,6 +54,12 @@ export async function validateStockDisplayRequest(request){
       !/^[0-9a-f]{64}$/.test(a.candidate_id)||a.projection_id!==await adaptiveHash(a.projection)||
       !Number.isSafeInteger(a.segment_index)||a.segment_index<0||a.segment_index>=a.projection.segments.length)throw Error('Assembly display request identity differs.');
     await validateFaceAssemblyProjection(a.projection,{source,material,semanticId:a.semantic_id,sourceId:body.source_geometry_id});
+  }
+  if(body.shadow){
+    const s=body.shadow;
+    if(body.proposal||body.length||body.assembly||Object.keys(s).sort().join('|')!=='candidate_id|projection|projection_id|semantic_id'||
+      !/^[0-9a-f]{64}$/.test(s.candidate_id)||s.projection_id!==await adaptiveHash(s.projection))throw Error('Shadow display request identity differs.');
+    await validateShadowProjection(s.projection,{source,material,semanticId:s.semantic_id,sourceId:body.source_geometry_id});
   }
   return body;
 }
@@ -149,6 +161,14 @@ export function buildAcceptedStockMesh(kernel,request){
         projection_id:a.projection_id,semantic_id:a.semantic_id,candidate_id:a.candidate_id,segment_index:a.segment_index,meshes};
     }
     const source=request.source,stock=shape(source.stock),cuts=union(request.material.envelopes.map(e=>shape(e))),remaining=keep(stock.subtract(cuts));
+    if(request.shadow){
+      const p=request.shadow.projection;
+      const shadow=keep(keep(keep(remaining.intersect(shape(p.shadows.combined))).subtract(shape(p.protected))).subtract(shape(p.fixture)));
+      return {schema:STOCK_DISPLAY_PROFILE,request_id:request.request_id,state_hash:request.state_hash,
+        source_geometry_id:request.source_geometry_id,authoritative_geometry:false,segments:L.segments,
+        projection_id:request.shadow.projection_id,semantic_id:request.shadow.semantic_id,candidate_id:request.shadow.candidate_id,
+        meshes:{shadow:mesh(shadow)}};
+    }
     if(request.length){
       const p=request.length.projection;
       const eligible=keep(keep(remaining.intersect(shape(p.requested_sweep))).subtract(shape(p.protected)));

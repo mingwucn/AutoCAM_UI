@@ -1,0 +1,30 @@
+[
+  {
+    "path": "episode.json",
+    "sha256": "e60e82068118d95fd7340cf253f4038020d4f47db37c05243508d9d7c38bd088"
+  },
+  {
+    "path": "geometry.json",
+    "sha256": "ce35e84a7fa5a2cd52599da187dc5610e70f88821b323260e247e7e831e1899e"
+  },
+  {
+    "path": "initial.bin",
+    "sha256": "0dea1e4acdfdcbdaed92e3a6b34850822cdaa1d8227e957a8d20d22d18545e26"
+  },
+  {
+    "path": "provenance.json",
+    "sha256": "58e1bf19d712e4d3d18a2da15698077af9cafa6a8d55e48adfd16dfd813651a6"
+  },
+  {
+    "path": "shadow.json",
+    "sha256": "9e3bbd2b91831819c506a213b0ce1aceb9cb8fa343d7721f18a86656a8753da6"
+  },
+  {
+    "path": "task.json",
+    "sha256": "834fd0290908f5dea8f33add7886ba061e1c8afa1a8d2c33a180fd593f467c33"
+  },
+  {
+    "path": "view.json",
+    "sha256": "8e86b45b8055aa13b6bffd798016821813a290042aa9701e19168b22928c1da4"
+  }
+]

@@ -250,7 +250,7 @@ export class View {
     if(cone||shape.kind==='cylinder')mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3().setComponent(shape.axis,cone?shape.sign:1));
     this.group.add(mesh);return true;
   }
-  updateAdaptive(bundle,frame,{layers,acceptedStock=null,proposedRemoval=null,lengthDisplay=null,assemblyDisplay=null,section,cutaway,selected,keepCamera=true,toolPosition=1,showSweep=true,showTool=true,previewAction=undefined,workpiecePose=null,sourceFaceMeshes=[],pickMode='cell',pickedSourceFace=null}){
+  updateAdaptive(bundle,frame,{layers,acceptedStock=null,proposedRemoval=null,lengthDisplay=null,assemblyDisplay=null,shadowDisplay=null,shadowCells=null,section,cutaway,selected,keepCamera=true,toolPosition=1,showSweep=true,showTool=true,previewAction=undefined,workpiecePose=null,sourceFaceMeshes=[],pickMode='cell',pickedSourceFace=null}){
     const changedSource=this.adaptiveDisplayBinding?.source_geometry_id!==bundle.source_geometry_id;
     const changedAssembly=!!assemblyDisplay&&this.adaptiveAssemblyProjection!==assemblyDisplay.projection_id;
     this.adaptiveAssemblyProjection=assemblyDisplay?.projection_id??null;
@@ -259,17 +259,19 @@ export class View {
     const source=bundle.source,[low,high]=adaptiveGeometryBounds(source.stock)||[source.root.origin.map(exactNumber),source.root.origin.map(v=>exactNumber(v)+exactNumber(source.root.side))],span=high.map((v,k)=>v-low[k]);
     this.meta={origin_mm:low,shape:span,pitch_mm:1,stock_bounds_mm:[low,high],radius_reference:'box'};
     const planes=cutaway?[new THREE.Plane(new THREE.Vector3().setComponent(section.axis,-1),section.station)]:[];
-    const palette={target:'#afcbd9',definite:'#004070',uncertain:'#e5ac48',removed:'#3aa99d',remove:'#f5a544',reach:'#df654c',cuttingLength:'#b8942a',assemblyCutting:'#e5ac48',assemblyBody:'#647e8c',assemblyArbor:'#8b9da6',assemblyHolder:'#004070',assemblyFixed:'#c84d40'};
+    const palette={target:'#afcbd9',definite:'#004070',uncertain:'#e5ac48',removed:'#3aa99d',remove:'#f5a544',reach:'#df654c',cuttingLength:'#b8942a',shadow:'#8051ac',shadowUncertain:'#e5ac48',assemblyCutting:'#e5ac48',assemblyBody:'#647e8c',assemblyArbor:'#8b9da6',assemblyHolder:'#004070',assemblyFixed:'#c84d40'};
     const solidStock=['adaptive-inspection-payload-10','adaptive-inspection-payload-11'].includes(bundle.schema);
     if(acceptedStock&&(acceptedStock.state_hash!==frame.state_hash||acceptedStock.source_geometry_id!==bundle.source_geometry_id))throw Error('Accepted-stock display binding differs.');
     if(proposedRemoval&&(proposedRemoval.state_hash!==frame.state_hash||proposedRemoval.source_geometry_id!==bundle.source_geometry_id))throw Error('Proposed-removal display binding differs.');
     if(lengthDisplay&&(lengthDisplay.state_hash!==frame.state_hash||lengthDisplay.source_geometry_id!==bundle.source_geometry_id))throw Error('Length display binding differs.');
     if(assemblyDisplay&&(assemblyDisplay.state_hash!==frame.state_hash||assemblyDisplay.source_geometry_id!==bundle.source_geometry_id))throw Error('Assembly display binding differs.');
+    if(shadowDisplay&&(shadowDisplay.state_hash!==frame.state_hash||shadowDisplay.source_geometry_id!==bundle.source_geometry_id))throw Error('Shadow display binding differs.');
+    if(shadowCells&&shadowCells.length!==frame.domain.leaves.length)throw Error('Shadow cells differ from frame.');
     if(solidStock&&acceptedStock){
-      for(const [role,data] of Object.entries({...acceptedStock.meshes,...(proposedRemoval?.meshes??{}),...(lengthDisplay?.meshes??{}),...(assemblyDisplay?.meshes??{})})){
+      for(const [role,data] of Object.entries({...acceptedStock.meshes,...(proposedRemoval?.meshes??{}),...(lengthDisplay?.meshes??{}),...(assemblyDisplay?.meshes??{}),...(shadowDisplay?.meshes??{})})){
         if(!layers[role]||!data.indices.length)continue;
         const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(data.positions,3));geometry.setIndex(new THREE.BufferAttribute(data.indices,1));geometry.computeVertexNormals();
-        const assemblyRole=role.startsWith('assembly'),lengthRole=role==='reach'||role==='cuttingLength',opacity=assemblyRole?.65:lengthRole?.8:role==='target'?.16:role==='removed'?.08:1;
+        const assemblyRole=role.startsWith('assembly'),lengthRole=role==='reach'||role==='cuttingLength'||role==='shadow',opacity=assemblyRole?.65:lengthRole?.8:role==='target'?.16:role==='removed'?.08:1;
         const material=new THREE.MeshStandardMaterial({color:role==='remaining'?'#004070':role==='holding'?'#cb7d36':palette[role],roughness:.55,metalness:.08,flatShading:true,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide,clippingPlanes:planes,depthTest:role!=='remove'&&!lengthRole&&!assemblyRole,polygonOffset:role==='target',polygonOffsetFactor:1,polygonOffsetUnits:1});
         const mesh=new THREE.Mesh(geometry,material);if(role==='remove')mesh.renderOrder=3;if(assemblyRole)mesh.renderOrder=6;if(lengthRole)mesh.renderOrder=role==='reach'?5:4;mesh.userData.stockDisplayRole=role;mesh.userData.displayVolume=data.display_volume_mm3;this.group.add(mesh);
       }
@@ -296,11 +298,12 @@ export class View {
         }smoothTarget=true;
       }
     }
-    const groups={target:[],definite:[],uncertain:[],removed:[]};
+    const groups={target:[],definite:[],uncertain:[],removed:[],shadowUncertain:[]};
     frame.domain.leaves.forEach((leaf,i)=>{const removed=frame.coverage[i],kind=removed[0]?'removed':leaf.delta_lower&&!removed[1]?'definite':leaf.delta_upper?'uncertain':leaf.target==='inside'?'target':null;
+      if(shadowCells?.[i]==='mixed_or_unresolved'&&layers.shadowUncertain)groups.shadowUncertain.push(i);
       if(kind&&layers[kind]&&!(kind==='target'&&smoothTarget)&&!(solidStock&&['target','removed'].includes(kind)))groups[kind].push(i);});
     for(const [kind,indices] of Object.entries(groups)){
-      if(!indices.length)continue;const opacity=kind==='uncertain'?.2:kind==='removed'?.55:1;
+      if(!indices.length)continue;const opacity=kind==='shadowUncertain'?.12:kind==='uncertain'?.2:kind==='removed'?.55:1;
       const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:palette[kind],roughness:.65,transparent:opacity<1,opacity,depthWrite:opacity===1,clippingPlanes:planes});
       const mesh=new THREE.InstancedMesh(geometry,material,indices.length),matrix=new THREE.Matrix4();mesh.userData.adaptiveIndices=indices;
       indices.forEach((index,instance)=>{const [a,b]=adaptiveCellBounds(source.root,frame.domain.leaves[index].address),size=b.map((v,k)=>v-a[k]);matrix.compose(new THREE.Vector3(...a.map((v,k)=>(v+b[k])/2)),new THREE.Quaternion(),new THREE.Vector3(...size));mesh.setMatrixAt(instance,matrix);});
@@ -400,8 +403,8 @@ export class View {
     }
     if(assemblyDisplay){
       const bounds=new THREE.Box3();
-      // Fit all components regardless of visibility, without moving the camera on toggles.
-      for(const data of Object.values(assemblyDisplay.meshes))for(let i=0;i<data.positions.length;i+=3){
+      // Home fits visible components; changing layers still preserves the current camera.
+      for(const [role,data] of Object.entries(assemblyDisplay.meshes))if(layers[role])for(let i=0;i<data.positions.length;i+=3){
         const point=new THREE.Vector3(...data.positions.slice(i,i+3));if(partMatrix)point.applyMatrix4(partMatrix);bounds.expandByPoint(point);
       }
       if(!bounds.isEmpty()){

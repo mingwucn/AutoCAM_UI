@@ -169,8 +169,9 @@ manufacturing qualification. Files stay in the browser.
 
 ## Finite drilling and face milling examples
 
-The adaptive catalogue includes six synthetic tool examples followed by its
-two existing indexed examples. Start with drilling or face milling, then use
+The adaptive catalogue includes six synthetic tool examples, its two existing
+indexed examples, and an upstream-fixture shadow demonstration. Start with
+drilling or face milling, then use
 the full sequence to turn the initial stock, transfer, index the workpiece,
 face mill, exchange tools and drill. Choices are finite physical assemblies,
 including short and long variants.
@@ -180,6 +181,15 @@ obstacles. All five controls start on; select a motion segment to inspect its
 occupied sweep. Drilling separates usable reach from cutting length, including
 for rejected short tools. These displays preserve accepted stock and recorded
 actions. They are diagnostic geometry, not additional clearance certificates.
+
+The shadow demonstration shows material occluded by a fixture above the stock.
+Its rejected candidate cannot execute. **In shadow** and **Unresolved shadow
+cells** start on and can be toggled independently. Hide assembly components
+and click **Home view** to inspect the stock more closely. Toggling layers
+preserves the camera, stock and downloaded actions. The purple surface is a
+display approximation of point-ray shadow; yellow cells remain unresolved.
+This profile supports box/union blockers and principal indexed orientations.
+Unsupported curved/compound geometry is explicitly unavailable, not clear.
 
 The synthetic learning example loads its compatible checkpoint, suggests with
 the policy or MCTS, and downloads accepted decisions. Training runs locally.
