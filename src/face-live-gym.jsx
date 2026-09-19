@@ -142,20 +142,22 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
         else throw error;
       }
       try{
-        const selectionFields={batch_id:selected.batch.id,candidate_id:selected.choice.candidateId};let diagnostic='analytic_shadow_view';
+        const selectionFields={batch_id:selected.batch.id,candidate_id:selected.choice.candidateId};let diagnostic='annular_shadow_view';
         const requestShadow=()=>session.invoke(canonicalAdaptive(full
           ?{operation:'inspect_suffix',diagnostic,...selectionFields,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id}
           :{operation:diagnostic,...selectionFields,session_epoch:geometry.sessionEpoch,expected_semantic_id:view.observation.semantic_id}));
         let rawShadow;
-        try{rawShadow=await requestShadow();}catch(error){
-          check(token);
-          if(!['Unsupported drill browser operation','Unsupported full mill-turn operation','Unsupported suffix diagnostic'].includes(error.message))throw error;
-          diagnostic='shadow_view';rawShadow=await requestShadow();
+        for(const command of ['annular_shadow_view','analytic_shadow_view','shadow_view']){
+          diagnostic=command;
+          try{rawShadow=await requestShadow();break;}catch(error){
+            check(token);
+            if(command==='shadow_view'||!['Unsupported drill browser operation','Unsupported full mill-turn operation','Unsupported suffix diagnostic'].includes(error.message))throw error;
+          }
         }
         check(token);
         const inspected=full?await readFullToolInspection(rawShadow,fullView,selected.batch.id,selected.choice.candidateId,geometry.sessionEpoch,geometry.suffixSessionEpoch,diagnostic)
           :await readDirectionalShadow(rawShadow,view,selected.batch.id,selected.choice.candidateId,geometry.sessionEpoch,
-            diagnostic==='analytic_shadow_view'?'closed_analytic_axis_point_shadow_1':'closed_box_axis_point_shadow_1');check(token);
+            diagnostic==='annular_shadow_view'?'closed_annular_axis_point_shadow_1':diagnostic==='analytic_shadow_view'?'closed_analytic_axis_point_shadow_1':'closed_box_axis_point_shadow_1');check(token);
         setShadowPreview({key:selection,semanticId:view.observation.semantic_id,value:inspected});
       }catch(error){
         check(token);
@@ -163,6 +165,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
           'Point-shadow profile requires exact Box, Empty or Union blockers','Point-shadow obstacle geometry is unsupported',
           'Analytic point-shadow requires Box, Cylinder, Sphere, Empty or Union blockers','Analytic point-shadow obstacle geometry is unsupported',
           'Analytic point-shadow cylinder axis is oblique',
+          'Annular point-shadow requires one coaxial through bore','Annular point-shadow obstacle geometry is unsupported',
           'Point-shadow boxes require an exact signed-permutation pose','Blockers must lie strictly within the declared exterior'];
         if(unavailable.includes(error.message))setShadowError('In shadow: unavailable for this source, pose or runtime.');
         else throw error;

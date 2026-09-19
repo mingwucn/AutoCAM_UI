@@ -200,3 +200,16 @@ the policy or MCTS, and downloads accepted decisions. Training runs locally.
 The checkpoint and costs are experimental, not an industrial optimum.
 Rational STEP preparation supports the selected nominal prism profile;
 arbitrary STEP machining remains outside the supported profiles.
+
+## Through-bore shadow inspection
+
+The annular profile adds exact point-shadow diagnostics for one coaxial through
+bore in a principal-axis cylinder. The axial illustration leaves the bore
+centre open; the transverse illustration shows its upstream wall blocking it.
+The two fixture demonstrations follow all ten existing examples. They preserve
+stock, tool choices and action downloads, and remain rejected for machining.
+
+The checked reader binds each result to the saved candidate and accepted stock.
+Finite-tool and holder clearance remain separate checks. Blind/eccentric holes,
+oblique axes and general CAD shadows are outside this profile. Display meshes
+are approximations; unresolved cells remain explicit.

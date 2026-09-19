@@ -21,6 +21,14 @@ function primitives(shape,analytic=false,depth=0){
     fields(shape,['kind','children']);if(!Array.isArray(shape.children)||shape.children.length>512)fail('Shadow union budget exceeded.');
     const rows=shape.children.flatMap(c=>primitives(c,analytic,depth+1));if(rows.length>512)fail('Shadow box budget exceeded.');return rows;
   }
+  if(analytic==='annular'&&shape?.kind==='cutout'){
+    fields(shape,['kind','base','cutters']);
+    if(shape.base?.kind!=='cylinder'||!Array.isArray(shape.cutters)||shape.cutters.length!==1||shape.cutters[0]?.kind!=='cylinder')fail('Shadow requires one coaxial through bore.');
+    const outer=shape.base,bore=shape.cutters[0];primitives(outer,true,depth+1);primitives(bore,true,depth+1);
+    if(outer.axis!==bore.axis||!same(outer.center,bore.center)||compareQ(bore.radius,outer.radius)>=0||
+      compareQ(bore.low,outer.low)>=0||compareQ(bore.high,outer.high)<=0)fail('Shadow requires one coaxial through bore.');
+    return [shape];
+  }
   if(analytic&&['sphere','cylinder'].includes(shape?.kind)){
     const sphere=shape.kind==='sphere';fields(shape,sphere?['kind','center','radius']:['kind','axis','center','radius','low','high']);
     if(!Array.isArray(shape.center)||shape.center.length!==(sphere?3:2))fail('Invalid analytic shadow centre.');
@@ -33,6 +41,7 @@ function primitives(shape,analytic=false,depth=0){
 }
 const boxes=shape=>primitives(shape);
 function boundsOf(s){
+  if(s.kind==='cutout')return boundsOf(s.base);
   if(s.kind==='box')return s.bounds;
   if(s.kind==='sphere')return {low:s.center.map(c=>sub(c,s.radius)),high:s.center.map(c=>add(c,s.radius))};
   const radial=[0,1,2].filter(k=>k!==s.axis),low=Array(3).fill(s.low),high=Array(3).fill(s.high);
@@ -55,6 +64,7 @@ function transform(shape,pose,analytic=false,depth=0){
     return transform(shape.base,combined,analytic,depth+1);
   }
   primitives(shape,analytic);
+  if(analytic==='annular'&&shape.kind==='cutout')return {kind:'cutout',base:transform(shape.base,pose,true,depth+1),cutters:shape.cutters.map(c=>transform(c,pose,true,depth+1))};
   if(analytic&&shape.kind==='sphere')return {...shape,center:pointTransform(shape.center,pose)};
   if(analytic&&shape.kind==='cylinder'){
     const radial=[0,1,2].filter(k=>k!==shape.axis),points=[shape.low,shape.high].map(end=>{
@@ -81,7 +91,7 @@ export async function validateShadowProjection(p,{source,material,semanticId,sou
   fields(p,['schema','predicate_version','projection_only','operation_authorized','frame','direction_convention','axis','sign',
     'source_geometry_id','root_id','root','exterior','partition_id','material_hash','semantic_id','fixture_id','fixture','protected',
     'remaining_stock','shadows','set_semantics','boundary_semantics','finite_tool_access_status','tool_length_status','stock_exposure_status','machine_motion_status']);
-  if(p.schema!=='adaptive-directional-shadow-view-1'||!['closed_box_axis_point_shadow_1','closed_analytic_axis_point_shadow_1'].includes(p.predicate_version)||p.projection_only!==true||p.operation_authorized!==false||p.frame!=='original_part'||
+  if(p.schema!=='adaptive-directional-shadow-view-1'||!['closed_box_axis_point_shadow_1','closed_analytic_axis_point_shadow_1','closed_annular_axis_point_shadow_1'].includes(p.predicate_version)||p.projection_only!==true||p.operation_authorized!==false||p.frame!=='original_part'||
     p.direction_convention!=='entry_into_part_exterior_ray_x_minus_lambda_d'||!Number.isInteger(p.axis)||p.axis<0||p.axis>2||![-1,1].includes(p.sign)||
     p.set_semantics!=='closed_current_stock_intersect_closed_point_shadow_minus_closed_protected_and_fixture'||
     p.boundary_semantics!=='closed_ray_tangency_blocks_partial_cells_remain_mixed'||
@@ -95,10 +105,15 @@ export async function validateShadowProjection(p,{source,material,semanticId,sou
   const exterior={low:source.root.origin.map(x=>sub(x,source.root.side)),high:source.root.origin.map(x=>add(x,mul([2,1],source.root.side)))};
   if(!same(p.exterior,exterior))fail('Shadow exterior differs.');
   fields(p.shadows,['protected','fixture','combined']);
-  const analytic=p.predicate_version==='closed_analytic_axis_point_shadow_1';
-  const extrude=shape=>union(primitives(shape,analytic).map(s=>{
+  const analytic=p.predicate_version==='closed_annular_axis_point_shadow_1'?'annular':p.predicate_version==='closed_analytic_axis_point_shadow_1';
+  const extrudeOne=s=>{
     const b=boundsOf(s),axis=p.axis,end=p.sign===1?exterior.high[axis]:exterior.low[axis];
     if(b.low.some((v,k)=>compareQ(v,exterior.low[k])<=0)||b.high.some((v,k)=>compareQ(v,exterior.high[k])>=0))fail('Shadow blocker lies outside exterior.');
+    if(s.kind==='cutout'){
+      const projected=extrudeOne(s.base);if(axis!==s.base.axis)return projected;
+      const width=sub(exterior.high[axis],exterior.low[axis]);
+      return {kind:'cutout',base:projected,cutters:[{...s.cutters[0],low:sub(exterior.low[axis],width),high:add(exterior.high[axis],width)}]};
+    }
     if(s.kind==='cylinder'&&s.axis===axis)return {...s,low:p.sign===1?s.low:end,high:p.sign===1?end:s.high};
     if(s.kind==='sphere')return union([s,{kind:'cylinder',axis,center:s.center.filter((_,k)=>k!==axis),radius:s.radius,
       low:p.sign===1?s.center[axis]:end,high:p.sign===1?end:s.center[axis]}]);
@@ -109,7 +124,8 @@ export async function validateShadowProjection(p,{source,material,semanticId,sou
     }
     if(p.sign===1)high[axis]=end;else low[axis]=end;
     const extension={kind:'box',bounds:{low,high}};return s.kind==='cylinder'?union([s,extension]):extension;
-  }));
+  };
+  const extrude=shape=>union(primitives(shape,analytic).map(extrudeOne));
   const protectedShadow=extrude(p.protected),fixtureShadow=extrude(p.fixture);
   if(!same(p.shadows.protected,protectedShadow)||!same(p.shadows.fixture,fixtureShadow)||
     !same(p.shadows.combined,union([...protectedShadow.children,...fixtureShadow.children])))fail('Shadow extrusion differs from bound blockers.');
@@ -125,7 +141,7 @@ export async function readDirectionalShadow(raw,view,batchId,candidateId,session
     !same(v.observation,view.observation)||!choice||v.batch_id!==batchId||v.candidate_id!==candidateId||!same(v.row,choice.row)||
     batch.batch.before_semantic_id!==view.observation.semantic_id)fail('Shadow selection/state differs.');
   if(expectedProfile&&v.projection?.predicate_version!==expectedProfile)fail('Shadow response profile differs from request.');
-  const analytic=v.projection?.predicate_version==='closed_analytic_axis_point_shadow_1';
+  const analytic=v.projection?.predicate_version==='closed_annular_axis_point_shadow_1'?'annular':v.projection?.predicate_version==='closed_analytic_axis_point_shadow_1';
   const p=v.projection,c=v.obstacle_context,state=view.observation.state,op=choice.row.candidate.parameters.operation;
   await validateShadowProjection(p,{source:view.source,material:view.observation.material,semanticId:view.observation.semantic_id,sourceId:batch.batch.source_geometry_id});
   fields(c,['schema','machine_id','fixture_part','stationary_machine','stationary_part','part_to_machine','accepted_orientation_id','candidate_orientation_id','pose_is_current']);
@@ -146,18 +162,26 @@ export function classifyShadowBoxes(shape,query){
   });
   return relations.includes('inside')?'inside':relations.every(r=>r==='outside')?'outside':'mixed_or_unresolved';
 }
-export function classifyShadowRegion(shape,query){
-  const relations=primitives(shape,true).map(s=>{
-    if(s.kind==='box')return classifyShadowBoxes(s,query);
-    if(s.kind==='cylinder'&&(compareQ(query.high[s.axis],s.low)<0||compareQ(query.low[s.axis],s.high)>0))return 'outside';
+export function classifyShadowRegion(shape,query,interior=false){
+  const relations=primitives(shape,'annular').map(s=>{
+    if(s.kind==='cutout'){
+      const base=classifyShadowRegion(s.base,query,interior),cut=classifyShadowRegion(s.cutters[0],query,!interior);
+      return base==='outside'||cut==='inside'?'outside':base==='inside'&&cut==='outside'?'inside':'mixed_or_unresolved';
+    }
+    if(s.kind==='box'){
+      if(!interior)return classifyShadowBoxes(s,query);
+      if(query.high.some((v,k)=>compareQ(v,s.bounds.low[k])<=0)||query.low.some((v,k)=>compareQ(v,s.bounds.high[k])>=0))return 'outside';
+      return query.low.every((v,k)=>compareQ(v,s.bounds.low[k])>0)&&query.high.every((v,k)=>compareQ(v,s.bounds.high[k])<0)?'inside':'mixed_or_unresolved';
+    }
+    if(s.kind==='cylinder'&&(compareQ(query.high[s.axis],s.low)<(interior?1:0)||compareQ(query.low[s.axis],s.high)>(interior?-1:0)))return 'outside';
     const axes=[0,1,2].filter(k=>s.kind==='sphere'||k!==s.axis);let minimum=[0n,1n],maximum=[0n,1n];
     axes.forEach((k,i)=>{
       const a=sub(query.low[k],s.center[i]),b=sub(query.high[k],s.center[i]),aa=mul(a,a),bb=mul(b,b);
       minimum=add(minimum,compareQ(a,[0,1])<=0&&compareQ(b,[0,1])>=0?[0,1]:compareQ(aa,bb)<0?aa:bb);
       maximum=add(maximum,compareQ(aa,bb)>0?aa:bb);
     });
-    const r2=mul(s.radius,s.radius);if(compareQ(minimum,r2)>0)return 'outside';
-    return compareQ(maximum,r2)<=0&&(s.kind==='sphere'||compareQ(query.low[s.axis],s.low)>=0&&compareQ(query.high[s.axis],s.high)<=0)?'inside':'mixed_or_unresolved';
+    const r2=mul(s.radius,s.radius);if(compareQ(minimum,r2)>(interior?-1:0))return 'outside';
+    return compareQ(maximum,r2)<(interior?0:1)&&(s.kind==='sphere'||compareQ(query.low[s.axis],s.low)>(interior?0:-1)&&compareQ(query.high[s.axis],s.high)<(interior?0:1))?'inside':'mixed_or_unresolved';
   });
   return relations.includes('inside')?'inside':relations.every(r=>r==='outside')?'outside':'mixed_or_unresolved';
 }
