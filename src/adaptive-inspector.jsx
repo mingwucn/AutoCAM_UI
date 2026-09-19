@@ -8,6 +8,7 @@ import {stockDisplayRequest} from './accepted-stock-mesh.mjs';
 import {AcceptedStockClient} from './accepted-stock-client.mjs';
 import {faceToolPreview} from './face-tool-preview.mjs';
 import {shadowCellRelations} from './directional-shadow-view.mjs';
+import {turningShadowCellRelations} from './turning-shadow-view.mjs';
 
 import {SCOPE_LABELS} from './adaptive-scope.mjs';
 
@@ -123,7 +124,8 @@ export function AdaptiveInspector({prepared,onClose,live=null,initialStock=false
   const [shadowDisplay,setShadowDisplay]=useState(null),[shadowDisplayError,setShadowDisplayError]=useState('');
   const currentShadow=shadowDisplay?.state_hash===bundle.frames[index].state_hash&&shadowDisplay?.source_geometry_id===bundle.source_geometry_id&&
     shadowDisplay?.projection_id===shadowPreview?.projection_id&&shadowDisplay?.semantic_id===shadowPreview?.semantic_id&&shadowDisplay?.candidate_id===shadowPreview?.candidate_id?shadowDisplay:null;
-  const shadowCells=useMemo(()=>shadowPreview?shadowCellRelations(bundle,bundle.frames[index],shadowPreview):null,[bundle,index,shadowPreview]);
+  const turningShadow=shadowPreview?.projection.schema==='adaptive-turning-point-shadow-view-1';
+  const shadowCells=useMemo(()=>shadowPreview?(turningShadow?turningShadowCellRelations:shadowCellRelations)(bundle,bundle.frames[index],shadowPreview):null,[bundle,index,shadowPreview,turningShadow]);
   useEffect(()=>{shadowClient.current=new AcceptedStockClient();return()=>{shadowClient.current?.dispose();shadowClient.current=null;};},[]);
   useEffect(()=>{
     let active=true;setShadowDisplay(null);setShadowDisplayError('');
@@ -294,7 +296,7 @@ export function AdaptiveInspector({prepared,onClose,live=null,initialStock=false
     </fieldset>}
     {live?.drillLayers&&<>{live.lengthError&&<p className="adaptive-small">{live.lengthError}</p>}{lengthPreview&&(lengthDisplayError?<p role="alert">Tool length surface unavailable: {lengthDisplayError}</p>:currentLength?<p className="adaptive-small" data-length-display={currentLength.projection_id}>Tool length layers ready · {lengthPreview.projection.reasons.usable_reach.empty?'within usable reach':'usable-reach limit exceeded'} · {lengthPreview.projection.reasons.active_length.empty?'within cutting length':'cutting-length limit exceeded'}. These overlapping layers are diagnostics, not proposed removal.</p>:<p role="status">Building tool length surfaces…</p>)}</>}
     {shadowPreview&&<div aria-label="Directional shadow inspection">
-      <p className="adaptive-small">Direction {'XYZ'[shadowPreview.projection.axis]}{shadowPreview.projection.sign>0?'+':'−'} in part coordinates. {shadowPreview.obstacle_context.pose_is_current?'Candidate uses the accepted index.':'Candidate uses a proposed index; the workpiece has not moved.'} Purple is the 3D shadow surface. The section uses conservative cells.</p>
+      <p className="adaptive-small">{turningShadow?<>Turning about spindle {'XYZ'[shadowPreview.projection.spindle.axis]} · {shadowPreview.projection.mode==='OUTSIDE'?'inward radial approach':`facing from the ${shadowPreview.projection.facing_sign>0?'negative':'positive'} end`}. Complete rotation; stationary obstacles and finite-tool access are not assessed.</>:<>Direction {'XYZ'[shadowPreview.projection.axis]}{shadowPreview.projection.sign>0?'+':'−'} in part coordinates. {shadowPreview.obstacle_context.pose_is_current?'Candidate uses the accepted index.':'Candidate uses a proposed index; the workpiece has not moved.'}</>} Purple is the 3D shadow surface. The section uses conservative cells.</p>
       {shadowDisplayError?<p role="alert">Shadow surface unavailable: {shadowDisplayError}</p>:currentShadow?<p className="adaptive-small" data-shadow-display={currentShadow.projection_id}>Shadow layer ready · {currentShadow.meshes.shadow.indices.length?'display approximation':'empty material shadow at this candidate'} · {shadowCells.filter(s=>s==='inside').length} definite cells · {shadowCells.filter(s=>s==='mixed_or_unresolved').length} unresolved cells.</p>:<p role="status">Building shadow surface…</p>}
     </div>}
     {live?.drillLayers&&<><div className="view-controls" aria-label="Unavailable material classifications">{!shadowPreview&&<span>{live.shadowError||'In shadow: preview a current candidate'}</span>}{!lengthPreview&&<span>Beyond reach: {assemblyPreview||live?.assemblyError?'unavailable for face milling':live?.lengthError?'unavailable':'preview a current candidate'}</span>}</div><p className="adaptive-small">Remove is shown through stock in 3D and shows material the current prepared action proposes to cut. Removed shows previous accepted cuts. The shadow surface approximates directional point occlusion; it does not prove finite-tool access. Yellow shadow cells are unresolved, not proven obstruction. Tool overlays are 3D display approximations; the section below continues to show conservative cells.</p>{removalPreview?(removalError?<p role="alert">Proposed-removal surface unavailable: {removalError}</p>:proposedRemoval?<p className="adaptive-small" data-removal-display={proposedRemoval.preparation_id}>Proposed removal ready · display approximation</p>:<p role="status">Building proposed-removal surface…</p>):<p className="adaptive-small">Preview a current prepared action to show its proposed removal.</p>}</>}

@@ -11,6 +11,7 @@ import {readFaceAssembly} from './face-assembly-view.mjs';
 import {readDrillLength} from './drill-length-view.mjs';
 import {readDirectionalShadow} from './directional-shadow-view.mjs';
 import {readFullToolInspection} from './mixed-tool-inspection.mjs';
+import {readTurningShadow} from './turning-shadow-view.mjs';
 
 const detailText=detail=>typeof detail==='string'?detail:detail===null?'':canonicalAdaptive(detail);
 const spacing=row=>row.parameters.stepover?`${fmt(exactNumber(row.parameters.stepover))} mm spacing · feed ${'XYZ'[row.parameters.feed_axis]}`:`${row.parameters.depth_reference} · ${fmt(exactNumber(row.parameters.stand_off))} mm stand-off`;
@@ -100,7 +101,9 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
   const selected=choices.find(c=>c.key===selection),currentPreview=preview?.key===selection&&preview.semanticId===view?.observation.semantic_id?preview.value:null;
   const currentAssembly=!stale&&currentPreview&&assemblyPreview?.key===selection&&assemblyPreview.semanticId===view?.observation.semantic_id?assemblyPreview.value:null;
   const currentLength=!stale&&currentPreview&&lengthPreview?.key===selection&&lengthPreview.semanticId===view?.observation.semantic_id?lengthPreview.value:null;
-  const currentShadow=!stale&&currentPreview&&shadowPreview?.key===selection&&shadowPreview.semanticId===view?.observation.semantic_id?shadowPreview.value:null;
+  const currentShadow=!stale&&(initialPhase
+    ?shadowPreview?.key===initialCandidate&&shadowPreview.semanticId===fullView.observation.semantic_id
+    :currentPreview&&shadowPreview?.key===selection&&shadowPreview.semanticId===view?.observation.semantic_id)?shadowPreview.value:null;
   const poses=view?.raw.machine.orientations??[];
   const poseChoices=poses.map(pose=>({pose,id:null})); // IDs are supplied by the checked view below.
   if(view)for(const row of poseChoices)row.id=view.orientationIDs.get(canonicalAdaptive(row.pose));
@@ -180,6 +183,20 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'prepare_initial',candidate_id:initialCandidate,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id})));check(token);
     setInitialSelection(response.preparation_id);setDecision(null);
   });}
+  function inspectTurning(){run('Inspecting turning shadow…',async(session,token)=>{
+    setShadowPreview(null);setShadowError('');
+    try{
+      const raw=await session.invoke(canonicalAdaptive({operation:'turning_shadow_view',candidate_id:initialCandidate,session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id}));check(token);
+      const value=await readTurningShadow(raw,fullView,initialCandidate,geometry.sessionEpoch);check(token);
+      setShadowPreview({key:initialCandidate,semanticId:fullView.observation.semantic_id,value});
+    }catch(error){
+      check(token);
+      const unavailable=['Unsupported full mill-turn operation','Turning shadow requires structurally empty stationary obstacles',
+        'Turning point-shadow blocker requires box or coaxial analytic geometry','Box cutout turning shadow lacks a preserved complete extremal witness',
+        'Turning point-shadow requires one common through bore','Blockers must lie strictly within the declared exterior'];
+      if(unavailable.includes(error.message))setShadowError('Turning shadow is unavailable for this geometry, obstacle setup or runtime.');else throw error;
+    }
+  },{refreshView:false});}
   function previewInitial(){run('Reading initial preparation…',async(session,token)=>{
     const value=await readFullInitialPreview(await session.invoke(canonicalAdaptive({operation:'preview_initial',preparation_id:initialSelection})),fullView,initialSelection);check(token);
     setInitialPreview({selection:initialSelection,semanticId:fullView.observation.initial.semantic_id,value});
@@ -203,8 +220,9 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
       {initialPhase&&<>
         <p>Mounted tool: <strong data-mounted-tool={currentTool}>{currentTool}</strong> · Turning about spindle {'XYZ'[fullView.inputs.genesis.machine.spindle.axis]}</p>
         <p>Total accepted time: {fmt(exactNumber(fullView.observation.initial.state.elapsed_seconds))} s</p>
-        <label>Initial action<select aria-label="Initial turning action" value={initialCandidate} disabled={blocked} onChange={e=>setInitialCandidate(e.target.value)}>{[...fullView.inputs.candidates].map(([id,c])=><option key={id} value={id}>{initialLabel(c)}</option>)}</select></label>
+        <label>Initial action<select aria-label="Initial turning action" value={initialCandidate} disabled={blocked} onChange={e=>{setInitialCandidate(e.target.value);clearAssembly();}}>{[...fullView.inputs.candidates].map(([id,c])=><option key={id} value={id}>{initialLabel(c)}</option>)}</select></label>
         <button className="primary" disabled={blocked||!initialCandidate} onClick={prepareInitial}>Prepare initial action</button>
+        <button disabled={blocked||fullView.inputs.candidates.get(initialCandidate)?.kind!=='turn'} onClick={inspectTurning}>Inspect turning shadow</button>
         {!!fullView.preparations.size&&<>
           <label>Saved initial preparation<select aria-label="Saved initial preparation" value={initialSelection} disabled={busy} onChange={e=>{setInitialSelection(e.target.value);setInitialPreview(null);}}><option value="">Choose a preparation</option>{[...fullView.preparations].map(([id,p])=><option key={id} value={id}>{initialLabel(p.candidate)} · {p.prepared.status}</option>)}</select></label>
           <div className="action-row"><button disabled={blocked||!initialSelection} onClick={previewInitial}>Preview initial action</button><button className="primary" disabled={blocked||!currentInitialPreview?.canExecute} onClick={executeInitial}>Execute prepared initial action</button><button disabled={busy||!initialPreview} onClick={()=>setInitialPreview(null)}>Hide initial preview</button></div>

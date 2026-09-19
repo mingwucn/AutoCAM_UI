@@ -185,7 +185,7 @@ export function classifyShadowRegion(shape,query,interior=false){
   });
   return relations.includes('inside')?'inside':relations.every(r=>r==='outside')?'outside':'mixed_or_unresolved';
 }
-export function shadowCellRelations(bundle,frame,shadow){
+export function shadowCellRelations(bundle,frame,shadow,classify=classifyShadowRegion,fixture=null){
   if(!shadow)return null;
   const p=shadow.projection;if(p.material_hash!==frame.state_hash||p.partition_id!==frame.domain_hash||p.source_geometry_id!==bundle.source_geometry_id)fail('Shadow cell binding differs.');
   return frame.domain.leaves.map((leaf,index)=>{
@@ -193,7 +193,7 @@ export function shadowCellRelations(bundle,frame,shadow){
     let prefix=BigInt(leaf.address.morton_prefix);const indices=[0n,0n,0n];
     for(let level=leaf.address.depth-1;level>=0;level--){const digit=(prefix>>BigInt(3*level))&7n;for(let k=0;k<3;k++)indices[k]=indices[k]*2n+((digit>>BigInt(k))&1n);}
     const size=mul(bundle.source.root.side,[1n,1n<<BigInt(leaf.address.depth)]),low=bundle.source.root.origin.map((v,k)=>add(v,mul([indices[k],1n],size)));
-    const query={low,high:low.map(v=>add(v,size))},s=classifyShadowRegion(p.shadows.combined,query),f=classifyShadowRegion(p.fixture,query),removed=frame.coverage[index];
+    const query={low,high:low.map(v=>add(v,size))},s=classify(p.shadows.combined,query),f=classify(fixture??p.fixture,query),removed=frame.coverage[index];
     if(!leaf.eligible_upper||removed[0]||s==='outside'||f==='inside')return 'outside';
     return leaf.eligible_lower&&!removed[1]&&s==='inside'&&f==='outside'?'inside':'mixed_or_unresolved';
   });

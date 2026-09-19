@@ -2,6 +2,7 @@ import {adaptiveHash,canonicalAdaptive,exactNumber,indexedPoseMatrix,adaptiveGeo
 import {validateDrillLengthProjection} from './drill-length-view.mjs';
 import {validateFaceAssemblyProjection} from './face-assembly-view.mjs';
 import {validateShadowProjection} from './directional-shadow-view.mjs';
+import {validateTurningShadowProjection} from './turning-shadow-view.mjs';
 
 // Presentation only. Neither these triangles nor their volumes enter the simulator.
 export const STOCK_DISPLAY_PROFILE='accepted-stock-mesh-1';
@@ -59,7 +60,8 @@ export async function validateStockDisplayRequest(request){
     const s=body.shadow;
     if(body.proposal||body.length||body.assembly||Object.keys(s).sort().join('|')!=='candidate_id|projection|projection_id|semantic_id'||
       !/^[0-9a-f]{64}$/.test(s.candidate_id)||s.projection_id!==await adaptiveHash(s.projection))throw Error('Shadow display request identity differs.');
-    await validateShadowProjection(s.projection,{source,material,semanticId:s.semantic_id,sourceId:body.source_geometry_id});
+    const validate=s.projection?.schema==='adaptive-turning-point-shadow-view-1'?validateTurningShadowProjection:validateShadowProjection;
+    await validate(s.projection,{source,material,semanticId:s.semantic_id,sourceId:body.source_geometry_id});
   }
   return body;
 }
@@ -84,6 +86,16 @@ export function buildAcceptedStockMesh(kernel,request){
     let solid;
     switch(s?.kind){
       case 'empty':return empty();
+      case 'turning_shadow_union_1':return union(s.children.map(child));
+      case 'turning_shadow_radial_band_squared_1':{
+        if(!request.shadow)throw Error('Turning shadow operand requires a shadow display request.');
+        const axis=s.spindle.axis,origin=s.spindle.origin.map(q),height=q(s.high)-q(s.low);
+        const outer=Math.sqrt(q(s.outer_squared)),inner=Math.sqrt(q(s.inner_squared));origin[axis]=q(s.low);
+        if(!(height>0&&outer>inner&&inner>=0))throw Error('Turning band exceeds display resolution.');
+        solid=orient(keep(M.cylinder(height,outer,outer,L.segments)),axis,1,origin);
+        if(inner>0)solid=keep(solid.subtract(orient(keep(M.cylinder(height,inner,inner,L.segments)),axis,1,origin)));
+        break;
+      }
       case 'box':{
         const low=s.bounds.low.map(q),size=s.bounds.high.map((v,k)=>q(v)-low[k]);
         if(size.some(v=>v<=0))throw Error('Invalid stock display box.');
@@ -163,7 +175,8 @@ export function buildAcceptedStockMesh(kernel,request){
     const source=request.source,stock=shape(source.stock),cuts=union(request.material.envelopes.map(e=>shape(e))),remaining=keep(stock.subtract(cuts));
     if(request.shadow){
       const p=request.shadow.projection;
-      const shadow=keep(keep(keep(remaining.intersect(shape(p.shadows.combined))).subtract(shape(p.protected))).subtract(shape(p.fixture)));
+      const fixture=p.schema==='adaptive-turning-point-shadow-view-1'?p.rotating_fixture:p.fixture;
+      const shadow=keep(keep(keep(remaining.intersect(shape(p.shadows.combined))).subtract(shape(p.protected))).subtract(shape(fixture)));
       return {schema:STOCK_DISPLAY_PROFILE,request_id:request.request_id,state_hash:request.state_hash,
         source_geometry_id:request.source_geometry_id,authoritative_geometry:false,segments:L.segments,
         projection_id:request.shadow.projection_id,semantic_id:request.shadow.semantic_id,candidate_id:request.shadow.candidate_id,
