@@ -4,8 +4,8 @@
   "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
   "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
   "adaptiveRuntimeRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2df9a251bc92e4b2f4d858b056f1fc42241b8b7/releases/adaptive-browser-transitions-20260920/runtime/release.json",
-    "sha256": "52ab6eb225aeda594339da6b9aa4d0afe2fc678c922c411b41b341c1943baa40"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/590670df9857e5dc9aec7a4229aecaf3a644d503/releases/adaptive-journal-transitions-20260920/runtime/release.json",
+    "sha256": "ec7fb03d0a4563304c1a0fce1adb39f8177efb0d859925230254474ae32cc15e"
   },
   "adaptiveCadRelease": {
     "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/170772bbbad760d2c8a7177224fca0b2754f1984/releases/adaptive-completion-cache-20260920/cad/release.json",

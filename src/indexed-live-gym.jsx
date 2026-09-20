@@ -14,6 +14,7 @@ export function IndexedLiveGym({prepared,onClose}){
   const [view,setView]=useState(null),[selection,setSelection]=useState(0),[phase,setPhase]=useState('Starting simulator…'),[error,setError]=useState(''),[stale,setStale]=useState(true),[model,setModel]=useState(false);
   const [decision,setDecision]=useState(null);
   const [preview,setPreview]=useState(false);
+  const [transitionDownload,setTransitionDownload]=useState(false);
   const owner=useRef(null),epoch=useRef(0),active=useRef(false);
   const check=token=>{if(token!==epoch.current)throw Object.assign(Error('Canceled operation.'),{name:'AbortError'});};
   async function refresh(session,token){
@@ -23,11 +24,13 @@ export function IndexedLiveGym({prepared,onClose}){
   }
   useEffect(()=>{
     const token=++epoch.current;active.current=true;
+    setTransitionDownload(false);
     const session=new IndexedPythonSession(prepared.configuration.workerURL);owner.current=session;
     (async()=>{
       const a=prepared.configuration.assets;
       await session.initialize({...a,runtimeBaseURL:new URL(a.runtimeBaseURL,location.href).href,codeURL:new URL(a.codeURL,location.href).href},prepared.taskBytes,prepared.initialBytes);check(token);
       await refresh(session,token);
+      const supported=await session.supportsTransitionRecord();check(token);setTransitionDownload(supported);
     })().catch(e=>{if(token===epoch.current)setError(e.message);}).finally(()=>{if(token===epoch.current){setPhase('');active.current=false;}});
     return()=>{epoch.current++;active.current=false;session.dispose();};
   },[prepared.key]);
@@ -51,6 +54,11 @@ export function IndexedLiveGym({prepared,onClose}){
     setSelection(result.action);
   },false);}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},false);}
+  function downloadTransitions(){run('Checking transition record…',async(session,token)=>{
+    const raw=await session.exportTransitionRecord();check(token);
+    const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
+    link.href=url;link.download='indexed-shadow-gym-transitions.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  },false);}
   function download(){run('Preparing decision download…',async(session,token)=>{
     const raw=await session.invoke('{"operation":"export"}');check(token);
     const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
@@ -79,6 +87,7 @@ export function IndexedLiveGym({prepared,onClose}){
       <div className="action-row"><button className="primary" disabled={blocked||!choice} onClick={apply}>{view?.finished?'Episode ended':choice?.allowed?'Apply indexed action':'Record rejected attempt'}</button>
         <button disabled={busy||stale||!view} onClick={()=>run('Resetting stock…',async(s,token)=>{await s.invoke('{"operation":"reset"}');check(token);setDecision(null);})}>Reset stock</button>
         <button disabled={busy||stale||!view} onClick={download}>Download decisions</button><button disabled={busy||stale||!view} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
+        {transitionDownload&&<button disabled={busy||stale||!view} onClick={downloadTransitions} title="Accepted material changes and stock partitions, bound to the matching decisions">Download transitions</button>}
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',s=>s.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing material view…',async()=>{})}>Refresh material view</button>}

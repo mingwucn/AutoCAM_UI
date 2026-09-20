@@ -1,0 +1,126 @@
+{
+  "checkpoint_trained": false,
+  "files": [
+    {
+      "gzip_sha256": "dc11c810d3ea7885d4f6568f7bd165deb3075ec3367242cb9be98f23c6ac42ae",
+      "path": "combined/expected.json",
+      "sha256": "07f4ed41339ffef9e0525094a33c8fe5dc25576f24cedaf22ba7024222cf9b2b",
+      "size_bytes": 37511312
+    },
+    {
+      "gzip_sha256": "1b27234d66508fae042d537d9fa846cef3827a0d8eec1cd1b9bfa1bc4857b48c",
+      "path": "combined/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "gzip_sha256": "4a75ae6ea8acfd49c9fb092d2b00a78aeb8465d7e4e127c86f6b8dc72d6e51c6",
+      "path": "combined/task.json",
+      "sha256": "26cf693b00162774a8e09281ac4e5d6f7cc65f44690f8faec2e04e24c57dada7",
+      "size_bytes": 5614
+    },
+    {
+      "gzip_sha256": "eea2b452265c0de17a5d1aa9e9d2a83db416f67b7a4b6d9bdc9fe885352cd5b2",
+      "path": "indexed/expected.json",
+      "sha256": "0f703ac49cb3d4a74f1ed1e6ee1bf25f4edc1cdb3489643fb867a6c10f53a47c",
+      "size_bytes": 2512047
+    },
+    {
+      "gzip_sha256": "2b707c7c938d921f745f254fe16967a0a5624ac3f35d08c41845418216e87ab8",
+      "path": "indexed/initial.bin",
+      "sha256": "7d3d0374602b76cc575c0f80a0c366137987c6145bf8ffe576188a561d54ceda",
+      "size_bytes": 187113
+    },
+    {
+      "gzip_sha256": "32ad15e8c77b469b5b4258eb7c8c099fa9b6f0adab42405bdd1d34f6e906c8af",
+      "path": "indexed/task.json",
+      "sha256": "c7fd0f911607f151830bcf9c2ec5ca7f441557dac0095a3e8d4d802fc7dc2b1b",
+      "size_bytes": 4309
+    },
+    {
+      "gzip_sha256": "57e6c4e2040279a690fb79d97cb4257e665abf03bcb7d9abff29dc594e0f94d1",
+      "path": "objective/expected.json",
+      "sha256": "d27bb949b3b8e57f203b7b10c6f5e6d1a016a18872fe578a7acff1328eccaa39",
+      "size_bytes": 25477181
+    },
+    {
+      "gzip_sha256": "1b27234d66508fae042d537d9fa846cef3827a0d8eec1cd1b9bfa1bc4857b48c",
+      "path": "objective/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "gzip_sha256": "4a7703df98e4ee405f3f7b3eeba355ec69e7d4d2f7878cd2394d2082c74b3ab5",
+      "path": "objective/task.json",
+      "sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4",
+      "size_bytes": 6248
+    },
+    {
+      "gzip_sha256": "140853f7eb362251dcf61f4dc3bc634518eb326cda165c93768de5b4d0b77894",
+      "path": "regional/expected.json",
+      "sha256": "9ecbde3637afba582a0ec7739bc2c98c08d4f88eb2c9189a2e49210c1397fc9c",
+      "size_bytes": 25472660
+    },
+    {
+      "gzip_sha256": "1b27234d66508fae042d537d9fa846cef3827a0d8eec1cd1b9bfa1bc4857b48c",
+      "path": "regional/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "gzip_sha256": "5e46936b27a32664043265fe9b18371b42076e917051b8ba5c2266fc24138c10",
+      "path": "regional/task.json",
+      "sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f",
+      "size_bytes": 6079
+    },
+    {
+      "gzip_sha256": "e81fcd91287d90c91c54e56b38d3a14d50de70edcf0bb50ab94a9340f26fd939",
+      "path": "combined/initial-episode.json",
+      "sha256": "75ffe9637b6aa1e4876b4806275297256fd853b847814a2763bef71b0733ac7a",
+      "size_bytes": 3832398
+    },
+    {
+      "gzip_sha256": "e55005df0f3d9fb1e145e40b194f230ccb136941734c1af250ad1cc530617065",
+      "path": "regional/initial-episode.json",
+      "sha256": "4c10a3ca00147394b945af9cac7f3d582e1cf94e50abdd00f4bf09fc507cc4e4",
+      "size_bytes": 3833757
+    },
+    {
+      "gzip_sha256": "61e73c406cc0a82c89af6ef05a076a9fb172d1108e96deb466232e56f4ae1f79",
+      "path": "objective/initial-episode.json",
+      "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+      "size_bytes": 3834028
+    },
+    {
+      "gzip_sha256": "2c8df653d35e81190039b7ff47d8726fa1aa7f829f8c46ae921cf1f25ed0f5bf",
+      "path": "indexed/initial-episode.json",
+      "sha256": "3ae53e32ee16e9b50e244204ec4f93668e1cc0e166fadcd56e2e149f2ba8e726",
+      "size_bytes": 5854
+    },
+    {
+      "gzip_sha256": "e8ad0d508c2c91faa29e27d0bd561d311f58e9eccaebd58b757f402d12a96cb4",
+      "path": "combined/model.json",
+      "sha256": "0d3c089149a3f88b58d0b284a2bb82617b131cd7304e813f91a7a2e43b407d82",
+      "size_bytes": 871
+    },
+    {
+      "gzip_sha256": "1c8f9fc96cc7d580fe9aa98aece8f1f3c8c95373bf740206771a066520d905fb",
+      "path": "regional/model.json",
+      "sha256": "45c90523aec93c707a45b9d8b5ee67e9975d6578ec70dab95a97eefc26be0ea1",
+      "size_bytes": 973
+    },
+    {
+      "gzip_sha256": "a03fa7702547250f1d25c1ffdd99eb79c5251058cc667f56e8a91a8bc9f25d5f",
+      "path": "objective/model.json",
+      "sha256": "4d37bfb63b8a7424e2e2f70cb2b9d2f8c242eb3900cbcc82ac475592f88bdfe0",
+      "size_bytes": 1093
+    },
+    {
+      "gzip_sha256": "dba7e47f74fb10bbb83d44504e0b7475733e7f3234f139cc4ff2e5e02f2a8c56",
+      "path": "indexed/model.json",
+      "sha256": "7ee440b704d4da98443938e09203903b995cf4fb5f785957d94ab8c0e6b9cddf",
+      "size_bytes": 529
+    }
+  ],
+  "schema": "autocam-journal-transition-fixtures-1"
+}
