@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {CadFaceProvenancePanel} from './cad-face-provenance-panel.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
@@ -69,6 +70,7 @@ export function CombinedLiveGym({prepared,onClose}){
     if(result.head!==view.observation.head||!Number.isInteger(result.action)||!view.choices[result.action]?.allowed)throw Error('Search result differs from the current candidate bank.');
     setSelection(result.action);
   },false);}
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},false);}
   function download(){run('Preparing decision download…',async(session,token)=>{
     const raw=await session.invoke('{"operation":"export"}');check(token);
     const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
@@ -103,7 +105,7 @@ export function CombinedLiveGym({prepared,onClose}){
       <label><input aria-label="Preview selected action" type="checkbox" checked={preview} disabled={busy||stale||!choice} onChange={e=>setPreview(e.target.checked)}/>Preview selected action</label>
       <div className="action-row"><button className="primary" disabled={blocked||!choice} onClick={apply}>{view?.finished?'Episode ended':choice?.allowed?'Apply mill-turn action':'Record rejected attempt'}</button>
         <button disabled={busy||stale||!view} onClick={()=>run('Resetting stock…',async(s,token)=>{await s.invoke('{"operation":"reset"}');check(token);setDecision(null);})}>Reset stock</button>
-        <button disabled={busy||stale||!view} onClick={download}>Download decisions</button>
+        <button disabled={busy||stale||!view} onClick={download}>Download decisions</button><button disabled={busy||stale||!view} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',s=>s.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing material view…',async()=>{})}>Refresh material view</button>}

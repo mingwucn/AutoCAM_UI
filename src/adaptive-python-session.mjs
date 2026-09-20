@@ -1,4 +1,5 @@
 import {AdaptivePythonClient} from './adaptive-python-client.mjs';
+import {makeExecutionRecord} from './execution-provenance.mjs';
 
 const encoder=new TextEncoder();
 const mutations=new Set(['reset','step','infer_step']);
@@ -78,6 +79,7 @@ export class AdaptivePythonSession {
   }
   cancel(){
     if(this.closed)return;
+    this.executionAbort?.abort();this.executionAbort=null;
     this.generation++;this.client?.dispose();this.client=null;this.busy=false;this.ready=false;
     this.needsRecovery=!!this.initialDigest;
   }
@@ -104,6 +106,19 @@ export class AdaptivePythonSession {
       if(generation===this.generation&&!this.ready){this.client=null;this.needsRecovery=!!this.initialDigest;}
       throw error;
     }finally{this.finish(generation);}
+  }
+  async exportExecutionRecord({fetcher,baseURL}={}){
+    const generation=this.start(),controller=new AbortController();this.executionAbort=controller;
+    try{
+      if(!this.ready)throw new Error(this.needsRecovery?'Restore the last completed state before continuing.':'Initialize the simulator first.');
+      const episode=await this.client.invoke('{"operation":"export"}');this.check(generation);
+      const observation=await this.client.executionInfo();this.check(generation);
+      const raw=await makeExecutionRecord({episode,observation,inputs:this.inputs,
+        initialResponseSHA256:this.initialDigest,journal:this.journal,workerURL:this.workerURL,
+        fetcher,baseURL,signal:controller.signal});
+      this.check(generation);return raw;
+    }catch(error){this.failed(generation);throw error;}
+    finally{if(this.executionAbort===controller)this.executionAbort=null;this.finish(generation);}
   }
   async exportRecoveryCapsule(){
     const generation=this.start();

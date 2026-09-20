@@ -84,6 +84,11 @@ export class AdaptivePythonClient {
     if(typeof raw!=='string'||encoder.encode(raw).length<1||encoder.encode(raw).length>this.maximumCommandBytes)throw new RangeError('Invalid command bytes.');
     return this.request('invoke',{raw});
   }
+  async executionInfo(){
+    if(this.closed)throw new Error('The simulator session is closed.');
+    if(!this.ready)throw new Error('Initialize the simulator before requesting run details.');
+    return this.request('execution_info',{});
+  }
   async loadModel(bytes,expectedSHA256){
     if(this.closed)throw new Error('The simulator session is closed.');
     if(!this.ready)throw new Error('Initialize the simulator before loading weights.');

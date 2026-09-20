@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {AdaptivePythonSession} from './adaptive-python-session.mjs';
@@ -93,6 +94,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
   }
   const invoke=(request,message)=>run(message,session=>session.invoke(JSON.stringify(request)));
   function cancel(){epoch.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setError('Stopped. Restore the last completed state to continue.');}
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();if(token!==epoch.current)return null;saveExecutionDetails(raw);return null;},{refreshView:false});}
   async function download(operation='export'){await run(operation==='inspection'?'Replaying recorded actions for inspection…':'Preparing decision download…',async(session,token)=>{
     const raw=await session.invoke(JSON.stringify({operation}));
     const guide=operation==='export'&&['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&JSON.parse(raw).records.length>1?await recordedTrainingGuide(raw):null;
@@ -120,7 +122,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
       <div className="action-row"><button className="primary" disabled={blocked||!choice} onClick={()=>invoke({operation:'step',action:choice.index},'Applying action…')}>{choice?.allowed?'Apply action':choice?.reason==='already_applied'?'Record repeated action':'Record rejected attempt'}</button>
         <button disabled={blocked} onClick={()=>invoke({operation:'step',action:task.candidates.length},'Refining material…')}>Refine cells</button>
         <button disabled={busy||!view||stale} onClick={()=>invoke({operation:'reset',seed:prepared.seed},'Resetting stock…')}>Reset stock</button>
-        <button disabled={busy||!owner.current?.ready} onClick={()=>download()}>Download decisions</button>
+        <button disabled={busy||!owner.current?.ready} onClick={()=>download()}>Download decisions</button><button disabled={busy||!owner.current?.ready} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&<button disabled={busy||!owner.current?.ready} onClick={()=>download('inspection')}>Download inspection</button>}
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}

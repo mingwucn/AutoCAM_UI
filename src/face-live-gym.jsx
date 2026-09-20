@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {FacePythonSession} from './face-python-session.mjs';
@@ -217,6 +218,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'select_initial',preparation_id:initialSelection,event_key:crypto.randomUUID(),session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id})));check(token);
     setDecision({status:response.status,reason:response.reason,seconds:response.charged_seconds});setInitialSelection('');
   });}
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},{refreshView:false});}
   function download(){run('Preparing decision download…',async(session,token)=>{const raw=await session.invoke('{"operation":"export"}');check(token);save(raw,mixed);},{refreshView:false});}
   function restore(file){if(!file)return;run('Replaying decisions…',async(session,token)=>{
     if(!file.size||file.size>64*1024**2)throw Error('Decision file must be between 1 byte and 64 MiB.');
@@ -260,7 +262,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
           <details><summary>All saved proposals ({proposals.length})</summary><ul>{proposals.map(c=><li key={c.key}>{c.choice.tool.id} · {spacing(c.choice.row)} · {c.choice.row.status} · {c.choice.row.reason} · {detailText(c.choice.row.detail)}{c.choice.row.alias_of&&` · equivalent to proposal ${c.choice.row.alias_of.slice(0,12)}`}</li>)}</ul></details>
         </>}
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setInitialSelection('');setInitialPreview(null);setDecision(null);})}>{full?"Reset to initial stock":mixed?"Reset to turning transfer":"Reset stock"}</button><button disabled={blocked} onClick={download}>Download decisions</button>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setInitialSelection('');setInitialPreview(null);setDecision(null);})}>{full?"Reset to initial stock":mixed?"Reset to turning transfer":"Reset stock"}</button><button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}{!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}{!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted state…',async()=>{})}>Refresh material view</button>}
       </div>
       <label>Restore decisions<input aria-label={mixed?"Restore mixed decisions":"Restore face decisions"} type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>

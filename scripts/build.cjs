@@ -4,6 +4,7 @@ const option=(name,fallback)=>args.includes(name)?args[args.indexOf(name)+1]:fal
 const source=path.resolve(option('--ui-source',path.join(root,'src')));
 const out=path.resolve(option('--out',path.join(root,'dist'))),development=args.includes('--development');
 const embed=args.includes('--embed');
+const executionBuild=require('./build-execution-provenance.cjs').captureBuildProvenance({root,source,development,embed});
 fs.mkdirSync(path.join(out,'assets'),{recursive:true});
 require('./accepted-stock-assets.cjs')({source,out:path.join(out,'assets'),minify:!development});
 esbuild.buildSync({entryPoints:[path.join(source,'view.js')],bundle:true,minify:true,format:'iife',target:'es2020',outfile:path.join(out,'assets/view.js'),legalComments:'eof',nodePaths:[path.join(root,'node_modules')]});
@@ -24,7 +25,7 @@ if(!embed){
   let adaptiveRuntime=null;
   if(args.includes('--adaptive-assets')){
     adaptiveRuntime=require('./adaptive-runtime.cjs')(option('--adaptive-assets'),out);
-    esbuild.buildSync({entryPoints:[path.join(source,'adaptive-python-worker.mjs')],bundle:true,minify:!development,format:'esm',target:'es2022',outfile:path.join(out,'assets/adaptive-python-worker.js'),legalComments:'eof'});
+    esbuild.buildSync({entryPoints:[path.join(source,'adaptive-python-worker.mjs')],bundle:true,minify:!development,format:'esm',target:'es2022',outfile:path.join(out,'assets/adaptive-python-worker.js'),legalComments:'eof',define:{__AUTOCAM_BUILD_RECORD_SHA256__:JSON.stringify(executionBuild.recordSHA256)}});
   }
   let adaptiveCad=null;
   if(args.includes('--adaptive-cad-assets')){
@@ -35,6 +36,7 @@ if(!embed){
   fs.writeFileSync(path.join(out,'.nojekyll'),'');
 }
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+fs.writeFileSync(path.join(out,'execution-build.json'),executionBuild.finalize());
 const files=[];
 function walk(dir){for(const name of fs.readdirSync(dir).sort()){const p=path.join(dir,name);if(fs.statSync(p).isDirectory())walk(p);else if(name!=='build-manifest.json')files.push({path:path.relative(out,p).replaceAll('\\','/'),sha256:sha(p),size_bytes:fs.statSync(p).size});}}
 walk(out);fs.writeFileSync(path.join(out,'build-manifest.json'),JSON.stringify({schema:'shadow-gym-ui-build-1',development,embed,files},null,2)+'\n');

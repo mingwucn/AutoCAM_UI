@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {MixedLearningPythonSession} from './mixed-learning-python-session.mjs';
@@ -57,6 +58,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
     }catch(e){if(token===generation.current){setError(e.message);if(mutates||owner.current?.needsRecovery){setStale(true);setPreview(null);}}}
     finally{if(token===generation.current){active.current=false;setPhase('');}}
   }
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);});}
   const currentPreview=preview&&view&&!stale&&preview.raw.head===view.observation.head&&preview.raw.session_epoch===view.sessionEpoch&&String(preview.raw.action)===selection?preview:null;
   function showPreview(){run('Checking selected preview…',async(session,token)=>{
     const selected=Number(selection),checked=await readMixedLearningPreview(await invoke(session,'preview',{action:selected,...binding(view)}),view,selected);check(token);setPreview(checked);
@@ -105,7 +107,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
         {inference&&<p role="status">{inference.trace?`MCTS used ${inference.trace.simulations} simulations.`:'Policy suggestion ready.'} Preview and accept the selected action to apply it.</p>}
         <p className="adaptive-small">Inference runs here; train downloaded decisions locally. This constructed example does not qualify the loaded model for other parts.</p>
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting to initial stock…',async(session,token)=>{await invoke(session,'reset');check(token);setDecision(null);},{mutates:true,refreshView:true})}>Reset to initial stock</button><button disabled={blocked} onClick={()=>run('Preparing learning download…',async(session,token)=>{const raw=await invoke(session,'export');check(token);download(raw);})}>Download learning decisions</button>{busy&&<button onClick={cancel}>Cancel computation</button>}</div>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting to initial stock…',async(session,token)=>{await invoke(session,'reset');check(token);setDecision(null);},{mutates:true,refreshView:true})}>Reset to initial stock</button><button disabled={blocked} onClick={()=>run('Preparing learning download…',async(session,token)=>{const raw=await invoke(session,'export');check(token);download(raw);})}>Download learning decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>{busy&&<button onClick={cancel}>Cancel computation</button>}</div>
       {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Recovering completed actions and model…',session=>session.recover(),{refreshView:true})}>Recover completed actions</button>}
       {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted stock…',async()=>{},{refreshView:true})}>Refresh accepted stock</button>}
       <label>Restore learning decisions<input aria-label="Restore learning decisions" type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>
