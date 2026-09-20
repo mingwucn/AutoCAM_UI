@@ -1,5 +1,6 @@
 import {parseAdaptiveJson,canonicalAdaptive} from './adaptive-json.mjs';
 import {executionHash,executionTextHash} from './execution-provenance.mjs';
+import {journalTransitionBindings} from './journal-transition-bindings.mjs';
 
 const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true});
 const require=(condition,message)=>{if(!condition)throw Error('Transition record: '+message);};
@@ -15,7 +16,8 @@ function decode(value){
 export async function checkTransitionRecord(raw,episode,inputs){
   require(typeof raw==='string'&&encoder.encode(raw).length<=64*1024**2,'byte limit exceeded');
   require(typeof episode==='string'&&encoder.encode(episode).length<=128*1024**2,'invalid episode');
-  const data=parseAdaptiveJson(raw);
+  const wrapper=parseAdaptiveJson(raw),journal=wrapper.schema==='adaptive-journal-browser-transition-record-1';
+  const data=journal?wrapper.material:wrapper;
   require(data.schema==='adaptive-browser-transition-record-1','unsupported schema');
   require(data.verification==='captured_at_accepted_publication_not_independently_replayed'&&data.manufacturing_qualified===false,'unsupported verification claim');
   require(Array.isArray(data.records)&&data.records.length<=128&&Array.isArray(data.snapshots)&&data.snapshots.length>=1&&data.snapshots.length<=129,'record or snapshot limit');
@@ -23,9 +25,10 @@ export async function checkTransitionRecord(raw,episode,inputs){
   require(data.task_sha256===await executionHash(inputs.task)&&data.initial_snapshot_sha256===await executionHash(inputs.initial),'session inputs differ');
   // Extract only text identifiers and base64. Never reserialize episode numbers:
   // reward floats and exact rational integers coexist in the historical schema.
-  const decisions=JSON.parse(episode);
-  require(decisions.schema==='adaptive-browser-episode-1'&&decisions.final_state_hash===data.final_state_hash,'episode state differs');
-  const initial=decode(decisions.initial_snapshot_base64);
+  const binding=journal?await journalTransitionBindings(wrapper,episode,inputs):null;
+  const decisions=binding?.decisions??JSON.parse(episode);
+  if(!journal)require(decisions.schema==='adaptive-browser-episode-1'&&decisions.final_state_hash===data.final_state_hash,'episode state differs');
+  const initial=binding?.initial??decode(decisions.initial_snapshot_base64);
   require(await executionHash(initial)===data.initial_snapshot_sha256,'episode initial stock differs');
   const partitions=new Map();
   for(const row of data.snapshots){
@@ -62,8 +65,8 @@ export async function checkTransitionRecord(raw,episode,inputs){
     previous=row.evidence_sha256;accepted.push(row.event_sha256);
   }
   require(head===data.final_state_hash,'final accepted state differs');
-  const episodeEvents=[];
-  for(const record of decisions.records??[]){
+  const episodeEvents=binding?.events??[];
+  for(const record of journal?[]:decisions.records??[]){
     const result=record.result?.info?.transition?.result;
     if(result?.status==='ACCEPTED'&&!result.duplicate_delivery)episodeEvents.push(result.event_id);
   }
