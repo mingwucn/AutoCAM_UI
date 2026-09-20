@@ -19,6 +19,7 @@ export function DrillLiveGym({prepared,onClose}){
   const [lengthPreview,setLengthPreview]=useState(null),[lengthError,setLengthError]=useState('');
   const [toolId,setToolId]=useState(''),[poseId,setPoseId]=useState(''),[depth,setDepth]=useState('all');
   const [saveStatus,setSaveStatus]=useState('Opening local save…'),[saveError,setSaveError]=useState('');
+  const [transitionSupported,setTransitionSupported]=useState(false);
   const localSave=useRef(null);
   const owner=useRef(null),inputs=useRef(null),generation=useRef(0),active=useRef(false);
   const view=snapshot?.view,geometry=snapshot?.geometry,busy=!!phase,blocked=busy||stale||!snapshot;
@@ -36,7 +37,7 @@ export function DrillLiveGym({prepared,onClose}){
     setSnapshot({view:next,geometry});setStale(false);setPreview(null);setLengthPreview(null);setLengthError('');
   }
   useEffect(()=>{
-    const token=++generation.current;active.current=true;setPhase('Starting drill simulator…');setError('');setStale(true);setSnapshot(null);
+    const token=++generation.current;active.current=true;setPhase('Starting drill simulator…');setError('');setStale(true);setSnapshot(null);setTransitionSupported(false);
     const session=new DrillPythonSession(new URL(prepared.configuration.workerURL,location.href).href);owner.current=session;
     const storage=new DrillLocalSave();localSave.current=storage;setSaveError('');setSaveStatus('Opening local save…');
     (async()=>{
@@ -49,6 +50,7 @@ export function DrillLiveGym({prepared,onClose}){
       if(saved.error){setSaveError(saved.error);setSaveStatus('Local saving is unavailable; this is a fresh session.');}
       else setSaveStatus(saved.restored?'Local save restored and verified.':'No previous local save.');
       await refresh(session,token);
+      const supportsTransitions=await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
       if(saved.available)await checkpoint(session,token);
     })().catch(e=>{if(token===generation.current)setError(e.message);}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
     return()=>{generation.current++;active.current=false;session.dispose();};
@@ -102,6 +104,7 @@ export function DrillLiveGym({prepared,onClose}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'select',batch_id:selected.batch.id,candidate_id:selected.choice.candidateId,event_key:crypto.randomUUID(),session_epoch:geometry.sessionEpoch,expected_semantic_id:selected.batch.batch.before_semantic_id})));check(token);
     setDecision({status:response.status,reason:response.reason,seconds:response.charged_seconds});
   });}
+  function downloadTransitions(){run('Preparing transition download…',async(session,token)=>{const raw=await session.exportTransitionRecord();check(token);const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='drill-shadow-gym-transitions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},{refreshView:false});}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},{refreshView:false});}
   function download(){run('Preparing decision download…',async(session,token)=>{const raw=await session.invoke('{"operation":"export"}');check(token);save(raw);},{refreshView:false});}
   function restore(file){if(!file)return;run('Replaying decisions…',async(session,token)=>{
@@ -129,7 +132,7 @@ export function DrillLiveGym({prepared,onClose}){
           <details><summary>All saved proposals ({choices.length})</summary><ul>{choices.map(c=><li key={c.key}>{c.choice.tool.id} · {c.choice.row.parameters.depth_reference} · {c.choice.row.status} · {c.choice.row.reason} · {drillDetailText(c.choice.row.detail)}</li>)}</ul></details>
         </>}
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setDecision(null);})}>Reset stock</button><button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setDecision(null);})}>Reset stock</button><button disabled={blocked} onClick={download}>Download decisions</button>{transitionSupported&&<button disabled={blocked} onClick={downloadTransitions}>Download transitions</button>}<button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}{!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}{!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted state…',async()=>{})}>Refresh material view</button>}
       </div>
       <label>Restore decisions<input aria-label="Restore drill decisions" type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>
