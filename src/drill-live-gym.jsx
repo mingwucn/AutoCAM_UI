@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {DrillPythonSession} from './drill-python-session.mjs';
@@ -101,6 +102,7 @@ export function DrillLiveGym({prepared,onClose}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'select',batch_id:selected.batch.id,candidate_id:selected.choice.candidateId,event_key:crypto.randomUUID(),session_epoch:geometry.sessionEpoch,expected_semantic_id:selected.batch.batch.before_semantic_id})));check(token);
     setDecision({status:response.status,reason:response.reason,seconds:response.charged_seconds});
   });}
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},{refreshView:false});}
   function download(){run('Preparing decision download…',async(session,token)=>{const raw=await session.invoke('{"operation":"export"}');check(token);save(raw);},{refreshView:false});}
   function restore(file){if(!file)return;run('Replaying decisions…',async(session,token)=>{
     if(!file.size||file.size>64*1024**2)throw Error('Decision file must be between 1 byte and 64 MiB.');
@@ -127,7 +129,7 @@ export function DrillLiveGym({prepared,onClose}){
           <details><summary>All saved proposals ({choices.length})</summary><ul>{choices.map(c=><li key={c.key}>{c.choice.tool.id} · {c.choice.row.parameters.depth_reference} · {c.choice.row.status} · {c.choice.row.reason} · {drillDetailText(c.choice.row.detail)}</li>)}</ul></details>
         </>}
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setDecision(null);})}>Reset stock</button><button disabled={blocked} onClick={download}>Download decisions</button>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setDecision(null);})}>Reset stock</button><button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}{!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}{!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted state…',async()=>{})}>Refresh material view</button>}
       </div>
       <label>Restore decisions<input aria-label="Restore drill decisions" type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>

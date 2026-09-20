@@ -1,3 +1,4 @@
+import {saveExecutionDetails} from './execution-provenance.mjs';
 import {readCellGraph,readCellDirectional,readDirectionalGraph} from './adaptive-cell-graph.mjs';
 import {ChoiceDependencyPanel} from './choice-dependency-panel.jsx';
 import {ChoiceDependencyGraphPanel} from './choice-dependency-graph-panel.jsx';
@@ -112,6 +113,7 @@ export function CylindricalLiveGym({prepared,onClose}){
     setResult(previous=>previous?.preview?{...previous,measurement:response.query}:previous);
   },false);}
   function cancel(){ticket.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setResult(null);setError('Stopped. Restore the last completed state to continue.');}
+  function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},false);}
   function download(){run('Preparing decision download…',async(s,t)=>{
     const raw=await s.invoke('{"operation":"export"}');check(t);
     const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
@@ -152,7 +154,7 @@ export function CylindricalLiveGym({prepared,onClose}){
         <button disabled={blocked||!choice||view.observation.attempt_limit_reached} onClick={()=>machining('preview')}>Preview machining choice</button>
         <button className="primary" disabled={blocked||!choice||view.observation.attempt_limit_reached} onClick={()=>machining('execute')}>Apply machining choice</button>
         <button disabled={blocked} onClick={()=>{setResult(null);run('Resetting stock…',s=>s.invoke(canonicalAdaptive({operation:'reset',session_epoch:view.session_epoch})));}}>Reset stock</button>
-        <button disabled={blocked} onClick={download}>Download decisions</button>
+        <button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',s=>s.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted material…',async()=>{})}>Refresh accepted material</button>}

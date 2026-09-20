@@ -29,6 +29,13 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build:release
       - run: npm run test:browser
+      - run: npm run test:run-details
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: run-details-browser-evidence
+          path: test-results/run-details-*/
+          if-no-files-found: warn
       - run: npm run test:step-upload
       - run: npm run test:brep-browser
       - run: npm run test:spherical-bands

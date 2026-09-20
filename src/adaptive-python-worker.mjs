@@ -1,3 +1,5 @@
+import {executionHash,executionAssetsHash} from './execution-provenance.mjs';
+let executionInputs=null;
 let py=null,initialized=false,attempted=false,busy=false,lastID=0;
 let indexed=false,combined=false,regional=false,objective=false,choices=false,choicePolicy=false,drill=false,face=false,millTurn=false,fullMillTurn=false,mixedLearning=false;
 let remainingSide=false,clearedHolder=false;
@@ -160,7 +162,8 @@ removal_assessor = WasmRemovalAssessor(wasm_history_query, wasm_removal_weights)
   }
   self.postMessage({id:message.id,type:'progress',phase:'preparing_session'});
   py.runPython('session = BrowserSession(Path("/input/task.json").read_bytes(), Path("/input/initial.bin").read_bytes()'+(useRemaining?', remaining_assessor=remaining_assessor':useVolumeQuery?', completion_assessor=volume_assessor':'')+(useRemoval?', removal_assessor=removal_assessor':'')+')');
-  py.FS.unlink('/input/task.json');py.FS.unlink('/input/initial.bin');initialized=true;
+  py.FS.unlink('/input/task.json');py.FS.unlink('/input/initial.bin');
+  executionInputs={task_sha256:await executionHash(task),initial_sha256:await executionHash(initial),assets_sha256:await executionAssetsHash(message.assets)};initialized=true;
   return py.runPython(mixedLearning
     ?'json.dumps(dict(python=sys.version,profile="mixed-learning_1",platform=sys.platform,guard=guard.to_data()))'
     :fullMillTurn
@@ -192,6 +195,16 @@ removal_assessor = WasmRemovalAssessor(wasm_history_query, wasm_removal_weights)
 async function execute(message){
   if(message.operation==='initialize')return initialize(message);
   if(!initialized)throw new Error('Initialize the simulator before sending commands.');
+  if(message.operation==='execution_info'){
+    closed(message,['id','operation']);
+    const observed=JSON.parse(py.runPython('import platform,sysconfig; json.dumps(dict(python=sys.version,implementation=platform.python_implementation(),compiler=platform.python_compiler(),platform=sys.platform,machine=platform.machine(),python_build_flags={name:sysconfig.get_config_var(name) for name in ("CFLAGS","CONFIG_ARGS","PY_CFLAGS")}))'));
+    return JSON.stringify({schema:'adaptive-browser-runtime-observation-1',inputs:executionInputs,
+      build_record_sha256:typeof __AUTOCAM_BUILD_RECORD_SHA256__==='undefined'?null:__AUTOCAM_BUILD_RECORD_SHA256__,
+      pyodide_version:py.version,...observed,
+      backend_selection:{volume:volumeEnabled,history:historyEnabled,remaining:remainingEnabled,removal:removalEnabled},
+      roles:{geometry:'cpu_python_and_selected_webassembly',policy:'cpu_when_requested',gpu:'none_in_this_worker',training:'not_performed'},
+      numeric:{geometry:'declared_reference_or_selected_wasm_predicate_profiles',policy_and_timing:'floating_point',hardware_rounding_mode:null,external_wasm_compiler_flags:null}});
+  }
   if(message.operation==='invoke'){
     closed(message,['id','operation','raw']);
     if(typeof message.raw!=='string'||!encoder.encode(message.raw).length||encoder.encode(message.raw).length>(drill||face||millTurn||fullMillTurn||mixedLearning?64*1024**2:combined||choices?65*1024**2:indexed?32*1024**2:4096))throw new Error('Invalid command bytes.');
