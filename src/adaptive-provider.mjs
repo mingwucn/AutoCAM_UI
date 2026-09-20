@@ -35,6 +35,22 @@ export function indexedPoseMatrix(pose){
 }
 
 function interval(value){fields(value,['lower_mm3','upper_mm3']);const low=exactNumber(value.lower_mm3);exactNumber(value.upper_mm3);if(low<0||compareQ(value.upper_mm3,value.lower_mm3)<0)fail('Invalid volume interval.');}
+export function validateInspectionTransition(frame){
+  const result=frame.outcome?.result;if(result==null)return;
+  const invalid=()=>fail('Invalid recorded transition context.');
+  fields(result,['event_id','status','reason','before_hash','after_hash','removed','reward','duplicate_delivery']);
+  const isHash=value=>typeof value==='string'&&hashPattern.test(value);
+  if(!['ACCEPTED','REJECTED','UNRESOLVED'].includes(result.status)||typeof result.reason!=='string'||!result.reason||
+     typeof result.duplicate_delivery!=='boolean'||!isHash(result.before_hash)||!isHash(result.after_hash)||result.after_hash!==frame.state_hash)invalid();
+  interval(result.removed);exactNumber(result.reward);
+  const removed=BigInt(result.removed.lower_mm3[0])!==0n||BigInt(result.removed.upper_mm3[0])!==0n;
+  const reward=BigInt(result.reward[0]);if(reward<0n)invalid();
+  if(result.status==='ACCEPTED'){
+    if(!isHash(result.event_id)||result.event_id!==frame.material.parent_event)invalid();
+  }else if(result.event_id!==null||result.before_hash!==result.after_hash||removed||reward!==0n)invalid();
+  if(result.duplicate_delivery&&reward!==0n)invalid();
+  if(result.reason==='refinement_only'&&(result.status!=='ACCEPTED'||removed||reward!==0n))invalid();
+}
 function vector(value,length){if(!Array.isArray(value)||value.length!==length)fail('Invalid exact coordinate vector.');return value.map(exactNumber);}
 export function validateRationalGeometry(shape){
   fields(shape,['kind','upper_cap','uv_low','uv_high','thickness_mm']);
@@ -475,6 +491,7 @@ export async function readAdaptiveBundle(raw){
   const sourceText=canonicalAdaptive(source);
   for(const [frameIndex,f] of p.frames.entries()){
     fields(f,['label','state_hash','domain_hash','material','domain','coverage','outcome','volumes','stop_reason','certificate_refs']);
+    if(typeof f.stop_reason!=='string'||!f.stop_reason||f.stop_reason.length>256)fail('Invalid recorded partition stop reason.');
     if(await adaptiveHash(f.domain)!==f.domain_hash||await adaptiveHash(f.material)!==f.state_hash)fail('Adaptive frame identity mismatch.');
     if(canonicalAdaptive(f.domain.source)!==sourceText||f.material.domain_hash!==f.domain_hash)fail('Frame belongs to another source or domain.');
     fields(f.material,['schema','domain_hash','envelopes','revision','parent_event',...(toolEpisode?['tool_catalog']:[]),...(turningEpisode?['turning_axis']:[])]);
@@ -507,6 +524,7 @@ export async function readAdaptiveBundle(raw){
     if(coverageUnits!==(1n<<60n))fail('Incomplete adaptive partition.');
     Object.values(f.volumes).forEach(interval);
     verifyInspectionVolumes(f,root);
+    validateInspectionTransition(f);
   }
   const scope_assessments=await Promise.all(p.frames.map(f=>scopeAssessment(f.outcome,adaptiveHash)));
   return Object.freeze({...p,bundle_hash:wrapper.payload_sha256,catalog_id:catalogId,scope_assessments,displayed_episode_scope:displayedScope(scope_assessments)});

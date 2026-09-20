@@ -1,8 +1,9 @@
+import {CadFaceProvenancePanel} from './cad-face-provenance-panel.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {CombinedPythonSession} from './combined-python-session.mjs';
 import {adaptiveHash,canonicalAdaptive,exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
-import {readCombinedView,readCombinedCellEvidence,combinedToolPreview} from './combined-live-view.mjs';
+import {readCombinedView,readCombinedCellInspection,combinedToolPreview} from './combined-live-view.mjs';
 import {throughSlotProfile} from './adaptive-profile-view.mjs';
 import {bindCadFaceActions} from './cad-face-actions.mjs';
 import {readCadCellFaces} from './cad-cell-faces.mjs';
@@ -47,7 +48,7 @@ export function CombinedLiveGym({prepared,onClose}){
     const token=++epoch.current;active.current=true;setPhase('Loading cell evidence…');
     try{
       const raw=await owner.current.invoke(canonicalAdaptive({operation:'cell_evidence',cell_index:index,expected_head:view.observation.head,session_epoch:view.session_epoch}));check(token);
-      const certificate=await readCombinedCellEvidence(raw,view,index);check(token);return certificate;
+      const inspection=await readCombinedCellInspection(raw,view,index);check(token);return inspection;
     }finally{if(token===epoch.current){active.current=false;setPhase('');}}
   }
   async function loadSourceFaces(index){
@@ -111,12 +112,13 @@ export function CombinedLiveGym({prepared,onClose}){
         <button disabled={blocked||!model||view?.inference_available===false} onClick={search}>Suggest with model + MCTS</button><p>{view?.inference_available===false?'Model inference for regional completion is not available yet. You can apply and record actions manually.':`${model?'Compatible weights loaded.':'Load compatible combined mill-turn weights.'} Search selects a suggestion; Apply executes it. Training runs locally.`}</p>
         <label>Restore decisions<input aria-label="Restore mill-turn decisions" type="file" accept=".json" disabled={busy||stale||!view} onChange={e=>upload(e.target.files?.[0],'episode')}/></label>
       </div>
+      {view?.bundle.source.target_construction&&<CadFaceProvenancePanel certificate={view.bundle.source.target_construction} attachment={prepared.sourceProvenance}/>}
       {view&&<div className="metrics"><div>Accepted workpiece angle<strong>{angle(view.pose)}</strong></div><div>Estimated elapsed time<strong>{fmt(exactNumber(view.observation.elapsed_seconds))} s</strong></div><div>Recorded actions<strong>{view.observation.steps} / {view.observation.horizon}</strong></div></div>}
       {view&&<p>Removable material remaining: <strong>{fmt(exactNumber(view.observation.remaining.lower_mm3))} – {fmt(exactNumber(view.observation.remaining.upper_mm3))} mm³</strong></p>}
       {view?.observation.completion&&<section aria-label="Regional completion"><p aria-label="Global residual limit">Global residual limit: <strong>{fmt(exactNumber(view.observation.completion.global_budget))} mm³</strong> · {view.observation.completion.global_passed?'Met':'Remaining'}</p><h3>Required regions</h3>{view.observation.completion.regions.map(r=><p key={r.name}>{r.name.replaceAll('_',' ')}: <strong>{r.passed?'Met':'Remaining'}</strong> · {fmt(exactNumber(r.remaining.lower_mm3))} – {fmt(exactNumber(r.remaining.upper_mm3))} mm³ · limit {fmt(exactNumber(r.budget))} mm³</p>)}</section>}
       {decision&&<p className={decision.accepted?'adaptive-action-status':'step-error'}>{decision.accepted?'Accepted':'Rejected'} · {decision.reason.replaceAll('_',' ')}</p>}
       {view?.finished&&<p>{view.observation.terminated?'Completion conditions reached.':view.observation.steps>=view.observation.horizon?'Action limit reached; completion conditions have not been met.':'No feasible actions remain; completion conditions have not been met.'}</p>}{phase&&<p role="status">{phase}</p>}{error&&<p role="alert" className="step-error">{error}</p>}
     </section>
-    {view&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification.</p>}<p className="adaptive-small">{preview&&choice?`3D: proposed action preview at ${angle(choice.pose)}; accepted state remains unchanged.`:view.pose?'3D: accepted locked workpiece orientation.':'3D: part reference frame during turning; no locked angle.'} Section: workpiece coordinates.</p><AdaptiveInspector prepared={{bundle:view.bundle,name:prepared.name}} onClose={onClose} live={{previewAction:toolPreview,toolOnlyPreview:!!toolPreview,workpiecePose:preview&&choice?choice.pose:view.pose,activeToolID:view.observation.tool_id,initialSectionAxis:sectionAxis,initialSectionPosition:50,faceActions:view.faceActions,actionChoices:view.choices,actionLabel:choiceLabel,onSelectAction:setSelection,loadCellEvidence,loadSourceFaces:view.schema==='adaptive-combined-browser-view-1'?null:loadSourceFaces,sourceFaceContext:[view.configuration_id,view.session_epoch,view.observation.head].join(':'),busy}}/></div>}
+    {view&&<div className={stale?'adaptive-live-stale':''}>{stale&&<p className="adaptive-stale-banner">Displayed stock awaits verification.</p>}<p className="adaptive-small">{preview&&choice?`3D: proposed action preview at ${angle(choice.pose)}; accepted state remains unchanged.`:view.pose?'3D: accepted locked workpiece orientation.':'3D: part reference frame during turning; no locked angle.'} Section: workpiece coordinates.</p><AdaptiveInspector prepared={{bundle:view.bundle,name:prepared.name}} onClose={onClose} live={{provenanceAttachment:prepared.sourceProvenance,previewAction:toolPreview,toolOnlyPreview:!!toolPreview,workpiecePose:preview&&choice?choice.pose:view.pose,activeToolID:view.observation.tool_id,initialSectionAxis:sectionAxis,initialSectionPosition:50,faceActions:view.faceActions,actionChoices:view.choices,actionLabel:choiceLabel,onSelectAction:setSelection,loadCellEvidence,loadSourceFaces:view.schema==='adaptive-combined-browser-view-1'?null:loadSourceFaces,sourceFaceContext:[view.configuration_id,view.session_epoch,view.observation.head].join(':'),busy}}/></div>}
   </div>;
 }

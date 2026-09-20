@@ -1,6 +1,7 @@
 import {readCadPreview} from './adaptive-cad-preview.mjs';
 import {canonicalAdaptive,parseAdaptiveJson} from './adaptive-json.mjs';
 import {bindCadFaceActions} from './cad-face-actions.mjs';
+import {readCadFaceProvenance,faceProvenanceHash} from './cad-face-provenance.mjs';
 const abortError=()=>Object.assign(Error('STEP preparation canceled.'),{name:'AbortError'});
 const machiningAbort=()=>Object.assign(Error('Machining preparation canceled.'),{name:'AbortError'});
 const machiningEncoder=new TextEncoder();
@@ -166,6 +167,7 @@ function checkPreparedAllowance(data,expected){
 
 export async function prepareCadFile(file,{workerURL,assets,stockOptions,profile,signal,onProgress=()=>{}}){
   if(signal?.aborted)throw abortError();
+  assets={...assets};
   stockOptions={...stockOptions};
   const expectedAllowance=allowanceRatio(stockOptions.allowance);
   if(!file||!Number.isSafeInteger(file.size)||file.size<1||file.size>100*1024**2)throw Error('STEP file exceeds its size limit.');
@@ -196,6 +198,11 @@ export async function prepareCadFile(file,{workerURL,assets,stockOptions,profile
            typeof data.certificate!=='string'||typeof data.initial!=='string'||typeof data.proposedPreparation!=='string')throw Error('Incomplete STEP preparation response.');
         checkPreparedAllowance(data,expectedAllowance);
         await readCadPreview(data.preview,data.initial);
+        if(Object.hasOwn(data,'sourceFaceProvenance')||Object.hasOwn(data,'sourceFaceProvenanceSHA256')){
+          if(typeof data.sourceFaceProvenance!=='string'||new TextEncoder().encode(data.sourceFaceProvenance).length>1024**2||await faceProvenanceHash(data.sourceFaceProvenance)!==data.sourceFaceProvenanceSHA256)
+            throw Error('Source-face provenance bytes differ.');
+          await readCadFaceProvenance(data.sourceFaceProvenance,parseAdaptiveJson(data.certificate),{sourceSHA256,snapshotSHA256:data.snapshotSHA256,auditSHA256:data.auditSHA256,assets});
+        }
         if(profile==='rational_nominal'){
           const c=parseAdaptiveJson(data.certificate),s=parseAdaptiveJson(data.initial).logical?.source;
           if(c.schema!=='adaptive-rational-prism-construction-1'||canonicalAdaptive(c)!==canonicalAdaptive(s?.target_construction)||

@@ -47,3 +47,13 @@ test('invalid allowance rejects before creating a worker',async()=>{
   await assert.rejects(prepareCadFile(file,{...options,stockOptions:{...options.stockOptions,allowance:value}}),/finishing allowance/);
  assert.equal(workerCount,before);
 });
+
+test('legacy preparations remain readable and malformed supplementary provenance rejects',async()=>{
+ reply=template;assert.equal((await prepareCadFile(file,options)).initial,template.initial);
+ for(const extra of [{sourceFaceProvenance:'{}'}, {sourceFaceProvenanceSHA256:'0'.repeat(64)},
+  {sourceFaceProvenance:'{}',sourceFaceProvenanceSHA256:createHash('sha256').update('{}').digest('hex')},
+  {sourceFaceProvenance:' '.repeat(1024**2+1),sourceFaceProvenanceSHA256:'0'.repeat(64)}]){
+  reply={...template,...extra};await assert.rejects(prepareCadFile(file,options));
+ }
+ assert.equal(terminated,workerCount);reply=template;
+});

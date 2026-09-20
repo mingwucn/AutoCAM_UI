@@ -1,4 +1,5 @@
 import {adaptiveHash,canonicalAdaptive,compareQ,exactNumber,parseAdaptiveJson,readAdaptiveBundle,indexedPoseMatrix} from './adaptive-provider.mjs';
+import {readCellTransformEnclosures} from './adaptive-indexed-enclosures.mjs';
 
 const fail=message=>{throw Error(message);};
 const fields=(v,keys)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).sort().join('|')!==[...keys].sort().join('|'))fail('Unknown combined view fields.');};
@@ -78,15 +79,25 @@ export async function readCombinedView(raw,configuration,expected){
 }
 
 export async function readCombinedCellEvidence(raw,view,index){
+  return (await readCombinedCellInspection(raw,view,index)).certificate;
+}
+
+export async function readCombinedCellInspection(raw,view,index){
   const r=parseAdaptiveJson(raw),versioned=Object.hasOwn(r,'schema');
-  fields(r,['configuration_id','session_epoch','head','material_hash','domain_hash','cell_index','certificate','certificate_sha256',...(versioned?['schema']:[])]);
-  if(versioned&&r.schema!=='adaptive-selected-cell-evidence-1')fail('Unsupported selected cell evidence schema.');
+  const transforms=r.schema==='adaptive-selected-cell-evidence-2';
+  fields(r,['configuration_id','session_epoch','head','material_hash','domain_hash','cell_index','certificate','certificate_sha256',...(versioned?['schema']:[]),...(transforms?['transform_enclosures','transform_enclosures_sha256']:[])]);
+  if(versioned&&!['adaptive-selected-cell-evidence-1','adaptive-selected-cell-evidence-2'].includes(r.schema))fail('Unsupported selected cell evidence schema.');
   const frame=view.bundle.frames[0],leaf=frame.domain.leaves[index],c=r.certificate;
   if(canonicalAdaptive(r)!==raw||!integer(index)||!leaf||r.cell_index!==index||r.configuration_id!==view.configuration_id||r.session_epoch!==view.session_epoch||r.head!==view.observation.head||r.material_hash!==frame.state_hash||r.domain_hash!==frame.domain_hash||r.certificate_sha256!==await adaptiveHash(c))fail('Selected cell evidence binding differs.');
   fields(c,['schema','address','policy_id','leaf','predicates']);
   if(c.schema!=='adaptive-cell-certificate-1'||!same(c.address,leaf.address)||!same(c.leaf,leaf)||c.policy_id!==await adaptiveHash(view.bundle.source.policy))fail('Selected cell certificate differs.');
   fields(c.predicates,['stock','target','protected']);
-  return c;
+  let transformEnclosures=null;
+  if(transforms){
+    if(r.transform_enclosures_sha256!==await adaptiveHash(r.transform_enclosures))fail('Selected-cell transform hash differs.');
+    transformEnclosures=await readCellTransformEnclosures(r.transform_enclosures,view.bundle.source,leaf.address,view.bundle.source_geometry_id);
+  }
+  return {certificate:c,transformEnclosures};
 }
 
 export function combinedToolPreview(view,choice){

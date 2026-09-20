@@ -1,3 +1,4 @@
+import {readCadProvenanceAttachment} from './cad-provenance-attachment.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {prepareCadMachining} from './adaptive-cad-client.mjs';
 import {parseAdaptiveJson} from './adaptive-json.mjs';
@@ -5,14 +6,14 @@ import {createPreparedLiveCase} from './adaptive-prepared-case.mjs';
 import {preparedMachiningRuntimeConfiguration} from './adaptive-runtime-selection.mjs';
 
 const encoder=new TextEncoder();
-export function AdaptiveCadMachining({initial,name,configuration,runtimeConfiguration,onPrepared,onInvalidate=()=>{}}){
+export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configuration,runtimeConfiguration,onPrepared,onInvalidate=()=>{}}){
   const [setup,setSetup]=useState(null),[policy,setPolicy]=useState(null);
   const [busy,setBusy]=useState(false),[phase,setPhase]=useState(''),[error,setError]=useState(''),[result,setResult]=useState(null);
   const ticket=useRef(0),pending=useRef(null);
   useEffect(()=>{
     setResult(null);setBusy(false);setPhase('');setError('');
     return()=>{ticket.current++;pending.current?.abort();};
-  },[initial,configuration,runtimeConfiguration]);
+  },[initial,sourceProvenance,configuration,runtimeConfiguration]);
   function edit(set,value){set(value);setResult(null);setError('');setPhase('');onInvalidate();}
   function cancel(){ticket.current++;pending.current?.abort();pending.current=null;setBusy(false);setPhase('Machining preparation canceled.');}
   async function read(file){
@@ -36,7 +37,9 @@ export function AdaptiveCadMachining({initial,name,configuration,runtimeConfigur
       const prepared=createPreparedLiveCase({taskBytes:encoder.encode(output.configuration),initialBytes:output.initial,
         name:name+' · source-derived roughing',configuration:preparedMachiningRuntimeConfiguration(runtimeConfiguration,configuration,location.href),baseURL:location.href,backend:'reference'});
       if(prepared.task.schema!=='adaptive-combined-browser-config-3')throw Error('Machining preparation returned an unsupported task.');
-      setResult({output,ledger,prepared:{...prepared,origin:'uploaded-step',cadPreparation:output.preparation}});setPhase('Machining actions prepared.');
+      if(sourceProvenance)await readCadProvenanceAttachment(sourceProvenance,parseAdaptiveJson(initial).logical.source.target_construction);
+      if(ticket.current!==id)return;
+      setResult({output,ledger,prepared:{...prepared,origin:'uploaded-step',cadPreparation:output.preparation,sourceProvenance}});setPhase('Machining actions prepared.');
     }catch(e){if(ticket.current===id){if(e.name!=='AbortError')setError(e.message);setPhase('');}}
     finally{if(ticket.current===id){pending.current=null;setBusy(false);}}
   }

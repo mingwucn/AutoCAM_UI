@@ -1,3 +1,5 @@
+import {captureCadProvenance} from './cad-provenance-attachment.mjs';
+import {CadFaceProvenancePanel} from './cad-face-provenance-panel.jsx';
 import {readCadPreview} from './adaptive-cad-preview.mjs';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {AdaptiveCadMachining} from './adaptive-cad-machining.jsx';
@@ -16,16 +18,18 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
   const [busy,setBusy]=useState(false),[phase,setPhase]=useState(''),[error,setError]=useState(''),[result,setResult]=useState(null);
   const pending=useRef(null),ticket=useRef(0);
   const inspectionPending=useRef(null);
+  const faceCertificate=useMemo(()=>result?parseAdaptiveJson(result.output.certificate):null,[result]);
   useEffect(()=>()=>{inspectionPending.current?.abort();inspectionPending.current=null;},[result,configuration]);
-  const sourceInspection=useMemo(()=>!rational&&result?.preview.status==='ready'?{
+  const sourceInspection=useMemo(()=>result?.preview.status==='ready'?{
     sourceFaceContext:result.output.preview.snapshot_sha256,
+    provenanceAttachment:result.provenance,
     cancelSourceFaces:()=>inspectionPending.current?.abort(),
     loadSourceFaces:async index=>{
       inspectionPending.current?.abort();const controller=new AbortController();inspectionPending.current=controller;
       try{return await inspectInitialCellFaces(result.preview.bundle,index,{...configuration,signal:controller.signal});}
       finally{if(inspectionPending.current===controller)inspectionPending.current=null;}
     }
-  }:null,[result,configuration,rational]);
+  }:null,[result,configuration]);
   useEffect(()=>{setResult(null);setBusy(false);setPhase('');setProfile('rectilinear');setDepth(4);setAllowance('0');return()=>{ticket.current++;pending.current?.abort();};},[configuration]);
   function edit(set,value){set(value);setResult(null);setError('');setPhase('');onInvalidate?.();}
   function cancel(){ticket.current++;pending.current?.abort();pending.current=null;setBusy(false);setPhase('Preparation canceled.');}
@@ -44,7 +48,9 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
         ?stock.bounds.high.map((v,k)=>exactNumber(v)-exactNumber(stock.bounds.low[k])).map(fmt).join(' × ')+' mm'
         :'Radius '+fmt(exactNumber(stock.radius))+' mm · length '+fmt(exactNumber(stock.high)-exactNumber(stock.low))+' mm';
       if(!Array.isArray(snapshot.logical?.leaves))throw Error('Prepared partition is missing.');
-      setResult({output,preview,name:file.name,dimensions,cells:snapshot.logical.leaves.length,stop:snapshot.build.stop_reason});setPhase('Stock prepared.');
+      const provenance=await captureCadProvenance(output,cadConfigurationForProfile(configuration,profile).assets);
+      if(ticket.current!==id)return;
+      setResult({output,preview,provenance,name:file.name,dimensions,cells:snapshot.logical.leaves.length,stop:snapshot.build.stop_reason});setPhase('Stock prepared.');
     }catch(e){if(ticket.current===id){if(e.name!=='AbortError')setError(e.message);setPhase('');}}
     finally{if(ticket.current===id){pending.current=null;setBusy(false);}}
   }
@@ -65,10 +71,11 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
       <label>Partition detail<select aria-label="STEP partition detail" value={depth} disabled={busy} onChange={e=>edit(setDepth,Number(e.target.value))}>{rational?<><option value={1}>Initial check · coarse</option><option value={2}>More detail · slower</option></>:<><option value={4}>Coarse · faster</option><option value={6}>Finer · slower</option></>}</select></label>
     </div><p>Stock margin sizes the starting material. Finishing allowance reserves material around the part for finishing; it must fit within that margin. Positive allowance supports planar solids, complete spheres and coaxial cylindrical parts, including through-bores.</p><div className="action-row"><button className="primary" disabled={busy||!file} type="submit">Prepare STEP stock</button>{busy&&<button type="button" onClick={cancel}>Cancel STEP preparation</button>}</div></form>
     {phase&&<p role="status">{phase}</p>}{error&&<p role="alert" className="step-error">{error}</p>}
-    {rational&&<p>This experimental profile supports trimmed rational caps joined by vertical sides. It prepares and displays initial stock with zero finishing allowance. Machining actions and source-face inspection are not yet available for this shape.</p>}
+    {rational&&<p>This experimental profile supports trimmed rational caps joined by vertical sides. It prepares and displays initial stock with zero finishing allowance. Select a cell to inspect its original nominal faces; unresolved candidates are distinguished from proven contact. Machining actions are not yet available for this shape.</p>}
     {result&&<section aria-label="Prepared STEP stock"><h3>{result.name}</h3><p>{result.dimensions}</p><p>Finishing allowance: {fmt(exactNumber(parseAdaptiveJson(result.output.proposedPreparation).uniform_allowance_mm||[0,1]))} mm.</p><p>{result.cells.toLocaleString('en-US')} partition cells. {result.stop==='depth_budget'?'Reached the selected detail level; boundary uncertainty remains.':result.stop==='leaf_budget'?'Reached the cell limit; boundary uncertainty remains.':result.stop==='time_budget'?'Reached the preparation time limit; boundary uncertainty remains.':'Preparation stopped: '+result.stop}</p><p>Automatic stock is a conservative proposal. Holding and fixture clearance have not been assessed.</p><div className="action-row"><button onClick={()=>download('initial','initial.bin')}>Download initial stock</button><button onClick={()=>download('certificate','target-construction.json')}>Download target certificate</button><button onClick={()=>download('proposedPreparation','stock-proposal.json')}>Download stock proposal</button></div>
+      <CadFaceProvenancePanel certificate={faceCertificate} attachment={result.provenance}/>
       {profile==='spherical_nominal'&&<p>Sphere roughing removes stock outside the turning envelope. Curved-surface finishing is not available yet; material can remain after roughing.</p>}
-      {!rational&&<AdaptiveCadMachining key={result.output.preview.snapshot_sha256} initial={result.output.initial} name={result.name} configuration={configuration} runtimeConfiguration={runtimeConfiguration} onPrepared={onPrepared} onInvalidate={onInvalidate}/>}
+      {!rational&&<AdaptiveCadMachining key={result.output.preview.snapshot_sha256} initial={result.output.initial} sourceProvenance={result.provenance} name={result.name} configuration={configuration} runtimeConfiguration={runtimeConfiguration} onPrepared={onPrepared} onInvalidate={onInvalidate}/>}
       {showStockPreview&&(result.preview.status==='ready'?<AdaptiveInspector key={result.preview.bundle.bundle_hash} prepared={{name:result.name,bundle:result.preview.bundle}} initialStock sourceInspection={sourceInspection}/>:<p role="status">The geometry preview exceeds its size limit. Your prepared stock files are still available above.</p>)}</section>}
   </div></details>;
 }
