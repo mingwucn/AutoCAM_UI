@@ -7,7 +7,7 @@ import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {CylindricalPythonSession} from './cylindrical-python-session.mjs';
 import {localRecovery} from './adaptive-local-recovery.mjs';
 import {readCylindricalView} from './cylindrical-live-view.mjs';
-import {readCombinedCellEvidence} from './combined-live-view.mjs';
+import {readCombinedCellInspection} from './combined-live-view.mjs';
 import {adaptiveHash,canonicalAdaptive,exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
 
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
@@ -61,7 +61,7 @@ export function CylindricalLiveGym({prepared,onClose}){
     const t=++ticket.current;active.current=true;setPhase('Loading cell evidence…');
     try{
       const raw=await owner.current.invoke(canonicalAdaptive({operation:'cell_evidence',cell_index:index,expected_head:view.observation.head,session_epoch:view.session_epoch}));check(t);
-      const evidence=await readCombinedCellEvidence(raw,view,index);check(t);return evidence;
+      const evidence=await readCombinedCellInspection(raw,view,index);check(t);return evidence;
     }finally{if(t===ticket.current){active.current=false;setPhase('');}}
   }
   async function loadCellGraph(index,parameters){

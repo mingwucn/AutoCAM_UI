@@ -230,3 +230,15 @@ reports stationary obstacles as unassessed. Unsupported geometry or setup remain
 unavailable. Point shadow does not certify finite-tool access or whole-machine
 collision. General stationary CAD and oblique/nonidentity setups remain outside
 this profile. Earlier immutable releases remain available.
+
+## Original CAD face inspection
+
+STEP preparation retains a checked import record with original face indices,
+types, orientations, placements and source/importer hashes. Download the record
+from the upload view or the machining gym. Selected-cell references preserve
+proven intersections and unresolved candidates. Rational nominal faces support
+single/all/off highlights. Display meshes are approximations; these read-only
+records do not certify tool access or stable face naming across imports.
+
+All twelve catalogue cases and their runtime remain unchanged. The updated CAD
+archive is used only for uploaded STEP preparation and its machining gym.

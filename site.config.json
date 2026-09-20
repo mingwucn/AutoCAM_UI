@@ -8,7 +8,7 @@
     "sha256": "b829abbf96219056dc8e2f51511d96300c2b5bec92c7aeaf027b2ed61be49555"
   },
   "adaptiveCadRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/d16ead672c43e3ba83fdca42c14548f1d55328a2/releases/adaptive-stationary-turning-shadow-20260919/cad/release.json",
-    "sha256": "0046f4488d27a1d2ff5c359afd4b9a44a297c14725c872a025dcf1efb4c4f609"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/8b73c5012a9a43ba6e5aa338c24245ced3a5b7f5/releases/adaptive-cad-inspection-20260920/cad/release.json",
+    "sha256": "9e86d783a1f57cded1777cb7b5487c9beef88cfa540677a5b6c44aa86e268e6d"
   }
 }

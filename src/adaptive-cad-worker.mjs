@@ -196,7 +196,18 @@ from autocam.adaptive_delta.domain import canonical
 canonical(construct_browser_import(Path('/cad/source.step').read_bytes(),Path('/cad/imported.brep').read_bytes(),Path('/cad/audit.json').read_bytes(),**json.loads(Path('/cad/pins.json').read_bytes()))).decode()
 `);
     if(typeof certificate!=='string'||encoder.encode(certificate).length>32*1024**2)throw Error('Construction certificate exceeds response budget.');
-    let initial=null,proposedPreparation=null,preview=null,directions=null;
+    let initial=null,proposedPreparation=null,preview=null,directions=null,sourceFaceProvenance=null,sourceFaceProvenanceSHA256=null;
+    if(automatic){
+      py.FS.writeFile('/cad/certificate.json',encoder.encode(certificate));
+      py.FS.writeFile('/cad/face-provenance-pins.json',encoder.encode(JSON.stringify({expected_certificate_sha256:await hash(encoder.encode(certificate)),
+        expected_audit_sha256:auditSHA256,importer:{runtime:'emscripten-browser',kernel_version:'7.8.1',binary_sha256:a.cadWasmSHA256,module_sha256:a.cadModuleSHA256,wrapper_code_sha256:a.codeSHA256}})));
+      sourceFaceProvenance=py.runPython(`
+from autocam.adaptive_delta.cad_face_provenance import build_face_provenance
+canonical(build_face_provenance(Path('/cad/certificate.json').read_bytes(),Path('/cad/audit.json').read_bytes(),**json.loads(Path('/cad/face-provenance-pins.json').read_bytes()))).decode()
+`);
+      if(typeof sourceFaceProvenance!=='string'||encoder.encode(sourceFaceProvenance).length>1024**2)throw Error('Source-face provenance exceeds its response budget.');
+      sourceFaceProvenanceSHA256=await hash(encoder.encode(sourceFaceProvenance));
+    }
     if(inspecting){
       self.postMessage({id,type:'progress',phase:'Deriving source face directions for the declared machine'});
       py.FS.writeFile('/cad/certificate.json',encoder.encode(certificate));
@@ -235,7 +246,7 @@ prepare_imported_domain(Path('/cad/certificate.json').read_bytes(),**json.loads(
     if(automatic){
       self.postMessage({id,type:'progress',phase:'Preparing the geometry preview'});
       py.FS.writeFile('/cad/initial.bin',encoder.encode(initial));
-      const occupied=encoder.encode(initial).length+encoder.encode(certificate).length+encoder.encode(proposedPreparation).length+4096;
+      const occupied=encoder.encode(initial).length+encoder.encode(certificate).length+encoder.encode(proposedPreparation).length+encoder.encode(sourceFaceProvenance).length+4096;
       if(occupied>64*1024**2)throw Error('Prepared CAD response exceeds byte budget.');
       py.FS.writeFile('/cad/preview-options.json',encoder.encode(JSON.stringify({expected_sha256:await hash(encoder.encode(initial)),occupied_bytes:occupied})));
       preview=JSON.parse(py.runPython(`
@@ -243,7 +254,7 @@ from autocam.adaptive_delta.cad_preview import prepare_preview_response
 canonical(prepare_preview_response(Path('/cad/initial.bin').read_bytes(),**json.loads(Path('/cad/preview-options.json').read_bytes()))).decode()
 `));
     }
-    self.postMessage({id,type:'result',certificate,sourceSHA256:data.sourceSHA256,snapshotSHA256,auditSHA256,profile:data.profile,...(preparing?{initial}: {}),...(automatic?{proposedPreparation,preview}: {}),...(inspecting?{directions}: {})});
+    self.postMessage({id,type:'result',certificate,sourceSHA256:data.sourceSHA256,snapshotSHA256,auditSHA256,profile:data.profile,...(preparing?{initial}: {}),...(automatic?{proposedPreparation,preview,sourceFaceProvenance,sourceFaceProvenanceSHA256}: {}),...(inspecting?{directions}: {})});
   }catch(error){
     if(machiningAttempt){if(machiningErrorSent)return;machiningErrorSent=true;machiningInvalidated=true;}
     self.postMessage({id,type:'error',message:machiningAttempt?String(error.message||error).slice(0,4096):String(error.message||error)});
