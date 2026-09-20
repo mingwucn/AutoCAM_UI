@@ -1,0 +1,63 @@
+{
+  "files": [
+    {
+      "gzip_sha256": "232b145bc859ffa16b0ea61f8d40d5cc581b96644d99c474991935e66e39b38d",
+      "gzip_size_bytes": 9460,
+      "path": "initial.bin",
+      "sha256": "2172202e949579fdaca580ae9e6bbc78440691a32d59e2da08d9046cf5df5342",
+      "size_bytes": 781025,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-record-worker-after-01/gym-package/transition-task4/initial.bin"
+    },
+    {
+      "gzip_sha256": "b185a1057cd861922469a22fd7b554963546a171a63a9f6b0693180c0e2b63fe",
+      "gzip_size_bytes": 2408,
+      "path": "task4.json",
+      "sha256": "71dfd47870ed7662fe41d4b6c23b05cd48f0a33f70d74840441dfa19bfdf9482",
+      "size_bytes": 33810,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-record-worker-after-01/gym-package/transition-task4/task.json"
+    },
+    {
+      "gzip_sha256": "01678ebb0e619bdd8c1370e77fda33c593808ffe6111cba1249d6d9a155891da",
+      "gzip_size_bytes": 2452,
+      "path": "task5.json",
+      "sha256": "cb32aba3fa48ad22b27c55c2935e07698a662a3d7990432d656c0917dcd7d508",
+      "size_bytes": 34877,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-record-worker-after-01/gym-package/transition-task5/task.json"
+    },
+    {
+      "gzip_sha256": "03dfd8231b941d9f6b0c258fa4d33bcea6a4adb355d3fdd56c2fb9a774b02e16",
+      "gzip_size_bytes": 2473,
+      "path": "task6.json",
+      "sha256": "f7e0006a8f113e5c09552d0d2e6b3077e466f3a4cc360a1007e00f7cb905ee9c",
+      "size_bytes": 35272,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-record-worker-after-01/gym-package/transition-task6/task.json"
+    },
+    {
+      "gzip_sha256": "9795138b9c59275720ccc8b200f2cd9c96b5a4304a5d096873753c1006665c41",
+      "gzip_size_bytes": 139357,
+      "path": "native4.json",
+      "sha256": "701559b823231b2798c264bc70fa1b0bdd082c301bb27ade4823486ea45649c1",
+      "size_bytes": 6937076,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-release-native-fixtures-01/task4.json"
+    },
+    {
+      "gzip_sha256": "1e9a6b081f06eb53ae6c8575e0435514fbdc3410fcfcb6531db3d68bfe596929",
+      "gzip_size_bytes": 155706,
+      "path": "native5.json",
+      "sha256": "416f43549a11ab2daceeee45ea1d4ed55a8d9d13ed196698f46e70b45cd4d494",
+      "size_bytes": 7451171,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-release-native-fixtures-01/task5.json"
+    },
+    {
+      "gzip_sha256": "b333227acd84abbc9d9e9f72e4acd03f2261b5442896e7e3cb261dcc8ece8a8a",
+      "gzip_size_bytes": 155974,
+      "path": "native6.json",
+      "sha256": "c7dbbf90b4c9b6dc4fdabcbb728be1dfa14888483f976c679ab4e33a9c29ce1c",
+      "size_bytes": 7439865,
+      "source": "artifacts/shadow-gym/adaptive-delta/browser-transition-release-native-fixtures-01/task6.json"
+    }
+  ],
+  "schema": "autocam-transition-test-fixtures-1",
+  "scope": "synthetic_direct_session_native_browser_parity",
+  "verification_sha256": "a6f5800e0991bf8e8189494c2a8eb6cfbba5dfdf7949d1b2f220547f3077fc9d"
+}

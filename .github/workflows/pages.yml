@@ -36,6 +36,13 @@ jobs:
           name: run-details-browser-evidence
           path: test-results/run-details-*/
           if-no-files-found: warn
+      - run: npm run test:transitions
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transition-browser-evidence
+          path: test-results/transitions-*/
+          if-no-files-found: warn
       - run: npm run test:step-upload
       - run: npm run test:brep-browser
       - run: npm run test:spherical-bands

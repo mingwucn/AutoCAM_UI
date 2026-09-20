@@ -1,5 +1,6 @@
 import {AdaptivePythonClient} from './adaptive-python-client.mjs';
 import {makeExecutionRecord} from './execution-provenance.mjs';
+import {checkTransitionRecord} from './transition-record.mjs';
 
 const encoder=new TextEncoder();
 const mutations=new Set(['reset','step','infer_step']);
@@ -119,6 +120,22 @@ export class AdaptivePythonSession {
       this.check(generation);return raw;
     }catch(error){this.failed(generation);throw error;}
     finally{if(this.executionAbort===controller)this.executionAbort=null;this.finish(generation);}
+  }
+  async supportsTransitionRecord(){
+    try{
+      const raw=await this.invoke('{"operation":"export_transition_evidence"}');
+      return JSON.parse(raw)?.schema==='adaptive-browser-transition-record-1';
+    }catch(error){if(error.message==='Unknown browser operation')return false;throw error;}
+  }
+  async exportTransitionRecord(){
+    const generation=this.start();
+    try{
+      if(!this.ready)throw Error(this.needsRecovery?'Restore the last completed state before continuing.':'Initialize the simulator first.');
+      const episode=await this.client.invoke('{"operation":"export"}');this.check(generation);
+      const raw=await this.client.invoke('{"operation":"export_transition_evidence"}');this.check(generation);
+      await checkTransitionRecord(raw,episode,this.inputs);this.check(generation);return raw;
+    }catch(error){this.failed(generation);throw error;}
+    finally{this.finish(generation);}
   }
   async exportRecoveryCapsule(){
     const generation=this.start();

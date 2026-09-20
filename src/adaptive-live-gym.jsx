@@ -60,6 +60,7 @@ export function AdaptiveLiveLoader({configuration,onPrepared}){
 export function AdaptiveLiveGym({prepared,onClose}){
   const [view,setView]=useState(null),[selection,setSelection]=useState(null),[phase,setPhase]=useState('Starting simulator…'),[error,setError]=useState(''),[stale,setStale]=useState(false);
   const [trainingGuide,setTrainingGuide]=useState(null);
+  const [transitionDownload,setTransitionDownload]=useState(false);
   const owner=useRef(null),expected=useRef(null),epoch=useRef(0),active=useRef(false);
   const task=prepared.task,busy=!!phase,finished=view?.finished;
   async function refresh(session,token){
@@ -71,6 +72,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
   useEffect(()=>{
     const token=++epoch.current;active.current=true;expected.current=null;
     setTrainingGuide(null);
+    setTransitionDownload(false);
     const session=new AdaptivePythonSession(prepared.configuration.workerURL);owner.current=session;
     (async()=>{
       const assets=prepared.configuration.assets;
@@ -78,6 +80,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
       if(token!==epoch.current)return;
       setPhase('Preparing stock…');const response=await session.invoke(JSON.stringify({operation:'reset',seed:prepared.seed}));
       if(token!==epoch.current)return;expected.current=JSON.parse(response).info;setPhase('Preparing material view…');await refresh(session,token);
+      const supported=await session.supportsTransitionRecord();if(token===epoch.current)setTransitionDownload(supported);
       if(token===epoch.current){setPhase('');active.current=false;}
     })().catch(e=>{if(token===epoch.current){setError(e.message);setPhase('');setStale(true);active.current=false;}});
     return()=>{epoch.current++;active.current=false;session.dispose();};
@@ -95,6 +98,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
   const invoke=(request,message)=>run(message,session=>session.invoke(JSON.stringify(request)));
   function cancel(){epoch.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setError('Stopped. Restore the last completed state to continue.');}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();if(token!==epoch.current)return null;saveExecutionDetails(raw);return null;},{refreshView:false});}
+  function downloadTransitions(){run('Checking transition record…',async(session,token)=>{const raw=await session.exportTransitionRecord();if(token!==epoch.current)return null;saveText(raw,'shadow-gym-transitions.json','application/json');return null;},{refreshView:false});}
   async function download(operation='export'){await run(operation==='inspection'?'Replaying recorded actions for inspection…':'Preparing decision download…',async(session,token)=>{
     const raw=await session.invoke(JSON.stringify({operation}));
     const guide=operation==='export'&&['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&JSON.parse(raw).records.length>1?await recordedTrainingGuide(raw):null;
@@ -123,6 +127,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
         <button disabled={blocked} onClick={()=>invoke({operation:'step',action:task.candidates.length},'Refining material…')}>Refine cells</button>
         <button disabled={busy||!view||stale} onClick={()=>invoke({operation:'reset',seed:prepared.seed},'Resetting stock…')}>Reset stock</button>
         <button disabled={busy||!owner.current?.ready} onClick={()=>download()}>Download decisions</button><button disabled={busy||!owner.current?.ready} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
+        {transitionDownload&&<button disabled={busy||!owner.current?.ready} onClick={downloadTransitions} title="Accepted material changes and stock partitions, bound to the matching decisions">Download transitions</button>}
         {['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&<button disabled={busy||!owner.current?.ready} onClick={()=>download('inspection')}>Download inspection</button>}
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}
