@@ -124,9 +124,9 @@ export class AdaptivePythonSession {
   async supportsTransitionRecord(){
     try{
       const raw=await this.invoke('{"operation":"export_transition_evidence"}');
-      if(['adaptive-browser-transition-record-1','adaptive-journal-browser-transition-record-1'].includes(JSON.parse(raw)?.schema))return true;
+      if(['adaptive-browser-transition-record-1','adaptive-journal-browser-transition-record-1','adaptive-prepared-browser-transition-record-1'].includes(JSON.parse(raw)?.schema))return true;
       throw Error('Unsupported transition record schema.');
-    }catch(error){if(['Unknown browser operation','Unsupported combined browser operation','Unsupported indexed browser operation'].includes(error.message))return false;throw error;}
+    }catch(error){if(['Unknown browser operation','Unsupported combined browser operation','Unsupported indexed browser operation','Unsupported drill browser operation'].includes(error.message))return false;throw error;}
   }
   async exportTransitionRecord(){
     const generation=this.start();

@@ -39,6 +39,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
   const [initialCandidate,setInitialCandidate]=useState(''),[initialSelection,setInitialSelection]=useState(''),[initialPreview,setInitialPreview]=useState(null);
   const [toolId,setToolId]=useState(''),[poseId,setPoseId]=useState(''),[depth,setDepth]=useState('all'),[direction,setDirection]=useState('0'),[feed,setFeed]=useState('0');
   const [saveStatus,setSaveStatus]=useState('Opening local save…'),[saveError,setSaveError]=useState('');
+  const [transitionSupported,setTransitionSupported]=useState(false);
   const localSave=useRef(null);
   const owner=useRef(null),inputs=useRef(null),generation=useRef(0),active=useRef(false);
   const view=snapshot?.view,fullView=snapshot?.fullView,geometry=snapshot?.geometry,busy=!!phase,blocked=busy||stale||!snapshot;
@@ -57,7 +58,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
     setSnapshot({view:full?next.suffix:next,fullView:full?next:null,geometry});setStale(false);setPreview(null);setInitialPreview(null);clearAssembly();
   }
   useEffect(()=>{
-    const token=++generation.current;active.current=true;setPhase('Starting face simulator…');setError('');setStale(true);setSnapshot(null);
+    const token=++generation.current;active.current=true;setPhase('Starting face simulator…');setError('');setStale(true);setSnapshot(null);setTransitionSupported(false);
     const Session=full?FullMillTurnPythonSession:FacePythonSession;
     const session=new Session(new URL(prepared.configuration.workerURL,location.href).href);owner.current=session;
     const storage=new FaceLocalSave();localSave.current=storage;setSaveError('');setSaveStatus('Opening local save…');
@@ -74,6 +75,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
       if(saved.error){setSaveError(saved.error);setSaveStatus('Local saving is unavailable; this is a fresh session.');}
       else setSaveStatus(saved.restored?'Local save restored and verified.':'No previous local save.');
       await refresh(session,token);
+      const supportsTransitions=!mixed&&await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
       if(saved.available)await checkpoint(session,token);
     })().catch(e=>{if(token===generation.current)setError(e.message);}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
     return()=>{generation.current++;active.current=false;session.dispose();};
@@ -218,6 +220,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'select_initial',preparation_id:initialSelection,event_key:crypto.randomUUID(),session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id})));check(token);
     setDecision({status:response.status,reason:response.reason,seconds:response.charged_seconds});setInitialSelection('');
   });}
+  function downloadTransitions(){run('Preparing transition download…',async(session,token)=>{const raw=await session.exportTransitionRecord();check(token);const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='face-shadow-gym-transitions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},{refreshView:false});}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},{refreshView:false});}
   function download(){run('Preparing decision download…',async(session,token)=>{const raw=await session.invoke('{"operation":"export"}');check(token);save(raw,mixed);},{refreshView:false});}
   function restore(file){if(!file)return;run('Replaying decisions…',async(session,token)=>{
@@ -262,7 +265,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
           <details><summary>All saved proposals ({proposals.length})</summary><ul>{proposals.map(c=><li key={c.key}>{c.choice.tool.id} · {spacing(c.choice.row)} · {c.choice.row.status} · {c.choice.row.reason} · {detailText(c.choice.row.detail)}{c.choice.row.alias_of&&` · equivalent to proposal ${c.choice.row.alias_of.slice(0,12)}`}</li>)}</ul></details>
         </>}
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setInitialSelection('');setInitialPreview(null);setDecision(null);})}>{full?"Reset to initial stock":mixed?"Reset to turning transfer":"Reset stock"}</button><button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting stock…',async(session,token)=>{await session.invoke(canonicalAdaptive({operation:'reset',session_epoch:geometry.sessionEpoch}));check(token);setSelection('');setInitialSelection('');setInitialPreview(null);setDecision(null);})}>{full?"Reset to initial stock":mixed?"Reset to turning transfer":"Reset stock"}</button><button disabled={blocked} onClick={download}>Download decisions</button>{transitionSupported&&<button disabled={blocked} onClick={downloadTransitions}>Download transitions</button>}<button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
         {busy&&<button onClick={cancel}>Cancel computation</button>}{!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}{!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted state…',async()=>{})}>Refresh material view</button>}
       </div>
       <label>Restore decisions<input aria-label={mixed?"Restore mixed decisions":"Restore face decisions"} type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>
