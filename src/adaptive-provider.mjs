@@ -474,8 +474,9 @@ export async function readAdaptiveBundle(raw){
   const geometryId=await adaptiveHash(geometryBinding);
   const rootId=await adaptiveHash(root);
   const catalogId=toolEpisode?await adaptiveHash(validateAdaptiveCatalog(p.tool_catalog)):null;
-  if((p.tool_catalog?.schema==='adaptive-tool-catalog-3')!==drillState||drillState&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Drill state-only payload differs.');
-  if((p.tool_catalog?.schema==='adaptive-tool-catalog-4')!==faceState||faceState&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Face state-only payload differs.');
+  const drillCatalog=p.tool_catalog?.schema==='adaptive-tool-catalog-3',faceCatalog=p.tool_catalog?.schema==='adaptive-tool-catalog-4';
+  if(drillState&&!drillCatalog||drillCatalog&&!drillState&&!compact||(drillState||compact&&drillCatalog)&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Drill state-only payload differs.');
+  if(faceState&&!faceCatalog||faceCatalog&&!faceState&&!compact||(faceState||compact&&faceCatalog)&&(p.frames?.some(f=>f.outcome!==null)||profiles.length!==0))fail('Face state-only payload differs.');
   const setup=turningEpisode?{axis:validateTurningAxis(p.turning_axis),axisId:await adaptiveHash(p.turning_axis),stockId:await adaptiveHash(source.stock)}:null;
   if(!turningEpisode&&p.tool_catalog?.schema==='adaptive-tool-catalog-2')fail('Turning catalog requires its frozen axis payload.');
   if(geometryId!==p.source_geometry_id)fail('Adaptive source identity mismatch.');

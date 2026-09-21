@@ -18,6 +18,7 @@ export function CylindricalLiveGym({prepared,onClose}){
   const [view,setView]=useState(null),[selected,setSelected]=useState(''),[phase,setPhase]=useState('Starting machining gym…');
   const [error,setError]=useState(''),[stale,setStale]=useState(true),[result,setResult]=useState(null);
   const [modelLoaded,setModelLoaded]=useState(false);
+  const [transitionSupported,setTransitionSupported]=useState(false);
   const [localSaveStatus,setLocalSaveStatus]=useState('');
   const policy=['adaptive-cylindrical-policy-browser-config-1','adaptive-cylindrical-policy-browser-config-2','adaptive-cylindrical-policy-browser-config-3'].includes(prepared.task.schema);
   const owner=useRef(null),ticket=useRef(0),active=useRef(false);
@@ -28,11 +29,12 @@ export function CylindricalLiveGym({prepared,onClose}){
     setView(next);setSelected(old=>next.choices.some(c=>c.choice_id===old)?old:next.choices[0]?.choice_id||'');setStale(false);
   }
   useEffect(()=>{
-    const t=++ticket.current;active.current=true;setPhase('Starting machining gym…');setStale(true);setView(null);setResult(null);setError('');setModelLoaded(false);
+    const t=++ticket.current;active.current=true;setPhase('Starting machining gym…');setStale(true);setView(null);setResult(null);setError('');setModelLoaded(false);setTransitionSupported(false);
     const s=new CylindricalPythonSession(prepared.configuration.workerURL);owner.current=s;
     (async()=>{const a=prepared.configuration.assets;
       await s.initialize({...a,runtimeBaseURL:new URL(a.runtimeBaseURL,location.href).href,codeURL:new URL(a.codeURL,location.href).href},prepared.taskBytes,prepared.initialBytes);
       check(t);await refresh(s,t);
+      const supported=await s.supportsTransitionRecord();check(t);setTransitionSupported(supported);
     })().catch(e=>{if(t===ticket.current)setError(e.message);}).finally(()=>{if(t===ticket.current){active.current=false;setPhase('');}});
     return()=>{ticket.current++;active.current=false;s.dispose();};
   },[prepared.key]);
@@ -114,6 +116,11 @@ export function CylindricalLiveGym({prepared,onClose}){
   },false);}
   function cancel(){ticket.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setResult(null);setError('Stopped. Restore the last completed state to continue.');}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},false);}
+  function downloadTransitions(){run('Checking material transitions…',async(s,t)=>{
+    const raw=await s.exportTransitionRecord();check(t);
+    const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
+    link.href=url;link.download='machining-choice-transitions.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  },false);}
   function download(){run('Preparing decision download…',async(s,t)=>{
     const raw=await s.invoke('{"operation":"export"}');check(t);
     const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),link=document.createElement('a');
@@ -155,6 +162,7 @@ export function CylindricalLiveGym({prepared,onClose}){
         <button className="primary" disabled={blocked||!choice||view.observation.attempt_limit_reached} onClick={()=>machining('execute')}>Apply machining choice</button>
         <button disabled={blocked} onClick={()=>{setResult(null);run('Resetting stock…',s=>s.invoke(canonicalAdaptive({operation:'reset',session_epoch:view.session_epoch})));}}>Reset stock</button>
         <button disabled={blocked} onClick={download}>Download decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>
+        {transitionSupported&&<button disabled={blocked} onClick={downloadTransitions} title="Accepted material changes and stock partitions, bound to the matching decisions">Download transitions</button>}
         {busy&&<button onClick={cancel}>Cancel computation</button>}
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',s=>s.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted material…',async()=>{})}>Refresh accepted material</button>}
