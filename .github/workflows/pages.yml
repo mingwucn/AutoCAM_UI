@@ -57,6 +57,13 @@ jobs:
           name: prepared-transition-browser-evidence
           path: test-results/prepared-transitions-*/
           if-no-files-found: warn
+      - run: npm run test:mill-turn-transitions
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mill-turn-transition-browser-evidence
+          path: test-results/mill-turn-transitions-*/
+          if-no-files-found: warn
       - run: npm run test:step-upload
       - run: npm run test:brep-browser
       - run: npm run test:spherical-bands

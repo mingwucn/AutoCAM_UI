@@ -2,6 +2,7 @@ import {parseAdaptiveJson,canonicalAdaptive} from './adaptive-json.mjs';
 import {executionHash,executionTextHash} from './execution-provenance.mjs';
 import {preparedTransitionBindings} from './prepared-transition-bindings.mjs';
 import {journalTransitionBindings} from './journal-transition-bindings.mjs';
+import {mixedLearningTransitionBindings} from './mill-turn-transition-bindings.mjs';
 
 const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true});
 const require=(condition,message)=>{if(!condition)throw Error('Transition record: '+message);};
@@ -18,7 +19,8 @@ export async function checkTransitionRecord(raw,episode,inputs){
   require(typeof raw==='string'&&encoder.encode(raw).length<=64*1024**2,'byte limit exceeded');
   require(typeof episode==='string'&&encoder.encode(episode).length<=128*1024**2,'invalid episode');
   const wrapper=parseAdaptiveJson(raw),journal=wrapper.schema==='adaptive-journal-browser-transition-record-1';
-  const prepared=wrapper.schema==='adaptive-prepared-browser-transition-record-1',wrapped=journal||prepared;
+  const prepared=wrapper.schema==='adaptive-prepared-browser-transition-record-1';
+  const learning=wrapper.schema==='adaptive-mixed-learning-browser-transition-record-1',wrapped=journal||prepared||learning;
   const data=wrapped?wrapper.material:wrapper;
   require(data.schema==='adaptive-browser-transition-record-1','unsupported schema');
   require(data.verification==='captured_at_accepted_publication_not_independently_replayed'&&data.manufacturing_qualified===false,'unsupported verification claim');
@@ -27,7 +29,7 @@ export async function checkTransitionRecord(raw,episode,inputs){
   require(data.task_sha256===await executionHash(inputs.task)&&data.initial_snapshot_sha256===await executionHash(inputs.initial),'session inputs differ');
   // Extract only text identifiers and base64. Never reserialize episode numbers:
   // reward floats and exact rational integers coexist in the historical schema.
-  const binding=journal?await journalTransitionBindings(wrapper,episode,inputs):prepared?await preparedTransitionBindings(wrapper,episode,inputs):null;
+  const binding=journal?await journalTransitionBindings(wrapper,episode,inputs):prepared?await preparedTransitionBindings(wrapper,episode,inputs):learning?await mixedLearningTransitionBindings(wrapper,episode,inputs):null;
   const decisions=binding?.decisions??JSON.parse(episode);
   if(!wrapped)require(decisions.schema==='adaptive-browser-episode-1'&&decisions.final_state_hash===data.final_state_hash,'episode state differs');
   const initial=binding?.initial??decode(decisions.initial_snapshot_base64);

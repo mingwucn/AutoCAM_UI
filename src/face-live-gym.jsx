@@ -75,7 +75,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
       if(saved.error){setSaveError(saved.error);setSaveStatus('Local saving is unavailable; this is a fresh session.');}
       else setSaveStatus(saved.restored?'Local save restored and verified.':'No previous local save.');
       await refresh(session,token);
-      const supportsTransitions=!mixed&&await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
+      const supportsTransitions=await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
       if(saved.available)await checkpoint(session,token);
     })().catch(e=>{if(token===generation.current)setError(e.message);}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
     return()=>{generation.current++;active.current=false;session.dispose();};
@@ -220,7 +220,7 @@ export function FaceLiveGym({prepared,onClose,mixed=false,full=false}){
     const response=parseAdaptiveJson(await session.invoke(canonicalAdaptive({operation:'select_initial',preparation_id:initialSelection,event_key:crypto.randomUUID(),session_epoch:geometry.sessionEpoch,expected_semantic_id:fullView.observation.semantic_id})));check(token);
     setDecision({status:response.status,reason:response.reason,seconds:response.charged_seconds});setInitialSelection('');
   });}
-  function downloadTransitions(){run('Preparing transition download…',async(session,token)=>{const raw=await session.exportTransitionRecord();check(token);const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='face-shadow-gym-transitions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},{refreshView:false});}
+  function downloadTransitions(){run('Preparing transition download…',async(session,token)=>{const raw=await session.exportTransitionRecord();check(token);const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=full?'full-mill-turn-shadow-gym-transitions.json':mixed?'mill-turn-shadow-gym-transitions.json':'face-shadow-gym-transitions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},{refreshView:false});}
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);},{refreshView:false});}
   function download(){run('Preparing decision download…',async(session,token)=>{const raw=await session.invoke('{"operation":"export"}');check(token);save(raw,mixed);},{refreshView:false});}
   function restore(file){if(!file)return;run('Replaying decisions…',async(session,token)=>{
