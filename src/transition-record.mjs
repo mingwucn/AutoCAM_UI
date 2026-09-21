@@ -3,6 +3,7 @@ import {executionHash,executionTextHash} from './execution-provenance.mjs';
 import {preparedTransitionBindings} from './prepared-transition-bindings.mjs';
 import {journalTransitionBindings} from './journal-transition-bindings.mjs';
 import {mixedLearningTransitionBindings} from './mill-turn-transition-bindings.mjs';
+import {cylindricalTransitionBindings} from './cylindrical-transition-bindings.mjs';
 
 const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true});
 const require=(condition,message)=>{if(!condition)throw Error('Transition record: '+message);};
@@ -20,16 +21,18 @@ export async function checkTransitionRecord(raw,episode,inputs){
   require(typeof episode==='string'&&encoder.encode(episode).length<=128*1024**2,'invalid episode');
   const wrapper=parseAdaptiveJson(raw),journal=wrapper.schema==='adaptive-journal-browser-transition-record-1';
   const prepared=wrapper.schema==='adaptive-prepared-browser-transition-record-1';
-  const learning=wrapper.schema==='adaptive-mixed-learning-browser-transition-record-1',wrapped=journal||prepared||learning;
+  const learning=wrapper.schema==='adaptive-mixed-learning-browser-transition-record-1';
+  const cylindrical=wrapper.schema==='adaptive-cylindrical-browser-transition-record-1',wrapped=journal||prepared||learning||cylindrical;
   const data=wrapped?wrapper.material:wrapper;
   require(data.schema==='adaptive-browser-transition-record-1','unsupported schema');
   require(data.verification==='captured_at_accepted_publication_not_independently_replayed'&&data.manufacturing_qualified===false,'unsupported verification claim');
-  require(Array.isArray(data.records)&&data.records.length<=128&&Array.isArray(data.snapshots)&&data.snapshots.length>=1&&data.snapshots.length<=129,'record or snapshot limit');
+  const recordLimit=cylindrical?256:128;
+  require(Array.isArray(data.records)&&data.records.length<=recordLimit&&Array.isArray(data.snapshots)&&data.snapshots.length>=1&&data.snapshots.length<=recordLimit+1,'record or snapshot limit');
   require(data.episode?.sha256===await executionTextHash(episode)&&data.episode?.size_bytes===encoder.encode(episode).length,'decision file differs');
   require(data.task_sha256===await executionHash(inputs.task)&&data.initial_snapshot_sha256===await executionHash(inputs.initial),'session inputs differ');
   // Extract only text identifiers and base64. Never reserialize episode numbers:
   // reward floats and exact rational integers coexist in the historical schema.
-  const binding=journal?await journalTransitionBindings(wrapper,episode,inputs):prepared?await preparedTransitionBindings(wrapper,episode,inputs):learning?await mixedLearningTransitionBindings(wrapper,episode,inputs):null;
+  const binding=journal?await journalTransitionBindings(wrapper,episode,inputs):prepared?await preparedTransitionBindings(wrapper,episode,inputs):learning?await mixedLearningTransitionBindings(wrapper,episode,inputs):cylindrical?await cylindricalTransitionBindings(wrapper,episode,inputs):null;
   const decisions=binding?.decisions??JSON.parse(episode);
   if(!wrapped)require(decisions.schema==='adaptive-browser-episode-1'&&decisions.final_state_hash===data.final_state_hash,'episode state differs');
   const initial=binding?.initial??decode(decisions.initial_snapshot_base64);

@@ -1,0 +1,21 @@
+{
+  "trained": false,
+  "files": [
+    {
+      "path": "policy-v1.json",
+      "sha256": "750e3f4550abf0ee3fc489d069babc701d4af334446383b458c14573530f07e4",
+      "source": "cylindrical-browser-transition-before-01/normal/policy-v1/fixture-model.json"
+    },
+    {
+      "path": "policy-v2.json",
+      "sha256": "9b7b8fcf55d13c84e9c778bdaee3405cd36daeadb63d3cb8a5090fa7c50083a3",
+      "source": "cylindrical-browser-transition-before-01/normal/policy-v2/fixture-model.json"
+    },
+    {
+      "path": "policy-v3.json",
+      "sha256": "38c10e8feb0a84e3e3cd8a0d00a5ac5e68f8e9198d1a985196e28d9f0ffa81d8",
+      "source": "cylindrical-browser-transition-before-01/normal/policy-v3/fixture-model.json"
+    }
+  ],
+  "source_index_sha256": "592b57e66c63817b01502555f9c91c2b0939d3e54ba6a2d8d9df5b40eb914d1b"
+}

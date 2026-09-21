@@ -64,6 +64,13 @@ jobs:
           name: mill-turn-transition-browser-evidence
           path: test-results/mill-turn-transitions-*/
           if-no-files-found: warn
+      - run: npm run test:cylindrical-transitions
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cylindrical-transition-browser-evidence
+          path: test-results/cylindrical-transitions-*/
+          if-no-files-found: warn
       - run: npm run test:step-upload
       - run: npm run test:brep-browser
       - run: npm run test:spherical-bands

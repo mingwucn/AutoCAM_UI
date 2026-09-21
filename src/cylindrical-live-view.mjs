@@ -22,16 +22,20 @@ export async function readCylindricalView(raw,configuration,expected){
   if(!Number.isSafeInteger(session_epoch)||session_epoch<0||p.session_epoch!==session_epoch||!same(p.observation,observation))fail();
   if(!same(p.machine,configuration.generation.machine)||!same(p.catalog,configuration.generation.catalog))fail();
   const o=p.observation,j=p.journal_state;
+  const outerProfile=outer?/^adaptive-initial-mill-turn-genesis-([12])$/.exec(configuration.initial_journal.genesis.schema)?.[1]:null;
+  if(outer&&(!outerProfile||configuration.initial_journal.schema!=='adaptive-initial-mill-turn-journal-'+outerProfile||
+      j.genesis_id!==await adaptiveHash(configuration.initial_journal.genesis)))fail();
   if(o.schema!==(full?'adaptive-cylindrical-choice-observation-2':'adaptive-cylindrical-choice-observation-1')||o.material_hash!==j.material_hash||
       o.journal_head!==await adaptiveHash(j)||!Number.isSafeInteger(o.attempts)||o.attempts<0||o.attempts>64||
       o.attempt_limit_reached!==(o.attempts>=64)||exactNumber(outer?j.elapsed_seconds:j.estimated_elapsed_seconds)<0)fail();
   const turning=full&&j.phase==='turning';
   if(full&&(o.phase!==j.phase||p.setup_orientation_id!==configuration.initial_journal.genesis.orientation_id||
       j.genesis_id!==await adaptiveHash(configuration.initial_journal.genesis)))fail();
-  if(turning&&(j.schema!=='adaptive-initial-mill-turn-state-1'||p.continuation_state!==null||p.indexed_state!==null||j.continuation_head!==null||
+  if(turning&&(j.schema!=='adaptive-initial-mill-turn-state-'+outerProfile||p.continuation_state!==null||p.indexed_state!==null||j.continuation_head!==null||
       p.active_tool_id!==configuration.initial_journal.genesis.context.tool_id))fail();
-  if(outer&&!turning&&(j.schema!=='adaptive-initial-mill-turn-state-1'||j.phase!=='indexed_milling'||
-      p.continuation_state.schema!=='adaptive-turning-exchange-state-1'||p.continuation_state.phase!=='indexed_milling'||
+  if(outer&&!turning&&(j.schema!=='adaptive-initial-mill-turn-state-'+outerProfile||j.phase!=='indexed_milling'||
+      p.continuation_state.schema!=='adaptive-turning-exchange-state-'+outerProfile||p.continuation_state.phase!=='indexed_milling'||
+      p.indexed_state.schema!=='adaptive-indexed-cut-state-'+(outerProfile==='2'?'8':'5')||
       j.continuation_head!==await adaptiveHash(p.continuation_state)||p.continuation_state.indexed_head!==await adaptiveHash(p.indexed_state)||
       p.continuation_state.material_hash!==o.material_hash||p.indexed_state.material_hash!==o.material_hash))fail();
   let choices=configuration.choices.choices.map(c=>({choice_id:c.choice_id,source_face_id:c.source_face_id,

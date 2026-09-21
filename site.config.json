@@ -4,8 +4,8 @@
   "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
   "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
   "adaptiveRuntimeRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/8dc58eaf5e2a0a29389433141bbf4db7f593ff2e/releases/adaptive-mill-turn-transitions-20260921/runtime/release.json",
-    "sha256": "33f9f5552fecdcae03594f00080ba715b4761756837cc5ee6bf22aaf2327973b"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/5bbca81f108c6f83cfc0a221200e6b277d8b5f4f/releases/adaptive-cylindrical-transitions-20260921/runtime/release.json",
+    "sha256": "962ccc5cc3f9e76e1910e9b402aa21803d1a23e2f1e169aa12c5fe29e918ae6f"
   },
   "adaptiveCadRelease": {
     "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/170772bbbad760d2c8a7177224fca0b2754f1984/releases/adaptive-completion-cache-20260920/cad/release.json",

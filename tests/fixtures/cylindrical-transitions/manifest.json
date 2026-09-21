@@ -1,0 +1,3556 @@
+{
+  "schema": "autocam-cylindrical-transition-fixtures-1",
+  "files": [
+    {
+      "path": "baseline/full-facing-v6/episode-transitions.json",
+      "sha256": "8fc481b1134d9ace93e6983e643fd54e58e4e4fbc75fef46f966e3f2909002e5",
+      "size_bytes": 281303,
+      "gzip_sha256": "b84049bd0c7913ad51bf0d7ca26b76ff4bee274fa0f0fa4e947ad02781e14fd1"
+    },
+    {
+      "path": "baseline/full-facing-v6/episode.json",
+      "sha256": "22641a32958ee415c61e975b2c67865ff0ca8718f5e168996183a4ffb41aa9fc",
+      "size_bytes": 1460005,
+      "gzip_sha256": "9c66a0d0512c7a2c47ead6473d51abcea36215c017d7b81c2b8fcd48d9d9a30e"
+    },
+    {
+      "path": "baseline/full-facing-v6/initial-episode-transitions.json",
+      "sha256": "5557d758642d96b7fef86eca7411027e0da3169d417d3919ddc5df24a3a75aa1",
+      "size_bytes": 2785,
+      "gzip_sha256": "3c63b0c0bd4f2603de765ef69d550fd146098249fad085063493908722729723"
+    },
+    {
+      "path": "baseline/full-facing-v6/initial-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "baseline/full-facing-v6/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/full-facing-v6/reset-episode-transitions.json",
+      "sha256": "5557d758642d96b7fef86eca7411027e0da3169d417d3919ddc5df24a3a75aa1",
+      "size_bytes": 2785,
+      "gzip_sha256": "3c63b0c0bd4f2603de765ef69d550fd146098249fad085063493908722729723"
+    },
+    {
+      "path": "baseline/full-facing-v6/reset-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-0-transitions.json",
+      "sha256": "165d378cdb81f04d841e13e0f129e93a5b0601dc42d4c9e8a2e9c9ee39b176bf",
+      "size_bytes": 2785,
+      "gzip_sha256": "cd532cdb74ff8e92b57f604b04b4ac50fb9b115a65f7e7b7ce6cb918d2238898"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-0.json",
+      "sha256": "1edca8c8e4f5339722e107903eed69b9c8c7ee012f479d5750d9894f21fd7b74",
+      "size_bytes": 666910,
+      "gzip_sha256": "fdc3410e3f7fad948144a551a2a07cf4f980025be0242521013d4a353659952d"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-1-transitions.json",
+      "sha256": "eb6ff953c00f3c5fda535eaac31e89c530dc7057a791aea107994861ce3f50e9",
+      "size_bytes": 14470,
+      "gzip_sha256": "5a6bedf55a9ecaeba376bd5d6217b57de2637dddf4e62ba7964ab0f7ec5b40cf"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-1.json",
+      "sha256": "1601c3f96c32e34c6c83349ecafd60b39bc5a78f909fd04e59c9a1f782990e8d",
+      "size_bytes": 686314,
+      "gzip_sha256": "e4d31ec64fe90891f9f6a9753129307fd8c30bd19a9f31693e921a00526ed5b1"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-2-transitions.json",
+      "sha256": "b65e0dac6c6e328e98443e0c85bce1d017417681fe4a27dae2898ee15138b2ce",
+      "size_bytes": 14470,
+      "gzip_sha256": "03dfaaec1a474f2712e0a3d8ee6441260c650fcbe2eea257962a63dff9b3b178"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-2.json",
+      "sha256": "4adc2cfc6118fb6489fc843e8c69e9cb8fdce1e81eb1f06fe28091b5d1bd2038",
+      "size_bytes": 748043,
+      "gzip_sha256": "22eef36b0effac631e4b32598c70d6db6559b9558abb42a36e8eca574bf54512"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-3-transitions.json",
+      "sha256": "8fc481b1134d9ace93e6983e643fd54e58e4e4fbc75fef46f966e3f2909002e5",
+      "size_bytes": 281303,
+      "gzip_sha256": "b84049bd0c7913ad51bf0d7ca26b76ff4bee274fa0f0fa4e947ad02781e14fd1"
+    },
+    {
+      "path": "baseline/full-facing-v6/step-3.json",
+      "sha256": "22641a32958ee415c61e975b2c67865ff0ca8718f5e168996183a4ffb41aa9fc",
+      "size_bytes": 1460005,
+      "gzip_sha256": "9c66a0d0512c7a2c47ead6473d51abcea36215c017d7b81c2b8fcd48d9d9a30e"
+    },
+    {
+      "path": "baseline/full-facing-v6/task.json",
+      "sha256": "3e306ec200dafb0205c9acc193d1d7739e9b72cb98b4cb2fab2d40e73692eecb",
+      "size_bytes": 474587,
+      "gzip_sha256": "3d032fec412e1c0a7e792d56b451b911eec21d9c0fe50b7bb55be533298473a5"
+    },
+    {
+      "path": "baseline/full-v3/episode-transitions.json",
+      "sha256": "d6423b991fa964ebdbfa60bec9db58c1e2fc29003507558797cdb956af0c024a",
+      "size_bytes": 69924,
+      "gzip_sha256": "dd5202db1e242e8964347eb4a75f9478c4d6c0465d0c4157314ef4661e1f7e70"
+    },
+    {
+      "path": "baseline/full-v3/episode.json",
+      "sha256": "bf9b7976a679ec4b12529e0b69fd251e2601923278261ff7af4e4f9c9d37d5b1",
+      "size_bytes": 771296,
+      "gzip_sha256": "bffbbf6a58119a383e3978df2b120ea8dfed3e00d0f0995f0aa001ca98f7367d"
+    },
+    {
+      "path": "baseline/full-v3/initial-episode-transitions.json",
+      "sha256": "37ef36891bde40a8302311174ba2573d2a0b3a98bd85b8f8d28c3393ac3035a9",
+      "size_bytes": 2785,
+      "gzip_sha256": "e334070001f689055e68aa373136e5bc3d2f22031f57eae59aee19a273dba7cd"
+    },
+    {
+      "path": "baseline/full-v3/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/full-v3/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/full-v3/reset-episode-transitions.json",
+      "sha256": "37ef36891bde40a8302311174ba2573d2a0b3a98bd85b8f8d28c3393ac3035a9",
+      "size_bytes": 2785,
+      "gzip_sha256": "e334070001f689055e68aa373136e5bc3d2f22031f57eae59aee19a273dba7cd"
+    },
+    {
+      "path": "baseline/full-v3/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/full-v3/step-0-transitions.json",
+      "sha256": "c41691a464b831a20c81f902551421f87b6f731647db3a6e4a6066df1782469b",
+      "size_bytes": 2785,
+      "gzip_sha256": "ae6e1f242d98ec585ff2f4a0fbbb2f5ed0731f8790b4a7c34504a2cc3713fb0a"
+    },
+    {
+      "path": "baseline/full-v3/step-0.json",
+      "sha256": "ddbe26b214a0ffe0dc1dcad573659584ce1918f3050112e4cbf10b8045379179",
+      "size_bytes": 543891,
+      "gzip_sha256": "e66ebbde1bcef12b9ef4acd7e16926fac88dd5a779b4739c07526f52f82e5286"
+    },
+    {
+      "path": "baseline/full-v3/step-1-transitions.json",
+      "sha256": "656d0eb1324dd37093e9a73b5a6141d9c072af645acf885158e95264ce154377",
+      "size_bytes": 14470,
+      "gzip_sha256": "ecd2e385c20eeae79c599b866a53b72782db99dc4975b784a13542b1d2d2d6ac"
+    },
+    {
+      "path": "baseline/full-v3/step-1.json",
+      "sha256": "816b6a08c514110f6b347f3da1076cd8d08f68351e1f608a08ea72c80e10a22e",
+      "size_bytes": 563295,
+      "gzip_sha256": "9e43636f2bdddaa6bd91c2bddaaad286235d8c11c63f3d6682173f7f89276dc3"
+    },
+    {
+      "path": "baseline/full-v3/step-2-transitions.json",
+      "sha256": "066511fc74046c5ebc8ef09cb9ffe000cea395947cf6e0cb0a1464e6ee6180dc",
+      "size_bytes": 14470,
+      "gzip_sha256": "d44b9d421b4fbfa4f733fec6e3c74c34161d9899b3b9b925545584e28c33f1ed"
+    },
+    {
+      "path": "baseline/full-v3/step-2.json",
+      "sha256": "7c06c0418ed881c20e99b66f677a6dfc3efb7d488b0e3af4fcea99ddc95f4908",
+      "size_bytes": 625583,
+      "gzip_sha256": "32532b46c0430b08ede25dd1d833eed4fcbd518811796f0286db5f933dccd4aa"
+    },
+    {
+      "path": "baseline/full-v3/step-3-transitions.json",
+      "sha256": "d6423b991fa964ebdbfa60bec9db58c1e2fc29003507558797cdb956af0c024a",
+      "size_bytes": 69924,
+      "gzip_sha256": "dd5202db1e242e8964347eb4a75f9478c4d6c0465d0c4157314ef4661e1f7e70"
+    },
+    {
+      "path": "baseline/full-v3/step-3.json",
+      "sha256": "bf9b7976a679ec4b12529e0b69fd251e2601923278261ff7af4e4f9c9d37d5b1",
+      "size_bytes": 771296,
+      "gzip_sha256": "bffbbf6a58119a383e3978df2b120ea8dfed3e00d0f0995f0aa001ca98f7367d"
+    },
+    {
+      "path": "baseline/full-v3/task.json",
+      "sha256": "bb53b3f4ef701ea61a4826d7d185a0b32e5f4f5cc630ca66e50ad7d2225fae62",
+      "size_bytes": 351652,
+      "gzip_sha256": "8dcbf6515a2090c7f7474c90f7be7a397a8ff95d290d84c2183b403f4fab5993"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/episode-transitions.json",
+      "sha256": "67a48d885380500ace087c99ddbc4ba27fc1ea0ffb830ad47072ec5db551284b",
+      "size_bytes": 268951,
+      "gzip_sha256": "f4c3de128e08082085bdeb1d3396432d0d262d4f5c061587d91fe33350e99d47"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/episode.json",
+      "sha256": "28b6d6e4e0454e78b4d8c50e291bdf890cb28f4a13c5d4efc388ea4dc11e03de",
+      "size_bytes": 518508,
+      "gzip_sha256": "bbc4ad94d0d1f7bc65b0ef5d5a5515d8a7a6d987023039e524fc456a229c3ece"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/initial-episode-transitions.json",
+      "sha256": "1278ed20b8336c7c4a445a291066b1425dffc5e3f679ee8c48657cd15bab42c6",
+      "size_bytes": 2405,
+      "gzip_sha256": "4c9a38d013ffd841516186fab30403f0e3f53477666efee7db4a0e3da6529d82"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/initial-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/reset-episode-transitions.json",
+      "sha256": "1278ed20b8336c7c4a445a291066b1425dffc5e3f679ee8c48657cd15bab42c6",
+      "size_bytes": 2405,
+      "gzip_sha256": "4c9a38d013ffd841516186fab30403f0e3f53477666efee7db4a0e3da6529d82"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/reset-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/step-0-transitions.json",
+      "sha256": "67a48d885380500ace087c99ddbc4ba27fc1ea0ffb830ad47072ec5db551284b",
+      "size_bytes": 268951,
+      "gzip_sha256": "f4c3de128e08082085bdeb1d3396432d0d262d4f5c061587d91fe33350e99d47"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/step-0.json",
+      "sha256": "28b6d6e4e0454e78b4d8c50e291bdf890cb28f4a13c5d4efc388ea4dc11e03de",
+      "size_bytes": 518508,
+      "gzip_sha256": "bbc4ad94d0d1f7bc65b0ef5d5a5515d8a7a6d987023039e524fc456a229c3ece"
+    },
+    {
+      "path": "baseline/indexed-facing-v4/task.json",
+      "sha256": "eefcacc2be6044dabc56c992c91f4c247ce9e16745c85be339ef591b12385a22",
+      "size_bytes": 211982,
+      "gzip_sha256": "3075253aa71a8bfbeced9f53a1bcf98c16c5a3b26894e7d014a97e6997c5bdbe"
+    },
+    {
+      "path": "baseline/indexed-v1/episode-transitions.json",
+      "sha256": "9fd4f3f03244797b4b54ffc06f7eeb137d7cb856156f072228b5c978c2cbd981",
+      "size_bytes": 46523,
+      "gzip_sha256": "1ea50a63cd771d1032d35658ecf5981f3504b0c1640db75db7354066950d5206"
+    },
+    {
+      "path": "baseline/indexed-v1/episode.json",
+      "sha256": "0266ad18c55f8d3ac29006e421d78c650b3d3e5c32f56f816811bb29fdeafa49",
+      "size_bytes": 209147,
+      "gzip_sha256": "3837a3aedee754a6cb211e6f43cfd61d6ec9c75f69df9fb83c22dd14f7314482"
+    },
+    {
+      "path": "baseline/indexed-v1/initial-episode-transitions.json",
+      "sha256": "0dd8452b3369a6e1aa34be1d4b2d28efa4f0fdd64f7c53e6366a1f409931e9b2",
+      "size_bytes": 2405,
+      "gzip_sha256": "47133cf549427fb6b11a0a95a9f89bb32acc0d1edebb0fc3e2f179dd2d1e8f8d"
+    },
+    {
+      "path": "baseline/indexed-v1/initial-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "baseline/indexed-v1/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "baseline/indexed-v1/reset-episode-transitions.json",
+      "sha256": "0dd8452b3369a6e1aa34be1d4b2d28efa4f0fdd64f7c53e6366a1f409931e9b2",
+      "size_bytes": 2405,
+      "gzip_sha256": "47133cf549427fb6b11a0a95a9f89bb32acc0d1edebb0fc3e2f179dd2d1e8f8d"
+    },
+    {
+      "path": "baseline/indexed-v1/reset-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "baseline/indexed-v1/step-0-transitions.json",
+      "sha256": "9fd4f3f03244797b4b54ffc06f7eeb137d7cb856156f072228b5c978c2cbd981",
+      "size_bytes": 46523,
+      "gzip_sha256": "1ea50a63cd771d1032d35658ecf5981f3504b0c1640db75db7354066950d5206"
+    },
+    {
+      "path": "baseline/indexed-v1/step-0.json",
+      "sha256": "0266ad18c55f8d3ac29006e421d78c650b3d3e5c32f56f816811bb29fdeafa49",
+      "size_bytes": 209147,
+      "gzip_sha256": "3837a3aedee754a6cb211e6f43cfd61d6ec9c75f69df9fb83c22dd14f7314482"
+    },
+    {
+      "path": "baseline/indexed-v1/task.json",
+      "sha256": "78e541dde585792aefec7bdf9376109ba866480873c2f6ef6de2666ebff3f0c6",
+      "size_bytes": 158896,
+      "gzip_sha256": "5ea6fbd35e4db2d430365e665f72b25375154c512fda2d5dff26fda531219af7"
+    },
+    {
+      "path": "baseline/outer-facing-v5/episode-transitions.json",
+      "sha256": "d1831b343b91a7817ecd9172037d3360a5ac6fd3d464e5bd777905585720753d",
+      "size_bytes": 281231,
+      "gzip_sha256": "ece3503509cf2690279d64f0fe3188a4184f5c3fc47600a2414abd10335141fc"
+    },
+    {
+      "path": "baseline/outer-facing-v5/episode.json",
+      "sha256": "d0dd036cb46df3e1aeebe5601bea78c366d2f7bae1eaa1929fcd37616f9e4c87",
+      "size_bytes": 1483216,
+      "gzip_sha256": "8ed2572da3a0df7cebdf604995f963bd7b49d28848d2231a5720287ca0445d7b"
+    },
+    {
+      "path": "baseline/outer-facing-v5/initial-episode-transitions.json",
+      "sha256": "15ab5913fd820f789a2c21ec90414b0553895eb3f73085e659df6368f3d42210",
+      "size_bytes": 14398,
+      "gzip_sha256": "90c4adbf8abee2df0f3bc15c57b20cfb94b89a37b85cdccd9d0cdb5cd54f53e5"
+    },
+    {
+      "path": "baseline/outer-facing-v5/initial-episode.json",
+      "sha256": "3416bf2b81762520e2d1330d2333f783a1a9c4a1b2df8d4b48f1406186212775",
+      "size_bytes": 771255,
+      "gzip_sha256": "fed25a7ea6626c19b528d417ebb5c20dc3d86fc7967019cd2068eb2520c4c3cb"
+    },
+    {
+      "path": "baseline/outer-facing-v5/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/outer-facing-v5/reset-episode-transitions.json",
+      "sha256": "15ab5913fd820f789a2c21ec90414b0553895eb3f73085e659df6368f3d42210",
+      "size_bytes": 14398,
+      "gzip_sha256": "90c4adbf8abee2df0f3bc15c57b20cfb94b89a37b85cdccd9d0cdb5cd54f53e5"
+    },
+    {
+      "path": "baseline/outer-facing-v5/reset-episode.json",
+      "sha256": "3416bf2b81762520e2d1330d2333f783a1a9c4a1b2df8d4b48f1406186212775",
+      "size_bytes": 771255,
+      "gzip_sha256": "fed25a7ea6626c19b528d417ebb5c20dc3d86fc7967019cd2068eb2520c4c3cb"
+    },
+    {
+      "path": "baseline/outer-facing-v5/step-0-transitions.json",
+      "sha256": "d1831b343b91a7817ecd9172037d3360a5ac6fd3d464e5bd777905585720753d",
+      "size_bytes": 281231,
+      "gzip_sha256": "ece3503509cf2690279d64f0fe3188a4184f5c3fc47600a2414abd10335141fc"
+    },
+    {
+      "path": "baseline/outer-facing-v5/step-0.json",
+      "sha256": "d0dd036cb46df3e1aeebe5601bea78c366d2f7bae1eaa1929fcd37616f9e4c87",
+      "size_bytes": 1483216,
+      "gzip_sha256": "8ed2572da3a0df7cebdf604995f963bd7b49d28848d2231a5720287ca0445d7b"
+    },
+    {
+      "path": "baseline/outer-facing-v5/task.json",
+      "sha256": "e0c2105f7248c6edd2b4085c33154e842c83505221b1261ef4cf074e37854a42",
+      "size_bytes": 526873,
+      "gzip_sha256": "8ae3e754c1d45c7791e88caf23f2b2d1f0e449feb33a771b5181644f12ea4652"
+    },
+    {
+      "path": "baseline/outer-v2/episode-transitions.json",
+      "sha256": "21cd72308606b117b0d42a2eacec1846039ba0f0500711b89933f9e6bd3ad0c2",
+      "size_bytes": 69852,
+      "gzip_sha256": "08876621f1e6e5e28f3e7af40288e5864920a59e53b5d0c488b6ffeb4a767d0b"
+    },
+    {
+      "path": "baseline/outer-v2/episode.json",
+      "sha256": "cf9ea42e7b96120c7131946bdfb5c4632f999667c2da0bab89b73db032d2b4b2",
+      "size_bytes": 794692,
+      "gzip_sha256": "1c8aef1f8c681ca36a89f5c2d71799d097d474e35a646cc28f32f4b7199e3417"
+    },
+    {
+      "path": "baseline/outer-v2/initial-episode-transitions.json",
+      "sha256": "090d17b4f3faa570b8598b4448eda733d1a25d8f0c001b6089035d40ff88ef24",
+      "size_bytes": 14398,
+      "gzip_sha256": "463027c7ac790171e1a84d5bcff40fd81d7726a42ea2f5aadc8d55510ceb9d50"
+    },
+    {
+      "path": "baseline/outer-v2/initial-episode.json",
+      "sha256": "9c848dd999ea360d4da67e7ac846ae253975c83744215a6c6d4509e6de7a674c",
+      "size_bytes": 648980,
+      "gzip_sha256": "74ff28815dc8ed68cbcb5357f31edb528fc1e30b1ae29ef6e0801e3783fb5835"
+    },
+    {
+      "path": "baseline/outer-v2/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/outer-v2/reset-episode-transitions.json",
+      "sha256": "090d17b4f3faa570b8598b4448eda733d1a25d8f0c001b6089035d40ff88ef24",
+      "size_bytes": 14398,
+      "gzip_sha256": "463027c7ac790171e1a84d5bcff40fd81d7726a42ea2f5aadc8d55510ceb9d50"
+    },
+    {
+      "path": "baseline/outer-v2/reset-episode.json",
+      "sha256": "9c848dd999ea360d4da67e7ac846ae253975c83744215a6c6d4509e6de7a674c",
+      "size_bytes": 648980,
+      "gzip_sha256": "74ff28815dc8ed68cbcb5357f31edb528fc1e30b1ae29ef6e0801e3783fb5835"
+    },
+    {
+      "path": "baseline/outer-v2/step-0-transitions.json",
+      "sha256": "21cd72308606b117b0d42a2eacec1846039ba0f0500711b89933f9e6bd3ad0c2",
+      "size_bytes": 69852,
+      "gzip_sha256": "08876621f1e6e5e28f3e7af40288e5864920a59e53b5d0c488b6ffeb4a767d0b"
+    },
+    {
+      "path": "baseline/outer-v2/step-0.json",
+      "sha256": "cf9ea42e7b96120c7131946bdfb5c4632f999667c2da0bab89b73db032d2b4b2",
+      "size_bytes": 794692,
+      "gzip_sha256": "1c8aef1f8c681ca36a89f5c2d71799d097d474e35a646cc28f32f4b7199e3417"
+    },
+    {
+      "path": "baseline/outer-v2/task.json",
+      "sha256": "a3ded8234ba95f8eb527dfa615473165b5016ca83add79d77acd4ac275e79a10",
+      "size_bytes": 404310,
+      "gzip_sha256": "e3b43d9331ffb0f493b3556acc183f9a342ba3a563f2b8f42b4dd56f7c2aaa0d"
+    },
+    {
+      "path": "baseline/policy-v1/episode-transitions.json",
+      "sha256": "44f8e9925bc14f500840c62a43bcbfbd287cc3e226774fabd067faaee3bbd4b0",
+      "size_bytes": 69924,
+      "gzip_sha256": "092f48f783db329dbf2a5f20dec245b94dbe307a6727554b3505f1aae9d8d150"
+    },
+    {
+      "path": "baseline/policy-v1/episode.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v1/initial-episode-transitions.json",
+      "sha256": "82369b2992a70aa06377bbf3d082b827239a3e9fd590d7e17e2bd76371db2c64",
+      "size_bytes": 2785,
+      "gzip_sha256": "7883d9ac6c9cdaa5586b1ee01bdb56bae57dd0321ccc4cc82ef1ee2d735ac45e"
+    },
+    {
+      "path": "baseline/policy-v1/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v1/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/policy-v1/reset-episode-transitions.json",
+      "sha256": "82369b2992a70aa06377bbf3d082b827239a3e9fd590d7e17e2bd76371db2c64",
+      "size_bytes": 2785,
+      "gzip_sha256": "7883d9ac6c9cdaa5586b1ee01bdb56bae57dd0321ccc4cc82ef1ee2d735ac45e"
+    },
+    {
+      "path": "baseline/policy-v1/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v1/step-0-transitions.json",
+      "sha256": "edbf42772a5d576d59ffdcabd8ce47355f5cf3810de6857c3cf0bf1cce2d9cdc",
+      "size_bytes": 14470,
+      "gzip_sha256": "70858461e336cfe4e9c83e16b0645c8b682b278eec2ec23fe6bc79105f6f77be"
+    },
+    {
+      "path": "baseline/policy-v1/step-0.json",
+      "sha256": "f658aee62176791d3c609267694774048a2df710215e1dfaa7ca5a0ee94faf4a",
+      "size_bytes": 562486,
+      "gzip_sha256": "8b8d8845aba383846eb1b109baa6dc86d52a60d44be499fdb544874394b38cf5"
+    },
+    {
+      "path": "baseline/policy-v1/step-1-transitions.json",
+      "sha256": "3d777f06637c7bb3d802501d36bf5f63d1f9dafd01cfef6522caea789cd486a0",
+      "size_bytes": 14470,
+      "gzip_sha256": "23d80e8ed47596149fb921ba92b27c70d3d48c69a1711a4afd07e25a9d61867f"
+    },
+    {
+      "path": "baseline/policy-v1/step-1.json",
+      "sha256": "855167443353a700247ca0577229ce78e4401dab8d77661634dd1e5af3d6d198",
+      "size_bytes": 624774,
+      "gzip_sha256": "0b94aee481f9cfc2319e18171f0f3061f2069f992a7cc23d676979e1360941b5"
+    },
+    {
+      "path": "baseline/policy-v1/step-2-transitions.json",
+      "sha256": "44f8e9925bc14f500840c62a43bcbfbd287cc3e226774fabd067faaee3bbd4b0",
+      "size_bytes": 69924,
+      "gzip_sha256": "092f48f783db329dbf2a5f20dec245b94dbe307a6727554b3505f1aae9d8d150"
+    },
+    {
+      "path": "baseline/policy-v1/step-2.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v1/task.json",
+      "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "size_bytes": 352112,
+      "gzip_sha256": "4183f2f601de00a4deccd900340336571a1b474a25dda197b671b10f5ab33d96"
+    },
+    {
+      "path": "baseline/policy-v2/episode-transitions.json",
+      "sha256": "33c4f927340ba9f3ad4339670d521585b4146cb90e79e1e96046e9f539b8c586",
+      "size_bytes": 69924,
+      "gzip_sha256": "adf663155c39c06741a5d004e65ffdb934acd7d2beb950e298ac594969ab2599"
+    },
+    {
+      "path": "baseline/policy-v2/episode.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v2/initial-episode-transitions.json",
+      "sha256": "fe7d69356e0966f8bb484258543369e8aad6aca2117e348c24335a13c08015c6",
+      "size_bytes": 2785,
+      "gzip_sha256": "1a2d169adf40c615e9f1f1321f4e36a2d88f9e00b694ccfa126908bafaa8f1d4"
+    },
+    {
+      "path": "baseline/policy-v2/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v2/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/policy-v2/reset-episode-transitions.json",
+      "sha256": "fe7d69356e0966f8bb484258543369e8aad6aca2117e348c24335a13c08015c6",
+      "size_bytes": 2785,
+      "gzip_sha256": "1a2d169adf40c615e9f1f1321f4e36a2d88f9e00b694ccfa126908bafaa8f1d4"
+    },
+    {
+      "path": "baseline/policy-v2/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v2/step-0-transitions.json",
+      "sha256": "dce0a83ddc9d465b7522514eb5dcbcb5d79e0bf8378a0e08190af4a82cf45ce8",
+      "size_bytes": 14470,
+      "gzip_sha256": "32316ec221be0596ec51bcf0efdb0144d09a5a0e7b0998781a26a4dbcafd23c3"
+    },
+    {
+      "path": "baseline/policy-v2/step-0.json",
+      "sha256": "f658aee62176791d3c609267694774048a2df710215e1dfaa7ca5a0ee94faf4a",
+      "size_bytes": 562486,
+      "gzip_sha256": "8b8d8845aba383846eb1b109baa6dc86d52a60d44be499fdb544874394b38cf5"
+    },
+    {
+      "path": "baseline/policy-v2/step-1-transitions.json",
+      "sha256": "76867b43c5db2d82cdf4b37086c9fa8aaa7bd9f805c9bf74fd5de3484db7130a",
+      "size_bytes": 14470,
+      "gzip_sha256": "576a8806013d8407b76a494fbc312eb0e0b2e8063652898efc9dabfcee39018c"
+    },
+    {
+      "path": "baseline/policy-v2/step-1.json",
+      "sha256": "855167443353a700247ca0577229ce78e4401dab8d77661634dd1e5af3d6d198",
+      "size_bytes": 624774,
+      "gzip_sha256": "0b94aee481f9cfc2319e18171f0f3061f2069f992a7cc23d676979e1360941b5"
+    },
+    {
+      "path": "baseline/policy-v2/step-2-transitions.json",
+      "sha256": "33c4f927340ba9f3ad4339670d521585b4146cb90e79e1e96046e9f539b8c586",
+      "size_bytes": 69924,
+      "gzip_sha256": "adf663155c39c06741a5d004e65ffdb934acd7d2beb950e298ac594969ab2599"
+    },
+    {
+      "path": "baseline/policy-v2/step-2.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v2/task.json",
+      "sha256": "e8d1a48f824d43a34a9d36d974772b7be47d314f2f7007bbf235bfd29922ec51",
+      "size_bytes": 352150,
+      "gzip_sha256": "b4bce651e1cdb1435aca9e144f7c00cbbae9bf9138b77c2b7e40233ffa3dc894"
+    },
+    {
+      "path": "baseline/policy-v3/episode-transitions.json",
+      "sha256": "16bc0306800cfe001dbad0c990eb8d650dc39983895694057b00521e5881ff79",
+      "size_bytes": 69924,
+      "gzip_sha256": "b76f6adb8a4ce3ad6270de91a9571d4ead1a3ec6d9dd4c9c993e3fa6fdbb332a"
+    },
+    {
+      "path": "baseline/policy-v3/episode.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v3/initial-episode-transitions.json",
+      "sha256": "f93d87cee3619b47a45f7d6e7e0c22c001ca3c49b6850c8eb98d4388de1a13d4",
+      "size_bytes": 2785,
+      "gzip_sha256": "863c627284071d4ea2075700b4406b11040bc2a463b96e437081498a4592b026"
+    },
+    {
+      "path": "baseline/policy-v3/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v3/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "baseline/policy-v3/reset-episode-transitions.json",
+      "sha256": "f93d87cee3619b47a45f7d6e7e0c22c001ca3c49b6850c8eb98d4388de1a13d4",
+      "size_bytes": 2785,
+      "gzip_sha256": "863c627284071d4ea2075700b4406b11040bc2a463b96e437081498a4592b026"
+    },
+    {
+      "path": "baseline/policy-v3/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "baseline/policy-v3/step-0-transitions.json",
+      "sha256": "3a536fbd09d82db25ddcf5e70972c24737b394c7368f64f43aa8159cbba2d185",
+      "size_bytes": 14470,
+      "gzip_sha256": "3a7db724a9cf4fb840ae5d24423c9b5f9d2b2449a6ece15453d6191677a68ab9"
+    },
+    {
+      "path": "baseline/policy-v3/step-0.json",
+      "sha256": "f658aee62176791d3c609267694774048a2df710215e1dfaa7ca5a0ee94faf4a",
+      "size_bytes": 562486,
+      "gzip_sha256": "8b8d8845aba383846eb1b109baa6dc86d52a60d44be499fdb544874394b38cf5"
+    },
+    {
+      "path": "baseline/policy-v3/step-1-transitions.json",
+      "sha256": "01addfe6c5cad0c52999ff042e011399ff7fb65c11484828b4441e3a592dc4b7",
+      "size_bytes": 14470,
+      "gzip_sha256": "70315f4c7d67bd339dc4da7ee94c0ef88107e1815b9cb477ef440878dc1f540b"
+    },
+    {
+      "path": "baseline/policy-v3/step-1.json",
+      "sha256": "855167443353a700247ca0577229ce78e4401dab8d77661634dd1e5af3d6d198",
+      "size_bytes": 624774,
+      "gzip_sha256": "0b94aee481f9cfc2319e18171f0f3061f2069f992a7cc23d676979e1360941b5"
+    },
+    {
+      "path": "baseline/policy-v3/step-2-transitions.json",
+      "sha256": "16bc0306800cfe001dbad0c990eb8d650dc39983895694057b00521e5881ff79",
+      "size_bytes": 69924,
+      "gzip_sha256": "b76f6adb8a4ce3ad6270de91a9571d4ead1a3ec6d9dd4c9c993e3fa6fdbb332a"
+    },
+    {
+      "path": "baseline/policy-v3/step-2.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "gzip_sha256": "2e0361eaf3c020ae7730c98ff854d52a0e9e0e790ca5336978b2dda5cc049292"
+    },
+    {
+      "path": "baseline/policy-v3/task.json",
+      "sha256": "f85aa7e90fb43b66016662e5d6c2fd5d241a31872d65fc44e1d1ddefb823c0e5",
+      "size_bytes": 352171,
+      "gzip_sha256": "5cb3d34bed9d129f3b5bab38b74ec996cf9d887027d57194a76ab8779fb06b8f"
+    },
+    {
+      "path": "full-size/indexed-facing/episode-transitions.json",
+      "sha256": "44672b687ec1e1b2af1ee39909c2ac3a095be21bd7644d95afca7b2d7189ff31",
+      "size_bytes": 2413470,
+      "gzip_sha256": "11fc5da7d4025f82e8a45f3f975daa1c2ba28f9842561eca64a8a9ec575d5dc5"
+    },
+    {
+      "path": "full-size/indexed-facing/episode.json",
+      "sha256": "752a6755829c7e3670203779f6aa0b88967962322aea38fcc7eda52537f5e15e",
+      "size_bytes": 4737642,
+      "gzip_sha256": "af18557ee73b6ba8b3857dbf3fa2353f84c19ca3d128f0e02288f8e7de95463e"
+    },
+    {
+      "path": "full-size/indexed-facing/initial-episode-transitions.json",
+      "sha256": "6c721e3e11b4b6dc1c1431094bf2306220973e4ff0e73948170d3431150ae178",
+      "size_bytes": 1878592,
+      "gzip_sha256": "0d5c63f5f64bfb6b5b84bc858c9df5f0c787112f18336870f62c04b68bdf8de9"
+    },
+    {
+      "path": "full-size/indexed-facing/initial-episode.json",
+      "sha256": "1fbdc77772895deb8504191ac96eacb67b5cb0ac7fd2885245ab7e3346e25705",
+      "size_bytes": 4083810,
+      "gzip_sha256": "f24b8490a84cda6db7383233f6a822a53e9051afebdc9935a1cc52494d6fc1c0"
+    },
+    {
+      "path": "full-size/indexed-facing/initial.bin",
+      "sha256": "31692555d36441f9d4b7fcf41c612061d90700d0840c23bd75c0fbf3996f223c",
+      "size_bytes": 9992258,
+      "gzip_sha256": "5485c0c928d3f8ab9d081ae861e1c3865ac5bbb13dac3fcbc0afa396178ba0ea"
+    },
+    {
+      "path": "full-size/indexed-facing/task.json",
+      "sha256": "0ddf29b6a4abf5ec1bae7048198b060732cb289cbef6389437cfb15caf884dd3",
+      "size_bytes": 2980297,
+      "gzip_sha256": "ce3f229e0596166e689957fece750c83fa87bdac180ae666d065ab8ec4929dcf"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/episode-transitions.json",
+      "sha256": "2615a38f37abc1d8c758137c6ff78d76bbdc084e379a499ea464661799290295",
+      "size_bytes": 81688,
+      "gzip_sha256": "6415dd28744d305ec1a1ff7273fc2ca7d7778217e89e339fcdef68099b93c5f1"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/episode.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/initial-episode-transitions.json",
+      "sha256": "1461428cf4e89658a3273a745dac9cd4135309a261b3c05ebc3dac90e2da7c17",
+      "size_bytes": 26234,
+      "gzip_sha256": "f3c74cb2ef8ae70e6be540a11ed1d2d0c4971c13e310faa8f60963c324cc997a"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/initial-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/reset-episode-transitions.json",
+      "sha256": "1461428cf4e89658a3273a745dac9cd4135309a261b3c05ebc3dac90e2da7c17",
+      "size_bytes": 26234,
+      "gzip_sha256": "f3c74cb2ef8ae70e6be540a11ed1d2d0c4971c13e310faa8f60963c324cc997a"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/reset-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/step-1-transitions.json",
+      "sha256": "2615a38f37abc1d8c758137c6ff78d76bbdc084e379a499ea464661799290295",
+      "size_bytes": 81688,
+      "gzip_sha256": "6415dd28744d305ec1a1ff7273fc2ca7d7778217e89e339fcdef68099b93c5f1"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/step-1.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/choice2-multi-prefix/task.json",
+      "sha256": "ecf1a4741ed7b877e5e56408b00af7967cc9165567453a858c98670df8a99bac",
+      "size_bytes": 419988,
+      "gzip_sha256": "8d1f4cae396187e19e5c666cbd3477c33ee05e3d4a4af526955deacf3ebcf6ba"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/episode-transitions.json",
+      "sha256": "9f7e061508d11a53fb2e3ec03aa8356f4a286c806e2699f91a6ce5822e7b659b",
+      "size_bytes": 293067,
+      "gzip_sha256": "74322f6128d6138a73d5a6eac9335db9ed3d8356627295425031739013dcb675"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/episode.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/initial-episode-transitions.json",
+      "sha256": "5ab3aa3d72f1e9b983ea75cf00303dc6e1e144d54cce91706c4d0a1bac46cfe9",
+      "size_bytes": 26234,
+      "gzip_sha256": "cd1af13e8bdbb5c1d0b62e619dfe50856b745f3a5d64547aa0d1323a54824174"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/initial-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/reset-episode-transitions.json",
+      "sha256": "5ab3aa3d72f1e9b983ea75cf00303dc6e1e144d54cce91706c4d0a1bac46cfe9",
+      "size_bytes": 26234,
+      "gzip_sha256": "cd1af13e8bdbb5c1d0b62e619dfe50856b745f3a5d64547aa0d1323a54824174"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/reset-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/step-1-transitions.json",
+      "sha256": "9f7e061508d11a53fb2e3ec03aa8356f4a286c806e2699f91a6ce5822e7b659b",
+      "size_bytes": 293067,
+      "gzip_sha256": "74322f6128d6138a73d5a6eac9335db9ed3d8356627295425031739013dcb675"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/step-1.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/choice5-multi-prefix/task.json",
+      "sha256": "4468aeae1dfb2f0ecb0b990ac831ebf553677ac5f394f5d3e3489fb6c0a4c70c",
+      "size_bytes": 542551,
+      "gzip_sha256": "d8cdf01b134ffe3772176805b57427f0faca1f32a5bcd76a45abc5cd5d35551b"
+    },
+    {
+      "path": "matrix/policy1-choice1/episode-transitions.json",
+      "sha256": "9717c46a9400de3440a3c9b20cff6778660df6b29cad26cb5aff2817128e404f",
+      "size_bytes": 46523,
+      "gzip_sha256": "f0e3c76b4435155f30feee7732251df77a3a1df2b983697a0646bb999e3f90cf"
+    },
+    {
+      "path": "matrix/policy1-choice1/episode.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy1-choice1/initial-episode-transitions.json",
+      "sha256": "4f417917c93c680954175d47ab29fbc8f4650b8aa0a9008d1f965aabdf2dd913",
+      "size_bytes": 2405,
+      "gzip_sha256": "b6d9c99ed38def248d5a6007c676d98561f76b38a9504c44d53c498170501c7e"
+    },
+    {
+      "path": "matrix/policy1-choice1/initial-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy1-choice1/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy1-choice1/reset-episode-transitions.json",
+      "sha256": "4f417917c93c680954175d47ab29fbc8f4650b8aa0a9008d1f965aabdf2dd913",
+      "size_bytes": 2405,
+      "gzip_sha256": "b6d9c99ed38def248d5a6007c676d98561f76b38a9504c44d53c498170501c7e"
+    },
+    {
+      "path": "matrix/policy1-choice1/reset-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy1-choice1/step-1-transitions.json",
+      "sha256": "9717c46a9400de3440a3c9b20cff6778660df6b29cad26cb5aff2817128e404f",
+      "size_bytes": 46523,
+      "gzip_sha256": "f0e3c76b4435155f30feee7732251df77a3a1df2b983697a0646bb999e3f90cf"
+    },
+    {
+      "path": "matrix/policy1-choice1/step-1.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy1-choice1/task.json",
+      "sha256": "eb09c06ea117990e89da15c5d389fb49996e01fc9141677d6bc6a83bf0887f44",
+      "size_bytes": 159356,
+      "gzip_sha256": "2c5682038b0e6dedfd50503225d648affc0a0aa65df03624377906fff7aaeeba"
+    },
+    {
+      "path": "matrix/policy1-choice2/episode-transitions.json",
+      "sha256": "8a823d6d1ddc1acdd341e5ee982cb6198a3cc0906bbc19e35ecabe9ab20be44a",
+      "size_bytes": 81688,
+      "gzip_sha256": "2794b07b814ac51a4ab25d9b2f016814cd6d6908bfaa416607909cc7379e30d2"
+    },
+    {
+      "path": "matrix/policy1-choice2/episode.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy1-choice2/initial-episode-transitions.json",
+      "sha256": "be80401d6d899cca6c9229eb117dd6efcab5fe9e61a6fec934ea2a01b53fae5b",
+      "size_bytes": 26234,
+      "gzip_sha256": "6c3f8eaa3971ea6c4c2f4f47a78e1d173ee0fc7012b3c177f6f203ed3df9e66c"
+    },
+    {
+      "path": "matrix/policy1-choice2/initial-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy1-choice2/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy1-choice2/reset-episode-transitions.json",
+      "sha256": "be80401d6d899cca6c9229eb117dd6efcab5fe9e61a6fec934ea2a01b53fae5b",
+      "size_bytes": 26234,
+      "gzip_sha256": "6c3f8eaa3971ea6c4c2f4f47a78e1d173ee0fc7012b3c177f6f203ed3df9e66c"
+    },
+    {
+      "path": "matrix/policy1-choice2/reset-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy1-choice2/step-1-transitions.json",
+      "sha256": "8a823d6d1ddc1acdd341e5ee982cb6198a3cc0906bbc19e35ecabe9ab20be44a",
+      "size_bytes": 81688,
+      "gzip_sha256": "2794b07b814ac51a4ab25d9b2f016814cd6d6908bfaa416607909cc7379e30d2"
+    },
+    {
+      "path": "matrix/policy1-choice2/step-1.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy1-choice2/task.json",
+      "sha256": "64fa23ba47b2958b67347a4c34519d06cb4cd18ccab90deb9be30d414a5b71c1",
+      "size_bytes": 420448,
+      "gzip_sha256": "c6f3e30d07408863e9814b7ea0b5d5d881f788294e5742d55749520cc8a3e615"
+    },
+    {
+      "path": "matrix/policy1-choice3/episode-transitions.json",
+      "sha256": "c1d1ff776f1c96a6e385c4169e6700bc09f9aa4cdd5e836be3152b64852f0630",
+      "size_bytes": 69924,
+      "gzip_sha256": "32638a2e50abb0cd4e4ba45206bb089227d4e5241e59e1fe3951e549c02f34f9"
+    },
+    {
+      "path": "matrix/policy1-choice3/episode.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy1-choice3/initial-episode-transitions.json",
+      "sha256": "f56db15e40cf64d6310b0de68166d16ea40ff0f394567863af4e97697454e564",
+      "size_bytes": 2785,
+      "gzip_sha256": "c89399718394920d9481f13569fb8e2dc806f7adfcc8cb669078ea58fecae2d0"
+    },
+    {
+      "path": "matrix/policy1-choice3/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy1-choice3/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy1-choice3/reset-episode-transitions.json",
+      "sha256": "f56db15e40cf64d6310b0de68166d16ea40ff0f394567863af4e97697454e564",
+      "size_bytes": 2785,
+      "gzip_sha256": "c89399718394920d9481f13569fb8e2dc806f7adfcc8cb669078ea58fecae2d0"
+    },
+    {
+      "path": "matrix/policy1-choice3/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy1-choice3/step-4-transitions.json",
+      "sha256": "c1d1ff776f1c96a6e385c4169e6700bc09f9aa4cdd5e836be3152b64852f0630",
+      "size_bytes": 69924,
+      "gzip_sha256": "32638a2e50abb0cd4e4ba45206bb089227d4e5241e59e1fe3951e549c02f34f9"
+    },
+    {
+      "path": "matrix/policy1-choice3/step-4.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy1-choice3/task.json",
+      "sha256": "bdb234ff453979d25801be6fa76a42e09ea8574efe2a76e7999d63d06abb0a82",
+      "size_bytes": 352112,
+      "gzip_sha256": "98f619b2d38cbca1abf13f4936992217fb34b6819fc6a6ddffecf679e0c57fe8"
+    },
+    {
+      "path": "matrix/policy1-choice4/episode-transitions.json",
+      "sha256": "624b7cd7d896cf2a63c9bcf69db3c75038678c2a4c4163dc0b3a9f2fa61e40f6",
+      "size_bytes": 268951,
+      "gzip_sha256": "0ffd018b48ad37d044d9ce8c54c949c4eff22a7553b72061c22241517cf9b02e"
+    },
+    {
+      "path": "matrix/policy1-choice4/episode.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy1-choice4/initial-episode-transitions.json",
+      "sha256": "b5e53fdb47e000f7f0bc87ce68f33e22e469727601b2cb02d056a13bf76294e5",
+      "size_bytes": 2405,
+      "gzip_sha256": "84ccfae3c1a910ffd314b45b4921a2138dd4072aecd3a5e344e621359aaad703"
+    },
+    {
+      "path": "matrix/policy1-choice4/initial-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy1-choice4/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy1-choice4/reset-episode-transitions.json",
+      "sha256": "b5e53fdb47e000f7f0bc87ce68f33e22e469727601b2cb02d056a13bf76294e5",
+      "size_bytes": 2405,
+      "gzip_sha256": "84ccfae3c1a910ffd314b45b4921a2138dd4072aecd3a5e344e621359aaad703"
+    },
+    {
+      "path": "matrix/policy1-choice4/reset-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy1-choice4/step-1-transitions.json",
+      "sha256": "624b7cd7d896cf2a63c9bcf69db3c75038678c2a4c4163dc0b3a9f2fa61e40f6",
+      "size_bytes": 268951,
+      "gzip_sha256": "0ffd018b48ad37d044d9ce8c54c949c4eff22a7553b72061c22241517cf9b02e"
+    },
+    {
+      "path": "matrix/policy1-choice4/step-1.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy1-choice4/task.json",
+      "sha256": "7da9a54c2da76df7843211b9c840315f1ba61fe26644dd292b4a3bcf6c097fa2",
+      "size_bytes": 212442,
+      "gzip_sha256": "32ec0c627a25545dda2b3c11a410f2f00926f879908cd8f973791d7fbe554710"
+    },
+    {
+      "path": "matrix/policy1-choice5/episode-transitions.json",
+      "sha256": "077c5d749a8ed72784c7e1291e0c7fec1d596dab00dfcd34a41846b78c4a2563",
+      "size_bytes": 293067,
+      "gzip_sha256": "91cf9ba12975172c36ddbb889d2990d89563e3c6353133667f57aa359d3aea79"
+    },
+    {
+      "path": "matrix/policy1-choice5/episode.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy1-choice5/initial-episode-transitions.json",
+      "sha256": "11bef72ca3e9d5a66dae90b78c80b4e251bdb25c3a24da62c5e04d2ce5ba4cce",
+      "size_bytes": 26234,
+      "gzip_sha256": "44eaa47bd18b4828edb6902386a656f96e40051b51b2ccbb34f340d81fa5ea88"
+    },
+    {
+      "path": "matrix/policy1-choice5/initial-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy1-choice5/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy1-choice5/reset-episode-transitions.json",
+      "sha256": "11bef72ca3e9d5a66dae90b78c80b4e251bdb25c3a24da62c5e04d2ce5ba4cce",
+      "size_bytes": 26234,
+      "gzip_sha256": "44eaa47bd18b4828edb6902386a656f96e40051b51b2ccbb34f340d81fa5ea88"
+    },
+    {
+      "path": "matrix/policy1-choice5/reset-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy1-choice5/step-1-transitions.json",
+      "sha256": "077c5d749a8ed72784c7e1291e0c7fec1d596dab00dfcd34a41846b78c4a2563",
+      "size_bytes": 293067,
+      "gzip_sha256": "91cf9ba12975172c36ddbb889d2990d89563e3c6353133667f57aa359d3aea79"
+    },
+    {
+      "path": "matrix/policy1-choice5/step-1.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy1-choice5/task.json",
+      "sha256": "d8652e1c3250fcfe22d713b757b0625aefab040a0ea65c2e47bdd1eb2143298d",
+      "size_bytes": 543011,
+      "gzip_sha256": "35afb12525681b7d60284739c6fd345b988a6d66fc3a9c37675b49478664d4ee"
+    },
+    {
+      "path": "matrix/policy1-choice6/episode-transitions.json",
+      "sha256": "2a92cedbc82ab2d3beff2634f92e4d6f14b2489dda3b20f2dda2d3f8df55a0ca",
+      "size_bytes": 281303,
+      "gzip_sha256": "3e0ec8bc543a5b13bd80da8c2176781db8571a09a728235ebc26003bb7d49ccd"
+    },
+    {
+      "path": "matrix/policy1-choice6/episode.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy1-choice6/initial-episode-transitions.json",
+      "sha256": "32981a3b4525bf5799a7a22517318af53ff52c2f27dddf6832391724c95f69a1",
+      "size_bytes": 2785,
+      "gzip_sha256": "e16c48c60d76d6c8470d8dcf7d0351b0ac551f935ee3add7bb92e339650d7310"
+    },
+    {
+      "path": "matrix/policy1-choice6/initial-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy1-choice6/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy1-choice6/reset-episode-transitions.json",
+      "sha256": "32981a3b4525bf5799a7a22517318af53ff52c2f27dddf6832391724c95f69a1",
+      "size_bytes": 2785,
+      "gzip_sha256": "e16c48c60d76d6c8470d8dcf7d0351b0ac551f935ee3add7bb92e339650d7310"
+    },
+    {
+      "path": "matrix/policy1-choice6/reset-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy1-choice6/step-4-transitions.json",
+      "sha256": "2a92cedbc82ab2d3beff2634f92e4d6f14b2489dda3b20f2dda2d3f8df55a0ca",
+      "size_bytes": 281303,
+      "gzip_sha256": "3e0ec8bc543a5b13bd80da8c2176781db8571a09a728235ebc26003bb7d49ccd"
+    },
+    {
+      "path": "matrix/policy1-choice6/step-4.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy1-choice6/task.json",
+      "sha256": "3dcb6922b36c5b486d8b16af3ee6f6b8b09c56b2722dd795d186ce3dfca491c0",
+      "size_bytes": 475047,
+      "gzip_sha256": "2a1d92aa0230e35e2398c999f12f90a0a4fcc755314fd97f3f08386d363156d7"
+    },
+    {
+      "path": "matrix/policy2-choice1/episode-transitions.json",
+      "sha256": "f42c9ed1898dd0a9bfec332e18bd9a5ff9ae69c292d3debeb6eba79e0f8afac1",
+      "size_bytes": 46523,
+      "gzip_sha256": "c7393f3fe88343b1b95b396ed3c33d599b9f615ea0e0b8187b659f9c258427c7"
+    },
+    {
+      "path": "matrix/policy2-choice1/episode.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy2-choice1/initial-episode-transitions.json",
+      "sha256": "c2d410ada4ef11622fc766e827879bbfe0a23c48842e29c53557f88fd5cacae1",
+      "size_bytes": 2405,
+      "gzip_sha256": "72c6824751e110bfb00695d895fe100003b8d23ed05acbffe353d87bcef9a4fc"
+    },
+    {
+      "path": "matrix/policy2-choice1/initial-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy2-choice1/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy2-choice1/reset-episode-transitions.json",
+      "sha256": "c2d410ada4ef11622fc766e827879bbfe0a23c48842e29c53557f88fd5cacae1",
+      "size_bytes": 2405,
+      "gzip_sha256": "72c6824751e110bfb00695d895fe100003b8d23ed05acbffe353d87bcef9a4fc"
+    },
+    {
+      "path": "matrix/policy2-choice1/reset-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy2-choice1/step-1-transitions.json",
+      "sha256": "f42c9ed1898dd0a9bfec332e18bd9a5ff9ae69c292d3debeb6eba79e0f8afac1",
+      "size_bytes": 46523,
+      "gzip_sha256": "c7393f3fe88343b1b95b396ed3c33d599b9f615ea0e0b8187b659f9c258427c7"
+    },
+    {
+      "path": "matrix/policy2-choice1/step-1.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy2-choice1/task.json",
+      "sha256": "0c88a01dd11b53ce8eaf5166dcfff427c92446507d66e75e91d19e8b0165352c",
+      "size_bytes": 159394,
+      "gzip_sha256": "fdd92725a9409a12870f0d1a979dee4bb46107f3aace24545b0fc61547917d65"
+    },
+    {
+      "path": "matrix/policy2-choice2/episode-transitions.json",
+      "sha256": "7b507e5281ce6b6dbb330d890fe46df0067d3a336ba2307a0cb877ac545b7526",
+      "size_bytes": 81688,
+      "gzip_sha256": "6a8aa9e6e4b7f4361a51cead28ca02ffecc8ec73c7570c76d1d795ec3a9e8340"
+    },
+    {
+      "path": "matrix/policy2-choice2/episode.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy2-choice2/initial-episode-transitions.json",
+      "sha256": "8467a6cf8ecfba0b4b86806c53070bc41ee615df55c8f4de13e8bb8f628daf01",
+      "size_bytes": 26234,
+      "gzip_sha256": "a1fbe234bf1471c4e239fda12bbfc24b7b4317af864dd610b9cdecc6ed21def3"
+    },
+    {
+      "path": "matrix/policy2-choice2/initial-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy2-choice2/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy2-choice2/reset-episode-transitions.json",
+      "sha256": "8467a6cf8ecfba0b4b86806c53070bc41ee615df55c8f4de13e8bb8f628daf01",
+      "size_bytes": 26234,
+      "gzip_sha256": "a1fbe234bf1471c4e239fda12bbfc24b7b4317af864dd610b9cdecc6ed21def3"
+    },
+    {
+      "path": "matrix/policy2-choice2/reset-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy2-choice2/step-1-transitions.json",
+      "sha256": "7b507e5281ce6b6dbb330d890fe46df0067d3a336ba2307a0cb877ac545b7526",
+      "size_bytes": 81688,
+      "gzip_sha256": "6a8aa9e6e4b7f4361a51cead28ca02ffecc8ec73c7570c76d1d795ec3a9e8340"
+    },
+    {
+      "path": "matrix/policy2-choice2/step-1.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy2-choice2/task.json",
+      "sha256": "bd5f79dace36d742eb6e10301b090fd37c392ac6865cafb5ae6ec1ff51b0d930",
+      "size_bytes": 420486,
+      "gzip_sha256": "39722091d53658ae8b5d6ea80bebbbcf62d895a478d0e62be0de9632528912f7"
+    },
+    {
+      "path": "matrix/policy2-choice3/episode-transitions.json",
+      "sha256": "a53c1e44273ef4abca156317d9d99207624432d6fdce1bd444466bd969d1dfc0",
+      "size_bytes": 69924,
+      "gzip_sha256": "666d386f2f297bb3cd38dc4a432500e45b36b641a534cd534296e46480374672"
+    },
+    {
+      "path": "matrix/policy2-choice3/episode.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy2-choice3/initial-episode-transitions.json",
+      "sha256": "e464950e67ff47e17d6c033e3c5284ff50c2852b8b3ec02b7dfd1c9409ceddb3",
+      "size_bytes": 2785,
+      "gzip_sha256": "57d27987ceafd3de1ca6ae479dd2dfb691990ed37cd7b81c394339a5a2dd9477"
+    },
+    {
+      "path": "matrix/policy2-choice3/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy2-choice3/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy2-choice3/reset-episode-transitions.json",
+      "sha256": "e464950e67ff47e17d6c033e3c5284ff50c2852b8b3ec02b7dfd1c9409ceddb3",
+      "size_bytes": 2785,
+      "gzip_sha256": "57d27987ceafd3de1ca6ae479dd2dfb691990ed37cd7b81c394339a5a2dd9477"
+    },
+    {
+      "path": "matrix/policy2-choice3/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy2-choice3/step-4-transitions.json",
+      "sha256": "a53c1e44273ef4abca156317d9d99207624432d6fdce1bd444466bd969d1dfc0",
+      "size_bytes": 69924,
+      "gzip_sha256": "666d386f2f297bb3cd38dc4a432500e45b36b641a534cd534296e46480374672"
+    },
+    {
+      "path": "matrix/policy2-choice3/step-4.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy2-choice3/task.json",
+      "sha256": "d3e167d2c86b610f4c92bd831aa3d0fa9262722d00d7e698b58cdaf7e6192024",
+      "size_bytes": 352150,
+      "gzip_sha256": "4d90ebf1b635c577addfdd24ffe65e288e8bd660939baeaa6f7f8b5be2bccca8"
+    },
+    {
+      "path": "matrix/policy2-choice4/episode-transitions.json",
+      "sha256": "adf679d3366dd872c34209b156414abf10dc209d125b5bfc3087e0b0f7874229",
+      "size_bytes": 268951,
+      "gzip_sha256": "b6889c2f58f95cdcf0313c0ad5f51a4b75b166f25c4e71a2ffa56a2d92f23dd9"
+    },
+    {
+      "path": "matrix/policy2-choice4/episode.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy2-choice4/initial-episode-transitions.json",
+      "sha256": "a3958b109a38b545d1d6d5243db070b459b347b32e51901821a318ca45a384e9",
+      "size_bytes": 2405,
+      "gzip_sha256": "0d4e675fea02ef757483a62e8ccb9a2489cbe435ec3e2f022c1aef5ffbc5db6c"
+    },
+    {
+      "path": "matrix/policy2-choice4/initial-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy2-choice4/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy2-choice4/reset-episode-transitions.json",
+      "sha256": "a3958b109a38b545d1d6d5243db070b459b347b32e51901821a318ca45a384e9",
+      "size_bytes": 2405,
+      "gzip_sha256": "0d4e675fea02ef757483a62e8ccb9a2489cbe435ec3e2f022c1aef5ffbc5db6c"
+    },
+    {
+      "path": "matrix/policy2-choice4/reset-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy2-choice4/step-1-transitions.json",
+      "sha256": "adf679d3366dd872c34209b156414abf10dc209d125b5bfc3087e0b0f7874229",
+      "size_bytes": 268951,
+      "gzip_sha256": "b6889c2f58f95cdcf0313c0ad5f51a4b75b166f25c4e71a2ffa56a2d92f23dd9"
+    },
+    {
+      "path": "matrix/policy2-choice4/step-1.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy2-choice4/task.json",
+      "sha256": "426a8c49a697625d963d1dbf3de01ab551af65d1193a7074c4f2f8bba01660b5",
+      "size_bytes": 212480,
+      "gzip_sha256": "37a69149c3f0dc0ca4226c801a396541797572414cc955d669c18b48a53bdbb1"
+    },
+    {
+      "path": "matrix/policy2-choice5/episode-transitions.json",
+      "sha256": "4bf5576535752f7f3d96338ded5d2a616ffb730379e77df6f0cb1704eea67475",
+      "size_bytes": 293067,
+      "gzip_sha256": "d3b2216905eb67722060789803af76490395b2bd44e21a3d4295b4d817026a38"
+    },
+    {
+      "path": "matrix/policy2-choice5/episode.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy2-choice5/initial-episode-transitions.json",
+      "sha256": "5e901add8d24a7d0da9a0df6564ac9c479d664ef8f6cf2beaa7a373b46439b3c",
+      "size_bytes": 26234,
+      "gzip_sha256": "8dde891506cd76dc8fa87c5ccea9391737d463396efdbc127eebc004a81ef307"
+    },
+    {
+      "path": "matrix/policy2-choice5/initial-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy2-choice5/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy2-choice5/reset-episode-transitions.json",
+      "sha256": "5e901add8d24a7d0da9a0df6564ac9c479d664ef8f6cf2beaa7a373b46439b3c",
+      "size_bytes": 26234,
+      "gzip_sha256": "8dde891506cd76dc8fa87c5ccea9391737d463396efdbc127eebc004a81ef307"
+    },
+    {
+      "path": "matrix/policy2-choice5/reset-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy2-choice5/step-1-transitions.json",
+      "sha256": "4bf5576535752f7f3d96338ded5d2a616ffb730379e77df6f0cb1704eea67475",
+      "size_bytes": 293067,
+      "gzip_sha256": "d3b2216905eb67722060789803af76490395b2bd44e21a3d4295b4d817026a38"
+    },
+    {
+      "path": "matrix/policy2-choice5/step-1.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy2-choice5/task.json",
+      "sha256": "d2fef53e09b6b93f7e5fc16187c792ae23b32c51ec80e170c0013ac23ce9e8c3",
+      "size_bytes": 543049,
+      "gzip_sha256": "a678ac4f143b019346e5fae072dc11318104c923e485eb9c491c206595a6e674"
+    },
+    {
+      "path": "matrix/policy2-choice6/episode-transitions.json",
+      "sha256": "42a4187104a8541f838bed6b464edca2467c93a09c7e50d01d401c48d3e16204",
+      "size_bytes": 281303,
+      "gzip_sha256": "3a40b9883881ec83a1d600cae5d2088e1c01488d291a9372991c2b00dd892164"
+    },
+    {
+      "path": "matrix/policy2-choice6/episode.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy2-choice6/initial-episode-transitions.json",
+      "sha256": "878bae637ef65927caac85fc658f4f9c9972b35d6f072c82441ec36be7835d57",
+      "size_bytes": 2785,
+      "gzip_sha256": "d5986180e08b31497ef16b8a2f1acfc2e56d7992d0108c3441380fb72e2986df"
+    },
+    {
+      "path": "matrix/policy2-choice6/initial-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy2-choice6/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy2-choice6/reset-episode-transitions.json",
+      "sha256": "878bae637ef65927caac85fc658f4f9c9972b35d6f072c82441ec36be7835d57",
+      "size_bytes": 2785,
+      "gzip_sha256": "d5986180e08b31497ef16b8a2f1acfc2e56d7992d0108c3441380fb72e2986df"
+    },
+    {
+      "path": "matrix/policy2-choice6/reset-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy2-choice6/step-4-transitions.json",
+      "sha256": "42a4187104a8541f838bed6b464edca2467c93a09c7e50d01d401c48d3e16204",
+      "size_bytes": 281303,
+      "gzip_sha256": "3a40b9883881ec83a1d600cae5d2088e1c01488d291a9372991c2b00dd892164"
+    },
+    {
+      "path": "matrix/policy2-choice6/step-4.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy2-choice6/task.json",
+      "sha256": "da584ba10ac5c1a871f7f31bd43db544f74caa2dd8a510ec01b1ae55d197c253",
+      "size_bytes": 475085,
+      "gzip_sha256": "319f06935d61703c62d14bd475671d66fdc1100ba0b33aaddda64a1b353cfbe1"
+    },
+    {
+      "path": "matrix/policy3-choice1/episode-transitions.json",
+      "sha256": "48858128e50ba6910cf2b9dd55489aeabd8780f9b226bdfa04a0489bad08b1a9",
+      "size_bytes": 46523,
+      "gzip_sha256": "5a52e1064567c6e304cb0870f01f41c9d63ad3c7e53ae65fee29a6f142369ac4"
+    },
+    {
+      "path": "matrix/policy3-choice1/episode.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy3-choice1/initial-episode-transitions.json",
+      "sha256": "1ea7173c7561568ac5e8b21cd6574a08115b2fddcb9171f7f69b11409b33fa33",
+      "size_bytes": 2405,
+      "gzip_sha256": "91a119be08c3be22a107ff4baff00d2278aadf7e174417f26d9f3fb0aa5400d4"
+    },
+    {
+      "path": "matrix/policy3-choice1/initial-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy3-choice1/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy3-choice1/reset-episode-transitions.json",
+      "sha256": "1ea7173c7561568ac5e8b21cd6574a08115b2fddcb9171f7f69b11409b33fa33",
+      "size_bytes": 2405,
+      "gzip_sha256": "91a119be08c3be22a107ff4baff00d2278aadf7e174417f26d9f3fb0aa5400d4"
+    },
+    {
+      "path": "matrix/policy3-choice1/reset-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821,
+      "gzip_sha256": "f858796e86a7484f09cc4d0a6809a30513e985f83a6848a45fc695112c1ef1ce"
+    },
+    {
+      "path": "matrix/policy3-choice1/step-1-transitions.json",
+      "sha256": "48858128e50ba6910cf2b9dd55489aeabd8780f9b226bdfa04a0489bad08b1a9",
+      "size_bytes": 46523,
+      "gzip_sha256": "5a52e1064567c6e304cb0870f01f41c9d63ad3c7e53ae65fee29a6f142369ac4"
+    },
+    {
+      "path": "matrix/policy3-choice1/step-1.json",
+      "sha256": "b44ef56bdc7590790cbd397f01da05d3a273cd6738b8e3a64dfd81ddb5d24102",
+      "size_bytes": 210052,
+      "gzip_sha256": "b6cce584deb5a1b6369e1cd751f13984f4ac1522949c5ffc1f13abe9580df500"
+    },
+    {
+      "path": "matrix/policy3-choice1/task.json",
+      "sha256": "9f567e8e6832d0192c8116eb4d3e8f59f2523cc0820768beca03bca76d1c91ae",
+      "size_bytes": 159415,
+      "gzip_sha256": "6df3e94861e046b5d785c163f8e6dea032a2506ff2449181b18867b4d9e2d136"
+    },
+    {
+      "path": "matrix/policy3-choice2/episode-transitions.json",
+      "sha256": "3331107cc15ecb2725c08c8fb6ed7a0ccada196ea21f76fea0400b04fe700e40",
+      "size_bytes": 81688,
+      "gzip_sha256": "78891e799768774687be1c04f189d8b2bfeb967a08fd6d3e0917eb2114b8b3fe"
+    },
+    {
+      "path": "matrix/policy3-choice2/episode.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy3-choice2/initial-episode-transitions.json",
+      "sha256": "ad49faac39a1eb9ccc65b415d8d8f3773901337cd4bba9160520c1602e40cef4",
+      "size_bytes": 26234,
+      "gzip_sha256": "1faa0c1dfe04bc1ac5a230d3013887f4fadc7d1751f35ba6ba504fec2d050b35"
+    },
+    {
+      "path": "matrix/policy3-choice2/initial-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy3-choice2/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy3-choice2/reset-episode-transitions.json",
+      "sha256": "ad49faac39a1eb9ccc65b415d8d8f3773901337cd4bba9160520c1602e40cef4",
+      "size_bytes": 26234,
+      "gzip_sha256": "1faa0c1dfe04bc1ac5a230d3013887f4fadc7d1751f35ba6ba504fec2d050b35"
+    },
+    {
+      "path": "matrix/policy3-choice2/reset-episode.json",
+      "sha256": "c178cb8acb7e687364bd87bebb3dd7cc5475b5d52d6ce6644105a6e8c1258071",
+      "size_bytes": 680336,
+      "gzip_sha256": "cc290c092c279f2481db303f72730bd01e6ef887cffb84fb1fb5d4055a5c3fb8"
+    },
+    {
+      "path": "matrix/policy3-choice2/step-1-transitions.json",
+      "sha256": "3331107cc15ecb2725c08c8fb6ed7a0ccada196ea21f76fea0400b04fe700e40",
+      "size_bytes": 81688,
+      "gzip_sha256": "78891e799768774687be1c04f189d8b2bfeb967a08fd6d3e0917eb2114b8b3fe"
+    },
+    {
+      "path": "matrix/policy3-choice2/step-1.json",
+      "sha256": "60ba3c2ab5d5d90b9097d2f3d7f854f4e3941cf15115a8a95a63c46aebbbc802",
+      "size_bytes": 827025,
+      "gzip_sha256": "449ebc5289070f50785bdc5841d44081b851fc3761346cb33ac4f35a326f0358"
+    },
+    {
+      "path": "matrix/policy3-choice2/task.json",
+      "sha256": "35b74ef3987c409788db9fb718b19dd2dbc6637918e1b01ff1b297fa6d35e223",
+      "size_bytes": 420507,
+      "gzip_sha256": "b424ba969ca21096c5ffc93ad90eb4c9b837beae8162fb86f82f442d4c83e5c4"
+    },
+    {
+      "path": "matrix/policy3-choice3/episode-transitions.json",
+      "sha256": "018dea055412b7025604d0778168d8ead38768225e729661b3474d30b125ebb8",
+      "size_bytes": 69924,
+      "gzip_sha256": "f2b0f5eb6cb23d5fca68b88218556d321fc2e33970f8b9673ea6f2b7cd7b4c55"
+    },
+    {
+      "path": "matrix/policy3-choice3/episode.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy3-choice3/initial-episode-transitions.json",
+      "sha256": "5265c3d7692d52abd666338670cd4985557cf3444e19577a8d5e8981b68e0868",
+      "size_bytes": 2785,
+      "gzip_sha256": "205c6ba317b1741632e6085ac0163408706d0f5662d6adbd608695e79fb6448f"
+    },
+    {
+      "path": "matrix/policy3-choice3/initial-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy3-choice3/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy3-choice3/reset-episode-transitions.json",
+      "sha256": "5265c3d7692d52abd666338670cd4985557cf3444e19577a8d5e8981b68e0868",
+      "size_bytes": 2785,
+      "gzip_sha256": "205c6ba317b1741632e6085ac0163408706d0f5662d6adbd608695e79fb6448f"
+    },
+    {
+      "path": "matrix/policy3-choice3/reset-episode.json",
+      "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+      "size_bytes": 543083,
+      "gzip_sha256": "dba05fd662aa8f2d0596e8af053f0e973ec49deb70df379d1c0fd2f77c8d3944"
+    },
+    {
+      "path": "matrix/policy3-choice3/step-4-transitions.json",
+      "sha256": "018dea055412b7025604d0778168d8ead38768225e729661b3474d30b125ebb8",
+      "size_bytes": 69924,
+      "gzip_sha256": "f2b0f5eb6cb23d5fca68b88218556d321fc2e33970f8b9673ea6f2b7cd7b4c55"
+    },
+    {
+      "path": "matrix/policy3-choice3/step-4.json",
+      "sha256": "031c97e627c9ff70f61f3561cb71674c7c5c5dbda4ae2b85f68971ebba9a233d",
+      "size_bytes": 772275,
+      "gzip_sha256": "e9bcfac157d572181db34ba83a12d7c82acf5604eea7124df5ce12f1ac30157d"
+    },
+    {
+      "path": "matrix/policy3-choice3/task.json",
+      "sha256": "9e6009c3d9c616b2645373a6c4281a52a13687d09846165f61e1e651414153f6",
+      "size_bytes": 352171,
+      "gzip_sha256": "da10d695f8887436c9e16d2d1b385cf33dd4952d0f70cc415ff2526bab3e11f7"
+    },
+    {
+      "path": "matrix/policy3-choice4/episode-transitions.json",
+      "sha256": "be579a9222f66052a8176b439dcb11d53aa337af63391907cee5fcefd706bf18",
+      "size_bytes": 268951,
+      "gzip_sha256": "136dd18b241d6d480befa8499bf3dc872467fff6d171bbf5996dda362ef07f5a"
+    },
+    {
+      "path": "matrix/policy3-choice4/episode.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy3-choice4/initial-episode-transitions.json",
+      "sha256": "e03521bb71b19a55c044fb27fa0f2952da2791fd9db1d486e30bc894ab78a383",
+      "size_bytes": 2405,
+      "gzip_sha256": "c11bee7523ce1ea62f559c132e126d25769471a27281029c225dd699ac583cf9"
+    },
+    {
+      "path": "matrix/policy3-choice4/initial-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy3-choice4/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "matrix/policy3-choice4/reset-episode-transitions.json",
+      "sha256": "e03521bb71b19a55c044fb27fa0f2952da2791fd9db1d486e30bc894ab78a383",
+      "size_bytes": 2405,
+      "gzip_sha256": "c11bee7523ce1ea62f559c132e126d25769471a27281029c225dd699ac583cf9"
+    },
+    {
+      "path": "matrix/policy3-choice4/reset-episode.json",
+      "sha256": "34920165994eb6b24d92fd55766d2b54d3a6563111ca0eb8dba6e3a7a36f76c0",
+      "size_bytes": 213990,
+      "gzip_sha256": "08f91499998f7cc4bde9ee70563b13011b30fde5981ba95cb0baae30215fcb54"
+    },
+    {
+      "path": "matrix/policy3-choice4/step-1-transitions.json",
+      "sha256": "be579a9222f66052a8176b439dcb11d53aa337af63391907cee5fcefd706bf18",
+      "size_bytes": 268951,
+      "gzip_sha256": "136dd18b241d6d480befa8499bf3dc872467fff6d171bbf5996dda362ef07f5a"
+    },
+    {
+      "path": "matrix/policy3-choice4/step-1.json",
+      "sha256": "e3c4880c6b94feb2d3ba1d614bd56c571779d494e00095e465aaaf023724cacb",
+      "size_bytes": 519413,
+      "gzip_sha256": "b7ed1e1072fe7908f8e2fb691641b006a2e662a4829d2890cfa2827830f83b0f"
+    },
+    {
+      "path": "matrix/policy3-choice4/task.json",
+      "sha256": "1beb829714ef346b9d6c92db182c1be4c9719ce878476ebadd41d4e64ab9455b",
+      "size_bytes": 212501,
+      "gzip_sha256": "a4f15714291a71491c3256f22b28639e367756832a7a349ffbb2e834b667ad72"
+    },
+    {
+      "path": "matrix/policy3-choice5/episode-transitions.json",
+      "sha256": "d1f4eee780e88e33ec7d35f2447acbaa13dd79dc8ed162dde7f5c7ed94178aa9",
+      "size_bytes": 293067,
+      "gzip_sha256": "5bb97e161750020da9d79448b32fea322eb55d45f96e1ee055487641bd8a3484"
+    },
+    {
+      "path": "matrix/policy3-choice5/episode.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy3-choice5/initial-episode-transitions.json",
+      "sha256": "ee838748dbd436ccd170e43a126d6310d9d8fdb9954282fe54c1c31431a5e14a",
+      "size_bytes": 26234,
+      "gzip_sha256": "7c5f157d03a667d2312559772cfe63d45e9560fb37a65a764bbc87d8d6e07d85"
+    },
+    {
+      "path": "matrix/policy3-choice5/initial-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy3-choice5/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy3-choice5/reset-episode-transitions.json",
+      "sha256": "ee838748dbd436ccd170e43a126d6310d9d8fdb9954282fe54c1c31431a5e14a",
+      "size_bytes": 26234,
+      "gzip_sha256": "7c5f157d03a667d2312559772cfe63d45e9560fb37a65a764bbc87d8d6e07d85"
+    },
+    {
+      "path": "matrix/policy3-choice5/reset-episode.json",
+      "sha256": "fdda508552dc0e085441b8dec1be8051a66645a8c58794be4955d4d6a369e0aa",
+      "size_bytes": 802611,
+      "gzip_sha256": "5c3006448a4e6ae15988caf66513d436fc86271a202b7841547ba15130412cad"
+    },
+    {
+      "path": "matrix/policy3-choice5/step-1-transitions.json",
+      "sha256": "d1f4eee780e88e33ec7d35f2447acbaa13dd79dc8ed162dde7f5c7ed94178aa9",
+      "size_bytes": 293067,
+      "gzip_sha256": "5bb97e161750020da9d79448b32fea322eb55d45f96e1ee055487641bd8a3484"
+    },
+    {
+      "path": "matrix/policy3-choice5/step-1.json",
+      "sha256": "694cc5029773c142176068875b168eb18c1038445210735f9a7852fddc04100f",
+      "size_bytes": 1515547,
+      "gzip_sha256": "399a9f0026c9c7a193a546bedd0fff27fcd2f08f176a9c1c10b366d14c3f844b"
+    },
+    {
+      "path": "matrix/policy3-choice5/task.json",
+      "sha256": "a8ed461687471292c679e8981034acd2ec2cef9033607ae7fc186e55dff75114",
+      "size_bytes": 543070,
+      "gzip_sha256": "0eb7a69dfa386adf1b712c9de8e5ef292267a25bd1b6382cf5e9c9d0015845fb"
+    },
+    {
+      "path": "matrix/policy3-choice6/episode-transitions.json",
+      "sha256": "c5ebcfb56378ec25accde82ec4548c9d8cbd1b4b84b7823c51ebd6645c76c3e4",
+      "size_bytes": 281303,
+      "gzip_sha256": "c1753500ab4473935937fd733e253af6121236d4b3ca17f8dd0707a963eec542"
+    },
+    {
+      "path": "matrix/policy3-choice6/episode.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy3-choice6/initial-episode-transitions.json",
+      "sha256": "b0fa8ec61873c5ef422b8fd071ed36c0117a045aca2827502800068df731243c",
+      "size_bytes": 2785,
+      "gzip_sha256": "eb9318915c059555c2cc6030fedcedea4932b76e5905776bb6262124281a24d0"
+    },
+    {
+      "path": "matrix/policy3-choice6/initial-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy3-choice6/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "matrix/policy3-choice6/reset-episode-transitions.json",
+      "sha256": "b0fa8ec61873c5ef422b8fd071ed36c0117a045aca2827502800068df731243c",
+      "size_bytes": 2785,
+      "gzip_sha256": "eb9318915c059555c2cc6030fedcedea4932b76e5905776bb6262124281a24d0"
+    },
+    {
+      "path": "matrix/policy3-choice6/reset-episode.json",
+      "sha256": "a4b823b3ab9ad627ac23eb10af7ccaa0259df9c8168a30082c1da6cfb88fc673",
+      "size_bytes": 666102,
+      "gzip_sha256": "449979437030bef1b3bf6ac73b4cab102e4ac8e69eb71a11ea52584831b18740"
+    },
+    {
+      "path": "matrix/policy3-choice6/step-4-transitions.json",
+      "sha256": "c5ebcfb56378ec25accde82ec4548c9d8cbd1b4b84b7823c51ebd6645c76c3e4",
+      "size_bytes": 281303,
+      "gzip_sha256": "c1753500ab4473935937fd733e253af6121236d4b3ca17f8dd0707a963eec542"
+    },
+    {
+      "path": "matrix/policy3-choice6/step-4.json",
+      "sha256": "34b3a6dbe208b571da28f11f3112ffbd24c9ecbf6dd093f7f2f43370d8eab113",
+      "size_bytes": 1460984,
+      "gzip_sha256": "d240a8c3eb45913323d949f14dfb45297679d394a775affb3b81e0a7f793fa14"
+    },
+    {
+      "path": "matrix/policy3-choice6/task.json",
+      "sha256": "a897b0804ac4b6c23f4ac9bc7a6bcda21b115109422842c211db41fd9508f594",
+      "size_bytes": 475106,
+      "gzip_sha256": "cfcb4094d930eaa8d18c7ad3f609860bf1a464131a2e401e9fa10b6b2cb6b0ac"
+    },
+    {
+      "path": "profiles/indexed-6/initial-episode.json",
+      "sha256": "e26438d83839ed7bdc88a0f6007b8079ba28004d9cf003aa8be000fe2efb50cb",
+      "size_bytes": 167139,
+      "gzip_sha256": "1af5bf0c2958800e8f4b001d148a4166e3a4b41b58d1895b5c51a27df6d4de81"
+    },
+    {
+      "path": "profiles/indexed-6/initial-transitions.json",
+      "sha256": "6f0ea0124c8ae1c40df086137ab05eb406ae327694850e2a2f3400268f2ffdb5",
+      "size_bytes": 2405,
+      "gzip_sha256": "80e3708aed36df90772777643f7b28da7e01e676603ea1de2c0c0cc93bd31398"
+    },
+    {
+      "path": "profiles/indexed-6/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles/indexed-6/selected-episode.json",
+      "sha256": "7f093a1f4831bafb16c056a87403f62c703c46224ea89a983a46c519a7e5f3af",
+      "size_bytes": 216962,
+      "gzip_sha256": "cac02950f0c508091b39d1ac39a08cc9b9871f441565b101fc1641a2f7f6db89"
+    },
+    {
+      "path": "profiles/indexed-6/selected-transitions.json",
+      "sha256": "11ffb961254d0e13cd65a83f613bf0c7b761c9959cbe067ed6b98e28358e6707",
+      "size_bytes": 46523,
+      "gzip_sha256": "91b57f9b5dd9611f60e2d29f9aa2e62a82aba3e3cf55ac68bbb7a74b088d0d27"
+    },
+    {
+      "path": "profiles/indexed-6/task.json",
+      "sha256": "2113154a01ad88b580836f1c0b6ce723ab350e078a754953d329e2c5f4e553ee",
+      "size_bytes": 162055,
+      "gzip_sha256": "11fa2882b06c618e4c8111474c5ab66442c5893c44a2b3886b4ad53518032cd4"
+    },
+    {
+      "path": "profiles/indexed-7/initial-episode.json",
+      "sha256": "751203142d1dc2bcb186e6828687e874a27e5dff2aa6b50d43a81ac0f6577088",
+      "size_bytes": 168369,
+      "gzip_sha256": "325d36d5b3409f8e5a0fb3d8aa6c79da0949296ebfb61fecd0cf21dc32224379"
+    },
+    {
+      "path": "profiles/indexed-7/initial-transitions.json",
+      "sha256": "5739356683ee2444803f86244e7375fa2feb6d336d472947e57ff0eb44f6372c",
+      "size_bytes": 2988,
+      "gzip_sha256": "bcd38b7fae7c14e425c0d6355af92b31b814558c015775b62c6f89655429ae3b"
+    },
+    {
+      "path": "profiles/indexed-7/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles/indexed-7/selected-episode.json",
+      "sha256": "c5941752a5acaae9359a3b62357154539a27e326d8f966c6ad133590ed8d1cc1",
+      "size_bytes": 218192,
+      "gzip_sha256": "0d72e9d2ed9766247c17ce38009312a89f8b305598992032b8954b6546594005"
+    },
+    {
+      "path": "profiles/indexed-7/selected-transitions.json",
+      "sha256": "d3483a9f6742beee5d30120f1033b014e396326cd1e3c10135979dc890314e0f",
+      "size_bytes": 47106,
+      "gzip_sha256": "c522dc00a9d2a9340545012e950ae16a6ba5d316b4593e9ed9698e019c2b218d"
+    },
+    {
+      "path": "profiles/indexed-7/task.json",
+      "sha256": "b9e6f3033b4ac51eff43bd25eb0058c33bee005b50f80f360ffcf96910091d0a",
+      "size_bytes": 163836,
+      "gzip_sha256": "d6c23b42196b79857f62ab8aa22fda6a851da73e8cb102609381f4c22907a6ce"
+    },
+    {
+      "path": "profiles/indexed-8/initial-episode.json",
+      "sha256": "f85d0e671b56efe567cf6e93d35ffd4a014d18d7c4fab57611c41d5b771bafe7",
+      "size_bytes": 169909,
+      "gzip_sha256": "91ef6e824573835f01a333461b206266db82ae51a51b5266e56c8dd87fa2c9d5"
+    },
+    {
+      "path": "profiles/indexed-8/initial-transitions.json",
+      "sha256": "4bdb5fb066dda4493f51a05ee5cd90a6a739f6fdf1558a71a8f0903338273547",
+      "size_bytes": 3719,
+      "gzip_sha256": "59371557a27c0956678f90235cf86044b8cec35c67e3a802f6ab372413663f38"
+    },
+    {
+      "path": "profiles/indexed-8/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles/indexed-8/selected-episode.json",
+      "sha256": "c1216606fe1fd509940ffe2ccce25909f08be916799b366c52aef9949726ebcd",
+      "size_bytes": 219732,
+      "gzip_sha256": "7a1dfb380afde39cef4532af4f4f5ffebd5aa18e900d5c64dc87934a6fb50d67"
+    },
+    {
+      "path": "profiles/indexed-8/selected-transitions.json",
+      "sha256": "f7a88f983a0f4624d83663ed18c781cf063a311569d07edab7e51706d7adba72",
+      "size_bytes": 47837,
+      "gzip_sha256": "6ceea6bca5f7eb1bfe0a0533af9eff25df7d619e15611079d69cfb65d58bbb3a"
+    },
+    {
+      "path": "profiles/indexed-8/task.json",
+      "sha256": "fa4a16ff5343b88b05a2158c8f7384b3b3ed9aed01571403ed1433a989b639a2",
+      "size_bytes": 166068,
+      "gzip_sha256": "018f03d8806ce2318ea29c21b05e63b711cd507b43edc400bdbde26b6b411cd6"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/initial-episode.json",
+      "sha256": "4967b9e39ea09b878df9c7cffc0dcc217027756a977e6dbbbf99be0c67eade01",
+      "size_bytes": 178567,
+      "gzip_sha256": "1a0e1dea3fc2f9e2ea8503392dba7ce1ed3955e76eb6bdf7fbaf5e12a1a86439"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/initial-transitions.json",
+      "sha256": "a08577793a36ec07aa4c9c3d0c46cfb5849cec4e64b30e9fb4a2daee9ef8716a",
+      "size_bytes": 2405,
+      "gzip_sha256": "fedbb7cac088c8d25f35e76fe604548dd9fa200de7ad6630f8f11638cbc5ed4e"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/selected-episode.json",
+      "sha256": "d411289e90a4cdb705a6e1e2fee8c7cd66a9952ee3b2d2c0f759175826896b51",
+      "size_bytes": 228327,
+      "gzip_sha256": "e7970e09e07cf30d6e65b4b60b79dcdfaf409a5a35035845e6b106ca06f30ff5"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/selected-transitions.json",
+      "sha256": "20560053e40f803ac8cbfb4e2ce4eb9ada13d95cda62321c1590cadb53a85bed",
+      "size_bytes": 46523,
+      "gzip_sha256": "9131d02f67c7103873b2700639ca86e3cc8d29432a43d4ce0a3e78423f7c6d4b"
+    },
+    {
+      "path": "profiles-exchange/indexed-6/task.json",
+      "sha256": "ca5571800dd12e3383976be4f9d54510d9dffa7f13f2a9376d2397f066b21699",
+      "size_bytes": 167769,
+      "gzip_sha256": "499c2432726c4a3f4e42834e96d7832b42aa721cfe806023fd0805d96e8c1875"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/initial-episode.json",
+      "sha256": "d9f4db3f15a07b44b04de6d17c4494955db977f7584efd00e0aa8990e9bdc7e9",
+      "size_bytes": 179797,
+      "gzip_sha256": "a7946e431f510eb36ac615b7cee8e05a3f8edf0b07e55991b771a37f0c9d0d9e"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/initial-transitions.json",
+      "sha256": "ec45e4533d311defeb5785a8383574375ce7b3236e8891f07a29daa8b37787e4",
+      "size_bytes": 2988,
+      "gzip_sha256": "d1b2493bd1736dc83022cc1bf1d0814a1002e0ed458b24fed654fd2b6a062869"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/selected-episode.json",
+      "sha256": "8f60a8c3373f948ef74d5b1f05efb4c91b004d2ff0f508ba5814eff514a46e8a",
+      "size_bytes": 229557,
+      "gzip_sha256": "ef10e5c7fd75b358d3db19e33f8338fc97b3b266993d46b224e7b1f1e683320e"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/selected-transitions.json",
+      "sha256": "748530336b72103d3b448e4f1f57ab297412e97d34501c8ba2adb8f187d776e0",
+      "size_bytes": 47106,
+      "gzip_sha256": "fa86925791241314ce6c840348b4b8da85082b5b3e4f9832278b1adc92082447"
+    },
+    {
+      "path": "profiles-exchange/indexed-7/task.json",
+      "sha256": "52e878ae78ff8fee60a26484fb0130c0f45edc96c412e80509a2421ea700d835",
+      "size_bytes": 169550,
+      "gzip_sha256": "a360e1f89f4e10f93e3fff95cb1dcb056f77a0ba9ce3108879c852eac04e19d5"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/initial-episode.json",
+      "sha256": "a78726cc98920dfef323bf1951c1d6bde336528504dfe0727736a81ffed9504c",
+      "size_bytes": 181337,
+      "gzip_sha256": "c172efbc513137d3bd7c6fb7e21d3627606795e3e897fa92915a079d8c549034"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/initial-transitions.json",
+      "sha256": "4afd7f148d7191cff477cf238600b51b4cd656530a3f9bcbf6c4aed09c78ad22",
+      "size_bytes": 3719,
+      "gzip_sha256": "9185beaad35b57ea83afda008cb35b8bd7746a6b225e9fba3fe9ab1eb00b4076"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/selected-episode.json",
+      "sha256": "d9c36c89e00ebf5cd08ce5f911800f8855bbf0eef5035957baaa685207a58476",
+      "size_bytes": 231097,
+      "gzip_sha256": "4938285f9efaa389e074f128848d529083dd6ba88bed7aa4ff8a35cdf9b88142"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/selected-transitions.json",
+      "sha256": "2d8106922cf333fde205417fc697a39a39ab31317c104bbd071f208a1461941c",
+      "size_bytes": 47837,
+      "gzip_sha256": "45dd711bde78596484f2bb70d3dee71533831e8b1cc7093540eb69ba65ea317b"
+    },
+    {
+      "path": "profiles-exchange/indexed-8/task.json",
+      "sha256": "8daa05c84cda52f3990fb205c7732a2d4cc120439c579aff39bfb2eaba0369df",
+      "size_bytes": 171782,
+      "gzip_sha256": "0864193ef7f4e7ced03c86126ceb308250a7791f76aac95030b1d980e1a62a74"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/initial-episode.json",
+      "sha256": "7dc89235e4def08eef1fab0296048387421ea0ccad3a70a2529d0a498e5ba20f",
+      "size_bytes": 652294,
+      "gzip_sha256": "9e71997c2468c7fa91a4c5809e5c0150a97bc763b2e1483005362a53c593bc69"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/initial-transitions.json",
+      "sha256": "476f2eb87e473310e5ce1d31773bee02103e81e8b58d20f3b66b692c1fc4c954",
+      "size_bytes": 15129,
+      "gzip_sha256": "dad8fb09397495d029636d4f23037a47fde2ae94908d9c6cf060c97d60779c99"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/initial.json",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/milling-episode.json",
+      "sha256": "31ff629c42002408409206e198a478d53f5ad0d23e9f0ff038061d37e5b0d0f6",
+      "size_bytes": 798006,
+      "gzip_sha256": "fdc53f0b2c0160d10e1972ecdb9ae79482aec8c18eb590e5b267c17f16ff49f1"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/milling-transitions.json",
+      "sha256": "265b1251dbaee33ef28f6171c50863da6b04c8553187457e098ba53e9f5570da",
+      "size_bytes": 70583,
+      "gzip_sha256": "7e9e3f0f0a37ab96dd538926b6ab383dfc8af2870ae746df259eab2b49ca9352"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/restored-episode.json",
+      "sha256": "31ff629c42002408409206e198a478d53f5ad0d23e9f0ff038061d37e5b0d0f6",
+      "size_bytes": 798006,
+      "gzip_sha256": "fdc53f0b2c0160d10e1972ecdb9ae79482aec8c18eb590e5b267c17f16ff49f1"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/restored-transitions.json",
+      "sha256": "265b1251dbaee33ef28f6171c50863da6b04c8553187457e098ba53e9f5570da",
+      "size_bytes": 70583,
+      "gzip_sha256": "7e9e3f0f0a37ab96dd538926b6ab383dfc8af2870ae746df259eab2b49ca9352"
+    },
+    {
+      "path": "profiles-outer/outer2-choice2/task.json",
+      "sha256": "a79eae7b6fe81bf0022f5d632332de3b5df2fd6423de1d3df813c74c1b852af5",
+      "size_bytes": 407429,
+      "gzip_sha256": "0105079f87697c8c42a6855e8ada45d5ca46824d448d31127ca02822bb645d69"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/initial-episode.json",
+      "sha256": "16c5ef04f0fdd980f3391a99000532727acff08ec6f0033d4606c199fc3fd522",
+      "size_bytes": 546085,
+      "gzip_sha256": "5961e79eb4e6560d99409d882d24872a38175ecce1e6e6f8c82eed9bfba0afdf"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/initial-transitions.json",
+      "sha256": "ac8ca3fc2df2392ebfeba9f58dca87418eb35ae6e9276b2c0f2b0f6570ba9801",
+      "size_bytes": 3516,
+      "gzip_sha256": "f214acc9a942f40d52422e71035f9f8137250eed5f3a7df6b220f3475402e4e2"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/initial.json",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "gzip_sha256": "23f72854ad9feb04e86ec17800e592abbaf06455a2993aca20970e3d5016bba9"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/milling-episode.json",
+      "sha256": "f422717927c301c309b1f8aad2375c44606905cae275ede7f2ed3542c142aec0",
+      "size_bytes": 773684,
+      "gzip_sha256": "620dcee9ee34e042d5eb30621fd10b9592946ef77ace131381a48a8e78423637"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/milling-transitions.json",
+      "sha256": "ca3abf4e03b52d369c69c0933c90b345fe86c313ac7f0d77a5dc5a1c70a49824",
+      "size_bytes": 70655,
+      "gzip_sha256": "1d150ed4cfab7d3cfa8046882b7096fb5799f2970e807468e9fdd500df60f5aa"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/restored-episode.json",
+      "sha256": "f422717927c301c309b1f8aad2375c44606905cae275ede7f2ed3542c142aec0",
+      "size_bytes": 773684,
+      "gzip_sha256": "620dcee9ee34e042d5eb30621fd10b9592946ef77ace131381a48a8e78423637"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/restored-transitions.json",
+      "sha256": "ca3abf4e03b52d369c69c0933c90b345fe86c313ac7f0d77a5dc5a1c70a49824",
+      "size_bytes": 70655,
+      "gzip_sha256": "1d150ed4cfab7d3cfa8046882b7096fb5799f2970e807468e9fdd500df60f5aa"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/task.json",
+      "sha256": "df819404b8c85b2b14ed9f65056c26e2d8900f1c5e5916381413dd58aa0963ff",
+      "size_bytes": 354615,
+      "gzip_sha256": "3671b610d526e19f0e9947bab4208dc21e917d853d1a35c900eb156b13e86414"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/transfer-episode.json",
+      "sha256": "cab3ccc2c4900ab08cc89b5e928996c962bfb7fbcbc2271a1715f181807061c2",
+      "size_bytes": 627971,
+      "gzip_sha256": "9621af528cafab3ae2992f36581558079ace5d3742d14d3cb626c4ab249a1c72"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/transfer-transitions.json",
+      "sha256": "f1317e1cdc5785d1d88f76cfa29d739f98376ac1e2eb14994cf4fe79e53d12f2",
+      "size_bytes": 15201,
+      "gzip_sha256": "1bd14608af257d025c2bba6498ea227905883c908a4552e51993a9db0c3eb28a"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/turn-episode.json",
+      "sha256": "072b3a41c9b58264eeac55cbc626d00f7c878b33783d85867ca313e1eb4cd73c",
+      "size_bytes": 565488,
+      "gzip_sha256": "f8daed757c891b93b5b0a529106f884037566a5e5209475c965d09583d954b0e"
+    },
+    {
+      "path": "profiles-outer/outer2-choice3/turn-transitions.json",
+      "sha256": "d56d8b9d5c173901094983e3f8c6682cfbcf1f2096f4adebcb09cd49683399b1",
+      "size_bytes": 15201,
+      "gzip_sha256": "dd21b8a3f08c4babf0e2af86432c15dbf7e13a5b87a0064bfde2a0458a085478"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/initial-episode.json",
+      "sha256": "1892b1b71ad0d7fca8e4daeb0923912cf8bce76a993027a6daa84d2486808578",
+      "size_bytes": 183591,
+      "gzip_sha256": "6acecc459e1a2309b5a55ebf7d77ac803bcdcb2d3f1d336ee046acb76929ddba"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/initial-transitions.json",
+      "sha256": "01c6b2a1c84dd48254511cacb9120c7d2349cdcbc269342628a48080e4396977",
+      "size_bytes": 3719,
+      "gzip_sha256": "33af339fe2ff13de9e8745c0135b6b6e94cf1fe51816f87bbb122175c9720a70"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/initial.json",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374,
+      "gzip_sha256": "9e138ea8e9f8df8965ab6434ae89734ecdb04369e1f4475e5b506a9b55552f06"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/selected-episode.json",
+      "sha256": "2f28e28e396d430839c7ba613c21970fe2b843a8e637331c6745c380da8479ae",
+      "size_bytes": 233414,
+      "gzip_sha256": "acb20c835e58024b8b618cd7cfdd09aab29b0b498bb0b850fd5ecf4ce4dff4a7"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/selected-transitions.json",
+      "sha256": "ffc508cf8247de471dddbcc107a9cbd64673d5210affc71167c6c974b00b27c1",
+      "size_bytes": 47837,
+      "gzip_sha256": "f782273792ff89897768cb6819f0ab2160dba87978b816ff24260b0ed56aaf26"
+    },
+    {
+      "path": "profiles-rejected/indexed-8/task.json",
+      "sha256": "b1999a114b05ff386968fa65786ecc036038a3c0bfaefe66ca852449c6f3c4d9",
+      "size_bytes": 172909,
+      "gzip_sha256": "b54d26f0a6cea9aebf0c8cb15164a5ddfd57186be636a8ae128aa5b24e2b7a3e"
+    }
+  ],
+  "cases": [
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "episode",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/episode.json",
+      "transitions": "baseline/full-facing-v6/episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "initial-episode",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/initial-episode.json",
+      "transitions": "baseline/full-facing-v6/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "reset-episode",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/reset-episode.json",
+      "transitions": "baseline/full-facing-v6/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "step-0",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/step-0.json",
+      "transitions": "baseline/full-facing-v6/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "step-1",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/step-1.json",
+      "transitions": "baseline/full-facing-v6/step-1-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "step-2",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/step-2.json",
+      "transitions": "baseline/full-facing-v6/step-2-transitions.json"
+    },
+    {
+      "family": "baseline/full-facing-v6",
+      "stage": "step-3",
+      "task": "baseline/full-facing-v6/task.json",
+      "initial": "baseline/full-facing-v6/initial.bin",
+      "episode": "baseline/full-facing-v6/step-3.json",
+      "transitions": "baseline/full-facing-v6/step-3-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "episode",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/episode.json",
+      "transitions": "baseline/full-v3/episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "initial-episode",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/initial-episode.json",
+      "transitions": "baseline/full-v3/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "reset-episode",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/reset-episode.json",
+      "transitions": "baseline/full-v3/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "step-0",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/step-0.json",
+      "transitions": "baseline/full-v3/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "step-1",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/step-1.json",
+      "transitions": "baseline/full-v3/step-1-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "step-2",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/step-2.json",
+      "transitions": "baseline/full-v3/step-2-transitions.json"
+    },
+    {
+      "family": "baseline/full-v3",
+      "stage": "step-3",
+      "task": "baseline/full-v3/task.json",
+      "initial": "baseline/full-v3/initial.bin",
+      "episode": "baseline/full-v3/step-3.json",
+      "transitions": "baseline/full-v3/step-3-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-facing-v4",
+      "stage": "episode",
+      "task": "baseline/indexed-facing-v4/task.json",
+      "initial": "baseline/indexed-facing-v4/initial.bin",
+      "episode": "baseline/indexed-facing-v4/episode.json",
+      "transitions": "baseline/indexed-facing-v4/episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-facing-v4",
+      "stage": "initial-episode",
+      "task": "baseline/indexed-facing-v4/task.json",
+      "initial": "baseline/indexed-facing-v4/initial.bin",
+      "episode": "baseline/indexed-facing-v4/initial-episode.json",
+      "transitions": "baseline/indexed-facing-v4/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-facing-v4",
+      "stage": "reset-episode",
+      "task": "baseline/indexed-facing-v4/task.json",
+      "initial": "baseline/indexed-facing-v4/initial.bin",
+      "episode": "baseline/indexed-facing-v4/reset-episode.json",
+      "transitions": "baseline/indexed-facing-v4/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-facing-v4",
+      "stage": "step-0",
+      "task": "baseline/indexed-facing-v4/task.json",
+      "initial": "baseline/indexed-facing-v4/initial.bin",
+      "episode": "baseline/indexed-facing-v4/step-0.json",
+      "transitions": "baseline/indexed-facing-v4/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-v1",
+      "stage": "episode",
+      "task": "baseline/indexed-v1/task.json",
+      "initial": "baseline/indexed-v1/initial.bin",
+      "episode": "baseline/indexed-v1/episode.json",
+      "transitions": "baseline/indexed-v1/episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-v1",
+      "stage": "initial-episode",
+      "task": "baseline/indexed-v1/task.json",
+      "initial": "baseline/indexed-v1/initial.bin",
+      "episode": "baseline/indexed-v1/initial-episode.json",
+      "transitions": "baseline/indexed-v1/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-v1",
+      "stage": "reset-episode",
+      "task": "baseline/indexed-v1/task.json",
+      "initial": "baseline/indexed-v1/initial.bin",
+      "episode": "baseline/indexed-v1/reset-episode.json",
+      "transitions": "baseline/indexed-v1/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/indexed-v1",
+      "stage": "step-0",
+      "task": "baseline/indexed-v1/task.json",
+      "initial": "baseline/indexed-v1/initial.bin",
+      "episode": "baseline/indexed-v1/step-0.json",
+      "transitions": "baseline/indexed-v1/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/outer-facing-v5",
+      "stage": "episode",
+      "task": "baseline/outer-facing-v5/task.json",
+      "initial": "baseline/outer-facing-v5/initial.bin",
+      "episode": "baseline/outer-facing-v5/episode.json",
+      "transitions": "baseline/outer-facing-v5/episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-facing-v5",
+      "stage": "initial-episode",
+      "task": "baseline/outer-facing-v5/task.json",
+      "initial": "baseline/outer-facing-v5/initial.bin",
+      "episode": "baseline/outer-facing-v5/initial-episode.json",
+      "transitions": "baseline/outer-facing-v5/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-facing-v5",
+      "stage": "reset-episode",
+      "task": "baseline/outer-facing-v5/task.json",
+      "initial": "baseline/outer-facing-v5/initial.bin",
+      "episode": "baseline/outer-facing-v5/reset-episode.json",
+      "transitions": "baseline/outer-facing-v5/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-facing-v5",
+      "stage": "step-0",
+      "task": "baseline/outer-facing-v5/task.json",
+      "initial": "baseline/outer-facing-v5/initial.bin",
+      "episode": "baseline/outer-facing-v5/step-0.json",
+      "transitions": "baseline/outer-facing-v5/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/outer-v2",
+      "stage": "episode",
+      "task": "baseline/outer-v2/task.json",
+      "initial": "baseline/outer-v2/initial.bin",
+      "episode": "baseline/outer-v2/episode.json",
+      "transitions": "baseline/outer-v2/episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-v2",
+      "stage": "initial-episode",
+      "task": "baseline/outer-v2/task.json",
+      "initial": "baseline/outer-v2/initial.bin",
+      "episode": "baseline/outer-v2/initial-episode.json",
+      "transitions": "baseline/outer-v2/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-v2",
+      "stage": "reset-episode",
+      "task": "baseline/outer-v2/task.json",
+      "initial": "baseline/outer-v2/initial.bin",
+      "episode": "baseline/outer-v2/reset-episode.json",
+      "transitions": "baseline/outer-v2/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/outer-v2",
+      "stage": "step-0",
+      "task": "baseline/outer-v2/task.json",
+      "initial": "baseline/outer-v2/initial.bin",
+      "episode": "baseline/outer-v2/step-0.json",
+      "transitions": "baseline/outer-v2/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "episode",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/episode.json",
+      "transitions": "baseline/policy-v1/episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "initial-episode",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/initial-episode.json",
+      "transitions": "baseline/policy-v1/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "reset-episode",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/reset-episode.json",
+      "transitions": "baseline/policy-v1/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "step-0",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/step-0.json",
+      "transitions": "baseline/policy-v1/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "step-1",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/step-1.json",
+      "transitions": "baseline/policy-v1/step-1-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v1",
+      "stage": "step-2",
+      "task": "baseline/policy-v1/task.json",
+      "initial": "baseline/policy-v1/initial.bin",
+      "episode": "baseline/policy-v1/step-2.json",
+      "transitions": "baseline/policy-v1/step-2-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "episode",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/episode.json",
+      "transitions": "baseline/policy-v2/episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "initial-episode",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/initial-episode.json",
+      "transitions": "baseline/policy-v2/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "reset-episode",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/reset-episode.json",
+      "transitions": "baseline/policy-v2/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "step-0",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/step-0.json",
+      "transitions": "baseline/policy-v2/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "step-1",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/step-1.json",
+      "transitions": "baseline/policy-v2/step-1-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v2",
+      "stage": "step-2",
+      "task": "baseline/policy-v2/task.json",
+      "initial": "baseline/policy-v2/initial.bin",
+      "episode": "baseline/policy-v2/step-2.json",
+      "transitions": "baseline/policy-v2/step-2-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "episode",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/episode.json",
+      "transitions": "baseline/policy-v3/episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "initial-episode",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/initial-episode.json",
+      "transitions": "baseline/policy-v3/initial-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "reset-episode",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/reset-episode.json",
+      "transitions": "baseline/policy-v3/reset-episode-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "step-0",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/step-0.json",
+      "transitions": "baseline/policy-v3/step-0-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "step-1",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/step-1.json",
+      "transitions": "baseline/policy-v3/step-1-transitions.json"
+    },
+    {
+      "family": "baseline/policy-v3",
+      "stage": "step-2",
+      "task": "baseline/policy-v3/task.json",
+      "initial": "baseline/policy-v3/initial.bin",
+      "episode": "baseline/policy-v3/step-2.json",
+      "transitions": "baseline/policy-v3/step-2-transitions.json"
+    },
+    {
+      "family": "matrix/choice2-multi-prefix",
+      "stage": "episode",
+      "task": "matrix/choice2-multi-prefix/task.json",
+      "initial": "matrix/choice2-multi-prefix/initial.bin",
+      "episode": "matrix/choice2-multi-prefix/episode.json",
+      "transitions": "matrix/choice2-multi-prefix/episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice2-multi-prefix",
+      "stage": "initial-episode",
+      "task": "matrix/choice2-multi-prefix/task.json",
+      "initial": "matrix/choice2-multi-prefix/initial.bin",
+      "episode": "matrix/choice2-multi-prefix/initial-episode.json",
+      "transitions": "matrix/choice2-multi-prefix/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice2-multi-prefix",
+      "stage": "reset-episode",
+      "task": "matrix/choice2-multi-prefix/task.json",
+      "initial": "matrix/choice2-multi-prefix/initial.bin",
+      "episode": "matrix/choice2-multi-prefix/reset-episode.json",
+      "transitions": "matrix/choice2-multi-prefix/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice2-multi-prefix",
+      "stage": "step-1",
+      "task": "matrix/choice2-multi-prefix/task.json",
+      "initial": "matrix/choice2-multi-prefix/initial.bin",
+      "episode": "matrix/choice2-multi-prefix/step-1.json",
+      "transitions": "matrix/choice2-multi-prefix/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/choice5-multi-prefix",
+      "stage": "episode",
+      "task": "matrix/choice5-multi-prefix/task.json",
+      "initial": "matrix/choice5-multi-prefix/initial.bin",
+      "episode": "matrix/choice5-multi-prefix/episode.json",
+      "transitions": "matrix/choice5-multi-prefix/episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice5-multi-prefix",
+      "stage": "initial-episode",
+      "task": "matrix/choice5-multi-prefix/task.json",
+      "initial": "matrix/choice5-multi-prefix/initial.bin",
+      "episode": "matrix/choice5-multi-prefix/initial-episode.json",
+      "transitions": "matrix/choice5-multi-prefix/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice5-multi-prefix",
+      "stage": "reset-episode",
+      "task": "matrix/choice5-multi-prefix/task.json",
+      "initial": "matrix/choice5-multi-prefix/initial.bin",
+      "episode": "matrix/choice5-multi-prefix/reset-episode.json",
+      "transitions": "matrix/choice5-multi-prefix/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/choice5-multi-prefix",
+      "stage": "step-1",
+      "task": "matrix/choice5-multi-prefix/task.json",
+      "initial": "matrix/choice5-multi-prefix/initial.bin",
+      "episode": "matrix/choice5-multi-prefix/step-1.json",
+      "transitions": "matrix/choice5-multi-prefix/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice1",
+      "stage": "episode",
+      "task": "matrix/policy1-choice1/task.json",
+      "initial": "matrix/policy1-choice1/initial.bin",
+      "episode": "matrix/policy1-choice1/episode.json",
+      "transitions": "matrix/policy1-choice1/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice1",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice1/task.json",
+      "initial": "matrix/policy1-choice1/initial.bin",
+      "episode": "matrix/policy1-choice1/initial-episode.json",
+      "transitions": "matrix/policy1-choice1/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice1",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice1/task.json",
+      "initial": "matrix/policy1-choice1/initial.bin",
+      "episode": "matrix/policy1-choice1/reset-episode.json",
+      "transitions": "matrix/policy1-choice1/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice1",
+      "stage": "step-1",
+      "task": "matrix/policy1-choice1/task.json",
+      "initial": "matrix/policy1-choice1/initial.bin",
+      "episode": "matrix/policy1-choice1/step-1.json",
+      "transitions": "matrix/policy1-choice1/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice1",
+      "stage": "episode",
+      "task": "matrix/policy2-choice1/task.json",
+      "initial": "matrix/policy2-choice1/initial.bin",
+      "episode": "matrix/policy2-choice1/episode.json",
+      "transitions": "matrix/policy2-choice1/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice1",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice1/task.json",
+      "initial": "matrix/policy2-choice1/initial.bin",
+      "episode": "matrix/policy2-choice1/initial-episode.json",
+      "transitions": "matrix/policy2-choice1/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice1",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice1/task.json",
+      "initial": "matrix/policy2-choice1/initial.bin",
+      "episode": "matrix/policy2-choice1/reset-episode.json",
+      "transitions": "matrix/policy2-choice1/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice1",
+      "stage": "step-1",
+      "task": "matrix/policy2-choice1/task.json",
+      "initial": "matrix/policy2-choice1/initial.bin",
+      "episode": "matrix/policy2-choice1/step-1.json",
+      "transitions": "matrix/policy2-choice1/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice1",
+      "stage": "episode",
+      "task": "matrix/policy3-choice1/task.json",
+      "initial": "matrix/policy3-choice1/initial.bin",
+      "episode": "matrix/policy3-choice1/episode.json",
+      "transitions": "matrix/policy3-choice1/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice1",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice1/task.json",
+      "initial": "matrix/policy3-choice1/initial.bin",
+      "episode": "matrix/policy3-choice1/initial-episode.json",
+      "transitions": "matrix/policy3-choice1/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice1",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice1/task.json",
+      "initial": "matrix/policy3-choice1/initial.bin",
+      "episode": "matrix/policy3-choice1/reset-episode.json",
+      "transitions": "matrix/policy3-choice1/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice1",
+      "stage": "step-1",
+      "task": "matrix/policy3-choice1/task.json",
+      "initial": "matrix/policy3-choice1/initial.bin",
+      "episode": "matrix/policy3-choice1/step-1.json",
+      "transitions": "matrix/policy3-choice1/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice2",
+      "stage": "episode",
+      "task": "matrix/policy1-choice2/task.json",
+      "initial": "matrix/policy1-choice2/initial.bin",
+      "episode": "matrix/policy1-choice2/episode.json",
+      "transitions": "matrix/policy1-choice2/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice2",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice2/task.json",
+      "initial": "matrix/policy1-choice2/initial.bin",
+      "episode": "matrix/policy1-choice2/initial-episode.json",
+      "transitions": "matrix/policy1-choice2/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice2",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice2/task.json",
+      "initial": "matrix/policy1-choice2/initial.bin",
+      "episode": "matrix/policy1-choice2/reset-episode.json",
+      "transitions": "matrix/policy1-choice2/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice2",
+      "stage": "step-1",
+      "task": "matrix/policy1-choice2/task.json",
+      "initial": "matrix/policy1-choice2/initial.bin",
+      "episode": "matrix/policy1-choice2/step-1.json",
+      "transitions": "matrix/policy1-choice2/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice2",
+      "stage": "episode",
+      "task": "matrix/policy2-choice2/task.json",
+      "initial": "matrix/policy2-choice2/initial.bin",
+      "episode": "matrix/policy2-choice2/episode.json",
+      "transitions": "matrix/policy2-choice2/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice2",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice2/task.json",
+      "initial": "matrix/policy2-choice2/initial.bin",
+      "episode": "matrix/policy2-choice2/initial-episode.json",
+      "transitions": "matrix/policy2-choice2/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice2",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice2/task.json",
+      "initial": "matrix/policy2-choice2/initial.bin",
+      "episode": "matrix/policy2-choice2/reset-episode.json",
+      "transitions": "matrix/policy2-choice2/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice2",
+      "stage": "step-1",
+      "task": "matrix/policy2-choice2/task.json",
+      "initial": "matrix/policy2-choice2/initial.bin",
+      "episode": "matrix/policy2-choice2/step-1.json",
+      "transitions": "matrix/policy2-choice2/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice2",
+      "stage": "episode",
+      "task": "matrix/policy3-choice2/task.json",
+      "initial": "matrix/policy3-choice2/initial.bin",
+      "episode": "matrix/policy3-choice2/episode.json",
+      "transitions": "matrix/policy3-choice2/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice2",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice2/task.json",
+      "initial": "matrix/policy3-choice2/initial.bin",
+      "episode": "matrix/policy3-choice2/initial-episode.json",
+      "transitions": "matrix/policy3-choice2/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice2",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice2/task.json",
+      "initial": "matrix/policy3-choice2/initial.bin",
+      "episode": "matrix/policy3-choice2/reset-episode.json",
+      "transitions": "matrix/policy3-choice2/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice2",
+      "stage": "step-1",
+      "task": "matrix/policy3-choice2/task.json",
+      "initial": "matrix/policy3-choice2/initial.bin",
+      "episode": "matrix/policy3-choice2/step-1.json",
+      "transitions": "matrix/policy3-choice2/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice3",
+      "stage": "episode",
+      "task": "matrix/policy1-choice3/task.json",
+      "initial": "matrix/policy1-choice3/initial.bin",
+      "episode": "matrix/policy1-choice3/episode.json",
+      "transitions": "matrix/policy1-choice3/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice3",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice3/task.json",
+      "initial": "matrix/policy1-choice3/initial.bin",
+      "episode": "matrix/policy1-choice3/initial-episode.json",
+      "transitions": "matrix/policy1-choice3/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice3",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice3/task.json",
+      "initial": "matrix/policy1-choice3/initial.bin",
+      "episode": "matrix/policy1-choice3/reset-episode.json",
+      "transitions": "matrix/policy1-choice3/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice3",
+      "stage": "step-4",
+      "task": "matrix/policy1-choice3/task.json",
+      "initial": "matrix/policy1-choice3/initial.bin",
+      "episode": "matrix/policy1-choice3/step-4.json",
+      "transitions": "matrix/policy1-choice3/step-4-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice3",
+      "stage": "episode",
+      "task": "matrix/policy2-choice3/task.json",
+      "initial": "matrix/policy2-choice3/initial.bin",
+      "episode": "matrix/policy2-choice3/episode.json",
+      "transitions": "matrix/policy2-choice3/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice3",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice3/task.json",
+      "initial": "matrix/policy2-choice3/initial.bin",
+      "episode": "matrix/policy2-choice3/initial-episode.json",
+      "transitions": "matrix/policy2-choice3/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice3",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice3/task.json",
+      "initial": "matrix/policy2-choice3/initial.bin",
+      "episode": "matrix/policy2-choice3/reset-episode.json",
+      "transitions": "matrix/policy2-choice3/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice3",
+      "stage": "step-4",
+      "task": "matrix/policy2-choice3/task.json",
+      "initial": "matrix/policy2-choice3/initial.bin",
+      "episode": "matrix/policy2-choice3/step-4.json",
+      "transitions": "matrix/policy2-choice3/step-4-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice3",
+      "stage": "episode",
+      "task": "matrix/policy3-choice3/task.json",
+      "initial": "matrix/policy3-choice3/initial.bin",
+      "episode": "matrix/policy3-choice3/episode.json",
+      "transitions": "matrix/policy3-choice3/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice3",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice3/task.json",
+      "initial": "matrix/policy3-choice3/initial.bin",
+      "episode": "matrix/policy3-choice3/initial-episode.json",
+      "transitions": "matrix/policy3-choice3/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice3",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice3/task.json",
+      "initial": "matrix/policy3-choice3/initial.bin",
+      "episode": "matrix/policy3-choice3/reset-episode.json",
+      "transitions": "matrix/policy3-choice3/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice3",
+      "stage": "step-4",
+      "task": "matrix/policy3-choice3/task.json",
+      "initial": "matrix/policy3-choice3/initial.bin",
+      "episode": "matrix/policy3-choice3/step-4.json",
+      "transitions": "matrix/policy3-choice3/step-4-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice4",
+      "stage": "episode",
+      "task": "matrix/policy1-choice4/task.json",
+      "initial": "matrix/policy1-choice4/initial.bin",
+      "episode": "matrix/policy1-choice4/episode.json",
+      "transitions": "matrix/policy1-choice4/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice4",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice4/task.json",
+      "initial": "matrix/policy1-choice4/initial.bin",
+      "episode": "matrix/policy1-choice4/initial-episode.json",
+      "transitions": "matrix/policy1-choice4/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice4",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice4/task.json",
+      "initial": "matrix/policy1-choice4/initial.bin",
+      "episode": "matrix/policy1-choice4/reset-episode.json",
+      "transitions": "matrix/policy1-choice4/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice4",
+      "stage": "step-1",
+      "task": "matrix/policy1-choice4/task.json",
+      "initial": "matrix/policy1-choice4/initial.bin",
+      "episode": "matrix/policy1-choice4/step-1.json",
+      "transitions": "matrix/policy1-choice4/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice4",
+      "stage": "episode",
+      "task": "matrix/policy2-choice4/task.json",
+      "initial": "matrix/policy2-choice4/initial.bin",
+      "episode": "matrix/policy2-choice4/episode.json",
+      "transitions": "matrix/policy2-choice4/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice4",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice4/task.json",
+      "initial": "matrix/policy2-choice4/initial.bin",
+      "episode": "matrix/policy2-choice4/initial-episode.json",
+      "transitions": "matrix/policy2-choice4/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice4",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice4/task.json",
+      "initial": "matrix/policy2-choice4/initial.bin",
+      "episode": "matrix/policy2-choice4/reset-episode.json",
+      "transitions": "matrix/policy2-choice4/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice4",
+      "stage": "step-1",
+      "task": "matrix/policy2-choice4/task.json",
+      "initial": "matrix/policy2-choice4/initial.bin",
+      "episode": "matrix/policy2-choice4/step-1.json",
+      "transitions": "matrix/policy2-choice4/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice4",
+      "stage": "episode",
+      "task": "matrix/policy3-choice4/task.json",
+      "initial": "matrix/policy3-choice4/initial.bin",
+      "episode": "matrix/policy3-choice4/episode.json",
+      "transitions": "matrix/policy3-choice4/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice4",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice4/task.json",
+      "initial": "matrix/policy3-choice4/initial.bin",
+      "episode": "matrix/policy3-choice4/initial-episode.json",
+      "transitions": "matrix/policy3-choice4/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice4",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice4/task.json",
+      "initial": "matrix/policy3-choice4/initial.bin",
+      "episode": "matrix/policy3-choice4/reset-episode.json",
+      "transitions": "matrix/policy3-choice4/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice4",
+      "stage": "step-1",
+      "task": "matrix/policy3-choice4/task.json",
+      "initial": "matrix/policy3-choice4/initial.bin",
+      "episode": "matrix/policy3-choice4/step-1.json",
+      "transitions": "matrix/policy3-choice4/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice5",
+      "stage": "episode",
+      "task": "matrix/policy1-choice5/task.json",
+      "initial": "matrix/policy1-choice5/initial.bin",
+      "episode": "matrix/policy1-choice5/episode.json",
+      "transitions": "matrix/policy1-choice5/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice5",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice5/task.json",
+      "initial": "matrix/policy1-choice5/initial.bin",
+      "episode": "matrix/policy1-choice5/initial-episode.json",
+      "transitions": "matrix/policy1-choice5/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice5",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice5/task.json",
+      "initial": "matrix/policy1-choice5/initial.bin",
+      "episode": "matrix/policy1-choice5/reset-episode.json",
+      "transitions": "matrix/policy1-choice5/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice5",
+      "stage": "step-1",
+      "task": "matrix/policy1-choice5/task.json",
+      "initial": "matrix/policy1-choice5/initial.bin",
+      "episode": "matrix/policy1-choice5/step-1.json",
+      "transitions": "matrix/policy1-choice5/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice5",
+      "stage": "episode",
+      "task": "matrix/policy2-choice5/task.json",
+      "initial": "matrix/policy2-choice5/initial.bin",
+      "episode": "matrix/policy2-choice5/episode.json",
+      "transitions": "matrix/policy2-choice5/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice5",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice5/task.json",
+      "initial": "matrix/policy2-choice5/initial.bin",
+      "episode": "matrix/policy2-choice5/initial-episode.json",
+      "transitions": "matrix/policy2-choice5/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice5",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice5/task.json",
+      "initial": "matrix/policy2-choice5/initial.bin",
+      "episode": "matrix/policy2-choice5/reset-episode.json",
+      "transitions": "matrix/policy2-choice5/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice5",
+      "stage": "step-1",
+      "task": "matrix/policy2-choice5/task.json",
+      "initial": "matrix/policy2-choice5/initial.bin",
+      "episode": "matrix/policy2-choice5/step-1.json",
+      "transitions": "matrix/policy2-choice5/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice5",
+      "stage": "episode",
+      "task": "matrix/policy3-choice5/task.json",
+      "initial": "matrix/policy3-choice5/initial.bin",
+      "episode": "matrix/policy3-choice5/episode.json",
+      "transitions": "matrix/policy3-choice5/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice5",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice5/task.json",
+      "initial": "matrix/policy3-choice5/initial.bin",
+      "episode": "matrix/policy3-choice5/initial-episode.json",
+      "transitions": "matrix/policy3-choice5/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice5",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice5/task.json",
+      "initial": "matrix/policy3-choice5/initial.bin",
+      "episode": "matrix/policy3-choice5/reset-episode.json",
+      "transitions": "matrix/policy3-choice5/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice5",
+      "stage": "step-1",
+      "task": "matrix/policy3-choice5/task.json",
+      "initial": "matrix/policy3-choice5/initial.bin",
+      "episode": "matrix/policy3-choice5/step-1.json",
+      "transitions": "matrix/policy3-choice5/step-1-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice6",
+      "stage": "episode",
+      "task": "matrix/policy1-choice6/task.json",
+      "initial": "matrix/policy1-choice6/initial.bin",
+      "episode": "matrix/policy1-choice6/episode.json",
+      "transitions": "matrix/policy1-choice6/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice6",
+      "stage": "initial-episode",
+      "task": "matrix/policy1-choice6/task.json",
+      "initial": "matrix/policy1-choice6/initial.bin",
+      "episode": "matrix/policy1-choice6/initial-episode.json",
+      "transitions": "matrix/policy1-choice6/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice6",
+      "stage": "reset-episode",
+      "task": "matrix/policy1-choice6/task.json",
+      "initial": "matrix/policy1-choice6/initial.bin",
+      "episode": "matrix/policy1-choice6/reset-episode.json",
+      "transitions": "matrix/policy1-choice6/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy1-choice6",
+      "stage": "step-4",
+      "task": "matrix/policy1-choice6/task.json",
+      "initial": "matrix/policy1-choice6/initial.bin",
+      "episode": "matrix/policy1-choice6/step-4.json",
+      "transitions": "matrix/policy1-choice6/step-4-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice6",
+      "stage": "episode",
+      "task": "matrix/policy2-choice6/task.json",
+      "initial": "matrix/policy2-choice6/initial.bin",
+      "episode": "matrix/policy2-choice6/episode.json",
+      "transitions": "matrix/policy2-choice6/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice6",
+      "stage": "initial-episode",
+      "task": "matrix/policy2-choice6/task.json",
+      "initial": "matrix/policy2-choice6/initial.bin",
+      "episode": "matrix/policy2-choice6/initial-episode.json",
+      "transitions": "matrix/policy2-choice6/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice6",
+      "stage": "reset-episode",
+      "task": "matrix/policy2-choice6/task.json",
+      "initial": "matrix/policy2-choice6/initial.bin",
+      "episode": "matrix/policy2-choice6/reset-episode.json",
+      "transitions": "matrix/policy2-choice6/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy2-choice6",
+      "stage": "step-4",
+      "task": "matrix/policy2-choice6/task.json",
+      "initial": "matrix/policy2-choice6/initial.bin",
+      "episode": "matrix/policy2-choice6/step-4.json",
+      "transitions": "matrix/policy2-choice6/step-4-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice6",
+      "stage": "episode",
+      "task": "matrix/policy3-choice6/task.json",
+      "initial": "matrix/policy3-choice6/initial.bin",
+      "episode": "matrix/policy3-choice6/episode.json",
+      "transitions": "matrix/policy3-choice6/episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice6",
+      "stage": "initial-episode",
+      "task": "matrix/policy3-choice6/task.json",
+      "initial": "matrix/policy3-choice6/initial.bin",
+      "episode": "matrix/policy3-choice6/initial-episode.json",
+      "transitions": "matrix/policy3-choice6/initial-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice6",
+      "stage": "reset-episode",
+      "task": "matrix/policy3-choice6/task.json",
+      "initial": "matrix/policy3-choice6/initial.bin",
+      "episode": "matrix/policy3-choice6/reset-episode.json",
+      "transitions": "matrix/policy3-choice6/reset-episode-transitions.json"
+    },
+    {
+      "family": "matrix/policy3-choice6",
+      "stage": "step-4",
+      "task": "matrix/policy3-choice6/task.json",
+      "initial": "matrix/policy3-choice6/initial.bin",
+      "episode": "matrix/policy3-choice6/step-4.json",
+      "transitions": "matrix/policy3-choice6/step-4-transitions.json"
+    },
+    {
+      "family": "full-size/indexed-facing",
+      "stage": "episode",
+      "task": "full-size/indexed-facing/task.json",
+      "initial": "full-size/indexed-facing/initial.bin",
+      "episode": "full-size/indexed-facing/episode.json",
+      "transitions": "full-size/indexed-facing/episode-transitions.json"
+    },
+    {
+      "family": "full-size/indexed-facing",
+      "stage": "initial-episode",
+      "task": "full-size/indexed-facing/task.json",
+      "initial": "full-size/indexed-facing/initial.bin",
+      "episode": "full-size/indexed-facing/initial-episode.json",
+      "transitions": "full-size/indexed-facing/initial-episode-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-6/initial-episode.json",
+      "family": "profiles/indexed-6",
+      "initial": "profiles/indexed-6/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles/indexed-6/task.json",
+      "transitions": "profiles/indexed-6/initial-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-6/selected-episode.json",
+      "family": "profiles/indexed-6",
+      "initial": "profiles/indexed-6/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles/indexed-6/task.json",
+      "transitions": "profiles/indexed-6/selected-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-7/initial-episode.json",
+      "family": "profiles/indexed-7",
+      "initial": "profiles/indexed-7/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles/indexed-7/task.json",
+      "transitions": "profiles/indexed-7/initial-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-7/selected-episode.json",
+      "family": "profiles/indexed-7",
+      "initial": "profiles/indexed-7/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles/indexed-7/task.json",
+      "transitions": "profiles/indexed-7/selected-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-8/initial-episode.json",
+      "family": "profiles/indexed-8",
+      "initial": "profiles/indexed-8/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles/indexed-8/task.json",
+      "transitions": "profiles/indexed-8/initial-transitions.json"
+    },
+    {
+      "episode": "profiles/indexed-8/selected-episode.json",
+      "family": "profiles/indexed-8",
+      "initial": "profiles/indexed-8/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles/indexed-8/task.json",
+      "transitions": "profiles/indexed-8/selected-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-6/initial-episode.json",
+      "family": "profiles-exchange/indexed-6",
+      "initial": "profiles-exchange/indexed-6/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles-exchange/indexed-6/task.json",
+      "transitions": "profiles-exchange/indexed-6/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-6/selected-episode.json",
+      "family": "profiles-exchange/indexed-6",
+      "initial": "profiles-exchange/indexed-6/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles-exchange/indexed-6/task.json",
+      "transitions": "profiles-exchange/indexed-6/selected-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-7/initial-episode.json",
+      "family": "profiles-exchange/indexed-7",
+      "initial": "profiles-exchange/indexed-7/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles-exchange/indexed-7/task.json",
+      "transitions": "profiles-exchange/indexed-7/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-7/selected-episode.json",
+      "family": "profiles-exchange/indexed-7",
+      "initial": "profiles-exchange/indexed-7/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles-exchange/indexed-7/task.json",
+      "transitions": "profiles-exchange/indexed-7/selected-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-8/initial-episode.json",
+      "family": "profiles-exchange/indexed-8",
+      "initial": "profiles-exchange/indexed-8/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles-exchange/indexed-8/task.json",
+      "transitions": "profiles-exchange/indexed-8/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-exchange/indexed-8/selected-episode.json",
+      "family": "profiles-exchange/indexed-8",
+      "initial": "profiles-exchange/indexed-8/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles-exchange/indexed-8/task.json",
+      "transitions": "profiles-exchange/indexed-8/selected-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice2/initial-episode.json",
+      "family": "profiles-outer/outer2-choice2",
+      "initial": "profiles-outer/outer2-choice2/initial.json",
+      "material_events": 1,
+      "stage": "initial",
+      "task": "profiles-outer/outer2-choice2/task.json",
+      "transitions": "profiles-outer/outer2-choice2/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice2/milling-episode.json",
+      "family": "profiles-outer/outer2-choice2",
+      "initial": "profiles-outer/outer2-choice2/initial.json",
+      "material_events": 5,
+      "stage": "milling",
+      "task": "profiles-outer/outer2-choice2/task.json",
+      "transitions": "profiles-outer/outer2-choice2/milling-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice2/restored-episode.json",
+      "family": "profiles-outer/outer2-choice2",
+      "initial": "profiles-outer/outer2-choice2/initial.json",
+      "material_events": 5,
+      "stage": "restored",
+      "task": "profiles-outer/outer2-choice2/task.json",
+      "transitions": "profiles-outer/outer2-choice2/restored-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice3/initial-episode.json",
+      "family": "profiles-outer/outer2-choice3",
+      "initial": "profiles-outer/outer2-choice3/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles-outer/outer2-choice3/task.json",
+      "transitions": "profiles-outer/outer2-choice3/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice3/turn-episode.json",
+      "family": "profiles-outer/outer2-choice3",
+      "initial": "profiles-outer/outer2-choice3/initial.json",
+      "material_events": 1,
+      "stage": "turn",
+      "task": "profiles-outer/outer2-choice3/task.json",
+      "transitions": "profiles-outer/outer2-choice3/turn-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice3/transfer-episode.json",
+      "family": "profiles-outer/outer2-choice3",
+      "initial": "profiles-outer/outer2-choice3/initial.json",
+      "material_events": 1,
+      "stage": "transfer",
+      "task": "profiles-outer/outer2-choice3/task.json",
+      "transitions": "profiles-outer/outer2-choice3/transfer-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice3/milling-episode.json",
+      "family": "profiles-outer/outer2-choice3",
+      "initial": "profiles-outer/outer2-choice3/initial.json",
+      "material_events": 5,
+      "stage": "milling",
+      "task": "profiles-outer/outer2-choice3/task.json",
+      "transitions": "profiles-outer/outer2-choice3/milling-transitions.json"
+    },
+    {
+      "episode": "profiles-outer/outer2-choice3/restored-episode.json",
+      "family": "profiles-outer/outer2-choice3",
+      "initial": "profiles-outer/outer2-choice3/initial.json",
+      "material_events": 5,
+      "stage": "restored",
+      "task": "profiles-outer/outer2-choice3/task.json",
+      "transitions": "profiles-outer/outer2-choice3/restored-transitions.json"
+    },
+    {
+      "episode": "profiles-rejected/indexed-8/initial-episode.json",
+      "family": "profiles-rejected/indexed-8",
+      "initial": "profiles-rejected/indexed-8/initial.json",
+      "material_events": 0,
+      "stage": "initial",
+      "task": "profiles-rejected/indexed-8/task.json",
+      "transitions": "profiles-rejected/indexed-8/initial-transitions.json"
+    },
+    {
+      "episode": "profiles-rejected/indexed-8/selected-episode.json",
+      "family": "profiles-rejected/indexed-8",
+      "initial": "profiles-rejected/indexed-8/initial.json",
+      "material_events": 4,
+      "stage": "selected",
+      "task": "profiles-rejected/indexed-8/task.json",
+      "transitions": "profiles-rejected/indexed-8/selected-transitions.json"
+    }
+  ],
+  "source_indices": [
+    {
+      "path": "artifacts/shadow-gym/adaptive-delta/cylindrical-capture-capacity-compatibility-01",
+      "sha256": "f35709c9b19708dd8394d06a3a83f15520e78aace9a778fdc08edc279561dfd9"
+    },
+    {
+      "path": "artifacts/shadow-gym/adaptive-delta/cylindrical-recording-matrix-03",
+      "sha256": "c5fd3ea6091fa3b74c0d848bc3178eb170d054e1601c24bcfcc88a636cbf18c1"
+    },
+    {
+      "path": "artifacts/shadow-gym/adaptive-delta/cylindrical-full-size-capture-01",
+      "sha256": "6457d06a85941d6be44a53714c647647730fe0789cc5bc9464a2455a19be4b87"
+    },
+    {
+      "path": "artifacts/shadow-gym/adaptive-delta/cylindrical-browser-transition-before-01",
+      "sha256": "592b57e66c63817b01502555f9c91c2b0939d3e54ba6a2d8d9df5b40eb914d1b"
+    }
+  ],
+  "model_weights_trained": false
+}
