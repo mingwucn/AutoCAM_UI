@@ -4,8 +4,8 @@
   "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
   "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
   "adaptiveRuntimeRelease": {
-    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/5bbca81f108c6f83cfc0a221200e6b277d8b5f4f/releases/adaptive-cylindrical-transitions-20260921/runtime/release.json",
-    "sha256": "962ccc5cc3f9e76e1910e9b402aa21803d1a23e2f1e169aa12c5fe29e918ae6f"
+    "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a7f98ddad1a80034ee7caab1c70222d9f782ae22/releases/adaptive-capture-snapshot-reuse-20260921/runtime/release.json",
+    "sha256": "754ec77b3378dab6d6a167cf7cd9e9daa03c0c1dff693bc3d57fee12418192cb"
   },
   "adaptiveCadRelease": {
     "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/170772bbbad760d2c8a7177224fca0b2754f1984/releases/adaptive-completion-cache-20260920/cad/release.json",
