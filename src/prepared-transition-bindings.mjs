@@ -1,5 +1,6 @@
 import {parseAdaptiveJson,canonicalAdaptive} from './adaptive-json.mjs';
 import {executionHash,executionTextHash} from './execution-provenance.mjs';
+import {millTurnTransitionBindings,fullMillTurnTransitionBindings} from './mill-turn-transition-bindings.mjs';
 
 const require=(v,m)=>{if(!v)throw Error('Transition record: '+m);};
 const same=(a,b)=>canonicalAdaptive(a)===canonicalAdaptive(b);
@@ -20,6 +21,8 @@ function noWriter(value){
 export async function preparedTransitionBindings(wrapper,episode,inputs){
   require(Object.keys(wrapper).sort().join(',')==='configuration_id,material,prefix_record_count,schema,semantic_id','unsupported prepared wrapper fields');
   const config=parseAdaptiveJson(decoder.decode(inputs.task)),decisions=parseAdaptiveJson(episode),data=wrapper.material;
+  if(['adaptive-mill-turn-browser-config-1','adaptive-mill-turn-browser-config-2'].includes(config.schema))return millTurnTransitionBindings(wrapper,episode,inputs);
+  if(config.schema==='adaptive-full-mill-turn-browser-config-1')return fullMillTurnTransitionBindings(wrapper,episode,inputs);
   const profile=profiles[config.schema];require(profile&&decisions.schema===profile[0],'unsupported prepared episode');
   const configID=await identity(config),prepared=decisions.prepared_session,initial=config.initial_session;
   require(wrapper.configuration_id===configID&&decisions.configuration_id===configID,'configuration identity differs');

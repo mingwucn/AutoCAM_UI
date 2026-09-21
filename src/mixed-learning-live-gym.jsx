@@ -10,9 +10,9 @@ const fmt=value=>Number(value).toLocaleString('en-US',{maximumFractionDigits:2})
 const names={turn:'Turning',transfer:'Transfer to live tooling',index:'Index workpiece',change_tool:'Exchange tool',no_op:'No operation',face:'Face milling',drill:'Drilling'};
 const binding=view=>({expected_head:view.observation.head,session_epoch:view.sessionEpoch});
 const textDecoder=new TextDecoder('utf-8',{fatal:true});
-function download(raw){
+function download(raw,filename='mixed-learning-shadow-gym-decisions.json'){
   const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),anchor=document.createElement('a');
-  anchor.href=url;anchor.download='mixed-learning-shadow-gym-decisions.json';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  anchor.href=url;anchor.download=filename;anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 export function MixedLearningLiveGym({prepared,onClose}){
@@ -20,6 +20,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
   const [selection,setSelection]=useState(''),[preview,setPreview]=useState(null),[inference,setInference]=useState(null),[decision,setDecision]=useState(null);
   const [simulations,setSimulations]=useState(16),[depth,setDepth]=useState(2),[exploration,setExploration]=useState(1);
   const [saveStatus,setSaveStatus]=useState('Opening local save…'),[saveError,setSaveError]=useState('');
+  const [transitionSupported,setTransitionSupported]=useState(false);
   const owner=useRef(null),inputs=useRef(null),storage=useRef(null),generation=useRef(0),active=useRef(false);
   const view=snapshot?.view,geometry=snapshot?.geometry,busy=!!phase,blocked=busy||stale||!view;
   const stopped=view?.observation.terminated||view?.observation.truncated;
@@ -36,7 +37,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
     setSnapshot({view:next,geometry:geom});setStale(false);setSelection('');setPreview(null);setInference(null);
   }
   useEffect(()=>{
-    const token=++generation.current;active.current=true;setPhase('Starting learning gym…');setStale(true);setError('');setSnapshot(null);
+    const token=++generation.current;active.current=true;setPhase('Starting learning gym…');setStale(true);setError('');setSnapshot(null);setTransitionSupported(false);
     const session=new MixedLearningPythonSession(new URL(prepared.configuration.workerURL,location.href).href);
     owner.current=session;storage.current=new DrillLocalSave();
     (async()=>{
@@ -45,7 +46,9 @@ export function MixedLearningLiveGym({prepared,onClose}){
       await session.initialize({...a,runtimeBaseURL:new URL(a.runtimeBaseURL,location.href).href,codeURL:new URL(a.codeURL,location.href).href},prepared.taskBytes,prepared.initialBytes);check(token);
       setPhase('Checking saved actions and model…');const saved=await storage.current.initialize(session);check(token);
       setSaveError(saved.error??'');setSaveStatus(saved.error?'Local saving is unavailable.':saved.restored?'Saved actions and model restored.':'No previous local save.');
-      await refresh(session,token);if(saved.available)await save(session,token);
+      await refresh(session,token);
+      const supportsTransitions=await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
+      if(saved.available)await save(session,token);
     })().catch(e=>{if(token===generation.current)setError(e.message);}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
     return()=>{generation.current++;active.current=false;session.dispose();};
   },[prepared.key]);
@@ -59,6 +62,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
     finally{if(token===generation.current){active.current=false;setPhase('');}}
   }
   function downloadRunDetails(){run('Preparing run details…',async(session,token)=>{const raw=await session.exportExecutionRecord();check(token);saveExecutionDetails(raw);});}
+  function downloadTransitions(){run('Preparing transition download…',async(session,token)=>{const raw=await session.exportTransitionRecord();check(token);download(raw,'mixed-learning-shadow-gym-transitions.json');});}
   const currentPreview=preview&&view&&!stale&&preview.raw.head===view.observation.head&&preview.raw.session_epoch===view.sessionEpoch&&String(preview.raw.action)===selection?preview:null;
   function showPreview(){run('Checking selected preview…',async(session,token)=>{
     const selected=Number(selection),checked=await readMixedLearningPreview(await invoke(session,'preview',{action:selected,...binding(view)}),view,selected);check(token);setPreview(checked);
@@ -107,7 +111,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
         {inference&&<p role="status">{inference.trace?`MCTS used ${inference.trace.simulations} simulations.`:'Policy suggestion ready.'} Preview and accept the selected action to apply it.</p>}
         <p className="adaptive-small">Inference runs here; train downloaded decisions locally. This constructed example does not qualify the loaded model for other parts.</p>
       </>}
-      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting to initial stock…',async(session,token)=>{await invoke(session,'reset');check(token);setDecision(null);},{mutates:true,refreshView:true})}>Reset to initial stock</button><button disabled={blocked} onClick={()=>run('Preparing learning download…',async(session,token)=>{const raw=await invoke(session,'export');check(token);download(raw);})}>Download learning decisions</button><button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>{busy&&<button onClick={cancel}>Cancel computation</button>}</div>
+      <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting to initial stock…',async(session,token)=>{await invoke(session,'reset');check(token);setDecision(null);},{mutates:true,refreshView:true})}>Reset to initial stock</button><button disabled={blocked} onClick={()=>run('Preparing learning download…',async(session,token)=>{const raw=await invoke(session,'export');check(token);download(raw);})}>Download learning decisions</button>{transitionSupported&&<button disabled={blocked} onClick={downloadTransitions}>Download transitions</button>}<button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>{busy&&<button onClick={cancel}>Cancel computation</button>}</div>
       {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Recovering completed actions and model…',session=>session.recover(),{refreshView:true})}>Recover completed actions</button>}
       {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted stock…',async()=>{},{refreshView:true})}>Refresh accepted stock</button>}
       <label>Restore learning decisions<input aria-label="Restore learning decisions" type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>

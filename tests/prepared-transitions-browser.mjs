@@ -116,10 +116,15 @@ try{
   await loader.getByLabel('Initial stock snapshot',{exact:true}).setInputFiles(path.join(base,'initial.bin'));
   await loader.getByRole('button',{name:'Open local prepared case',exact:true}).click();
   await page.waitForFunction(()=>{const p=document.querySelector('.adaptive-live[data-stale="false"]');return p&&[...p.querySelectorAll('button')].some(b=>b.textContent==='Download decisions'&&!b.disabled)&&!p.querySelector('[role="status"]');});
-  assert.equal(await panel.getByRole('button',{name:'Download transitions',exact:true}).count(),0);
+  const legacyMillTurn=process.argv.includes('--legacy-mill-turn');
+  assert.equal(await panel.getByRole('button',{name:'Download transitions',exact:true}).count(),legacyMillTurn?0:1);
   const download=page.waitForEvent('download');await panel.getByRole('button',{name:'Download decisions',exact:true}).click();
   await(await download).saveAs(path.join(output,family+'-ordinary-decisions.json'));
-  checks.push({name:family,ordinary_download:true,unsupported_capture_hidden:true});
+  if(!legacyMillTurn){
+   const raw=await save('Download transitions',family+'-material-transitions.json');
+   assert.equal(JSON.parse(raw).material.episode.sha256,sha(await fs.readFile(path.join(output,family+'-ordinary-decisions.json'))));
+  }
+  checks.push({name:family,ordinary_download:true,unsupported_capture_hidden:legacyMillTurn,material_download:!legacyMillTurn});
  }
  assert.deepEqual(errors,[]);assert.deepEqual(blocked,[]);await verifyBuild();
  await write('result.json',{status:'Passed',browser:browser.version(),full_site:true,real_worker:true,checks,corruption_no_download:true,cancel_no_download:true,recovery_exact:true,mobile_no_overflow:true,build_manifest_sha256:sha(buildManifest),fixture_manifest_sha256:sha(await fs.readFile(path.join(fixtures,'manifest.json'))),errors,blocked,downloads});
