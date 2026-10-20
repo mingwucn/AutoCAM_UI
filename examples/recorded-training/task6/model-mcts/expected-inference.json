@@ -1,0 +1,33 @@
+{
+  "accepted_state_unchanged": true,
+  "checkpoint_sha256": "e4c080e9f28b8c6be5f76f98bed552bd96998039cbee5e214d4e964e2313a6e3",
+  "depth": 2,
+  "initial_export_sha256": "ddcaa6db4364e7581db2d8b7c601ff15ae12bc8762dda04fa0b547f3d8802a21",
+  "mcts_action": 22,
+  "policy_action": 22,
+  "qualified_model": false,
+  "schema": "autocam-recorded-training-inference-1",
+  "seed": 7,
+  "simulations": 4,
+  "trace": {
+    "catalog_id": "b2ba80afd361ec828d9f76646e31b0539a270a8f3cc1d5bb6635433d075de6a1",
+    "children": [
+      {
+        "action": 22,
+        "mean_return": 0.21371875,
+        "visits": 4
+      }
+    ],
+    "depth_limit": 2,
+    "feature_contract_id": "b2dc6887ea4c628e4cb9cfbe76dd8a44c29cae35b6f2b4c0cc344a81fd42da44",
+    "root_planning_state": "102c8fc8e0bf4db4c2ea4072eda3704fba78a59b0cdf5c0f69131046ec6f4e39",
+    "root_state": "8413ee907e87db2ad55289769521c554e41692403c58000363c72c09c7fe821c",
+    "sampled_rollouts": 4,
+    "schema": "adaptive-mcts-search-3",
+    "seed": 7,
+    "simulations": 4,
+    "task_id": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+    "turning_axis_id": "c3bb6e781425f228bb35266ed6296f638365c0716626ae5df4d555d699046b5a",
+    "weights_sha256": "2bf408ba0ae4b430b2a30cff82ef850a167fcd16ec22f30be833d711088a3d22"
+  }
+}

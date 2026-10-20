@@ -1,0 +1,197 @@
+{
+  "schema": "autocam-packaged-training-browser-1",
+  "status": "passed",
+  "platform": "linux",
+  "browser": "153.0.8010.12",
+  "real_production_worker": true,
+  "real_react_ui": false,
+  "cases": [
+    {
+      "id": "mixed-A",
+      "checkpoint_sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+      "task_sha256": "686db12d01696666cc9f570f5db8c0d94d2c6e4de148c3b16eb9ff87d7ae0640",
+      "initial_sha256": "cb2ed5aa32e6419b01208849aa41994bd80895fc4ade70eab48b42a44a26375e",
+      "kind": "mixed-learning-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "suggest",
+          "expected_sha256": "9b62f1e928c44f7bfb7dd9ede93d0370dfb7e3efad14b1cfee391e3314e66b58",
+          "actual_sha256": "9b62f1e928c44f7bfb7dd9ede93d0370dfb7e3efad14b1cfee391e3314e66b58",
+          "byteEqual": true,
+          "priorDifferences": []
+        },
+        {
+          "operation": "search",
+          "expected_sha256": "f6f22f7605b633804d8ccb67025e7994d6ec29a4d3061a8d5abe34363ca9a004",
+          "actual_sha256": "f6f22f7605b633804d8ccb67025e7994d6ec29a4d3061a8d5abe34363ca9a004",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 12.971
+    },
+    {
+      "id": "mixed-B",
+      "checkpoint_sha256": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67",
+      "task_sha256": "686db12d01696666cc9f570f5db8c0d94d2c6e4de148c3b16eb9ff87d7ae0640",
+      "initial_sha256": "cb2ed5aa32e6419b01208849aa41994bd80895fc4ade70eab48b42a44a26375e",
+      "kind": "mixed-learning-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "suggest",
+          "expected_sha256": "9b62f1e928c44f7bfb7dd9ede93d0370dfb7e3efad14b1cfee391e3314e66b58",
+          "actual_sha256": "9b62f1e928c44f7bfb7dd9ede93d0370dfb7e3efad14b1cfee391e3314e66b58",
+          "byteEqual": true,
+          "priorDifferences": []
+        },
+        {
+          "operation": "search",
+          "expected_sha256": "8ee30ea9322ecfbd926e92cf3424cfa12246201bc507bf2ed66cc170f2cbe601",
+          "actual_sha256": "8ee30ea9322ecfbd926e92cf3424cfa12246201bc507bf2ed66cc170f2cbe601",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 12.881
+    },
+    {
+      "id": "regional-v2",
+      "checkpoint_sha256": "f65d20a72b2e12ecc3e6f250e5d29dfcb3cdf97b4f8a6c603802564a44088711",
+      "task_sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f",
+      "initial_sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "kind": "combined-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "suggest",
+          "expected_sha256": "47b77b632d5b186353ab24bf181f0d3cc8715163a50282b7fb7e3ba4ed3aedc1",
+          "actual_sha256": "47b77b632d5b186353ab24bf181f0d3cc8715163a50282b7fb7e3ba4ed3aedc1",
+          "byteEqual": true,
+          "priorDifferences": []
+        },
+        {
+          "operation": "search",
+          "expected_sha256": "a15a3ece061ae716450b3668157253723520ec9d2970968856fd32bafa153d39",
+          "actual_sha256": "a15a3ece061ae716450b3668157253723520ec9d2970968856fd32bafa153d39",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 7.229
+    },
+    {
+      "id": "regional-v3",
+      "checkpoint_sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e",
+      "task_sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4",
+      "initial_sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "kind": "combined-live",
+      "runtime_backend": "volume_and_history",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "suggest",
+          "expected_sha256": "2feabe28ff76172edde5eba5a2c919b0f2ef804a158155cb11959bb5a0d6d133",
+          "actual_sha256": "2feabe28ff76172edde5eba5a2c919b0f2ef804a158155cb11959bb5a0d6d133",
+          "byteEqual": true,
+          "priorDifferences": []
+        },
+        {
+          "operation": "search",
+          "expected_sha256": "8bc57ca352ca07412fafaf8d0dcab6f0960728f1f7c1a99a82998eb67597b6c9",
+          "actual_sha256": "8bc57ca352ca07412fafaf8d0dcab6f0960728f1f7c1a99a82998eb67597b6c9",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 5.996
+    },
+    {
+      "id": "cylindrical-v1",
+      "checkpoint_sha256": "6e2940e41106d5809acde6a7774d46583b22ba491cfcdec1c0152c983c54455a",
+      "task_sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "initial_sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "kind": "cylindrical-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "search",
+          "expected_sha256": "560eb82063c0a70452051de725dbd4c5b2903bd7c8fdfa24d76f15aa5b7be5cc",
+          "actual_sha256": "560eb82063c0a70452051de725dbd4c5b2903bd7c8fdfa24d76f15aa5b7be5cc",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 3.586
+    },
+    {
+      "id": "cylindrical-v2",
+      "checkpoint_sha256": "dd9db6e64850688b06ae01f98471fc0f8e40151d41e06cd8ba0246dee56a16d6",
+      "task_sha256": "e8d1a48f824d43a34a9d36d974772b7be47d314f2f7007bbf235bfd29922ec51",
+      "initial_sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "kind": "cylindrical-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "search",
+          "expected_sha256": "3f7bdf4034e28147e91149c347f36275960b3aafc6c6162183c9160da2ced2f6",
+          "actual_sha256": "3f7bdf4034e28147e91149c347f36275960b3aafc6c6162183c9160da2ced2f6",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 3.519
+    },
+    {
+      "id": "cylindrical-v3",
+      "checkpoint_sha256": "cabc5a48ba210b00256b5ddc4336c5ce9ab550d11af41d1751cdb4dd6e529981",
+      "task_sha256": "f85aa7e90fb43b66016662e5d6c2fd5d241a31872d65fc44e1d1ddefb823c0e5",
+      "initial_sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "kind": "cylindrical-live",
+      "runtime_backend": "reference",
+      "loaded_acknowledgement_exact": true,
+      "native_initial_export_exact": true,
+      "export_unchanged": true,
+      "comparisons": [
+        {
+          "operation": "search",
+          "expected_sha256": "6766b75c06d43f5ccd96971d3d20a30f0959f815b6dba904dbd62db00b4dc7cb",
+          "actual_sha256": "6766b75c06d43f5ccd96971d3d20a30f0959f815b6dba904dbd62db00b4dc7cb",
+          "byteEqual": true,
+          "priorDifferences": []
+        }
+      ],
+      "elapsed_seconds": 3.641
+    }
+  ],
+  "build_manifest_sha256": "7cc88e4c3c9ddfcb5972225116bb7d7ab43bc0d654fb622a6fcec7f95123b455",
+  "runtime_archive_sha256": "47df54e7e2e7091a94f36fd43d7aeed0130f2c8ab5b61ff14853362c58b0988a",
+  "source_transport_matches_build_inputs": true,
+  "parent_training_verifiers_passed": true,
+  "native_manifest_sha256": "7265eaac01c748a13c8cb5f4aa53d302f7b133750d086c153bda2ba7a27ecb52",
+  "test_sha256": "d022c8f1a8d77925ec9678bb41a7d5b66b77ca50f9b7db9e04c4bc43c6d547bc",
+  "source_pins_sha256": "8b959abd122187bc60eada6c497d9f78bc426b40b03810c9a78f69d351bd0f83",
+  "native_reference": "Same pinned runtime owner on native Python. Mixed/regional/recorded cylindrical-v1 training outputs have committed-reference checks; derived cylindrical-v2/v3 have replay/profile checks, not historical goldens.",
+  "comparison_policy": "Exact response bytes, except existing mixed MCTS prior-only maximum one-ULP policy; every admitted difference retained.",
+  "model_quality_assessed": false,
+  "external_requests": [],
+  "page_errors": []
+}

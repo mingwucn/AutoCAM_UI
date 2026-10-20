@@ -1,0 +1,140 @@
+{
+  "schema": "autocam-regional-training-examples-1",
+  "purpose": "small synthetic regional versioned replay checks; no held-out quality assessment",
+  "cases": [
+    {
+      "id": "regional-v2",
+      "task_version": "2",
+      "directory": "examples/recorded-training/regional-v2",
+      "trained_flags": [
+        true,
+        true,
+        true
+      ],
+      "source_provenance": [
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-recorded-training-01/episode.json",
+          "sha256": "65d7e568ff1fa88b5fc319f0acef133413c9b39c3a81fb74fa58c9b8d98d34a9",
+          "size_bytes": 3956728,
+          "destination": "episode.json"
+        },
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-recorded-training-01/checkpoint.json",
+          "sha256": "f65d20a72b2e12ecc3e6f250e5d29dfcb3cdf97b4f8a6c603802564a44088711",
+          "size_bytes": 1739,
+          "destination": "expected-checkpoint.json"
+        },
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-recorded-training-01/training.json",
+          "sha256": "b2f00eebb238e584a7f5cce6f1b4d81cc0ed768957a234b48ace9a09c7c14219",
+          "size_bytes": 20600,
+          "destination": "expected-training.json"
+        }
+      ],
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "65d7e568ff1fa88b5fc319f0acef133413c9b39c3a81fb74fa58c9b8d98d34a9",
+          "size_bytes": 3956728
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "f65d20a72b2e12ecc3e6f250e5d29dfcb3cdf97b4f8a6c603802564a44088711",
+          "size_bytes": 1739
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "b2f00eebb238e584a7f5cce6f1b4d81cc0ed768957a234b48ace9a09c7c14219",
+          "size_bytes": 20600
+        },
+        {
+          "path": "task.json",
+          "sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f",
+          "size_bytes": 6079
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+          "size_bytes": 1910104
+        },
+        {
+          "path": "prepared-inputs-provenance.json",
+          "sha256": "2a3f2b4a822e8e577a1d173ca1332e4f15d36c1d0cf415eef06af2210e5fa736",
+          "size_bytes": 1356
+        }
+      ],
+      "prepared_inputs": {
+        "task": "task.json",
+        "initial_snapshot": "initial.bin",
+        "derivation": "prepared-inputs-provenance.json"
+      }
+    },
+    {
+      "id": "regional-v3",
+      "task_version": "3",
+      "directory": "examples/recorded-training/regional-v3",
+      "trained_flags": [
+        true,
+        true,
+        true
+      ],
+      "source_provenance": [
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-objective-browser-training-01/episode.json",
+          "sha256": "9aa96ad3cacec46bf6ae2b93c975972ad7fc4c7ef4b18a1e4a8ecb345c0ecfaf",
+          "size_bytes": 3957761,
+          "destination": "episode.json"
+        },
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-objective-browser-training-01/checkpoint.json",
+          "sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e",
+          "size_bytes": 1872,
+          "destination": "expected-checkpoint.json"
+        },
+        {
+          "path": "artifacts/shadow-gym/adaptive-delta/regional-objective-browser-training-01/training.json",
+          "sha256": "ed902fe235a1caadf99aa1ba722c9963ff81b1791ff142ebacff1ba8d6e2f919",
+          "size_bytes": 21892,
+          "destination": "expected-training.json"
+        }
+      ],
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "9aa96ad3cacec46bf6ae2b93c975972ad7fc4c7ef4b18a1e4a8ecb345c0ecfaf",
+          "size_bytes": 3957761
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e",
+          "size_bytes": 1872
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "ed902fe235a1caadf99aa1ba722c9963ff81b1791ff142ebacff1ba8d6e2f919",
+          "size_bytes": 21892
+        },
+        {
+          "path": "task.json",
+          "sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4",
+          "size_bytes": 6248
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+          "size_bytes": 1910104
+        },
+        {
+          "path": "prepared-inputs-provenance.json",
+          "sha256": "c97f3fe716784c7fe58941580fdcf0923b23710b477366ccfc9943fb4f9743ce",
+          "size_bytes": 1375
+        }
+      ],
+      "prepared_inputs": {
+        "task": "task.json",
+        "initial_snapshot": "initial.bin",
+        "derivation": "prepared-inputs-provenance.json"
+      }
+    }
+  ]
+}

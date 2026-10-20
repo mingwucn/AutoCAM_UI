@@ -1,0 +1,249 @@
+{
+  "browser_worker_parity": "not_run_by_this_native_verifier",
+  "cases": [
+    {
+      "configuration": {
+        "path": "examples/cylindrical-policy/task.json",
+        "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+        "size_bytes": 352112
+      },
+      "full_plan_complete": false,
+      "held_out_quality_assessed": false,
+      "id": "recorded",
+      "initial": {
+        "path": "examples/cylindrical-policy/initial.bin",
+        "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+        "size_bytes": 188414
+      },
+      "inputs_unchanged": true,
+      "material_transition_export": "unavailable_in_preserved_v1_runtime",
+      "mode": "recorded",
+      "outputs": {
+        "training-decisions.json": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+        "training-record.json": "87210ba75daebf68e1c40a5cec86af67fedd523ea76b8c69061d4fab2e3cf004",
+        "weights.json": "6e2940e41106d5809acde6a7774d46583b22ba491cfcdec1c0152c983c54455a"
+      },
+      "qualified_model": false,
+      "replay_verified": true,
+      "samples": 3,
+      "starting_model": {
+        "path": "examples/cylindrical-policy/checkpoint.json",
+        "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90",
+        "size_bytes": 1922
+      },
+      "status": "passed"
+    },
+    {
+      "configuration": {
+        "path": "examples/cylindrical-policy/task.json",
+        "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+        "size_bytes": 352112
+      },
+      "full_plan_complete": false,
+      "held_out_quality_assessed": false,
+      "id": "self-play-a",
+      "initial": {
+        "path": "examples/cylindrical-policy/initial.bin",
+        "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+        "size_bytes": 188414
+      },
+      "inputs_unchanged": true,
+      "material_transition_export": "unavailable_in_preserved_v1_runtime",
+      "mode": "self_play",
+      "outputs": {
+        "training-decisions.json": "3c151b249d6d8a68575fa9c0e062e199421267f29a1b4be0eb4916a4c329d5bf",
+        "training-record.json": "0f7520e4fbc31081d90d5f7d98cdb0c0e2f10488191ab2f2db4569fdf41c7e00",
+        "weights.json": "c0a1a3145982bebc67bf486b3baaeb3dc5554677146559dfd0dff3163f8d7f56"
+      },
+      "qualified_model": false,
+      "replay_verified": true,
+      "samples": 4,
+      "starting_model": {
+        "path": "examples/cylindrical-policy/checkpoint.json",
+        "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90",
+        "size_bytes": 1922
+      },
+      "status": "passed"
+    },
+    {
+      "configuration": {
+        "path": "examples/cylindrical-policy/task.json",
+        "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+        "size_bytes": 352112
+      },
+      "full_plan_complete": false,
+      "held_out_quality_assessed": false,
+      "id": "self-play-b",
+      "initial": {
+        "path": "examples/cylindrical-policy/initial.bin",
+        "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+        "size_bytes": 188414
+      },
+      "inputs_unchanged": true,
+      "material_transition_export": "unavailable_in_preserved_v1_runtime",
+      "mode": "self_play",
+      "outputs": {
+        "training-decisions.json": "3c151b249d6d8a68575fa9c0e062e199421267f29a1b4be0eb4916a4c329d5bf",
+        "training-record.json": "0f7520e4fbc31081d90d5f7d98cdb0c0e2f10488191ab2f2db4569fdf41c7e00",
+        "weights.json": "c0a1a3145982bebc67bf486b3baaeb3dc5554677146559dfd0dff3163f8d7f56"
+      },
+      "qualified_model": false,
+      "replay_verified": true,
+      "samples": 4,
+      "starting_model": {
+        "path": "examples/cylindrical-policy/checkpoint.json",
+        "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90",
+        "size_bytes": 1922
+      },
+      "status": "passed"
+    },
+    {
+      "configuration": {
+        "path": "runs/linux-final-01/examples/cylindrical-training/profile-2-inputs/task.json",
+        "sha256": "e8d1a48f824d43a34a9d36d974772b7be47d314f2f7007bbf235bfd29922ec51",
+        "size_bytes": 352150
+      },
+      "full_plan_complete": false,
+      "held_out_quality_assessed": false,
+      "id": "profile-2",
+      "initial": {
+        "path": "examples/cylindrical-policy/initial.bin",
+        "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+        "size_bytes": 188414
+      },
+      "inputs_unchanged": true,
+      "material_transition_export": "unavailable_in_preserved_v1_runtime",
+      "mode": "self_play",
+      "outputs": {
+        "training-decisions.json": "16cf696049904fb54991df6d73ddd67a9a06f5174bb7c41dd69f0c88025a7ba9",
+        "training-record.json": "78e267b7247733fe499125488a5ce4ede0f1e40119981c33c6cbd4763078d021",
+        "weights.json": "dd9db6e64850688b06ae01f98471fc0f8e40151d41e06cd8ba0246dee56a16d6"
+      },
+      "qualified_model": false,
+      "replay_verified": true,
+      "samples": 4,
+      "starting_model": {
+        "path": "runs/linux-final-01/examples/cylindrical-training/profile-2-inputs/checkpoint.json",
+        "sha256": "9b7b8fcf55d13c84e9c778bdaee3405cd36daeadb63d3cb8a5090fa7c50083a3",
+        "size_bytes": 986
+      },
+      "status": "passed"
+    },
+    {
+      "configuration": {
+        "path": "runs/linux-final-01/examples/cylindrical-training/profile-3-inputs/task.json",
+        "sha256": "f85aa7e90fb43b66016662e5d6c2fd5d241a31872d65fc44e1d1ddefb823c0e5",
+        "size_bytes": 352171
+      },
+      "full_plan_complete": false,
+      "held_out_quality_assessed": false,
+      "id": "profile-3",
+      "initial": {
+        "path": "examples/cylindrical-policy/initial.bin",
+        "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+        "size_bytes": 188414
+      },
+      "inputs_unchanged": true,
+      "material_transition_export": "unavailable_in_preserved_v1_runtime",
+      "mode": "self_play",
+      "outputs": {
+        "training-decisions.json": "16cf696049904fb54991df6d73ddd67a9a06f5174bb7c41dd69f0c88025a7ba9",
+        "training-record.json": "d497ce6db0d9ff16beb46387383d8b81c7d7433d79e840220a35618e97c65c88",
+        "weights.json": "cabc5a48ba210b00256b5ddc4336c5ce9ab550d11af41d1751cdb4dd6e529981"
+      },
+      "qualified_model": false,
+      "replay_verified": true,
+      "samples": 4,
+      "starting_model": {
+        "path": "runs/linux-final-01/examples/cylindrical-training/profile-3-inputs/checkpoint.json",
+        "sha256": "38c10e8feb0a84e3e3cd8a0d00a5ac5e68f8e9198d1a985196e28d9f0ffa81d8",
+        "size_bytes": 1011
+      },
+      "status": "passed"
+    }
+  ],
+  "deterministic_self_play": true,
+  "held_out_quality_assessed": false,
+  "learned_searches": [
+    {
+      "accepted_state_unchanged": true,
+      "checkpoint_sha256": "6e2940e41106d5809acde6a7774d46583b22ba491cfcdec1c0152c983c54455a",
+      "choice_id": "c403b95d1901759319613217e9dd181350764cc5708d37909d8b8e8add449b85",
+      "configuration_sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "learned_model_loaded": true,
+      "profile": "recorded-v1",
+      "selected_action": 0
+    },
+    {
+      "accepted_state_unchanged": true,
+      "checkpoint_sha256": "c0a1a3145982bebc67bf486b3baaeb3dc5554677146559dfd0dff3163f8d7f56",
+      "choice_id": "c403b95d1901759319613217e9dd181350764cc5708d37909d8b8e8add449b85",
+      "configuration_sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "learned_model_loaded": true,
+      "profile": "self-play-v1",
+      "selected_action": 0
+    },
+    {
+      "accepted_state_unchanged": true,
+      "checkpoint_sha256": "dd9db6e64850688b06ae01f98471fc0f8e40151d41e06cd8ba0246dee56a16d6",
+      "choice_id": "c403b95d1901759319613217e9dd181350764cc5708d37909d8b8e8add449b85",
+      "configuration_sha256": "e8d1a48f824d43a34a9d36d974772b7be47d314f2f7007bbf235bfd29922ec51",
+      "learned_model_loaded": true,
+      "profile": "profile-2",
+      "selected_action": 0
+    },
+    {
+      "accepted_state_unchanged": true,
+      "checkpoint_sha256": "cabc5a48ba210b00256b5ddc4336c5ce9ab550d11af41d1751cdb4dd6e529981",
+      "choice_id": "c403b95d1901759319613217e9dd181350764cc5708d37909d8b8e8add449b85",
+      "configuration_sha256": "f85aa7e90fb43b66016662e5d6c2fd5d241a31872d65fc44e1d1ddefb823c0e5",
+      "learned_model_loaded": true,
+      "profile": "profile-3",
+      "selected_action": 0
+    }
+  ],
+  "material_transition_export": "unavailable_in_preserved_v1_runtime",
+  "profiles": "all",
+  "qualified_model": false,
+  "rejections": [
+    {
+      "id": "wrong-hash-configuration",
+      "no_successful_model_output": true,
+      "rejected": true
+    },
+    {
+      "id": "wrong-hash-initial",
+      "no_successful_model_output": true,
+      "rejected": true
+    },
+    {
+      "id": "wrong-hash-weights",
+      "no_successful_model_output": true,
+      "rejected": true
+    },
+    {
+      "id": "wrong-hash-decisions",
+      "no_successful_model_output": true,
+      "rejected": true
+    },
+    {
+      "id": "overwrite",
+      "no_successful_model_output": false,
+      "prior_outputs_unchanged": true,
+      "rejected": true
+    },
+    {
+      "id": "mixed-checkpoint",
+      "no_successful_model_output": true,
+      "rejected": true
+    },
+    {
+      "id": "coherent-hash-tamper",
+      "no_successful_model_output": true,
+      "rejected": true
+    }
+  ],
+  "schema": "module3-cylindrical-example-verification-1",
+  "source_and_reference_inputs_unchanged": true,
+  "status": "passed"
+}

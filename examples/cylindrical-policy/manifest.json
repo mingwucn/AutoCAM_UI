@@ -1,0 +1,43 @@
+{
+  "schema": "autocam-cylindrical-training-example-1",
+  "provenance": "Existing bounded synthetic full-cycle React demonstration; original input and starting checkpoint retained.",
+  "configuration_profile": "adaptive-cylindrical-policy-browser-config-1",
+  "input_custody": "copied_exact_existing_development_fixture",
+  "held_out": false,
+  "qualified": false,
+  "files": [
+    {
+      "path": "task.json",
+      "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "size_bytes": 352112,
+      "source_path": "artifacts/shadow-gym/adaptive-delta/full-cycle-react-01/task.json"
+    },
+    {
+      "path": "initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414,
+      "source_path": "artifacts/shadow-gym/adaptive-delta/full-cycle-react-01/initial.bin"
+    },
+    {
+      "path": "checkpoint.json",
+      "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90",
+      "size_bytes": 1922,
+      "source_path": "artifacts/shadow-gym/adaptive-delta/full-cycle-react-01/checkpoint.json"
+    },
+    {
+      "path": "download.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487,
+      "source_path": "artifacts/shadow-gym/adaptive-delta/full-cycle-react-01/download.json"
+    }
+  ],
+  "recipe": {
+    "epochs": 4,
+    "learning_rate": 0.05,
+    "discount": 1,
+    "error_clip": 10,
+    "seed": 19,
+    "simulations": 4,
+    "depth": 2
+  }
+}

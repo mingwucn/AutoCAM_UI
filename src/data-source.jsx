@@ -12,6 +12,7 @@ import {FaceLiveGym} from './face-live-gym.jsx';
 import {MixedLearningLiveGym} from './mixed-learning-live-gym.jsx';
 import {CylindricalLiveGym} from './cylindrical-live-gym.jsx';
 import {EquivalentGrooveComparison} from './equivalent-groove-comparison.jsx';
+import {CapabilityPanel} from './module3-capabilities.jsx';
 
 class DatasetBoundary extends Component {
   state={error:null};
@@ -47,7 +48,7 @@ export function DataSource({bundledData,renderGym,allowStepUpload=false}) {
     })().catch(e=>{if(!controller.signal.aborted)setError(e.message);});
     return ()=>controller.abort();
   },[provider,request]);
-  const uploader=<><AdaptiveCadUpload configuration={window.SHADOW_CONFIG?.adaptiveCad} runtimeConfiguration={window.SHADOW_CONFIG?.adaptiveRuntime} showStockPreview={!localData} onPrepared={setLocalData} onInvalidate={()=>setLocalData(previous=>previous?.origin==='uploaded-step'?null:previous)}/><AdaptiveLiveLoader configuration={window.SHADOW_CONFIG?.adaptiveRuntime} onPrepared={setLocalData}/><StepUpload enabled={allowStepUpload} hasLocalData={!!localData} onClear={()=>setLocalData(null)} onPrepared={data=>setLocalData(data)}/><AdaptiveUpload onPrepared={setLocalData}/></>;
+  const uploader=<><CapabilityPanel prepared={localData??{kind:'classic-sampled'}}/><AdaptiveCadUpload configuration={window.SHADOW_CONFIG?.adaptiveCad} runtimeConfiguration={window.SHADOW_CONFIG?.adaptiveRuntime} showStockPreview={!localData} onPrepared={setLocalData} onInvalidate={()=>setLocalData(previous=>previous?.origin==='uploaded-step'?null:previous)}/><AdaptiveLiveLoader configuration={window.SHADOW_CONFIG?.adaptiveRuntime} onPrepared={setLocalData}/><StepUpload enabled={allowStepUpload} hasLocalData={!!localData} onClear={()=>setLocalData(null)} onPrepared={data=>setLocalData(data)}/><AdaptiveUpload onPrepared={setLocalData}/></>;
   if(localData?.kind==='equivalent-groove')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><EquivalentGrooveComparison {...localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='combined-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><CombinedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;
   if(localData?.kind==='indexed-live')return <>{uploader}<DatasetBoundary key={localData.key} retry={()=>setLocalData(null)}><IndexedLiveGym prepared={localData} onClose={()=>setLocalData(null)}/></DatasetBoundary></>;

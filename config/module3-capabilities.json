@@ -1,0 +1,2391 @@
+{
+  "schema": "module3-capabilities-1",
+  "purpose": "Human-facing capability metadata; never runtime acceptance authority.",
+  "statuses": {
+    "supported": "Supported by the standalone package",
+    "restricted": "Supported within the stated input and task limits",
+    "external": "Requires a separate package or trainer",
+    "unavailable": "Unavailable in this workflow"
+  },
+  "stages": [
+    {
+      "id": "import",
+      "label": "Import inputs"
+    },
+    {
+      "id": "prepare",
+      "label": "Prepare stock"
+    },
+    {
+      "id": "inspect",
+      "label": "Inspect"
+    },
+    {
+      "id": "machine",
+      "label": "Machining actions"
+    },
+    {
+      "id": "record_replay",
+      "label": "Record / replay"
+    },
+    {
+      "id": "policy",
+      "label": "Policy"
+    },
+    {
+      "id": "mcts",
+      "label": "MCTS"
+    },
+    {
+      "id": "training",
+      "label": "Local training"
+    }
+  ],
+  "families": [
+    {
+      "id": "classic-sampled",
+      "title": "Classic sampled GYM",
+      "kinds": [
+        "classic-sampled"
+      ],
+      "limits": "Manual turning and milling share stock. Teaching sequences and industrial staged greedy baselines are not trained policies.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Pinned case catalogue and bounded prepared masks."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Stock is included in the prepared catalogue."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Volumes and material are sampled estimates."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Replay the visible session and baseline; no trainable episode download."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/providers.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Pinned catalogue input and identity checks."
+        },
+        {
+          "path": "tests/workflow.test.cjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "model_regression",
+          "claim": "Shared-stock switching, terminal state and zero-removal rejection."
+        },
+        {
+          "path": "tests/browser.cjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "classic-step-brep",
+      "title": "Classic STEP: B-Rep",
+      "kinds": [
+        "brep"
+      ],
+      "limits": "Accepted STEP solids use bounded geometric subtraction. No general machining qualification or adaptive-profile admission follows.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Local STEP up to 100 MiB; OpenCascade must accept the solid."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Declared stock allowance, holding end, spindle and tool reaches."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Replay the session and download actions plus original STEP for compatible local replay; no compatible learning episode."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "core/tests/occt-step-smoke.mjs",
+          "stages": [
+            "import",
+            "prepare"
+          ],
+          "scope": "native_wasm_scenario",
+          "claim": "Bounded STEP fixture import through the C++/WASM bridge."
+        },
+        {
+          "path": "tests/brep-browser.cjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "tests/brep-client.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        }
+      ]
+    },
+    {
+      "id": "classic-step-voxel",
+      "title": "Classic STEP: sampled comparison",
+      "kinds": [
+        "classic-voxel"
+      ],
+      "limits": "Sampled comparison with a bounded cell budget. Cell pitch affects the approximation.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Local STEP up to 100 MiB; valid solid and cell budget required."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Voxel pitch, stock allowance, holding and reach settings."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Replay visible actions; no compatible learning episode."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/step-upload.cjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "step-rectilinear",
+      "title": "Adaptive STEP: Axis-aligned planar solid",
+      "profiles": [
+        "rectilinear"
+      ],
+      "limits": "Axis-aligned planar solids only. Positive allowance must fit inside stock margin.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "STEP must satisfy this exact profile."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Conservative box/cylinder stock proposal; explicit margin and allowance."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Supply compatible machine/tools and roughing requirements, then check each proposed action."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Prepared machining route records actions; preparation alone has none."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "After machining task preparation, compatible learned scores may be used inside MCTS if that runtime exposes inference."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Only for a generated compatible regional machining task and exact model; preparation alone does not enable search."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Compatible recorded regional v3 machining episodes can use python/train_recorded_regional.py --task-version 3. This is not general arbitrary-STEP learning."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/cad-allowance-client.test.mjs",
+          "stages": [
+            "import",
+            "prepare"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Planar stock/allowance preparation request and pinned response checks."
+        },
+        {
+          "path": "tests/allowance-provider.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/adaptive-cad-machining-client.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "examples/recorded-training/regional-manifest.json",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "prepared_task_example",
+          "claim": "Regional learning example after compatible task preparation. It does not validate model transfer to a newly imported part."
+        }
+      ]
+    },
+    {
+      "id": "step-periodic_nominal",
+      "title": "Adaptive STEP: Coaxial cylindrical part",
+      "profiles": [
+        "periodic_nominal"
+      ],
+      "limits": "Coaxial cylindrical profiles, including supported through-bores. Positive allowance must fit inside stock margin.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "STEP must satisfy this exact profile."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Conservative box/cylinder stock proposal; explicit margin and allowance."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Supply compatible machine/tools and roughing requirements, then check each proposed action."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Prepared machining route records actions; preparation alone has none."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "After machining task preparation, compatible learned scores may be used inside MCTS if that runtime exposes inference."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Only for a generated compatible regional machining task and exact model; preparation alone does not enable search."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Compatible recorded regional v3 machining episodes can use python/train_recorded_regional.py --task-version 3. This is not general arbitrary-STEP learning."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/cad-annular-client.test.mjs",
+          "stages": [
+            "import",
+            "prepare"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Coaxial hollow-cylinder preparation and input scope checks."
+        },
+        {
+          "path": "tests/annular-shadow-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/adaptive-cad-machining-client.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "examples/recorded-training/regional-manifest.json",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "prepared_task_example",
+          "claim": "Regional learning example after compatible task preparation. It does not validate model transfer to a newly imported part."
+        }
+      ]
+    },
+    {
+      "id": "step-spherical_nominal",
+      "title": "Adaptive STEP: Complete principal-frame sphere",
+      "profiles": [
+        "spherical_nominal"
+      ],
+      "limits": "Complete principal-frame spheres. Roughing can leave material; curved finishing is unavailable. Positive allowance must fit inside stock margin.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "STEP must satisfy this exact profile."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Conservative box/cylinder stock proposal; explicit margin and allowance."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Supply compatible machine/tools and roughing requirements, then check each proposed action."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Prepared machining route records actions; preparation alone has none."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "After machining task preparation, compatible learned scores may be used inside MCTS if that runtime exposes inference."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Only for a generated compatible regional machining task and exact model; preparation alone does not enable search."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Compatible recorded regional v3 machining episodes can use python/train_recorded_regional.py --task-version 3. This is not general arbitrary-STEP learning."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/cad-allowance-client.test.mjs",
+          "stages": [
+            "import",
+            "prepare"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Spherical profile and allowance request validation."
+        },
+        {
+          "path": "tests/allowance-provider.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/spherical-bands-browser.mjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "examples/recorded-training/regional-manifest.json",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "prepared_task_example",
+          "claim": "Regional learning example after compatible task preparation. It does not validate model transfer to a newly imported part."
+        }
+      ]
+    },
+    {
+      "id": "step-rational_nominal",
+      "title": "Adaptive STEP: rational prism",
+      "profiles": [
+        "rational_nominal"
+      ],
+      "limits": "Experimental trimmed rational caps joined by vertical sides; zero allowance. Unresolved face associations are not proven contact.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Only the experimental rational-prism profile with its separate pinned runtime."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Initial stock at zero finishing allowance only."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect initial stock and original nominal faces; some contacts remain unresolved."
+        },
+        "machine": {
+          "status": "unavailable",
+          "detail": "No machining actions for this profile."
+        },
+        "record_replay": {
+          "status": "unavailable",
+          "detail": "Initial stock only; no machining episode."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/cad-rational-assets.test.mjs",
+          "stages": [
+            "import",
+            "prepare"
+          ],
+          "scope": "asset_contract",
+          "claim": "Exact separate rational runtime selection; it does not independently prove arbitrary STEP acceptance."
+        },
+        {
+          "path": "tests/cad-rational-faces.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/module3-workflow-browser.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "task-4",
+      "title": "Adaptive core roughing task 4",
+      "schemas": [
+        "adaptive-mill-turn-core-roughing-task-4"
+      ],
+      "limits": "Fixed bounded core roughing.",
+      "model": "Only the checkpoint family and task binding accepted by this task version; mixed-learning weights are incompatible.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Run model selects and immediately applies one checked policy action."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Run model + MCTS selects and immediately applies one checked search action."
+        },
+        "training": {
+          "status": "external",
+          "detail": "A separate compatible trainer is required; it is not bundled here. The standalone training guide identifies the missing family."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/adaptive-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/adaptive-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/adaptive-live-browser.cjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "task-5",
+      "title": "Adaptive core roughing task 5",
+      "schemas": [
+        "adaptive-mill-turn-core-roughing-task-5"
+      ],
+      "limits": "Side clearance uses current remaining stock.",
+      "model": "Only the checkpoint family and task binding accepted by this task version; mixed-learning weights are incompatible.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Run model selects and immediately applies one checked policy action."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Run model + MCTS selects and immediately applies one checked search action."
+        },
+        "training": {
+          "status": "supported",
+          "detail": "Standalone python/train_recorded_remaining.py verifies replay before TD updates; new output directory required."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/recorded-training-ui-browser.mjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "tests/recorded-training-browser.mjs",
+          "stages": [
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "python/verify_examples.py",
+          "stages": [
+            "training"
+          ],
+          "scope": "native_scenario",
+          "claim": "Reproduces task5 manual/model-MCTS replay, checkpoint and training outputs from pinned examples."
+        }
+      ]
+    },
+    {
+      "id": "task-6",
+      "title": "Adaptive core roughing task 6",
+      "schemas": [
+        "adaptive-mill-turn-core-roughing-task-6"
+      ],
+      "limits": "Full shank and holder clearance uses current stock, including previously cleared space.",
+      "model": "Only the checkpoint family and task binding accepted by this task version; mixed-learning weights are incompatible.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Run model selects and immediately applies one checked policy action."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Run model + MCTS selects and immediately applies one checked search action."
+        },
+        "training": {
+          "status": "supported",
+          "detail": "Standalone python/train_recorded_remaining.py verifies replay before TD updates; new output directory required."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/recorded-training-ui-browser.mjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "tests/recorded-training-browser.mjs",
+          "stages": [
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "python/verify_examples.py",
+          "stages": [
+            "training"
+          ],
+          "scope": "native_scenario",
+          "claim": "Reproduces task6 manual/model-MCTS replay, checkpoint and training outputs from pinned examples."
+        }
+      ]
+    },
+    {
+      "id": "combined",
+      "title": "Combined turning and indexed milling",
+      "schemas": [
+        "adaptive-combined-browser-config-1"
+      ],
+      "limits": "Prepared combined geometry/tool tasks. Search suggests a candidate; Apply commits it.",
+      "model": "Compatible combined mill-turn checkpoint required.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Compatible learned scores are used inside MCTS; no separate policy button."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Load compatible combined weights; bounded MCTS suggestion leaves stock unchanged."
+        },
+        "training": {
+          "status": "external",
+          "detail": "A separate compatible trainer is required; it is not bundled here. The standalone training guide identifies the missing family."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/combined-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/combined-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/combined-react-browser.cjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "combined-regional-v2",
+      "title": "Combined regional task (v2)",
+      "schemas": [
+        "adaptive-combined-browser-config-2"
+      ],
+      "limits": "Prepared regional turning and indexed milling. Runtime inference capability and exact task/model compatibility are checked before suggestions.",
+      "model": "adaptive-regional-linear-q-1, 48 weights plus the exact regional task/context binding.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Compatible learned scores are used inside MCTS when the runtime reports inference_available; no separate policy button."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "The configured runtime supports compatible regional model search. Inference-disabled runtimes explain that restriction; Apply explicitly commits the suggestion."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Standalone python/train_recorded_regional.py --task-version 2 verifies compatible recorded episodes before local TD updates; exact task/model binding required."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/regional-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/combined-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/regional-model-react-browser.cjs",
+          "stages": [
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "examples/recorded-training/regional-manifest.json",
+          "stages": [
+            "training"
+          ],
+          "scope": "pinned_native_example",
+          "claim": "Distinct regional-v2 recorded episode, expected checkpoint and training outputs; verify before claiming reproduction."
+        }
+      ]
+    },
+    {
+      "id": "combined-regional",
+      "title": "Combined regional-completion task",
+      "schemas": [
+        "adaptive-combined-browser-config-3"
+      ],
+      "limits": "Source-derived roughing with regional completion. The selected runtime may expose compatible model/MCTS inference; unresolved completion does not mean a completed part.",
+      "model": "adaptive-regional-objective-linear-q-1, 50 weights plus the exact v3 task/context binding.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "restricted",
+          "detail": "Generated from compatible adaptive STEP stock plus machine/tools and requirements."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Compatible learned scores are used inside MCTS when the runtime reports inference_available; no separate policy button."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "The configured runtime supports compatible regional model search. Inference-disabled runtimes explain that restriction; Apply explicitly commits the suggestion."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Standalone python/train_recorded_regional.py --task-version 3 verifies compatible recorded episodes before local TD updates; exact task/model binding required."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/adaptive-cad-machining-client.test.mjs",
+          "stages": [
+            "prepare"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Generated task/configuration binding to source-derived stock and preparation archive."
+        },
+        {
+          "path": "tests/regional-objective-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/combined-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/regional-model-react-browser.cjs",
+          "stages": [
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        },
+        {
+          "path": "examples/recorded-training/regional-manifest.json",
+          "stages": [
+            "training"
+          ],
+          "scope": "pinned_native_example",
+          "claim": "Distinct regional-v3 objective episode and 50-feature checkpoint; not interchangeable with v2."
+        }
+      ]
+    },
+    {
+      "id": "indexed",
+      "title": "Indexed finite-tool task",
+      "schemas": [
+        "adaptive-indexed-browser-config-1"
+      ],
+      "limits": "Fixed indexed setup and finite-tool checks. Suggestions do not change accepted stock.",
+      "model": "Compatible indexed checkpoint required.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Compatible learned scores are used inside MCTS; no separate policy button."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Load compatible indexed weights; bounded MCTS suggests an action."
+        },
+        "training": {
+          "status": "external",
+          "detail": "A separate compatible trainer is required; it is not bundled here. The standalone training guide identifies the missing family."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/indexed-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/indexed-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/indexed-react-browser.cjs",
+          "stages": [
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "drill",
+      "title": "Finite drill",
+      "schemas": [
+        "adaptive-drill-browser-config-1"
+      ],
+      "limits": "Finite drill length and holder restrictions. Preview before explicit acceptance; compatible learning inference is unavailable.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/drill-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/drill-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/drill-local-save-browser.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "face",
+      "title": "Face milling",
+      "schemas": [
+        "adaptive-face-browser-config-1"
+      ],
+      "limits": "Finite face assembly and indexed-pose restrictions. Preview before explicit acceptance; compatible learning inference is unavailable.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/face-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/face-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        }
+      ]
+    },
+    {
+      "id": "mill-turn",
+      "title": "Turning and face milling",
+      "schemas": [
+        "adaptive-mill-turn-browser-config-2"
+      ],
+      "limits": "Shared turning and face-milling stock. Preview before explicit acceptance; compatible learning inference is unavailable.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/mill-turn-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/mill-turn-transition-record.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Checks the exact accepted transition export and lineage for mill-turn fixtures."
+        }
+      ]
+    },
+    {
+      "id": "full-mill-turn",
+      "title": "Full finite-tool mill-turn",
+      "schemas": [
+        "adaptive-full-mill-turn-browser-config-1"
+      ],
+      "limits": "Turning, transfer, indexing, face milling and drilling under the prepared task. Preview before explicit acceptance; compatible learning inference is unavailable.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/full-mill-turn-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/full-mill-turn-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        }
+      ]
+    },
+    {
+      "id": "mixed-learning",
+      "title": "Synthetic mixed learning",
+      "schemas": [
+        "adaptive-mixed-learning-browser-config-1"
+      ],
+      "limits": "Constructed finite-tool case with synthetic cost. Changed weights do not establish improved decisions or transfer to industrial parts.",
+      "model": "adaptive-mixed-linear-q-1 (34 weights), bound to compatible task and action features.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Load compatible model; Suggest with policy leaves accepted stock unchanged."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Bounded search leaves stock unchanged. Preview and Accept apply the selected action."
+        },
+        "training": {
+          "status": "supported",
+          "detail": "Standalone python/train_operator_episode.py; canonical replay precedes TD Q updates."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/mixed-learning-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/mixed-learning-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "python/verify_examples.py",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "native_scenario",
+          "claim": "Reproduces supplied mixed A/B learning results and initial policy/MCTS comparison; no industrial-performance claim."
+        }
+      ]
+    },
+    {
+      "id": "cylindrical-choice",
+      "title": "Cylindrical checked choices",
+      "schemas": [
+        "adaptive-cylindrical-choice-browser-config-1",
+        "adaptive-cylindrical-choice-browser-config-2",
+        "adaptive-cylindrical-choice-browser-config-3",
+        "adaptive-cylindrical-choice-browser-config-4",
+        "adaptive-cylindrical-choice-browser-config-5",
+        "adaptive-cylindrical-choice-browser-config-6"
+      ],
+      "limits": "Version-specific indexed, outer and full-turning choices, including facing variants. Some catalogues intentionally reject cuts.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/cylindrical-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/cylindrical-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "tests/cylindrical-transitions-browser.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "cylindrical-policy",
+      "title": "Cylindrical model-guided choices",
+      "schemas": [
+        "adaptive-cylindrical-policy-browser-config-1",
+        "adaptive-cylindrical-policy-browser-config-2",
+        "adaptive-cylindrical-policy-browser-config-3"
+      ],
+      "limits": "Version-specific cylindrical policy tasks. Search is a suggestion; Apply is the explicit state-changing action.",
+      "model": "Compatible cylindrical policy checkpoint for the exact version and task family.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Exact compatible task JSON and initial stock snapshot; schema and identity checks apply."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Only current actions passing the task checks can apply."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Compatible learned scores are used inside MCTS; no separate policy button."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Load compatible cylindrical weights; checked bounded MCTS suggestion."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Standalone python/train_cylindrical_policy.py supports compatible policy configs 1–3 with exact task, initial stock and weight pins; recorded and self-play recipes have distinct inputs."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-prepared-case.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Accepted task-schema routing, exact retained bytes and runtime selection; this is not a fresh simulation of every task."
+        },
+        {
+          "path": "tests/cylindrical-live-view.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Validates the scoped geometry/view projection and input bindings from fixed fixture responses."
+        },
+        {
+          "path": "tests/cylindrical-python-session.test.mjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "session_boundary_regression",
+          "claim": "Checks command, accepted-state, replay or cancellation boundaries; fixtures or controlled clients are not physical validation."
+        },
+        {
+          "path": "python/verify_cylindrical_examples.py",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "native_scenario",
+          "claim": "Recorded/self-play fitting, compatible profile1/2/3 load/search and negative checks; consult actual receipt for platforms and cases."
+        }
+      ]
+    },
+    {
+      "id": "inspection",
+      "title": "Recorded adaptive inspection",
+      "kinds": [
+        "adaptive"
+      ],
+      "limits": "Read-only inspection of an existing bundle; displayed scopes reflect recorded checks rather than new machining validation.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Compatible inspection bundle up to 64 MiB with identity checks."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "unavailable",
+          "detail": "Inspection does not execute machining."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Inspect recorded steps and producer-reported replay status; no new decisions are recorded."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/adaptive-provider.test.mjs",
+          "stages": [
+            "import",
+            "inspect",
+            "record_replay"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Read-only inspection bundle, frame, replay-status and identity validation."
+        },
+        {
+          "path": "tests/adaptive-scope.test.mjs",
+          "stages": [
+            "inspect"
+          ],
+          "scope": "contract_regression",
+          "claim": "Recorded geometric/tool scope cannot become manufacturing certification."
+        }
+      ]
+    },
+    {
+      "id": "equivalent-groove",
+      "title": "Equivalent-groove comparison",
+      "kinds": [
+        "equivalent-groove"
+      ],
+      "limits": "Compare the supplied low/high prepared alternatives and bounded estimates. No general geometry equivalence or policy improvement follows.",
+      "model": "No model interface.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Pinned comparison task pair and estimate file."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Open the supplied prepared task and initial stock."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect the displayed geometry and recorded scope."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Each alternative keeps its own checked accepted state."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Download decisions; replay must verify exact inputs and state."
+        },
+        "policy": {
+          "status": "unavailable",
+          "detail": "No compatible policy control in this workflow."
+        },
+        "mcts": {
+          "status": "unavailable",
+          "detail": "No compatible MCTS control in this workflow."
+        },
+        "training": {
+          "status": "unavailable",
+          "detail": "No standalone trainer for this workflow."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Every visible route and stage is explicit; unknown inputs remain unknown. Metadata coverage does not prove numerical or browser execution."
+        },
+        {
+          "path": "docs/TRAINING_FAMILIES.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Identifies compatible model families and packaged/external/unavailable trainers; no absent trainer is treated as tested."
+        },
+        {
+          "path": "tests/prepared-comparison.test.mjs",
+          "stages": [
+            "import",
+            "inspect"
+          ],
+          "scope": "contract_fixture",
+          "claim": "Comparison pair and estimate identity; not general geometric equivalence."
+        },
+        {
+          "path": "tests/indexed-react-browser.cjs",
+          "stages": [
+            "machine",
+            "record_replay"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    }
+  ]
+}

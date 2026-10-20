@@ -1,0 +1,20 @@
+✔ built manual resolves local Markdown links, escapes raw HTML and pins downloadable inputs (50.426397ms)
+✔ build provenance is deterministic, detached, relative and binds source/lock/tool bytes (1605.982352ms)
+✔ changed, added, removed or linked inputs cannot receive a finished provenance record (671.339426ms)
+✔ actual Git observation distinguishes clean, modified and untracked trees without leaking status paths (161.277993ms)
+✔ Git environment redirection is removed and failed/changing observations stay unavailable (0.724977ms)
+✔ rebuilding replaces the complete generated tree and removes obsolete manual/example files (6.07548ms)
+✔ failed builds preserve the previous release and remove only their own staging tree (2.598706ms)
+✔ build publication refuses repository inputs, unowned directories and unexpected output files (1.916779ms)
+✔ an explicit external build destination remains supported (2.528558ms)
+✔ release build records nested evidence manifests and accepts a fresh rebuild (2151.719133ms)
+✔ Python selection uses explicit override, declared environment, then platform venv (52.559741ms)
+✔ verification rejects unignored in-checkout receipts before writing and accepts ignored/external new directories (11.651096ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2548.986856

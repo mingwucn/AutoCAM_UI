@@ -8,6 +8,7 @@ import {prepareComparison} from './prepared-comparison.mjs';
 import {createPreparedLiveCase} from './adaptive-prepared-case.mjs';
 import {preparedCaseConfiguration} from './adaptive-runtime-selection.mjs';
 import {recordedTrainingGuide} from './adaptive-training-guide.mjs';
+import {latestPreparation} from './latest-preparation.mjs';
 
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const interval=v=>`${fmt(exactNumber(v.lower_mm3))} – ${fmt(exactNumber(v.upper_mm3))}`;
@@ -20,17 +21,23 @@ function saveText(raw,name,type){
 
 export function AdaptiveLiveLoader({configuration,onPrepared}){
   const [selected,setSelected]=useState(configuration?.cases?.[0]?.id||''),[busy,setBusy]=useState(false),[error,setError]=useState('');
-  const files=useRef({}),pending=useRef(null);useEffect(()=>()=>pending.current?.abort(),[]);
+  const files=useRef({}),pending=useRef(null);
+  if(!pending.current)pending.current=latestPreparation();
+  useEffect(()=>{
+    pending.current.cancel();setBusy(false);setError('');
+    setSelected(old=>configuration?.cases?.some(c=>c.id===old)?old:configuration?.cases?.[0]?.id||'');
+    return()=>pending.current.cancel();
+  },[configuration]);
   if(!configuration)return null;
   function prepared(task,initial,name,seed=0,selectedConfiguration=configuration){
     return createPreparedLiveCase({taskBytes:task,initialBytes:initial,name,seed,configuration:selectedConfiguration,baseURL:location.href});
   }
   async function load(){
-    pending.current?.abort();const controller=new AbortController();pending.current=controller;setBusy(true);setError('');
+    const job=pending.current.start();setBusy(true);setError('');
     try{
       const item=configuration.cases.find(c=>c.id===selected);if(!item)throw Error('Select a prepared case.');
       async function read(url,pin,limit){
-        const response=await fetch(url,{signal:controller.signal});if(!response.ok)throw Error('Prepared case file is unavailable.');
+        const response=await fetch(url,{signal:job.signal});if(!response.ok)throw Error('Prepared case file is unavailable.');
         const bytes=new Uint8Array(await response.arrayBuffer());if(!bytes.length||bytes.length>limit||await sha(bytes)!==pin)throw Error('Prepared case file identity or size differs.');return bytes;
       }
       const [task,initial]=await Promise.all([read(item.taskURL,item.taskSHA256,32*1024**2),read(item.initialURL,item.initialSHA256,64*1024**2)]);
@@ -40,19 +47,21 @@ export function AdaptiveLiveLoader({configuration,onPrepared}){
         const [high,comparison]=await Promise.all([read(c.highTaskURL,c.highTaskSHA256,32*1024**2),read(c.estimatesURL,c.estimatesSHA256,64*1024)]);
         next=prepareComparison(next,high,comparison);
       }
-      if(!controller.signal.aborted)onPrepared(next);
-    }catch(e){if(!controller.signal.aborted)setError(e.message);}finally{if(!controller.signal.aborted)setBusy(false);}
+      job.publish(()=>onPrepared(next));
+    }catch(e){job.publish(()=>setError(e.message));}finally{job.publish(()=>setBusy(false));job.finish();}
   }
-  async function local(){setBusy(true);setError('');try{
+  async function local(){const job=pending.current.start();setBusy(true);setError('');try{
     if(!files.current.task||!files.current.initial)throw Error('Choose both prepared case files.');
     if(files.current.task.size>32*1024**2||files.current.initial.size>64*1024**2)throw Error('Prepared case exceeds its file limits.');
     const [task,initial]=await Promise.all([files.current.task,files.current.initial].map(async f=>new Uint8Array(await f.arrayBuffer())));
-    onPrepared(prepared(task,initial,files.current.task.name));
-  }catch(e){setError(e.message);}finally{setBusy(false);}}
+    job.publish(()=>onPrepared(prepared(task,initial,files.current.task.name)));
+  }catch(e){job.publish(()=>setError(e.message));}finally{job.publish(()=>setBusy(false));job.finish();}}
+  function cancel(){pending.current.cancel();setBusy(false);setError('Loading canceled. The previously opened case is unchanged.');}
   return <details className="step-upload adaptive-live-loader" open><summary>Run the adaptive shadow gym</summary><div className="step-upload-body">
     <p>Choose a prepared case. Simulation, model inference and decision recording run in your browser.</p>
     <div className="controls"><label>Prepared case<select aria-label="Prepared adaptive case" value={selected} disabled={busy} onChange={e=>setSelected(e.target.value)}>{configuration.cases.map(c=><option value={c.id} key={c.id}>{c.title}</option>)}</select></label><button className="primary" disabled={busy} onClick={load}>{busy?'Loading…':'Open case'}</button></div>
     <details><summary>Open your prepared task and stock</summary><p>Open previously prepared task and stock files here. To start from STEP, use the stock and machining preparation above.</p><label>Task JSON<input type="file" accept=".json" disabled={busy} onChange={e=>{files.current.task=e.target.files?.[0];}}/></label><label>Initial stock snapshot<input type="file" accept=".bin" disabled={busy} onChange={e=>{files.current.initial=e.target.files?.[0];}}/></label><button disabled={busy} onClick={local}>Open local prepared case</button></details>
+    {busy&&<button type="button" onClick={cancel}>Cancel case loading</button>}
     {error&&<p role="alert" className="step-error">{error}</p>}
   </div></details>;
 }
@@ -107,9 +116,11 @@ export function AdaptiveLiveGym({prepared,onClose}){
     if(operation==='export')setTrainingGuide(guide);
     return null;
   },{refreshView:false});}
-  async function loadModel(file){if(!file)return;await run('Loading model…',async session=>{
-    if(file.size>1024**2)throw Error('Checkpoint exceeds the 1 MiB limit.');
-    const bytes=new Uint8Array(await file.arrayBuffer());return session.loadModel(bytes,await sha(bytes));
+  async function loadModel(file){if(!file)return;await run('Loading model…',async(session,token)=>{
+    if(!file.size||file.size>1024**2)throw Error('Checkpoint must be between 1 byte and 1 MiB.');
+    const bytes=new Uint8Array(await file.arrayBuffer());if(token!==epoch.current)return null;
+    const pin=await sha(bytes);if(token!==epoch.current)return null;
+    return session.loadModel(bytes,pin);
   });}
   const choice=view?.choices.find(c=>c.index===selection),profile=choice?.profile,toolID=choice?.toolID,core=choice?.core;
   function choose(filter){const choices=view.choices.filter(filter);setSelection((choices.find(c=>c.allowed)||choices[0])?.index??selection);}
@@ -133,12 +144,13 @@ export function AdaptiveLiveGym({prepared,onClose}){
         {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Restoring completed actions…',session=>session.recover())}>Restore last completed state</button>}
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing material view…',async()=>null)}>Refresh material view</button>}
       </div>
-      <div className="adaptive-inference"><label>Load model weights<input aria-label="Adaptive model weights" type="file" accept=".json" disabled={busy||!view||stale} onChange={e=>loadModel(e.target.files?.[0])}/></label>
+      <div className="adaptive-inference"><label>Load model weights<input aria-label="Adaptive model weights" type="file" accept=".json" disabled={busy||!view||stale} onChange={e=>{loadModel(e.target.files?.[0]);e.target.value='';}}/></label>
         <button disabled={blocked||!view?.checkpoint_sha256} onClick={()=>invoke({operation:'infer_step',policy:'model',seed:320},'Running model…')}>Run model</button>
         <button disabled={blocked||!view?.checkpoint_sha256} onClick={()=>invoke({operation:'infer_step',policy:'model_mcts',seed:321},'Searching with model + MCTS…')}>Run model + MCTS</button>
-        <p>{view?.checkpoint_sha256?'Compatible weights loaded · qualification not assessed':'Load a compatible checkpoint for inference.'} Training runs locally outside this browser.</p>
+        <p>{view?.checkpoint_sha256?'Compatible weights loaded · qualification not assessed':'Load a compatible checkpoint for inference.'} “Run model” and “Run model + MCTS” each select and immediately apply one checked action. They change the accepted stock; manual selection and tool preview do not.</p>
+        {task.schema==='adaptive-mill-turn-core-roughing-task-4'&&<p>Training this task-4 model requires its separate compatible trainer. The standalone task-5/task-6 launcher does not accept task-4. <a href="docs/TRAINING_GUIDE.html">Training family requirements</a>.</p>}
         {['adaptive-mill-turn-core-roughing-task-5','adaptive-mill-turn-core-roughing-task-6'].includes(task.schema)&&<details><summary>Train from your decisions</summary>
-          <p>Download decisions after recording actions. Use a local AutoCAM checkout to train, then load the resulting checkpoint here.</p>
+          <p>Download decisions after recording actions. Train with this standalone package's Python launcher, then load its compatible checkpoint here. <a href="docs/TRAINING_GUIDE.html">Local training instructions</a>.</p>
           <button disabled={busy||!trainingGuide} onClick={()=>saveText(trainingGuide.text,'shadow-gym-training.md','text/markdown;charset=utf-8')}>Training guide for last download</button>
         </details>}
       </div>

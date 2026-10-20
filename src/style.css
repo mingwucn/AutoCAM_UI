@@ -31,3 +31,6 @@ button{font:14px system-ui;padding:9px 13px;min-height:38px;cursor:pointer;borde
 .adaptive-cad-upload .adaptive-inspector .view-controls label{flex-direction:row;align-items:center}
 .adaptive-cad-upload .adaptive-inspector .view-controls input[type=checkbox],.adaptive-cad-upload .adaptive-inspector .view-controls input[type=range]{padding:0;border:0;background:transparent}
 @media(max-width:600px){.adaptive-cad-upload form .controls label{flex-basis:100%}}
+/* Human-facing scope metadata; runtime checks still decide each action. */
+.module3-capabilities{margin:1rem 0;padding:1rem;border:1px solid #c7d5df;border-radius:.5rem;background:#f5f9fc;color:#18344a;overflow-wrap:anywhere}
+.module3-capabilities p:first-child{margin-top:0}.module3-capabilities summary{cursor:pointer;font-weight:600}.module3-capabilities dl{display:grid;gap:.7rem}.module3-capabilities dd{margin:.2rem 0 0}.module3-capabilities a{color:#075e91}

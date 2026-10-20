@@ -1,0 +1,5 @@
+
+> shadow-gym-react-explorer@1.1.0-rc.1 build:release
+> node scripts/build-release.mjs
+
+{"output":"/home/mingwucn/.cache/autocam-module3-20261020-build-correction/AutoCAM_UI/dist","react":"19.2.8","development":false,"embed":false}

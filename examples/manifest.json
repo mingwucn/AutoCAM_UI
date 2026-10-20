@@ -1,0 +1,371 @@
+{
+  "schema": "autocam-example-catalogue-1",
+  "comparison_release": "v1.0.0",
+  "scenarios": [
+    {
+      "id": "industrial-00350",
+      "guide": "industrial-00350/README.md",
+      "expected": "industrial-00350/expected.json",
+      "input_custody": "external immutable AutoCAM_Data release, fetched and hashed; raw industrial STEP not redistributed",
+      "command": "npm run verify:examples"
+    },
+    {
+      "id": "mixed-operator-A-B",
+      "guide": "operator-input/README.md",
+      "inputs": "operator-input/",
+      "input_custody": "committed synthetic demonstrations, starting model and original V1 outcomes",
+      "command": "node scripts/python-command.mjs -I python/verify_examples.py --family mixed --output runs/mixed-check"
+    },
+    {
+      "id": "task5-task6",
+      "guide": "recorded-training/README.md",
+      "inputs": "recorded-training/",
+      "input_custody": "committed synthetic manual and original-model MCTS episodes and expected checkpoints",
+      "command": "node scripts/python-command.mjs -I python/verify_examples.py --output runs/recorded-check"
+    },
+    {
+      "id": "regional-v2-v3",
+      "guide": "recorded-training/README.md",
+      "inputs": "recorded-training/regional-manifest.json",
+      "input_custody": "committed original synthetic regional episodes with separately pinned v2/v3 expected outcomes",
+      "command": "node scripts/python-command.mjs -I python/verify_examples.py --output runs/regional-check"
+    },
+    {
+      "id": "cylindrical-policy",
+      "guide": "cylindrical-policy/README.md",
+      "inputs": "cylindrical-policy/",
+      "input_custody": "committed bounded synthetic full-cycle inputs copied with source pins",
+      "command": "node scripts/python-command.mjs -I python/verify_cylindrical_examples.py --output runs/cylindrical-check"
+    },
+    {
+      "id": "step-inputs",
+      "guide": "step/README.md",
+      "inputs": "step/manifest.json",
+      "input_custody": "existing repository synthetic STEP fixtures; profile restrictions still apply",
+      "command": "npm run test:step-upload"
+    }
+  ],
+  "files": [
+    {
+      "path": "examples/cylindrical-policy/checkpoint.json",
+      "size_bytes": 1922,
+      "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90"
+    },
+    {
+      "path": "examples/cylindrical-policy/download.json",
+      "size_bytes": 770487,
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8"
+    },
+    {
+      "path": "examples/cylindrical-policy/expected.json",
+      "size_bytes": 1412,
+      "sha256": "a4c40145714aa0f1af2ff215cbfd2fc11516aa0e320156cd1381b039b14fca5f"
+    },
+    {
+      "path": "examples/cylindrical-policy/initial.bin",
+      "size_bytes": 188414,
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62"
+    },
+    {
+      "path": "examples/cylindrical-policy/manifest.json",
+      "size_bytes": 1569,
+      "sha256": "d5416678a0fc546ad47980bb7ba63b127f57a708d2be6f097b573af62db24255"
+    },
+    {
+      "path": "examples/cylindrical-policy/task.json",
+      "size_bytes": 352112,
+      "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908"
+    },
+    {
+      "path": "examples/industrial-00350/expected.json",
+      "size_bytes": 1653,
+      "sha256": "14c59b43a587a3917b8f8c82b8e24081eb35955daaaf870bdd5b4b6755703688"
+    },
+    {
+      "path": "examples/operator-input/before-facing.json",
+      "size_bytes": 998186,
+      "sha256": "610737da8f62f2ae01c9af492266df7ae93cbc4c235dc3240fb5035fa17d42d9"
+    },
+    {
+      "path": "examples/operator-input/demonstration-comparison.json",
+      "size_bytes": 1122,
+      "sha256": "2e550c6dc364402bb71480702864c4b4c45dc27ea84378800056d032e7d7d5a7"
+    },
+    {
+      "path": "examples/operator-input/inference-comparison.json",
+      "size_bytes": 46389,
+      "sha256": "617e48b1713537e388dc64591a5b039269df6f10dd91e28ab88ee08ea155ffbe"
+    },
+    {
+      "path": "examples/operator-input/operator-A.json",
+      "size_bytes": 5057787,
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092"
+    },
+    {
+      "path": "examples/operator-input/operator-B.json",
+      "size_bytes": 5199453,
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f"
+    },
+    {
+      "path": "examples/operator-input/starting-checkpoint.json",
+      "size_bytes": 859,
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4"
+    },
+    {
+      "path": "examples/operator-input/trained-A/checkpoint.json",
+      "size_bytes": 848,
+      "sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22"
+    },
+    {
+      "path": "examples/operator-input/trained-A/episode.json",
+      "size_bytes": 5057787,
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092"
+    },
+    {
+      "path": "examples/operator-input/trained-A/initial-checkpoint.json",
+      "size_bytes": 859,
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4"
+    },
+    {
+      "path": "examples/operator-input/trained-A/summary.json",
+      "size_bytes": 386,
+      "sha256": "e29cd1510d3c8bf44f5bfe3dbe419c103909e9b030d308144dcc74f7d5affbd4"
+    },
+    {
+      "path": "examples/operator-input/trained-A/training.json",
+      "size_bytes": 36547,
+      "sha256": "e686774034fdde0d55af6eacef6ba4a04838c1b43a3ac67ddff133cff0b538cc"
+    },
+    {
+      "path": "examples/operator-input/trained-B/checkpoint.json",
+      "size_bytes": 852,
+      "sha256": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67"
+    },
+    {
+      "path": "examples/operator-input/trained-B/episode.json",
+      "size_bytes": 5199453,
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f"
+    },
+    {
+      "path": "examples/operator-input/trained-B/initial-checkpoint.json",
+      "size_bytes": 859,
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4"
+    },
+    {
+      "path": "examples/operator-input/trained-B/summary.json",
+      "size_bytes": 386,
+      "sha256": "f94296e6cbd6c9892ca8054cc7e6e4f13f4e0db782fd71c45a2ce8349b6c2c45"
+    },
+    {
+      "path": "examples/operator-input/trained-B/training.json",
+      "size_bytes": 36554,
+      "sha256": "688213dfd6dda85ec0519ffc7fa1fa480f0f3e17806a04722b46607324bae216"
+    },
+    {
+      "path": "examples/recorded-training/manifest.json",
+      "size_bytes": 17773,
+      "sha256": "40182cb36c04ad31d06466dd360f88b8aa25a5397a61bf2c742dbbdeabbf6792"
+    },
+    {
+      "path": "examples/recorded-training/regional-manifest.json",
+      "size_bytes": 4938,
+      "sha256": "384cee9162c9570ed0c628eea28abede4922942d4446dc17ff804fe7d80a2217"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/episode.json",
+      "size_bytes": 3956728,
+      "sha256": "65d7e568ff1fa88b5fc319f0acef133413c9b39c3a81fb74fa58c9b8d98d34a9"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/expected-checkpoint.json",
+      "size_bytes": 1739,
+      "sha256": "f65d20a72b2e12ecc3e6f250e5d29dfcb3cdf97b4f8a6c603802564a44088711"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/expected-training.json",
+      "size_bytes": 20600,
+      "sha256": "b2f00eebb238e584a7f5cce6f1b4d81cc0ed768957a234b48ace9a09c7c14219"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/initial.bin",
+      "size_bytes": 1910104,
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/prepared-inputs-provenance.json",
+      "size_bytes": 1356,
+      "sha256": "2a3f2b4a822e8e577a1d173ca1332e4f15d36c1d0cf415eef06af2210e5fa736"
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/task.json",
+      "size_bytes": 6079,
+      "sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/episode.json",
+      "size_bytes": 3957761,
+      "sha256": "9aa96ad3cacec46bf6ae2b93c975972ad7fc4c7ef4b18a1e4a8ecb345c0ecfaf"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/expected-checkpoint.json",
+      "size_bytes": 1872,
+      "sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/expected-training.json",
+      "size_bytes": 21892,
+      "sha256": "ed902fe235a1caadf99aa1ba722c9963ff81b1791ff142ebacff1ba8d6e2f919"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/initial.bin",
+      "size_bytes": 1910104,
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/prepared-inputs-provenance.json",
+      "size_bytes": 1375,
+      "sha256": "c97f3fe716784c7fe58941580fdcf0923b23710b477366ccfc9943fb4f9743ce"
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/task.json",
+      "size_bytes": 6248,
+      "sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/episode.json",
+      "size_bytes": 2230980,
+      "sha256": "3e036ee0c78980d60d1519b778373e66df4f6aa46095bb02061b7c402e22b892"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-checkpoint.json",
+      "size_bytes": 1015,
+      "sha256": "4a322c25776f9f5b90698fe0f8be1c1b90e32ccedbe148dfd905d4c5a2aa6e87"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-inference.json",
+      "size_bytes": 1382,
+      "sha256": "0fc981750b0e8a72c74a629c099eecf07b166822b8d90acf13d04c7a9dccf9cd"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-training.json",
+      "size_bytes": 1115896,
+      "sha256": "99d87220be647a2dce8607080b9d7eebd899151b20667bfaee99c3eac096dd8c"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/initial.bin",
+      "size_bytes": 69986,
+      "sha256": "80022b50eeb82e0a4266eb1f4f4221500eab578e4156b2c452fb3078f6104a9b"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/task.json",
+      "size_bytes": 65345,
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/episode.json",
+      "size_bytes": 986632,
+      "sha256": "cd76a6ac90119dbd961f14845dda2d56c9134a135e3a7ba73b31078b8ebdb140"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-checkpoint.json",
+      "size_bytes": 914,
+      "sha256": "5ae984d564f8b1cc4634dac8c78d34d1dee08530ef23078f1cab8b717383ed42"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-inference.json",
+      "size_bytes": 1502,
+      "sha256": "b1d9bc0449e5ba8e01aa4ceb1392f3c5e507515b2fb12480e5785a1ec7541257"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-training.json",
+      "size_bytes": 287514,
+      "sha256": "79744eed091203112c53bab83f88fefc99c712bfca2d8c40e372056ac94be6f3"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/initial-checkpoint.json",
+      "size_bytes": 266,
+      "sha256": "c0cf7a808d7a40ee79bb664fa4bbcaf966d6c4003e89cadabbe6073dcf222c51"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/initial.bin",
+      "size_bytes": 69986,
+      "sha256": "54021405b8e6eb52ec4597067d93dd671704b99180057f023e692dd063376f34"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/task.json",
+      "size_bytes": 65345,
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/episode.json",
+      "size_bytes": 5331098,
+      "sha256": "c40143f138a716d1725c98b5f7a4937476c09abb03097088ddd670f8bbf40565"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-checkpoint.json",
+      "size_bytes": 978,
+      "sha256": "1ddd24a0ad7c1db587f9a76dff3f013e5d43a630d999cbd148e14f3da8db1e08"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-inference.json",
+      "size_bytes": 1287,
+      "sha256": "3721153ef308d0fb16645f28a7551ee4d921a504ec60f59cc62a74123128b577"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-training.json",
+      "size_bytes": 1463332,
+      "sha256": "b7ac759dbf82f35f22d8365e43f45a7f648bfc4880b0e5ebb01e04c81dba3edc"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/initial.bin",
+      "size_bytes": 69986,
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/task.json",
+      "size_bytes": 204424,
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/episode.json",
+      "size_bytes": 2316177,
+      "sha256": "22659805021982a84135e906fe94661f2ba17370c72f9614e36f88f711a86569"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-checkpoint.json",
+      "size_bytes": 883,
+      "sha256": "e4c080e9f28b8c6be5f76f98bed552bd96998039cbee5e214d4e964e2313a6e3"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-inference.json",
+      "size_bytes": 1284,
+      "sha256": "df6a9e8793b64dec82377e02a1fffc4f810ad008dfe87cd1f59d4c434df891ea"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-training.json",
+      "size_bytes": 365837,
+      "sha256": "06e93762bb5d820a0fe7214f9903f23ab2f95f5e3f44a874fa072594f4af79e9"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/initial-checkpoint.json",
+      "size_bytes": 428,
+      "sha256": "9ceb33746f4af4adfb25001ddb36867aee6fd831870525b722851df907d9a578"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/initial.bin",
+      "size_bytes": 69986,
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/task.json",
+      "size_bytes": 204424,
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6"
+    },
+    {
+      "path": "examples/step/manifest.json",
+      "size_bytes": 1206,
+      "sha256": "536cfb5362a522fc0ecf37fe9630243cf65906296cf74884783aecc58341b491"
+    }
+  ],
+  "manufacturing_qualified": false
+}

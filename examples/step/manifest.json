@@ -1,0 +1,30 @@
+{
+  "schema": "autocam-step-example-inputs-1",
+  "inputs": [
+    {
+      "path": "core/tests/fixtures/box.step",
+      "sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "size_bytes": 15418,
+      "scope": "classic sampled STEP upload; adaptive support requires the selected profile contract"
+    },
+    {
+      "path": "core/tests/fixtures/overhang.step",
+      "sha256": "6fe120bbfc0926b579f3842775c4c0c36ed5e3d160e255d3890616b0626c7dcc",
+      "size_bytes": 22195,
+      "scope": "classic sampled STEP upload; adaptive support requires the selected profile contract"
+    },
+    {
+      "path": "core/tests/fixtures/stepped-shaft.step",
+      "sha256": "a5b092d49e38f03ec83a2fbb2b1767b19212d6d4b422b06c4a2e9ece205e07c4",
+      "size_bytes": 9658,
+      "scope": "classic sampled STEP upload; adaptive support requires the selected profile contract"
+    }
+  ],
+  "browser_command": "npm run test:step-upload",
+  "negatives": [
+    "invalid_step_retains_previous_case",
+    "cell_budget_rejected",
+    "cancelled_preparation_cannot_publish"
+  ],
+  "redistribution": "Existing repository synthetic test fixtures; no new industrial geometry."
+}

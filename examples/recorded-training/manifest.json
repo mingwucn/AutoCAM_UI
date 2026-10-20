@@ -1,0 +1,510 @@
+{
+  "cases": [
+    {
+      "checkpoint_archive_sha256": [],
+      "directory": "examples/recorded-training/task5/manual",
+      "family": "task5",
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "3e036ee0c78980d60d1519b778373e66df4f6aa46095bb02061b7c402e22b892",
+          "size_bytes": 2230980
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "4a322c25776f9f5b90698fe0f8be1c1b90e32ccedbe148dfd905d4c5a2aa6e87",
+          "size_bytes": 1015
+        },
+        {
+          "path": "expected-inference.json",
+          "sha256": "0fc981750b0e8a72c74a629c099eecf07b166822b8d90acf13d04c7a9dccf9cd",
+          "size_bytes": 1382
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "99d87220be647a2dce8607080b9d7eebd899151b20667bfaee99c3eac096dd8c",
+          "size_bytes": 1115896
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "80022b50eeb82e0a4266eb1f4f4221500eab578e4156b2c452fb3078f6104a9b",
+          "size_bytes": 69986
+        },
+        {
+          "path": "task.json",
+          "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+          "size_bytes": 65345
+        }
+      ],
+      "id": "task5-manual",
+      "initial_checkpoint": null,
+      "recorded_operations": [
+        {
+          "action": null,
+          "mode": null,
+          "operation": "reset"
+        },
+        {
+          "action": 47,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 46,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 47,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 46,
+          "mode": "manual",
+          "operation": "step"
+        }
+      ],
+      "seed": 7,
+      "source_provenance": [
+        {
+          "path": "artifacts/module3-remediation-20261020/AutoCAM_UI/python/tests/build_task5_manual.py",
+          "sha256": "8f4830700120bbbf42fd9b93d86a5da5ad5e521a372a9eedbebef0181b400384",
+          "size_bytes": 2392
+        },
+        {
+          "path": "tests/adaptive_delta/test_remaining_generated_history.py",
+          "sha256": "7689c565ad3e1b3b27b72d12bca374362210284a0dac4e03e10f2bc102c0266d",
+          "size_bytes": 2872
+        },
+        {
+          "path": "tests/adaptive_delta/test_remaining_recorded_training.py",
+          "sha256": "0eb0ec286f4b94d075875fc66a39fd8af1e522ace4c4dd12f0ca011f70531001",
+          "size_bytes": 5595
+        }
+      ],
+      "trained_flags": [
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "checkpoint_archive_sha256": [
+        "c0cf7a808d7a40ee79bb664fa4bbcaf966d6c4003e89cadabbe6073dcf222c51"
+      ],
+      "directory": "examples/recorded-training/task5/model-mcts",
+      "family": "task5",
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "cd76a6ac90119dbd961f14845dda2d56c9134a135e3a7ba73b31078b8ebdb140",
+          "size_bytes": 986632
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "5ae984d564f8b1cc4634dac8c78d34d1dee08530ef23078f1cab8b717383ed42",
+          "size_bytes": 914
+        },
+        {
+          "path": "expected-inference.json",
+          "sha256": "b1d9bc0449e5ba8e01aa4ceb1392f3c5e507515b2fb12480e5785a1ec7541257",
+          "size_bytes": 1502
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "79744eed091203112c53bab83f88fefc99c712bfca2d8c40e372056ac94be6f3",
+          "size_bytes": 287514
+        },
+        {
+          "path": "initial-checkpoint.json",
+          "sha256": "c0cf7a808d7a40ee79bb664fa4bbcaf966d6c4003e89cadabbe6073dcf222c51",
+          "size_bytes": 266
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "54021405b8e6eb52ec4597067d93dd671704b99180057f023e692dd063376f34",
+          "size_bytes": 69986
+        },
+        {
+          "path": "task.json",
+          "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+          "size_bytes": 65345
+        }
+      ],
+      "id": "task5-model-mcts",
+      "initial_checkpoint": "initial-checkpoint.json",
+      "recorded_operations": [
+        {
+          "action": null,
+          "mode": null,
+          "operation": "reset"
+        },
+        {
+          "action": 0,
+          "mode": "model_mcts",
+          "operation": "infer_step"
+        }
+      ],
+      "seed": 7,
+      "source_provenance": [
+        {
+          "destination": "episode.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/legacy-episode.json",
+          "sha256": "cd76a6ac90119dbd961f14845dda2d56c9134a135e3a7ba73b31078b8ebdb140",
+          "size_bytes": 986632
+        },
+        {
+          "destination": "expected-checkpoint.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/legacy-checkpoint.json",
+          "sha256": "5ae984d564f8b1cc4634dac8c78d34d1dee08530ef23078f1cab8b717383ed42",
+          "size_bytes": 914
+        },
+        {
+          "destination": "expected-training.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/legacy-training.json",
+          "sha256": "79744eed091203112c53bab83f88fefc99c712bfca2d8c40e372056ac94be6f3",
+          "size_bytes": 287514
+        },
+        {
+          "destination": "initial-checkpoint.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/legacy-initial-checkpoint.json",
+          "sha256": "c0cf7a808d7a40ee79bb664fa4bbcaf966d6c4003e89cadabbe6073dcf222c51",
+          "size_bytes": 266
+        }
+      ],
+      "trained_flags": [
+        true
+      ]
+    },
+    {
+      "checkpoint_archive_sha256": [],
+      "directory": "examples/recorded-training/task6/manual",
+      "family": "task6",
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "c40143f138a716d1725c98b5f7a4937476c09abb03097088ddd670f8bbf40565",
+          "size_bytes": 5331098
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "1ddd24a0ad7c1db587f9a76dff3f013e5d43a630d999cbd148e14f3da8db1e08",
+          "size_bytes": 978
+        },
+        {
+          "path": "expected-inference.json",
+          "sha256": "3721153ef308d0fb16645f28a7551ee4d921a504ec60f59cc62a74123128b577",
+          "size_bytes": 1287
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "b7ac759dbf82f35f22d8365e43f45a7f648bfc4880b0e5ebb01e04c81dba3edc",
+          "size_bytes": 1463332
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+          "size_bytes": 69986
+        },
+        {
+          "path": "task.json",
+          "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+          "size_bytes": 204424
+        }
+      ],
+      "id": "task6-manual",
+      "initial_checkpoint": null,
+      "recorded_operations": [
+        {
+          "action": null,
+          "mode": null,
+          "operation": "reset"
+        },
+        {
+          "action": 164,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 70,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 164,
+          "mode": "manual",
+          "operation": "step"
+        },
+        {
+          "action": 164,
+          "mode": "manual",
+          "operation": "step"
+        }
+      ],
+      "seed": 7,
+      "source_provenance": [
+        {
+          "destination": "episode.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/manual.json",
+          "sha256": "c40143f138a716d1725c98b5f7a4937476c09abb03097088ddd670f8bbf40565",
+          "size_bytes": 5331098
+        },
+        {
+          "destination": "expected-checkpoint.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/manual-checkpoint.json",
+          "sha256": "1ddd24a0ad7c1db587f9a76dff3f013e5d43a630d999cbd148e14f3da8db1e08",
+          "size_bytes": 978
+        },
+        {
+          "destination": "expected-training.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/manual-training.json",
+          "sha256": "b7ac759dbf82f35f22d8365e43f45a7f648bfc4880b0e5ebb01e04c81dba3edc",
+          "size_bytes": 1463332
+        }
+      ],
+      "trained_flags": [
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "checkpoint_archive_sha256": [
+        "6b0d6a1388fab4d92435c9c1cb719cf4051e9fbae04e883fdd91e759d0d92aec"
+      ],
+      "directory": "examples/recorded-training/task6/model-mcts",
+      "family": "task6",
+      "files": [
+        {
+          "path": "episode.json",
+          "sha256": "22659805021982a84135e906fe94661f2ba17370c72f9614e36f88f711a86569",
+          "size_bytes": 2316177
+        },
+        {
+          "path": "expected-checkpoint.json",
+          "sha256": "e4c080e9f28b8c6be5f76f98bed552bd96998039cbee5e214d4e964e2313a6e3",
+          "size_bytes": 883
+        },
+        {
+          "path": "expected-inference.json",
+          "sha256": "df6a9e8793b64dec82377e02a1fffc4f810ad008dfe87cd1f59d4c434df891ea",
+          "size_bytes": 1284
+        },
+        {
+          "path": "expected-training.json",
+          "sha256": "06e93762bb5d820a0fe7214f9903f23ab2f95f5e3f44a874fa072594f4af79e9",
+          "size_bytes": 365837
+        },
+        {
+          "path": "initial-checkpoint.json",
+          "sha256": "9ceb33746f4af4adfb25001ddb36867aee6fd831870525b722851df907d9a578",
+          "size_bytes": 428
+        },
+        {
+          "path": "initial.bin",
+          "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+          "size_bytes": 69986
+        },
+        {
+          "path": "task.json",
+          "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+          "size_bytes": 204424
+        }
+      ],
+      "id": "task6-model-mcts",
+      "initial_checkpoint": "initial-checkpoint.json",
+      "recorded_operations": [
+        {
+          "action": null,
+          "mode": null,
+          "operation": "reset"
+        },
+        {
+          "action": 1,
+          "mode": "model_mcts",
+          "operation": "infer_step"
+        }
+      ],
+      "seed": 7,
+      "source_provenance": [
+        {
+          "destination": "episode.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/inference.json",
+          "sha256": "22659805021982a84135e906fe94661f2ba17370c72f9614e36f88f711a86569",
+          "size_bytes": 2316177
+        },
+        {
+          "destination": "expected-checkpoint.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/inference-checkpoint.json",
+          "sha256": "e4c080e9f28b8c6be5f76f98bed552bd96998039cbee5e214d4e964e2313a6e3",
+          "size_bytes": 883
+        },
+        {
+          "destination": "expected-training.json",
+          "path": "artifacts/shadow-gym/adaptive-delta/cleared-holder-training-02/fixtures/inference-training.json",
+          "sha256": "06e93762bb5d820a0fe7214f9903f23ab2f95f5e3f44a874fa072594f4af79e9",
+          "size_bytes": 365837
+        },
+        {
+          "derived_from": "expected-training.json",
+          "destination": "initial-checkpoint.json",
+          "encoder": "autocam.adaptive_delta.browser_session.encoded",
+          "json_pointer": "/initial_checkpoint"
+        }
+      ],
+      "trained_flags": [
+        true
+      ]
+    }
+  ],
+  "mixed_reference_files": [
+    {
+      "path": "examples/operator-input/before-facing.json",
+      "sha256": "610737da8f62f2ae01c9af492266df7ae93cbc4c235dc3240fb5035fa17d42d9",
+      "size_bytes": 998186
+    },
+    {
+      "path": "examples/operator-input/demonstration-comparison.json",
+      "sha256": "2e550c6dc364402bb71480702864c4b4c45dc27ea84378800056d032e7d7d5a7",
+      "size_bytes": 1122
+    },
+    {
+      "path": "examples/operator-input/inference-comparison.json",
+      "sha256": "617e48b1713537e388dc64591a5b039269df6f10dd91e28ab88ee08ea155ffbe",
+      "size_bytes": 46389
+    },
+    {
+      "path": "examples/operator-input/operator-A.json",
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092",
+      "size_bytes": 5057787
+    },
+    {
+      "path": "examples/operator-input/operator-B.json",
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f",
+      "size_bytes": 5199453
+    },
+    {
+      "path": "examples/operator-input/starting-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-A/checkpoint.json",
+      "sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+      "size_bytes": 848
+    },
+    {
+      "path": "examples/operator-input/trained-A/episode.json",
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092",
+      "size_bytes": 5057787
+    },
+    {
+      "path": "examples/operator-input/trained-A/initial-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-A/summary.json",
+      "sha256": "e29cd1510d3c8bf44f5bfe3dbe419c103909e9b030d308144dcc74f7d5affbd4",
+      "size_bytes": 386
+    },
+    {
+      "path": "examples/operator-input/trained-A/training.json",
+      "sha256": "e686774034fdde0d55af6eacef6ba4a04838c1b43a3ac67ddff133cff0b538cc",
+      "size_bytes": 36547
+    },
+    {
+      "path": "examples/operator-input/trained-B/checkpoint.json",
+      "sha256": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67",
+      "size_bytes": 852
+    },
+    {
+      "path": "examples/operator-input/trained-B/episode.json",
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f",
+      "size_bytes": 5199453
+    },
+    {
+      "path": "examples/operator-input/trained-B/initial-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-B/summary.json",
+      "sha256": "f94296e6cbd6c9892ca8054cc7e6e4f13f4e0db782fd71c45a2ce8349b6c2c45",
+      "size_bytes": 386
+    },
+    {
+      "path": "examples/operator-input/trained-B/training.json",
+      "sha256": "688213dfd6dda85ec0519ffc7fa1fa480f0f3e17806a04722b46607324bae216",
+      "size_bytes": 36554
+    }
+  ],
+  "purpose": "finite synthetic replay and packaging verification; no manufacturing or held-out quality claim",
+  "recipe": {
+    "discount": 1.0,
+    "error_clip": 1.0,
+    "learning_rate": 0.05
+  },
+  "schema": "autocam-recorded-training-examples-1",
+  "prepared_inputs": [
+    {
+      "path": "examples/recorded-training/task5/manual/task.json",
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+      "size_bytes": 65345,
+      "derived_from": "examples/recorded-training/task5/manual/episode.json",
+      "derivation": "domain.canonical(/task)"
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/initial.bin",
+      "sha256": "80022b50eeb82e0a4266eb1f4f4221500eab578e4156b2c452fb3078f6104a9b",
+      "size_bytes": 69986,
+      "derived_from": "examples/recorded-training/task5/manual/episode.json",
+      "derivation": "base64decode(/initial_snapshot_base64)"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/task.json",
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+      "size_bytes": 65345,
+      "derived_from": "examples/recorded-training/task5/model-mcts/episode.json",
+      "derivation": "domain.canonical(/task)"
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/initial.bin",
+      "sha256": "54021405b8e6eb52ec4597067d93dd671704b99180057f023e692dd063376f34",
+      "size_bytes": 69986,
+      "derived_from": "examples/recorded-training/task5/model-mcts/episode.json",
+      "derivation": "base64decode(/initial_snapshot_base64)"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/task.json",
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+      "size_bytes": 204424,
+      "derived_from": "examples/recorded-training/task6/manual/episode.json",
+      "derivation": "domain.canonical(/task)"
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/initial.bin",
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+      "size_bytes": 69986,
+      "derived_from": "examples/recorded-training/task6/manual/episode.json",
+      "derivation": "base64decode(/initial_snapshot_base64)"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/task.json",
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+      "size_bytes": 204424,
+      "derived_from": "examples/recorded-training/task6/model-mcts/episode.json",
+      "derivation": "domain.canonical(/task)"
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/initial.bin",
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+      "size_bytes": 69986,
+      "derived_from": "examples/recorded-training/task6/model-mcts/episode.json",
+      "derivation": "base64decode(/initial_snapshot_base64)"
+    }
+  ]
+}

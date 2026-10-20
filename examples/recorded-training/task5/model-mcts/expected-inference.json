@@ -1,0 +1,43 @@
+{
+  "accepted_state_unchanged": true,
+  "checkpoint_sha256": "5ae984d564f8b1cc4634dac8c78d34d1dee08530ef23078f1cab8b717383ed42",
+  "depth": 2,
+  "initial_export_sha256": "6cfe093dc7349bc7b1aa5bbd11a96e12b0d4a908a47c87f0d4813f178d503325",
+  "mcts_action": 63,
+  "policy_action": 63,
+  "qualified_model": false,
+  "schema": "autocam-recorded-training-inference-1",
+  "seed": 7,
+  "simulations": 4,
+  "trace": {
+    "catalog_id": "87e3e9cdd5641743a7faecc963bddcad35de66f4b962c431eca514c4d3109d63",
+    "children": [
+      {
+        "action": 3,
+        "mean_return": -0.011000000000000001,
+        "visits": 1
+      },
+      {
+        "action": 38,
+        "mean_return": 0.009999999999999998,
+        "visits": 1
+      },
+      {
+        "action": 63,
+        "mean_return": 0.009499999999999998,
+        "visits": 2
+      }
+    ],
+    "depth_limit": 2,
+    "feature_contract_id": "8e03270408f0f937eeb128c8eb6ffee37d81004d6a140370dafdce035f90c0b1",
+    "root_planning_state": "63e48686ba3cec90d851e450aea531d271e34cdd8ee63a4957caab886d750d46",
+    "root_state": "e58575a80d841624c87a46b9e52ad108d47b8dbb2e3805d09936a09b77a30da8",
+    "sampled_rollouts": 4,
+    "schema": "adaptive-mcts-search-3",
+    "seed": 7,
+    "simulations": 4,
+    "task_id": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+    "turning_axis_id": "c3bb6e781425f228bb35266ed6296f638365c0716626ae5df4d555d699046b5a",
+    "weights_sha256": "95677befe87de6d91ee81d1a5d18a339b29b29c22b04dd85a9ebceb45b3e20fe"
+  }
+}

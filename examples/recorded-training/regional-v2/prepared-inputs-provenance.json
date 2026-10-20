@@ -1,0 +1,45 @@
+{
+  "independent_human_acceptance": false,
+  "outputs": [
+    {
+      "path": "task.json",
+      "sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f",
+      "size_bytes": 6079
+    },
+    {
+      "path": "initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    }
+  ],
+  "qualification": false,
+  "recipe": {
+    "excluded_task_fields": [
+      "schema",
+      "initial_export_id"
+    ],
+    "forwarded_task_fields": [
+      "candidates",
+      "completion",
+      "horizon",
+      "invalid_penalty",
+      "residual_budget",
+      "time_penalty"
+    ],
+    "genesis": "episode.initial_journal.genesis",
+    "initial_domain_sha256": "SHA256(initial.bin)",
+    "initial_snapshot": "domain.canonical(episode.initial_journal.initial_snapshot)",
+    "task_schema": "adaptive-combined-browser-config-2",
+    "task_serialization": "domain.canonical(configuration)"
+  },
+  "schema": "autocam-regional-prepared-input-derivation-1",
+  "serialization_owner": {
+    "path": "python/src/autocam/adaptive_delta/domain.py",
+    "sha256": "85960577aa458d3184f4a5ae81a7d1b8af036cc3d9d006cd58f688257a0db99e"
+  },
+  "source_episode": {
+    "path": "episode.json",
+    "sha256": "65d7e568ff1fa88b5fc319f0acef133413c9b39c3a81fb74fa58c9b8d98d34a9",
+    "size_bytes": 3956728
+  }
+}

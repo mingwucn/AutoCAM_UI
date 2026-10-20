@@ -1,0 +1,14 @@
+{
+  "npm": "11.9.0",
+  "verification": "independent_agent",
+  "pythonpath_present": false,
+  "source_status": null,
+  "npm_cache_initially_empty": true,
+  "platform": "Windows",
+  "node": "v24.14.0",
+  "commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+  "pip_used_no_cache": true,
+  "python": "Python 3.12.14",
+  "human_acceptance": "not_performed",
+  "browser_cache": "D:/LocalWork/AutoCAM/SBO_AutoCAM_Master/artifacts/module3-remediation-20261020/windows-verification-tools-20261020/playwright-browsers"
+}

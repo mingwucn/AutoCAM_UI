@@ -1,0 +1,1619 @@
+{
+  "scope": "Suggestions at identical initial-stock and before-facing states; not full policy evaluation.",
+  "settings": {
+    "simulations": 16,
+    "depth": 2,
+    "exploration": 1.0
+  },
+  "states": {
+    "initial-stock": {
+      "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+      "suggestions": {
+        "starting": {
+          "policy": {
+            "action": 0,
+            "candidate_id": "ba0d8ddb05f6ca8f7237f52c6bda658e004b5413c6c0cf468527d482de8c482a",
+            "kind": "turn",
+            "seconds": [
+              21,
+              2
+            ]
+          },
+          "mcts": {
+            "action": 1,
+            "candidate_id": "1b1e71940fb524645474fa8aff1c3627d5efc6fc2105efa3a5f5960ec30940dc",
+            "kind": "turn",
+            "seconds": [
+              41,
+              4
+            ]
+          },
+          "scores": [
+            0.01572783886366509,
+            0.015721716756472635
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+            "checkpoint_id": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 1,
+            "root": [
+              {
+                "action": 0,
+                "visits": 8,
+                "mean_return": -0.0029555840980806814,
+                "prior": 0.5000015305267981
+              },
+              {
+                "action": 1,
+                "visits": 8,
+                "mean_return": -0.002691683691153061,
+                "prior": 0.49999846947320187
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.01797192472020711,
+                "root_return": -0.01392807527979289
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.017966211268106536,
+                "root_return": -0.003633788731893465
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.017960225947279012,
+                "root_return": -0.01338977405272099
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.017965962935753477,
+                "root_return": -0.003684037064246524
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.03068248159063263,
+                "root_return": 0.005382481590632629
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.030687862989226634,
+                "root_return": 0.005087862989226633
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.03068248159063263,
+                "root_return": 0.005382481590632629
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.030687862989226634,
+                "root_return": 0.005087862989226633
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.017966211268106536,
+                "root_return": -0.003633788731893465
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.017965962935753477,
+                "root_return": -0.003684037064246524
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.017960225947279012,
+                "root_return": -0.01338977405272099
+              },
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.01797192472020711,
+                "root_return": -0.01392807527979289
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.03068248159063263,
+                "root_return": 0.005382481590632629
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.030687862989226634,
+                "root_return": 0.005087862989226633
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.017966211268106536,
+                "root_return": -0.003633788731893465
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.017965962935753477,
+                "root_return": -0.003684037064246524
+              }
+            ]
+          }
+        },
+        "A": {
+          "policy": {
+            "action": 0,
+            "candidate_id": "ba0d8ddb05f6ca8f7237f52c6bda658e004b5413c6c0cf468527d482de8c482a",
+            "kind": "turn",
+            "seconds": [
+              21,
+              2
+            ]
+          },
+          "mcts": {
+            "action": 1,
+            "candidate_id": "1b1e71940fb524645474fa8aff1c3627d5efc6fc2105efa3a5f5960ec30940dc",
+            "kind": "turn",
+            "seconds": [
+              41,
+              4
+            ]
+          },
+          "scores": [
+            0.032935724526071186,
+            0.03292339665456328
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+            "checkpoint_id": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 1,
+            "root": [
+              {
+                "action": 0,
+                "visits": 8,
+                "mean_return": 0.021931483919393605,
+                "prior": 0.5000030819678769
+              },
+              {
+                "action": 1,
+                "visits": 8,
+                "mean_return": 0.022190230190405585,
+                "prior": 0.4999969180321231
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.03753912804895838,
+                "root_return": 0.0056391280489583775
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.03752735079309615,
+                "root_return": 0.01592735079309615
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.037515070436160425,
+                "root_return": 0.006165070436160424
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.03752689620803232,
+                "root_return": 0.015876896208032315
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06443654942387847,
+                "root_return": 0.03913654942387847
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.06444764221104506,
+                "root_return": 0.03884764221104505
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06443654942387847,
+                "root_return": 0.03913654942387847
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.06444764221104506,
+                "root_return": 0.03884764221104505
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.03752735079309615,
+                "root_return": 0.01592735079309615
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.03752689620803232,
+                "root_return": 0.015876896208032315
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.037515070436160425,
+                "root_return": 0.006165070436160424
+              },
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.03753912804895838,
+                "root_return": 0.0056391280489583775
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06443654942387847,
+                "root_return": 0.03913654942387847
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.06444764221104506,
+                "root_return": 0.03884764221104505
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.03752735079309615,
+                "root_return": 0.01592735079309615
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.03752689620803232,
+                "root_return": 0.015876896208032315
+              }
+            ]
+          }
+        },
+        "B": {
+          "policy": {
+            "action": 0,
+            "candidate_id": "ba0d8ddb05f6ca8f7237f52c6bda658e004b5413c6c0cf468527d482de8c482a",
+            "kind": "turn",
+            "seconds": [
+              21,
+              2
+            ]
+          },
+          "mcts": {
+            "action": 1,
+            "candidate_id": "1b1e71940fb524645474fa8aff1c3627d5efc6fc2105efa3a5f5960ec30940dc",
+            "kind": "turn",
+            "seconds": [
+              41,
+              4
+            ]
+          },
+          "scores": [
+            0.03214258784355298,
+            0.03212917480597455
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+            "checkpoint_id": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 1,
+            "root": [
+              {
+                "action": 0,
+                "visits": 8,
+                "mean_return": 0.02080655524751664,
+                "prior": 0.5000033532593946
+              },
+              {
+                "action": 1,
+                "visits": 8,
+                "mean_return": 0.021064743662604538,
+                "prior": 0.49999664674060545
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.0367339403401843,
+                "root_return": 0.0048339403401842975
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.036721495169608966,
+                "root_return": 0.015121495169608966
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.03670844254128975,
+                "root_return": 0.005358442541289749
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.036720938979326954,
+                "root_return": 0.015070938979326954
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06277885956980997,
+                "root_return": 0.037478859569809966
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.0627905814539279,
+                "root_return": 0.03719058145392789
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06277885956980997,
+                "root_return": 0.037478859569809966
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.0627905814539279,
+                "root_return": 0.03719058145392789
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.036721495169608966,
+                "root_return": 0.015121495169608966
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.036720938979326954,
+                "root_return": 0.015070938979326954
+              },
+              {
+                "actions": [
+                  1,
+                  1
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.0211
+                ],
+                "bootstrap": 0.03670844254128975,
+                "root_return": 0.005358442541289749
+              },
+              {
+                "actions": [
+                  0,
+                  0
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0214
+                ],
+                "bootstrap": 0.0367339403401843,
+                "root_return": 0.0048339403401842975
+              },
+              {
+                "actions": [
+                  1,
+                  2
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01505
+                ],
+                "bootstrap": 0.06277885956980997,
+                "root_return": 0.037478859569809966
+              },
+              {
+                "actions": [
+                  0,
+                  2
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.0151
+                ],
+                "bootstrap": 0.0627905814539279,
+                "root_return": 0.03719058145392789
+              },
+              {
+                "actions": [
+                  1,
+                  0
+                ],
+                "rewards": [
+                  -0.01025,
+                  -0.01135
+                ],
+                "bootstrap": 0.036721495169608966,
+                "root_return": 0.015121495169608966
+              },
+              {
+                "actions": [
+                  0,
+                  1
+                ],
+                "rewards": [
+                  -0.0105,
+                  -0.01115
+                ],
+                "bootstrap": 0.036720938979326954,
+                "root_return": 0.015070938979326954
+              }
+            ]
+          }
+        }
+      }
+    },
+    "before-facing": {
+      "head": "8538056f67f5f9f7249eb26e9114fdc87e4d53128ee620d6e75a51994c795b7e",
+      "suggestions": {
+        "starting": {
+          "policy": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "mcts": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "scores": [
+            0.04787711900290487,
+            0.0317058898159981,
+            0.039462544577991816,
+            0.03935012970169815,
+            0.04791008089558323,
+            0.040340095117763056,
+            0.047901158611742656,
+            0.07736245689453165,
+            0.07788024555593996
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "8538056f67f5f9f7249eb26e9114fdc87e4d53128ee620d6e75a51994c795b7e",
+            "checkpoint_id": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 8,
+            "root": [
+              {
+                "action": 0,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11086450883584571
+              },
+              {
+                "action": 1,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10908611164440381
+              },
+              {
+                "action": 2,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10993554507379363
+              },
+              {
+                "action": 3,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10992318737770133
+              },
+              {
+                "action": 4,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11086816320011486
+              },
+              {
+                "action": 5,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11003206141350229
+              },
+              {
+                "action": 6,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11086717400730683
+              },
+              {
+                "action": 7,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11418205548231439
+              },
+              {
+                "action": 8,
+                "visits": 16,
+                "mean_return": 0.9259082269402679,
+                "prior": 0.11424119296501717
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9302593454234092
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9202593454234091
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9302593454234092
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.062443369406584806,
+                "root_return": 0.9178433694065848
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.08905736540161714,
+                "root_return": 0.9444573654016172
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.0614534039905199,
+                "root_return": 0.9168534039905198
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.04597528504068202,
+                "root_return": 0.909975285040682
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.08905736540161714,
+                "root_return": 0.9444573654016172
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9302593454234092
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9302593454234092
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9202593454234091
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.062443369406584806,
+                "root_return": 0.9178433694065848
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.0614534039905199,
+                "root_return": 0.9168534039905198
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.04597528504068202,
+                "root_return": 0.909975285040682
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.08905736540161714,
+                "root_return": 0.9444573654016172
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.06225934542340912,
+                "root_return": 0.9302593454234092
+              }
+            ]
+          }
+        },
+        "A": {
+          "policy": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "mcts": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "scores": [
+            0.09792754325348513,
+            0.0652431200669786,
+            0.08042328346750169,
+            0.08018852940810772,
+            0.09787822165073237,
+            0.08250305390658606,
+            0.09765401331177527,
+            0.15650207454980075,
+            0.15754472733019642
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "8538056f67f5f9f7249eb26e9114fdc87e4d53128ee620d6e75a51994c795b7e",
+            "checkpoint_id": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 8,
+            "root": [
+              {
+                "action": 0,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.1106312838246405
+              },
+              {
+                "action": 1,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10707381768025848
+              },
+              {
+                "action": 2,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10871161529557884
+              },
+              {
+                "action": 3,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10868609779787021
+              },
+              {
+                "action": 4,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11062582744696745
+              },
+              {
+                "action": 5,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10893794577559493
+              },
+              {
+                "action": 6,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11060102699428785
+              },
+              {
+                "action": 7,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11730500650442849
+              },
+              {
+                "action": 8,
+                "visits": 16,
+                "mean_return": 0.9936318057071636,
+                "prior": 0.11742737868037324
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9951128692257502
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9951128692257502
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9951128692257502
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9851128692257501
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12749659858763332,
+                "root_return": 0.9828965985876333
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.18001639184159096,
+                "root_return": 1.0354163918415908
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.125182074089155,
+                "root_return": 0.980582074089155
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.09555614292800935,
+                "root_return": 0.9595561429280093
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.18001639184159096,
+                "root_return": 1.0354163918415908
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9951128692257502
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9851128692257501
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12749659858763332,
+                "root_return": 0.9828965985876333
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.125182074089155,
+                "root_return": 0.980582074089155
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.09555614292800935,
+                "root_return": 0.9595561429280093
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.18001639184159096,
+                "root_return": 1.0354163918415908
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12711286922575016,
+                "root_return": 0.9951128692257502
+              }
+            ]
+          }
+        },
+        "B": {
+          "policy": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "mcts": {
+            "action": 8,
+            "candidate_id": "4581176815f31fe638df37254768c848df82a9039b4841eed6dbf3c10d65dfe9",
+            "kind": "face",
+            "seconds": [
+              132,
+              1
+            ]
+          },
+          "scores": [
+            0.09536954284063871,
+            0.06355597477111767,
+            0.07864313090659864,
+            0.0784136645422611,
+            0.09530939327015148,
+            0.08037590072367846,
+            0.09509601289892886,
+            0.15251817763377798,
+            0.1536526103633642
+          ],
+          "search_trace": {
+            "schema": "adaptive-mixed-mcts-1",
+            "head": "8538056f67f5f9f7249eb26e9114fdc87e4d53128ee620d6e75a51994c795b7e",
+            "checkpoint_id": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67",
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1.0,
+            "discount": 1.0,
+            "selected": 8,
+            "root": [
+              {
+                "action": 0,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11063293506623666
+              },
+              {
+                "action": 1,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10716870361238372
+              },
+              {
+                "action": 2,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10879783314033312
+              },
+              {
+                "action": 3,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10877287056126027
+              },
+              {
+                "action": 4,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11062628074284003
+              },
+              {
+                "action": 5,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.10898651816841275
+              },
+              {
+                "action": 6,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11060267778428173
+              },
+              {
+                "action": 7,
+                "visits": 0,
+                "mean_return": 0.0,
+                "prior": 0.11713960925669209
+              },
+              {
+                "action": 8,
+                "visits": 16,
+                "mean_return": 0.9907360956188633,
+                "prior": 0.11727257166755965
+              }
+            ],
+            "traces": [
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9921389520933142
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9921389520933142
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9921389520933142
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9821389520933141
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12452114158395917,
+                "root_return": 0.9799211415839592
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.17664493366067804,
+                "root_return": 1.032044933660678
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12255890540254182,
+                "root_return": 0.9779589054025418
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.09345498514678968,
+                "root_return": 0.9574549851467897
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.17664493366067804,
+                "root_return": 1.032044933660678
+              },
+              {
+                "actions": [
+                  8,
+                  4
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9921389520933142
+              },
+              {
+                "actions": [
+                  8,
+                  6
+                ],
+                "rewards": [
+                  0.868,
+                  -0.01
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9821389520933141
+              },
+              {
+                "actions": [
+                  8,
+                  5
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12452114158395917,
+                "root_return": 0.9799211415839592
+              },
+              {
+                "actions": [
+                  8,
+                  3
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.12255890540254182,
+                "root_return": 0.9779589054025418
+              },
+              {
+                "actions": [
+                  8,
+                  1
+                ],
+                "rewards": [
+                  0.868,
+                  -0.004
+                ],
+                "bootstrap": 0.09345498514678968,
+                "root_return": 0.9574549851467897
+              },
+              {
+                "actions": [
+                  8,
+                  2
+                ],
+                "rewards": [
+                  0.868,
+                  -0.0126
+                ],
+                "bootstrap": 0.17664493366067804,
+                "root_return": 1.032044933660678
+              },
+              {
+                "actions": [
+                  8,
+                  0
+                ],
+                "rewards": [
+                  0.868,
+                  0.0
+                ],
+                "bootstrap": 0.12413895209331416,
+                "root_return": 0.9921389520933142
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

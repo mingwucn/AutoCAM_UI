@@ -1,0 +1,43 @@
+{
+  "schema": "module3-clean-linux-install-1",
+  "verification_kind": "agent_execution",
+  "human_acceptance": "not_performed",
+  "files": [
+    {
+      "path": "clone.log",
+      "sha256": "c22769f538aa63fd537a0959253b22fead73cb52c5e67a4b42e82455b3c35830",
+      "size_bytes": 29
+    },
+    {
+      "path": "environment.log",
+      "sha256": "036c13d1c6fa16689aafea25a9f19e15581aaa42afd6b53fe823f32dc800fa30",
+      "size_bytes": 434
+    },
+    {
+      "path": "npm-ci.log",
+      "sha256": "e5f640e7006973e523aaa8cf9c8eeb785c1f509b9b6a73d3fb204c8553ed29c8",
+      "size_bytes": 352
+    },
+    {
+      "path": "npm-audit.json",
+      "sha256": "32ffbc5c75a748e4aa1f4d83942e3bb4b04fbfa30a022e0120915297e5c9b2d5",
+      "size_bytes": 363
+    },
+    {
+      "path": "venv.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "pip-install.log",
+      "sha256": "4bd06939d3cd94cefc36453ada2e3cfca0f1652b04b1364c30b3f477606dfa2a",
+      "size_bytes": 1836
+    },
+    {
+      "path": "python-packages.txt",
+      "sha256": "ca51c57b7b85f792f9a2ab69ee13eae190d3125373839c810eb8f3b95707ad30",
+      "size_bytes": 103
+    }
+  ],
+  "browser": "Playwright 1.63.0 Chromium freshly installed in isolated task tools before cloning; existing system libraries used."
+}

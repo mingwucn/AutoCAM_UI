@@ -1,0 +1,23 @@
+{
+  "schema": "autocam-cylindrical-training-expected-1",
+  "configuration_profile": "adaptive-cylindrical-policy-browser-config-1",
+  "choice_profile": "adaptive-cylindrical-choice-browser-config-3",
+  "recorded": {
+    "samples": 3,
+    "outputs": {
+      "weights.json": "6e2940e41106d5809acde6a7774d46583b22ba491cfcdec1c0152c983c54455a",
+      "training-record.json": "87210ba75daebf68e1c40a5cec86af67fedd523ea76b8c69061d4fab2e3cf004",
+      "training-decisions.json": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8"
+    }
+  },
+  "self_play_recipe": {"seed": 19, "simulations": 4, "depth": 2, "epochs": 4, "learning_rate": 0.05, "discount": 1, "error_clip": 10},
+  "self_play_expected": "Two runs from the same input tuple and recipe have identical canonical output bytes and independently replay successfully.",
+  "derived_profiles": {
+    "2": "exclude_accepted",
+    "3": "exclude_accepted_and_rejected_at_head"
+  },
+  "derived_profile_recipe": "Copy the pinned version-1 configuration, replace schema and add its exact repeat_proposals value. Construct a zero checkpoint using the existing cylindrical_policy.numeric_observation and checkpoint owners for that exact task. Preserve the original initial snapshot. Do not reuse the version-1 model.",
+  "material_transition_export": "unavailable_in_preserved_v1_runtime",
+  "held_out_quality_assessed": false,
+  "qualified_model": false
+}

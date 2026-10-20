@@ -1,0 +1,22 @@
+Collecting gymnasium==1.2.3 (from -r python/requirements.txt (line 1))
+  Downloading gymnasium-1.2.3-py3-none-any.whl.metadata (10 kB)
+Collecting numpy==2.3.3 (from -r python/requirements.txt (line 2))
+  Downloading numpy-2.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting cloudpickle==3.1.2 (from -r python/requirements.txt (line 3))
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting Farama-Notifications==0.0.6 (from -r python/requirements.txt (line 4))
+  Downloading farama_notifications-0.0.6-py3-none-any.whl.metadata (729 bytes)
+Collecting typing_extensions==4.16.0 (from -r python/requirements.txt (line 5))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Downloading gymnasium-1.2.3-py3-none-any.whl (952 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 952.1/952.1 kB 10.9 MB/s eta 0:00:00
+Downloading numpy-2.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 11.6 MB/s eta 0:00:00
+Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading farama_notifications-0.0.6-py3-none-any.whl (2.9 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: Farama-Notifications, typing_extensions, numpy, cloudpickle, gymnasium
+Successfully installed Farama-Notifications-0.0.6 cloudpickle-3.1.2 gymnasium-1.2.3 numpy-2.3.3 typing_extensions-4.16.0
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: /home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python -m pip install --upgrade pip

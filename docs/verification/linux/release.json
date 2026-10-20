@@ -1,0 +1,1741 @@
+{
+  "schema": "autocam-standalone-release-1",
+  "version": "1.1.0-rc.1",
+  "source_repository": {
+    "status": "observed",
+    "observation_scope": "pre_build_interval",
+    "revision": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+    "dirty": false,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ui_input_inventory_sha256": "2db523d92b7972589e05a9d74f20c78392d03446f08b8a9ced84c4a6418dd15a",
+  "documentation_training_inputs": [
+    {
+      "path": "config/module3-capabilities.json",
+      "sha256": "d97427362817e3197f0f15e2afdee7c8da2d4f03ccb8f0976709e248a474cb79",
+      "size_bytes": 86633
+    },
+    {
+      "path": "docs/ACCEPTANCE_CHECKLIST.md",
+      "sha256": "2a16639666f980c338c20c7790a86b776d9976b22760db3129ddb98848767ead",
+      "size_bytes": 3378
+    },
+    {
+      "path": "docs/CAPABILITIES.md",
+      "sha256": "ffdffe45c775072a76fb51c121692e71482bdcf701640849ff8a241fe55ac757",
+      "size_bytes": 60356
+    },
+    {
+      "path": "docs/FUNCTIONAL_CONTRACT.md",
+      "sha256": "27efe4f3aedf232484c71c930d14bb1388f0a88473dcd7685d85e115f5c3c256",
+      "size_bytes": 5568
+    },
+    {
+      "path": "docs/GYM_QUICKSTART.md",
+      "sha256": "bbeeba39aae62f6cb98040252be19e33e984eaf67ded82e2805ea15366fb0c16",
+      "size_bytes": 2475
+    },
+    {
+      "path": "docs/INSTALLATION.md",
+      "sha256": "5b15efea6fb1ee1eec70626830a74214859aca0c45a195a9cbdbff045697cafa",
+      "size_bytes": 4981
+    },
+    {
+      "path": "docs/KNOWLEDGE_SCOPE.md",
+      "sha256": "2e8d75bd2c044a451af51faca5b0beec572eac7024737cf991ed6de1e45d304c",
+      "size_bytes": 2925
+    },
+    {
+      "path": "docs/MODULE3_SCOPE.md",
+      "sha256": "b51edfad613211dd97aec0a732f28f4e065e937560dc84a0bc8da1c47b21e3c6",
+      "size_bytes": 5047
+    },
+    {
+      "path": "docs/OPERATOR_INPUT_QUICKSTART.md",
+      "sha256": "124e2f1009117cb88df9c0b8d806375713e49dae32e59c4d76cd05c304e3b335",
+      "size_bytes": 4456
+    },
+    {
+      "path": "docs/PUBLICATION_PROVENANCE.json",
+      "sha256": "129abbc18575319fa477440d97a56ea792fce1d70cb6f7546936b24bf341a617",
+      "size_bytes": 301258
+    },
+    {
+      "path": "docs/RECORDED_TRAINING_QUICKSTART.md",
+      "sha256": "371ebc2f8b07cce0e3fe15ca3d5288dee06dc1c5ddc8156bf2ecd7bb25cedfcc",
+      "size_bytes": 4333
+    },
+    {
+      "path": "docs/REFERENCE_UI_README.md",
+      "sha256": "24aa2d1b1600b06a170b89b60ac968bd2d30c37a6bbfbde68c2983eaa6ecafa8",
+      "size_bytes": 14553
+    },
+    {
+      "path": "docs/REGIONAL_TRAINING_QUICKSTART.md",
+      "sha256": "d975e9f5dbde76f4419029d28de4237245933a793ca0bdfc2baeec0f55c8ae8b",
+      "size_bytes": 4200
+    },
+    {
+      "path": "docs/TRAINING_FAMILIES.md",
+      "sha256": "69024979f2a1d9bc399128647cffeda63b1e6e92ecb7402ce03ec3605f251c0c",
+      "size_bytes": 4605
+    },
+    {
+      "path": "docs/TRAINING_GUIDE.md",
+      "sha256": "c533742c7f66b42e97fab77fbbb44d7e319f9dba6111b6e8e4da224cad34d10c",
+      "size_bytes": 2556
+    },
+    {
+      "path": "docs/training-contracts/CLEARED_HOLDER_TRAINING.md",
+      "sha256": "98654421aa19ce52b04faad69172e9cd4358798c93b9bb7d0d6dd2857bb27ae5",
+      "size_bytes": 4997
+    },
+    {
+      "path": "docs/training-contracts/CYLINDRICAL_TRAINING_RUNBOOK.md",
+      "sha256": "7dea27a94d37306f3a6b2b1c9cc457b2829b1b31d5a95086b3a8b6b8ca56fccb",
+      "size_bytes": 4932
+    },
+    {
+      "path": "docs/training-contracts/R5_MIXED_LOCAL_TRAINING_CONTRACT.md",
+      "sha256": "15897e5c79d19d5816c9959015bf6312eac7cc02fd55a9195bdd3f24939c9ce1",
+      "size_bytes": 4902
+    },
+    {
+      "path": "docs/training-contracts/README.md",
+      "sha256": "b82e2cd39ed7d2203d80b760187dbeacae19385ed37518bc975f435061442f94",
+      "size_bytes": 2235
+    },
+    {
+      "path": "docs/training-contracts/RECORDED_REGIONAL_TRAINING_CONTRACT.md",
+      "sha256": "905f763cde3b9664e7756debb12ccf878f27da23a9c3a6696bc299573e3f1749",
+      "size_bytes": 2246
+    },
+    {
+      "path": "docs/training-contracts/REGIONAL_COMPLETION_OBJECTIVE_V3_CONTRACT.md",
+      "sha256": "052e85850eeb29fe9e1ef7c4377fe1340a3f5511bfa4cc4b6b9da3e89539a9f2",
+      "size_bytes": 3007
+    },
+    {
+      "path": "docs/training-contracts/REGIONAL_OBJECTIVE_INFERENCE_CONTRACT.md",
+      "sha256": "57d4c54d22bef880f58ad1c06c1461a5977b36a93835c4b53a7b881c7c4ec393",
+      "size_bytes": 2155
+    },
+    {
+      "path": "docs/training-contracts/REMAINING_RECORDED_TRAINING.md",
+      "sha256": "5a3aab0262924e5576d4e3c564d242089224f0079892c7d5bc96500b8ce975bb",
+      "size_bytes": 7980
+    },
+    {
+      "path": "docs/TROUBLESHOOTING.md",
+      "sha256": "510aaf50d76f7e326a7a949bdad18c0fe853099539340bc9db0adac88a760976",
+      "size_bytes": 3764
+    },
+    {
+      "path": "docs/VALIDATION_GUIDE.md",
+      "sha256": "17363e4c50b4ea087157af2c73e7e380487441b299dcb9cc712ee3a30793ba63",
+      "size_bytes": 7309
+    },
+    {
+      "path": "docs/VERIFICATION_STATUS.md",
+      "sha256": "d3f98ae30f89f5c3d275ac561856b688da381e0b2e7fa02ca90ffc06606acbd3",
+      "size_bytes": 2082
+    },
+    {
+      "path": "examples/cylindrical-policy/checkpoint.json",
+      "sha256": "ceea09cbd5204d0184dacd34be8d9c5cf6a1e53b147e4692a4b2f65bb1dc5c90",
+      "size_bytes": 1922
+    },
+    {
+      "path": "examples/cylindrical-policy/download.json",
+      "sha256": "4d18d29771ddb9cc46b846d002119b2b33e1e24c9cd4c6fa2162da71408982d8",
+      "size_bytes": 770487
+    },
+    {
+      "path": "examples/cylindrical-policy/expected.json",
+      "sha256": "a4c40145714aa0f1af2ff215cbfd2fc11516aa0e320156cd1381b039b14fca5f",
+      "size_bytes": 1412
+    },
+    {
+      "path": "examples/cylindrical-policy/initial.bin",
+      "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+      "size_bytes": 188414
+    },
+    {
+      "path": "examples/cylindrical-policy/manifest.json",
+      "sha256": "d5416678a0fc546ad47980bb7ba63b127f57a708d2be6f097b573af62db24255",
+      "size_bytes": 1569
+    },
+    {
+      "path": "examples/cylindrical-policy/README.md",
+      "sha256": "5dca26115fe3934f81c9dd1a03e96ce77d44e5da28dfc0d3c435401530aa6bf1",
+      "size_bytes": 4523
+    },
+    {
+      "path": "examples/cylindrical-policy/task.json",
+      "sha256": "7e247fbc4c84c34fce9ccb5d8c34075bddd6d416c782686346c8af05f9d5c908",
+      "size_bytes": 352112
+    },
+    {
+      "path": "examples/industrial-00350/expected.json",
+      "sha256": "14c59b43a587a3917b8f8c82b8e24081eb35955daaaf870bdd5b4b6755703688",
+      "size_bytes": 1653
+    },
+    {
+      "path": "examples/industrial-00350/README.md",
+      "sha256": "b59cb8ba25d2054df5d3f09ac8f6f4d1cf36b0fa327e290d8d6d7ecd795b8078",
+      "size_bytes": 1745
+    },
+    {
+      "path": "examples/manifest.json",
+      "sha256": "54ee5ec52d4ba8fefca6ea5819b6166c4a1eb2a977ea8d1e02cd08dd4c522134",
+      "size_bytes": 14552
+    },
+    {
+      "path": "examples/operator-input/before-facing.json",
+      "sha256": "610737da8f62f2ae01c9af492266df7ae93cbc4c235dc3240fb5035fa17d42d9",
+      "size_bytes": 998186
+    },
+    {
+      "path": "examples/operator-input/demonstration-comparison.json",
+      "sha256": "2e550c6dc364402bb71480702864c4b4c45dc27ea84378800056d032e7d7d5a7",
+      "size_bytes": 1122
+    },
+    {
+      "path": "examples/operator-input/inference-comparison.json",
+      "sha256": "617e48b1713537e388dc64591a5b039269df6f10dd91e28ab88ee08ea155ffbe",
+      "size_bytes": 46389
+    },
+    {
+      "path": "examples/operator-input/operator-A.json",
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092",
+      "size_bytes": 5057787
+    },
+    {
+      "path": "examples/operator-input/operator-B.json",
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f",
+      "size_bytes": 5199453
+    },
+    {
+      "path": "examples/operator-input/README.md",
+      "sha256": "421f8cb0f247392faa44d86afefbb2cd73cbadfd62d04883735bdd9812326c6f",
+      "size_bytes": 2890
+    },
+    {
+      "path": "examples/operator-input/starting-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-A/checkpoint.json",
+      "sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+      "size_bytes": 848
+    },
+    {
+      "path": "examples/operator-input/trained-A/episode.json",
+      "sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092",
+      "size_bytes": 5057787
+    },
+    {
+      "path": "examples/operator-input/trained-A/initial-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-A/summary.json",
+      "sha256": "e29cd1510d3c8bf44f5bfe3dbe419c103909e9b030d308144dcc74f7d5affbd4",
+      "size_bytes": 386
+    },
+    {
+      "path": "examples/operator-input/trained-A/training.json",
+      "sha256": "e686774034fdde0d55af6eacef6ba4a04838c1b43a3ac67ddff133cff0b538cc",
+      "size_bytes": 36547
+    },
+    {
+      "path": "examples/operator-input/trained-B/checkpoint.json",
+      "sha256": "ae330b5ea7b62ad10ec464a7e2993e34c032d641c0351f10ca8a777d2f251a67",
+      "size_bytes": 852
+    },
+    {
+      "path": "examples/operator-input/trained-B/episode.json",
+      "sha256": "a3c79fcf59dde06f4202412e887fb6ac77433f3cc615a35b7e19b08105cf482f",
+      "size_bytes": 5199453
+    },
+    {
+      "path": "examples/operator-input/trained-B/initial-checkpoint.json",
+      "sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+      "size_bytes": 859
+    },
+    {
+      "path": "examples/operator-input/trained-B/summary.json",
+      "sha256": "f94296e6cbd6c9892ca8054cc7e6e4f13f4e0db782fd71c45a2ce8349b6c2c45",
+      "size_bytes": 386
+    },
+    {
+      "path": "examples/operator-input/trained-B/training.json",
+      "sha256": "688213dfd6dda85ec0519ffc7fa1fa480f0f3e17806a04722b46607324bae216",
+      "size_bytes": 36554
+    },
+    {
+      "path": "examples/README.md",
+      "sha256": "8502f90760da91e8d1ae5651f3b0d2247b8987588544697d72403db1250ece9a",
+      "size_bytes": 2987
+    },
+    {
+      "path": "examples/recorded-training/manifest.json",
+      "sha256": "40182cb36c04ad31d06466dd360f88b8aa25a5397a61bf2c742dbbdeabbf6792",
+      "size_bytes": 17773
+    },
+    {
+      "path": "examples/recorded-training/README.md",
+      "sha256": "3eeb7d8f6bc2f75b2e33dc5681cbf96a7970a69488a347a3aa2d45750a4364ae",
+      "size_bytes": 4486
+    },
+    {
+      "path": "examples/recorded-training/regional-manifest.json",
+      "sha256": "384cee9162c9570ed0c628eea28abede4922942d4446dc17ff804fe7d80a2217",
+      "size_bytes": 4938
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/episode.json",
+      "sha256": "65d7e568ff1fa88b5fc319f0acef133413c9b39c3a81fb74fa58c9b8d98d34a9",
+      "size_bytes": 3956728
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/expected-checkpoint.json",
+      "sha256": "f65d20a72b2e12ecc3e6f250e5d29dfcb3cdf97b4f8a6c603802564a44088711",
+      "size_bytes": 1739
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/expected-training.json",
+      "sha256": "b2f00eebb238e584a7f5cce6f1b4d81cc0ed768957a234b48ace9a09c7c14219",
+      "size_bytes": 20600
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/prepared-inputs-provenance.json",
+      "sha256": "2a3f2b4a822e8e577a1d173ca1332e4f15d36c1d0cf415eef06af2210e5fa736",
+      "size_bytes": 1356
+    },
+    {
+      "path": "examples/recorded-training/regional-v2/task.json",
+      "sha256": "0796fc7d52fc591eb0e08795a18b60a4103cb6377a14697d4283f7f0e4d6ac8f",
+      "size_bytes": 6079
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/episode.json",
+      "sha256": "9aa96ad3cacec46bf6ae2b93c975972ad7fc4c7ef4b18a1e4a8ecb345c0ecfaf",
+      "size_bytes": 3957761
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/expected-checkpoint.json",
+      "sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e",
+      "size_bytes": 1872
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/expected-training.json",
+      "sha256": "ed902fe235a1caadf99aa1ba722c9963ff81b1791ff142ebacff1ba8d6e2f919",
+      "size_bytes": 21892
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/prepared-inputs-provenance.json",
+      "sha256": "c97f3fe716784c7fe58941580fdcf0923b23710b477366ccfc9943fb4f9743ce",
+      "size_bytes": 1375
+    },
+    {
+      "path": "examples/recorded-training/regional-v3/task.json",
+      "sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4",
+      "size_bytes": 6248
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/episode.json",
+      "sha256": "3e036ee0c78980d60d1519b778373e66df4f6aa46095bb02061b7c402e22b892",
+      "size_bytes": 2230980
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-checkpoint.json",
+      "sha256": "4a322c25776f9f5b90698fe0f8be1c1b90e32ccedbe148dfd905d4c5a2aa6e87",
+      "size_bytes": 1015
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-inference.json",
+      "sha256": "0fc981750b0e8a72c74a629c099eecf07b166822b8d90acf13d04c7a9dccf9cd",
+      "size_bytes": 1382
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/expected-training.json",
+      "sha256": "99d87220be647a2dce8607080b9d7eebd899151b20667bfaee99c3eac096dd8c",
+      "size_bytes": 1115896
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/initial.bin",
+      "sha256": "80022b50eeb82e0a4266eb1f4f4221500eab578e4156b2c452fb3078f6104a9b",
+      "size_bytes": 69986
+    },
+    {
+      "path": "examples/recorded-training/task5/manual/task.json",
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+      "size_bytes": 65345
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/episode.json",
+      "sha256": "cd76a6ac90119dbd961f14845dda2d56c9134a135e3a7ba73b31078b8ebdb140",
+      "size_bytes": 986632
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-checkpoint.json",
+      "sha256": "5ae984d564f8b1cc4634dac8c78d34d1dee08530ef23078f1cab8b717383ed42",
+      "size_bytes": 914
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-inference.json",
+      "sha256": "b1d9bc0449e5ba8e01aa4ceb1392f3c5e507515b2fb12480e5785a1ec7541257",
+      "size_bytes": 1502
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/expected-training.json",
+      "sha256": "79744eed091203112c53bab83f88fefc99c712bfca2d8c40e372056ac94be6f3",
+      "size_bytes": 287514
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/initial-checkpoint.json",
+      "sha256": "c0cf7a808d7a40ee79bb664fa4bbcaf966d6c4003e89cadabbe6073dcf222c51",
+      "size_bytes": 266
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/initial.bin",
+      "sha256": "54021405b8e6eb52ec4597067d93dd671704b99180057f023e692dd063376f34",
+      "size_bytes": 69986
+    },
+    {
+      "path": "examples/recorded-training/task5/model-mcts/task.json",
+      "sha256": "6ce83f61b477a41c7a90219158538391b9e992b5814bf8b1563e22ae0cdb1d13",
+      "size_bytes": 65345
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/episode.json",
+      "sha256": "c40143f138a716d1725c98b5f7a4937476c09abb03097088ddd670f8bbf40565",
+      "size_bytes": 5331098
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-checkpoint.json",
+      "sha256": "1ddd24a0ad7c1db587f9a76dff3f013e5d43a630d999cbd148e14f3da8db1e08",
+      "size_bytes": 978
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-inference.json",
+      "sha256": "3721153ef308d0fb16645f28a7551ee4d921a504ec60f59cc62a74123128b577",
+      "size_bytes": 1287
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/expected-training.json",
+      "sha256": "b7ac759dbf82f35f22d8365e43f45a7f648bfc4880b0e5ebb01e04c81dba3edc",
+      "size_bytes": 1463332
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/initial.bin",
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+      "size_bytes": 69986
+    },
+    {
+      "path": "examples/recorded-training/task6/manual/task.json",
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+      "size_bytes": 204424
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/episode.json",
+      "sha256": "22659805021982a84135e906fe94661f2ba17370c72f9614e36f88f711a86569",
+      "size_bytes": 2316177
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-checkpoint.json",
+      "sha256": "e4c080e9f28b8c6be5f76f98bed552bd96998039cbee5e214d4e964e2313a6e3",
+      "size_bytes": 883
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-inference.json",
+      "sha256": "df6a9e8793b64dec82377e02a1fffc4f810ad008dfe87cd1f59d4c434df891ea",
+      "size_bytes": 1284
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/expected-training.json",
+      "sha256": "06e93762bb5d820a0fe7214f9903f23ab2f95f5e3f44a874fa072594f4af79e9",
+      "size_bytes": 365837
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/initial-checkpoint.json",
+      "sha256": "9ceb33746f4af4adfb25001ddb36867aee6fd831870525b722851df907d9a578",
+      "size_bytes": 428
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/initial.bin",
+      "sha256": "c9d2b4c30de39e3f1b7221d8860239832602be975b677ffa79c0b7645dee3da7",
+      "size_bytes": 69986
+    },
+    {
+      "path": "examples/recorded-training/task6/model-mcts/task.json",
+      "sha256": "2d1ade4d55f59d298060f4378cc8e79358211e2b7b799b4ba7550a66b836bbd6",
+      "size_bytes": 204424
+    },
+    {
+      "path": "examples/rejections/README.md",
+      "sha256": "4be89d12c958aa57a3546427ab123a9f0ee2a004ee9f30eea2a88d52acaf34bf",
+      "size_bytes": 1690
+    },
+    {
+      "path": "examples/step/manifest.json",
+      "sha256": "536cfb5362a522fc0ecf37fe9630243cf65906296cf74884783aecc58341b491",
+      "size_bytes": 1206
+    },
+    {
+      "path": "examples/step/README.md",
+      "sha256": "0bf304f437afd087ff04b9f3228b6f63853658fc17c1a9dc787713c9aa0edfd5",
+      "size_bytes": 3030
+    },
+    {
+      "path": "python/probe_packaged_training.py",
+      "sha256": "88c5a9738e0698e1f37f6b431a9be964811f9050c20cba8552bce7dc3f1db206",
+      "size_bytes": 11223
+    },
+    {
+      "path": "python/recorded_inference.py",
+      "sha256": "6c1702a914a64c43f432c80e68fc59866268451641b613e4f9cc9d113abe7236",
+      "size_bytes": 1841
+    },
+    {
+      "path": "python/requirements.txt",
+      "sha256": "206f9ec83cc92ab069ec06a36c20727277a274c04b98517fd832b39cc7410b82",
+      "size_bytes": 103
+    },
+    {
+      "path": "python/src/autocam/__init__.py",
+      "sha256": "a5d5d9fba2c9e2ceb313d91bfc72cd3e3fe00d13dd29a21b2faed1598a08fa01",
+      "size_bytes": 75
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/__init__.py",
+      "sha256": "1b5ec3b83d624fa6c58a0af578b3090b8234994753e1f3d477382d989568ebe4",
+      "size_bytes": 359
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/__main__.py",
+      "sha256": "c55b733877c70f746e6e200b883b2e152d784ffc2f7a781edaa595cffafa83cf",
+      "size_bytes": 7961
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/accepted_retraction.py",
+      "sha256": "c5293786c3c9248555d3523b5b87dbf20839ed653fe786761adef2b154b6ddaf",
+      "size_bytes": 4984
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/admission.py",
+      "sha256": "2a3a74b57c5bb2b3b96cc760b3fdff5a197c7f8bca946df1efa5756fe056be6d",
+      "size_bytes": 3905
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/annular_coverage.py",
+      "sha256": "2d79fe9349ee7232941cc03c1e07cd450474f8a33877ad3aaf156659263f3016",
+      "size_bytes": 6687
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_experiment.py",
+      "sha256": "eaf9d7420da3d028e1a96b912a268528b6972c36ae9cf2eee59bdfde4217a35f",
+      "size_bytes": 18779
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_features.py",
+      "sha256": "2d130e167acea783546edc084c8db53c9a1b3d7aaaa1e5ce8a57d5ceabb7524a",
+      "size_bytes": 2642
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_gym.py",
+      "sha256": "f44ddb96d04bc7978c4e7aa096287dd770b66136f0d36b658e4837dfdddb1805",
+      "size_bytes": 7449
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_learning.py",
+      "sha256": "623a7d10e2a0e2ac7b0397050cde9220d14872c6203f47625d310c65534a39f8",
+      "size_bytes": 2106
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_replay.py",
+      "sha256": "bfe6656d0c7318f71cae65fe3c4ef8e2360611ea4ebccc33756599843b2cee3c",
+      "size_bytes": 5595
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_mill_turn_tasks.py",
+      "sha256": "11378af06114e9c3caa3406fc2cbf07d4affd0600cbf77770374a7fdcfa0bd59",
+      "size_bytes": 905
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/bounded_research_package.py",
+      "sha256": "7840e7b756497050715aac06456fb1450a5b2d88575a8bee6d2dc57c1794f15f",
+      "size_bytes": 16170
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/browser_session.py",
+      "sha256": "b837f6701adfcf6d42bd500dbb7a257a52354176693906b64325d97346f0e863",
+      "size_bytes": 6563
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/browser_view.py",
+      "sha256": "2869d28a429f80a8fe832584ab0b5ca73935f2cd4ab5912fba1e10d3c278ffaf",
+      "size_bytes": 3667
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cached_browser_session.py",
+      "sha256": "91328dd57386f54e45903a4f50b47410575c6368a3e32c90ac86fb1d3a612ee7",
+      "size_bytes": 404
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cached_reference_gym.py",
+      "sha256": "02cab3182398108de362f58d89e67ff566e7d321f7d6a8de8de89decf7edcdd6",
+      "size_bytes": 2193
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_boundary_budget.py",
+      "sha256": "0258e7767efba135e7ece5eaa12fd89e9d39e42a18079ab3b56dd3e2dffd635d",
+      "size_bytes": 6924
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_browser_construction.py",
+      "sha256": "8c209eaab9bb3b3b1f05b75af2d52f7be8f773ba02fe8c5051ef233cd3d6cc58",
+      "size_bytes": 2602
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_browser_domain.py",
+      "sha256": "e872e1f7f912975f631036f3a3b2ce6e09bb438e511ab8d93457a1ca1be54730",
+      "size_bytes": 5654
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cell_faces.py",
+      "sha256": "62a583a69eeb3ccc8055cae1816c3f9e788aa1d741918287bc09fed794c32878",
+      "size_bytes": 5579
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_construction.py",
+      "sha256": "658993641e032385d7a980a5b37729e23017ef8d1ea54e766ffab4516f4f1adf",
+      "size_bytes": 978
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_contacts.py",
+      "sha256": "7801b8c33807813c28a87ae4a6f070ce3cb2eb537aac3237e5ae5b475f5a49d6",
+      "size_bytes": 7435
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_layers.py",
+      "sha256": "62a7ce8be5b5cb0496b24521edb580b53b2ef3530ca2036f0ab99d916e09a687",
+      "size_bytes": 2003
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_methods.py",
+      "sha256": "533e0d2d37625258e4a9c15fbc98a52f6fc496d638af801d6b6fc5874509ca2b",
+      "size_bytes": 9158
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_requirement.py",
+      "sha256": "15cd4f8f65ad3f2f32a54a6a3458a36efed8bdc1967a2496ef07a7f0b7a54fb0",
+      "size_bytes": 2875
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_route_choices.py",
+      "sha256": "d5f6ebfcfdb8d31f4487f86d890dcb91098becf3e7210845e6af7dd778867dce",
+      "size_bytes": 1894
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_route_execution.py",
+      "sha256": "ea309d53c506b1a60e392e0be64ed1bc48bd30f536c323bac39cf37d82971ead",
+      "size_bytes": 3121
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_cylindrical_sweeps.py",
+      "sha256": "d5a87d8e659931d2ccbfe15fa3d41b1c6822455b675a62f0957468ffcb107878",
+      "size_bytes": 5496
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_end_facing_execution.py",
+      "sha256": "0f11ebf84cee1c02754a3b1577df1aa32e720ef0b5a38694c26d4a24b5b9c890",
+      "size_bytes": 4388
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_end_facing.py",
+      "sha256": "b79f56817607fee904375dc528c1f34cc60cef4ad542a963eb620eaff9547ab6",
+      "size_bytes": 6437
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_face_directions.py",
+      "sha256": "a240dccbc0b3929e866ab5bf39db397dad5a46a6eb5cc9c79b7012e5a2b1f4ae",
+      "size_bytes": 4029
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_machining_geometry.py",
+      "sha256": "f4f73bfb587b61cad10b6cc885a6bc7b4b75d332ae246eca71ffd663394e2834",
+      "size_bytes": 6541
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_machining.py",
+      "sha256": "e734adc3d42e1503e2daa3d2ff82561039a6f286c7d962870eb09a4c957a57bb",
+      "size_bytes": 20256
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_nominal_rational_prism.py",
+      "sha256": "4b1025fdf198add70e7610fa5b1ccc4dcc32cab2533c619490d3ddc6a5281836",
+      "size_bytes": 13536
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_periodic.py",
+      "sha256": "55616dfa0e6e1aa77237f98404a4e426b698789df3318b02c37093d81062bdf9",
+      "size_bytes": 17290
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_preview.py",
+      "sha256": "b2db96e8987da087494bb2675aab91789f5837a5a0af3fba168361345df62b5b",
+      "size_bytes": 2865
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_rational_boundary.py",
+      "sha256": "5cc36ae1825ba630a86d1846ae7fa9f6a1857de1043087d8b861aec06df709b3",
+      "size_bytes": 10243
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_rational.py",
+      "sha256": "9eb9b0088a2e07225910af7217a054bf527cbb024fd2cc6113fc6949adb7fe65",
+      "size_bytes": 11567
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_rectilinear.py",
+      "sha256": "35be58b6ef8b320a2db76ccbb6085bcc758d81d2d23ce679fcde8ef1c47282a4",
+      "size_bytes": 13567
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_seam.py",
+      "sha256": "7e3c1d11ebf6af27e362a532b8bb9a16a782d9a2acdd61be80c3c4078aab4ea4",
+      "size_bytes": 5735
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_shell_incidence.py",
+      "sha256": "51892d8a7e187830cf5e4d027c847a4ab50e38812e788630cb5f86277d796f62",
+      "size_bytes": 6175
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_spherical_turning.py",
+      "sha256": "a5821ea0106979da61eeb94d3b67788e5583fc7098f2153a80219cc54eb418ad",
+      "size_bytes": 5389
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad_spherical.py",
+      "sha256": "29af335d84f060a2fe42d74b82584d4d82f94a062b69e703828841e95ceebb0e",
+      "size_bytes": 11692
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cad.py",
+      "sha256": "1066ab3d60a3af301e4e34c30264d514fcf002d33c027bb2d9a1a62c166d62b2",
+      "size_bytes": 4965
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/candidate_identity.py",
+      "sha256": "cc1b252d716b8775c30b8ded41d577f9f343d3a21a9c32c0683eb9576a0cf02f",
+      "size_bytes": 5171
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/certified_indexed_motion.py",
+      "sha256": "b77cab377f2a50b4ecca25de21b7b267da10a649b61a916c657f22df797bc758",
+      "size_bytes": 5583
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cleared_holder_browser_session.py",
+      "sha256": "9c76ee128567c9fe3b5b4b0a30d1c7d77382239a5a34cffcdd8796992a562e93",
+      "size_bytes": 829
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cleared_holder_task.py",
+      "sha256": "5d432778812e4f783614cb6e420cdb19fc65b98ad60cd216145dd599e51d73eb",
+      "size_bytes": 3599
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/codec.py",
+      "sha256": "8bffc6c6b2a44c3b82aa5e5f3bf0f83b77d1f5f94771459bd8a72ace77a0c5ca",
+      "size_bytes": 5102
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_browser_session.py",
+      "sha256": "1def5b5ae10015b67f1856287b7b44fa2dded0d5ba3005ad6048b1f34f30e0d4",
+      "size_bytes": 6785
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_completion.py",
+      "sha256": "85f5e8f091957d0fc46df043371b19f85ee32374e44ba94220d1ef77d86519f6",
+      "size_bytes": 8795
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_gymnasium.py",
+      "sha256": "04fcfd6fe70829897adf01b000176990d90fb45bf630c71e6b694aaa1e02ce82",
+      "size_bytes": 2479
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_inference.py",
+      "sha256": "e9e6326928af6fb699eaf823efed7cc2aaf3544ae48c243cff042bdd30d19312",
+      "size_bytes": 10018
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_mill_turn_gym.py",
+      "sha256": "44fc2a66e46fd9bf132150c25b8dfb835e80b320c6aa0eeef01a3171bc73c28d",
+      "size_bytes": 11727
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_prepared.py",
+      "sha256": "87a8a5402de6a7b33df4d82f6b53bc93c0161d4f89706776e897a0d1bcc2188b",
+      "size_bytes": 3692
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/combined_training.py",
+      "sha256": "72ba3b4da44e1e0b8c15dca0eaae6b3fd24684a20bf7e176dd2ec39dfcafbf3f",
+      "size_bytes": 5103
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/compact_inspection.py",
+      "sha256": "ff8e7cb1236f6839fd1d5d22255fd33b5c083d43c76a6ef001f8c18eb2a40cf7",
+      "size_bytes": 2027
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/compound_drill_entry.py",
+      "sha256": "cdfe279cea026ac14162a5d1965ae0146c7d2d3bcee36485cc214aa462b7a2b1",
+      "size_bytes": 3100
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/compound_source.py",
+      "sha256": "f631c27824e5503aa2419aef67680561dabf2c72b1f9e42d528a3c34e9da9426",
+      "size_bytes": 5430
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/connectivity.py",
+      "sha256": "b347f4554c62d72dbc43959652da8787fa56e8e862cca5d7aa25179b841ff090",
+      "size_bytes": 4304
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/continuous_clearance.py",
+      "sha256": "b424fe9c14608c27965214f649f294db2a32a166d4e6e217c137f20ed0661a66",
+      "size_bytes": 1783
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_browser_session.py",
+      "sha256": "c10daf9647b693c8ab77c33487a54ee92e5eb189733805d769fced136520c10e",
+      "size_bytes": 16784
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_choice_gym.py",
+      "sha256": "7d907864adb4fe5d230d63a884cb860b22dd8c858b976a1d21211b7b23039c8e",
+      "size_bytes": 8031
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_choice_session.py",
+      "sha256": "cb76e06daf02225f8620a6982d69979c2bb06708bb447b912f63ac9f8f43db67",
+      "size_bytes": 21585
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_inference_session.py",
+      "sha256": "a16720aa61e87840eb67c206204fc4234f1ad5e26a578671a6813bd43e5d9294",
+      "size_bytes": 3593
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_mcts.py",
+      "sha256": "abe377651a54a73eb9d636bb9895dfdd29586afe3f572c5f26635a1d46832cb3",
+      "size_bytes": 3763
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_policy_browser_session.py",
+      "sha256": "f29d47811813f25e510c2e4d60459f23c819316244deb988f0fb90bb906ce8ae",
+      "size_bytes": 2974
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_policy.py",
+      "sha256": "ba5e0f07cb70a193565b56cb1c24cabd1823dd601310ae3fb27133a3ed333384",
+      "size_bytes": 8976
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_recorded_training.py",
+      "sha256": "9af1bde6cf7bcecd0e2cde3a0ff4934ac0cf601aae49b62164553bcbcbebe9ec",
+      "size_bytes": 4374
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/cylindrical_training.py",
+      "sha256": "615b2cad2bf9a9a1ba2f773ec686bb19f7d23bbcdbeaefc7c363ca4e3e969d45",
+      "size_bytes": 5574
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/directional_cell.py",
+      "sha256": "190d48ac0384fdaf5118c5b364eb47bc04ada1c10ef8bcf598c6159219c86cb9",
+      "size_bytes": 4834
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/domain.py",
+      "sha256": "85960577aa458d3184f4a5ae81a7d1b8af036cc3d9d006cd58f688257a0db99e",
+      "size_bytes": 6288
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_action.py",
+      "sha256": "d9c708a41c598eba61d8d2b1a2c2d8b6a7cc97c9659793f4003d5c3a660d47a7",
+      "size_bytes": 6616
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_browser_session.py",
+      "sha256": "2f072a4d329f48d03addda70613d7d0c718b21010612ce5af42ce98762f678f8",
+      "size_bytes": 12218
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_candidates.py",
+      "sha256": "e132b39011acf17f02b261542623fc0c919109d809cffcf82457509f648ce726",
+      "size_bytes": 17588
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_geometry.py",
+      "sha256": "8318d98cf76f4cc11157e31dc615701267f7dc5eab10663b3125573b0a05885e",
+      "size_bytes": 6338
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_motion.py",
+      "sha256": "9bdf6f27e16fb97f983a583fa25b2a48ad51d34c28dd35d5ae2f8afc62e7c49b",
+      "size_bytes": 13904
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_operation.py",
+      "sha256": "0b84aa979c2c80ad32dca7a352ebebc082f082b2615e9c2df83b9d54c77c13f0",
+      "size_bytes": 6424
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/drill_tools.py",
+      "sha256": "e24e300f60c9b05834071fee1cf939f2949499b9630a7bec6c27fe6b5994d2c0",
+      "size_bytes": 5670
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/equivalent_groove_example.py",
+      "sha256": "5f741ef76df0008d577bc142a9dd7a0dc7a137822027b4ef06109c1ccb61bd4e",
+      "size_bytes": 2767
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/equivalent_groove_proof.py",
+      "sha256": "bbf932d2054b905112a5c533ce03bebd88e1c4d09b0859dcaff47b5a0690b2e7",
+      "size_bytes": 4452
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/evidence.py",
+      "sha256": "001970431f0e3a516ba434201c08d2302a8a1e66330b636619a17b42d621580a",
+      "size_bytes": 9281
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_action.py",
+      "sha256": "658320190c0a65c2449a734ac20f92c4236bc15f331b913eb2107aac76237816",
+      "size_bytes": 6201
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_browser_session.py",
+      "sha256": "645d82e8527a097b9e83c5f9c80e6eb4a685bcac1efb601ab5774a6725e8f41d",
+      "size_bytes": 1633
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_candidates.py",
+      "sha256": "5c99ef743e650c6f1dfb2f2b1ddced3db1d439e8c9c7c1fd537f2c75713cbe68",
+      "size_bytes": 22169
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_coverage.py",
+      "sha256": "855b0fd0189a45bf749acbb3186cfcffce2de41f5a761b899f2fc7d76e26612d",
+      "size_bytes": 8736
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_geometry.py",
+      "sha256": "abfec38b0de1dce88970d2d09bbc534cba209a5a7c5c64957629a9e444af3881",
+      "size_bytes": 8268
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_lanes.py",
+      "sha256": "eeaa3a418e5c92ff1c2b00e7ad1d958d9fb30bbf5dffdfd6d21e1da079e5422d",
+      "size_bytes": 10883
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_motion.py",
+      "sha256": "f0848c4fb6206c6db608d067d3d8f52a0544ed6ef4d29a9e5cfe644c2a1afe86",
+      "size_bytes": 13168
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_operation.py",
+      "sha256": "8d0659bf340d354d8794375db2314d65d20e6de7673434316b112ae72c39eb20",
+      "size_bytes": 5519
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_requirements.py",
+      "sha256": "75584db00f5295467be03ced993f7ec17905500e06d94e5ff3cf950a67cbf234",
+      "size_bytes": 5251
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_route.py",
+      "sha256": "eca53fa8ec4b093ff9010d5959b59a52cceef2062e96d636fb4cf137737de058",
+      "size_bytes": 4876
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/face_tools.py",
+      "sha256": "61c73d9dc71f3a322b3aabac9097206d832c73e6f6cf5429c1ce1c4476a4af69",
+      "size_bytes": 3840
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/fixtures.py",
+      "sha256": "50e8ab484c96b7670bca7a8e24c1ecb2e1b4d0ee5e3c8b102235f69753ca8077",
+      "size_bytes": 1465
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/full_cycle_policy.py",
+      "sha256": "545fa914579f9f59d6c6f8fa769fec97a4ef1f4decf5e7d8d10cfd58bd7dd3c5",
+      "size_bytes": 8298
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/full_mill_turn_browser_session.py",
+      "sha256": "82d13cf500e6981ced6a59e5710c894cb6a56432b658ebb62e514b5d3aa4bea2",
+      "size_bytes": 13705
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/geometry.py",
+      "sha256": "71299ffcd6d1534c02993a8a172e93d865ef8a2a3c5c75efdfede064b93572b4",
+      "size_bytes": 17646
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/gym_env.py",
+      "sha256": "40ebaafe2a8de70ff5c525e975c31b89eeb5fc0554aac9911069253631ef1d3e",
+      "size_bytes": 11740
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/history_bounds.py",
+      "sha256": "e63f3740e85efbbeba7f1e5a2071bb52dfbcf6bd9330807410a5ca91f01c0ff4",
+      "size_bytes": 8179
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/history_cache.py",
+      "sha256": "8837a1a2bfd4f8c1e410255567b567de6aa2229db3ff152a4c5a8c5dd234744c",
+      "size_bytes": 1435
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/history_primitive_reuse.py",
+      "sha256": "1ef2ccce95c62381d563858043bcc91531aef0b857753458b19a7feed2529dc9",
+      "size_bytes": 9647
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/history_relations.py",
+      "sha256": "bd54177a56c98785108713af9fad159ab87c99adf2e5d1961cf86a5528c14a62",
+      "size_bytes": 1643
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/hole_equivalence.py",
+      "sha256": "27701dbd5d73060cb11d66ea666fc2da391996c57016230cf3c3079e15f9d6bd",
+      "size_bytes": 8541
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/hole_requirements.py",
+      "sha256": "734cfc1c3ad31795fc54b84234cd453c17da99e637eaecc125ffe9ac1d81e19f",
+      "size_bytes": 6143
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/index_journal.py",
+      "sha256": "af8c5b3dcc9940a9df422d65e6e24bdd3d23a3458b8da0c4108bfc952f8de835",
+      "size_bytes": 8353
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/index_motion.py",
+      "sha256": "db5c08b21fa29454a3e8094679c68471022eb9b820f12c4ed2c5f87253ef2219",
+      "size_bytes": 7194
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_browser_session.py",
+      "sha256": "754f219b0247b52a1cd7c4db006d3c0234b7c942c874db6e4707b20fda439ee9",
+      "size_bytes": 7735
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_cost.py",
+      "sha256": "ee1aff7de94a3e3f4b8914e74097e7ad46f1488197afbcf8eb37f0ae781cc581",
+      "size_bytes": 6935
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_curved_example.py",
+      "sha256": "02854860f0082a51c15a8d50492ac6313e1e0989ea1dcb931211b3194b7daf89",
+      "size_bytes": 2722
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_cut_journal.py",
+      "sha256": "9994bb3b8e38777af7da2084a77d8bb817ee08042a393afa555e3c28f270595e",
+      "size_bytes": 42522
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_examples.py",
+      "sha256": "c2a2479c30bdfeffbf0fe370140c5c90324789ca7ef516aeedaa02adef679f98",
+      "size_bytes": 2742
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_frames.py",
+      "sha256": "e52b59c67f568576e206160e13c4740c4ab0384f04dbff9814aa047c1e71c4e3",
+      "size_bytes": 5132
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_gym.py",
+      "sha256": "e82edbd80590cbd364b2af73ed2d97e5b5931a28c348c98a7cc1aa7f4c4b19f1",
+      "size_bytes": 8652
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_inference.py",
+      "sha256": "1b90159f35f656475505552074cc6bf3edbceabb0b11237b127c22bc8014b882",
+      "size_bytes": 7152
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_parked.py",
+      "sha256": "76ff9f7d9d2c6cfe2f632863bda0f22d88d47195be28c7fb2f80c82ba58ac5dd",
+      "size_bytes": 3717
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_queries.py",
+      "sha256": "04e812e33a9c42116f5b5387fd1ec464c66fd849f3e4815ad54f7e947c476f8e",
+      "size_bytes": 4369
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_storage.py",
+      "sha256": "bba4b7c9cd025e46e771513a29361e5eca7b9c82f5ff83d3abd07d244d9233b5",
+      "size_bytes": 3154
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_tool_action.py",
+      "sha256": "0e307e177dace52bb3d9163fe401717a99fe073320750137b5d203b406a74a3a",
+      "size_bytes": 3064
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/indexed_tool_change.py",
+      "sha256": "ff71048aa0ac7f4bcdbed450a637d2173edf0fa54c9f9807833734af68e39f43",
+      "size_bytes": 2099
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/initial_cylindrical_choice.py",
+      "sha256": "83066f16b3a764e9364d07f7d5f672f1d6428a4bc97a3faafcc1da4ea36b7f41",
+      "size_bytes": 2310
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/initial_end_facing.py",
+      "sha256": "45981e8050e9cefdee43196cdcd6ad4fce1bf70736b2c7dd212c5aab829293fe",
+      "size_bytes": 2393
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/initial_mill_turn.py",
+      "sha256": "f4e047ab32af0ab22517dd424b8f2cef0d7aefed78d0de9d406f8df41fe014b8",
+      "size_bytes": 17785
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/initial_milling_sequence.py",
+      "sha256": "e99cb0952911412eae152a29f1561b14575310e578c4e624f596ff4cbbb83d7d",
+      "size_bytes": 3128
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/inspection.py",
+      "sha256": "ddaae8289b12f67d1d5a6431b214dd29b7d306b94645cc63ad6d77413b973e68",
+      "size_bytes": 10990
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/instrumentation.py",
+      "sha256": "dce1dd7a2b48282ec7c80358a74e3664f05a21ae8f5c9fd62403c143cb277d22",
+      "size_bytes": 1281
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/integer_cached_browser_session.py",
+      "sha256": "5264233e2f0f75b32c24dfaa1fb820358416a9a1aa18e3f12c465fd6dc30f6ef",
+      "size_bytes": 650
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/integer_cell_cache.py",
+      "sha256": "4ed9d59d4cd942e0ea9779968f64edec808cc78a0234fef8f0c3211a187bddb6",
+      "size_bytes": 4832
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/integer_clearance.py",
+      "sha256": "7e3c0ed7f2d7d9ba08c1f0cb8bb90a0ad7539ef1bfdc67c6074774e93e40d545",
+      "size_bytes": 2235
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/integer_history.py",
+      "sha256": "d03dd46d219166ef6be6d1e282d4c648e279705b0f47e825e714489d8e8b9354",
+      "size_bytes": 3824
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/integer_oracle.py",
+      "sha256": "675e70a7f815d16025237ce5ed4fa953acff2a10b42fb7c386c9a37e80957cff",
+      "size_bytes": 10182
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_browser_session.py",
+      "sha256": "313933acfa272c4fa69c7ccd5103cfb62bbef8a16fba486dc776a559908ea598",
+      "size_bytes": 7087
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_features.py",
+      "sha256": "5dca399db0ea724d23614cc8c0d11e4c3a4fd6e8942e6776090e54458c2aa9f7",
+      "size_bytes": 3710
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_gym.py",
+      "sha256": "f70c5a6c41a6f116057370e4ea1d6fb21fb519576075ace3707d99f968f64d9e",
+      "size_bytes": 11824
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_replay.py",
+      "sha256": "15750a3351d570d55e2050a9a60b894bca6a7d50edc91eef566b1d28770b80bb",
+      "size_bytes": 5135
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_tasks.py",
+      "sha256": "f01189f4009a8ea1539f40adb3862ca3c76f307b8d855a610304f8f0f974a5a9",
+      "size_bytes": 13525
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mill_turn_training_tasks.py",
+      "sha256": "d50960b2366cb644cc74e327a0a9c62b3cb6030d28c7da0ba1090fe8916c8fb3",
+      "size_bytes": 3183
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_action_bank.py",
+      "sha256": "25926d7755da56b7ac47718f783437fc3c43979f0fd5aeabb84ba2e31556ccce",
+      "size_bytes": 7257
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_completion.py",
+      "sha256": "7fff178f875c565a92156bb6326eed48a3b47f076ab6d5c1dab620c1090bd357",
+      "size_bytes": 3497
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_contract.py",
+      "sha256": "24be589eba6fd151f3c791ffc34236d5d14a7d1b398fc7338075592797d3ffbb",
+      "size_bytes": 3223
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_gym.py",
+      "sha256": "f92cf44c06f3835d98cbf5368581acfcb5be5f9c079a3558dca981fcf249c210",
+      "size_bytes": 9692
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_inference.py",
+      "sha256": "d822f479a8f8149d4ceba198fae701207d8d797cccff877dce6d94660beb9a26",
+      "size_bytes": 5114
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_manifest.py",
+      "sha256": "d44e3e2d1b283116d8bf25058e55e69f5c3643743a89a4f65efe9afdd8b5f430",
+      "size_bytes": 7872
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_reference.py",
+      "sha256": "702794f55bf06752a7f4fc74f4b9874cec1a7b9ea58a93dca4215542c054c044",
+      "size_bytes": 3483
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/mixed_learning_training.py",
+      "sha256": "cbe0e4d0d3555e3a45d73218fc0d51bbbe194d822f48c6268072441998ae3c0c",
+      "size_bytes": 5142
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/native_batched_queries.py",
+      "sha256": "a5a15bc5e3f4cf305000e9da95fec94be07e5a5129a50d6447acc09c8d999b72",
+      "size_bytes": 2806
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/native_completion.py",
+      "sha256": "eeae177bc7ea8856d219c6eb78878fc1fc3378059e0c9c58f23546d55116b733",
+      "size_bytes": 2285
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/native_history.py",
+      "sha256": "7611aec095f27d0d500cfd6b737a6107288644d59de747639b958981cc46e22d",
+      "size_bytes": 2908
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/native_queries.py",
+      "sha256": "fcc37743a5b601b3c8591cd4d58c614f105ec8d399aa9b6ae0cc6067048b68af",
+      "size_bytes": 3508
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/native.py",
+      "sha256": "4892da7613337b2dcafb162e3376bb94ef02f1335cbeeabb8f61138833f027c1",
+      "size_bytes": 6812
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/neighborhood.py",
+      "sha256": "4347c40f20381482e67346af14200a4a45fc47b0c7847e4b74beb2991ca64ad6",
+      "size_bytes": 4235
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/ordered_motion.py",
+      "sha256": "7ebc2deaf319168b68ad80b7e0fea152b6406237d64ac20aaed2d464b08cacf4",
+      "size_bytes": 11045
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_domain_codec.py",
+      "sha256": "7cb4e3d0a944e9fbf1df21029accfdd207f42cc6a0d85ae3299031d151273a94",
+      "size_bytes": 3297
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_domain_store.py",
+      "sha256": "8835ea73b0077b627fca7511ecaae60d3fc6fb2478183d8a677648a510442875",
+      "size_bytes": 3808
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_domain_validation.py",
+      "sha256": "6a05b9f02c7f01c0a656a4bdc70971df4668ba613709a20d60a9d4c7045a5b0e",
+      "size_bytes": 1166
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_domain.py",
+      "sha256": "86a34d7842d8237ad7385b5b06e7275ab2ddf9904884b40dbc44b86d2618adfb",
+      "size_bytes": 10810
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_history.py",
+      "sha256": "a5f12dffeba19869c88b0f9c954926349b937aa8cea9d01f9178a5b08492d1b0",
+      "size_bytes": 3828
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_native_queries.py",
+      "sha256": "56fa459a942b0f7a35d1150ca0010a0fcab378ec13fe6312dd2cd14185832f5d",
+      "size_bytes": 5713
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_predicates.py",
+      "sha256": "8e23d4f4f1e08962c7b5862a8a25d21d49e8f4dc16008dbc9ed53ad4c2e561cc",
+      "size_bytes": 2963
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_refinement.py",
+      "sha256": "2afcb45c09b1e5513febc8d0f752bd5cb2c83cf4fac737708bf470455d4903e9",
+      "size_bytes": 3900
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_remaining.py",
+      "sha256": "0560e30195b75430887baedb94d100987bf8fd3997eab7ef7e65bf7dd5b75ab0",
+      "size_bytes": 5439
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_transition.py",
+      "sha256": "851a1bbe4b92f8378397293cc9686c6914e77883cbadc7b4da2a7c73d25237c4",
+      "size_bytes": 6631
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/packed_wasm_gym.py",
+      "sha256": "dced1cdbb0d69c05034f6bb06d80cd000a5e743644907017895e16e61249a342",
+      "size_bytes": 4253
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/partition.py",
+      "sha256": "62720b4e72ce2229b3a3579b12ac61e255897700f96613bcc3a1995af953e156",
+      "size_bytes": 13342
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/pilot_replay.py",
+      "sha256": "d3d007c6a9810348f9212aa727917aa9dfb4d85766994929f9ab7cc6ecd7a928",
+      "size_bytes": 6168
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/pilot_tasks.py",
+      "sha256": "d902be9df69440505eb406398514872b585ec835caa4704bfe4acdc5eda42e5b",
+      "size_bytes": 3788
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/prepared_indexed.py",
+      "sha256": "bec37f566da610c726b840a01965fb28d15b06db260150acc80536081f637c03",
+      "size_bytes": 44203
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/prepared_initial_turning.py",
+      "sha256": "ce651f9a39f392f0ffd0842b28a1bf712d91b984d3692d0a6d4d21e27e3e7761",
+      "size_bytes": 12779
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/prepared_mill_turn.py",
+      "sha256": "974b4b2ab3e28bae93a22c389bfde641df79dbd31c6eb8d16a0f7c5e16173a94",
+      "size_bytes": 3798
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/prepared_storage.py",
+      "sha256": "7952fcdd5f9b7ac8ea42840c2ccb0a46503f2aa3f6c379ce64082980a86a19e4",
+      "size_bytes": 4544
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/primitive_motion.py",
+      "sha256": "8d0afdd8574aeb22286aa03a270f3330b5ff649880c7eb04fb2c1d8eac755a51",
+      "size_bytes": 9243
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/rational_curve_bounds.py",
+      "sha256": "8617f5290a663817b5d5e8f9c0d5ed679031b52b24426b60c99178b37370eaa8",
+      "size_bytes": 3233
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/rational_patch_correspondence.py",
+      "sha256": "a51d25e1967cd202a58424dfbf687741d1ce98a91fdd2d59b72541a74a423029",
+      "size_bytes": 1872
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/rational_patch_regularity.py",
+      "sha256": "78c32ad8ab9409adc1e1f32986a260df3a20fea56078bcbc7a59974c3ef3a6db",
+      "size_bytes": 3548
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/rational_patch.py",
+      "sha256": "16f6dc9cef40a1758e98f83775e695b2296d0b0d2e60de1e35ed807df6eac03a",
+      "size_bytes": 7726
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/rational_prism_queries.py",
+      "sha256": "fd5b6a6edb0b30b8e84f305cd7a5d94a263d061ba84b44d99615e3d3d35562c0",
+      "size_bytes": 8093
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/reference_cell_cache.py",
+      "sha256": "40373cedd49e7bca245e8b92d363f49deb708efe0d2bd253070bc98ea0003cff",
+      "size_bytes": 3723
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_browser_session.py",
+      "sha256": "7509d62ec3d15112b1341ca0e6c3488e1e609207a1cfddd9ef6a271ed3e56c0b",
+      "size_bytes": 4616
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_combined_gym.py",
+      "sha256": "e0bf66065351a5ce29d0e30945d7926ba478ee6fae58ef34399ea51ba4685a53",
+      "size_bytes": 4700
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_examples.py",
+      "sha256": "5a477bb0fa1c758355f50e35b8ed3a4e38dd53c0ad2423abe5971f1a75b6831f",
+      "size_bytes": 3855
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_four_faces.py",
+      "sha256": "d3ad8be6a2b1585af6313a6250b9720192907e133d81989be3062e584663135f",
+      "size_bytes": 4351
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_inference.py",
+      "sha256": "f245a979c526797b8222bee25eca26234084970db4d1c79f1bf94f10fb0dbbee",
+      "size_bytes": 4854
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_browser_session.py",
+      "sha256": "baf0cba22484ba9507fa9e00a0a0a03bd5940499f56fa3cb4e758a84ac7d7ac0",
+      "size_bytes": 922
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_evaluation.py",
+      "sha256": "5a889cd9a0b4910c470ff3c2c4ca2e79cc69d84dce0497baac341ecc0b6de8a1",
+      "size_bytes": 3360
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_gym.py",
+      "sha256": "83e3d9bd3f73d770943a6697c97f1cea74958258b8cf53377b8a2290b1e0ad8f",
+      "size_bytes": 4923
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_inference.py",
+      "sha256": "9178483fdb4159ecfcf5773a127c53e4f5a7826f219ccf000d9f437608f7df7f",
+      "size_bytes": 3931
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_prepared.py",
+      "sha256": "6503f763b7775232a9cd4e2f0ba1b77bc9ddd93c9b639d318ab00125230ad003",
+      "size_bytes": 711
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_objective_training.py",
+      "sha256": "2a35390934b59fbc48e158e7b4bb41ab2d3e5caa755cd1ab26fbb785ba50cd45",
+      "size_bytes": 2405
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_prepared.py",
+      "sha256": "b727ff0520437b8aef6ac5540481621106fc5453d7590b4e5afc34e517ba7a2c",
+      "size_bytes": 4614
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_recorded_training.py",
+      "sha256": "c0c8f9658daaac7d1c82dea5ef4268a4acc9a4d70e1f3cbbc1499b39f6bded89",
+      "size_bytes": 3644
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_residual_refinement.py",
+      "sha256": "2ec47950c2f323220fb26ffe5728d254b144fb1f837c518dbe92bb0b1be5e81d",
+      "size_bytes": 5644
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/regional_training.py",
+      "sha256": "ffa01eb93c451ec5a3297fa816f2962ac1c7e3a834e5298dfb6ee9f773784e0d",
+      "size_bytes": 787
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/remaining_clearance.py",
+      "sha256": "402b1e0bde33d3d38d9ad77e11515ab73a8cc18cbcdfcfdbdabb154aaf4c3ff4",
+      "size_bytes": 2034
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/remaining_recorded_training.py",
+      "sha256": "5bf046065ad86743fdcfcc4e89a06bc93fa97268dbe8451535b61a7c516fa5c7",
+      "size_bytes": 7577
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/remaining_side_browser_session.py",
+      "sha256": "97b34ad662932ce2eb3d1150bb75263e430d34eb25475a2dbcf8eb1b9efa5efd",
+      "size_bytes": 3957
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/remaining_side_inference.py",
+      "sha256": "808fb77aa60ea2a0e2da979150067b6a26b4a45499001dd502b66b9fbe8545bd",
+      "size_bytes": 2174
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/remaining_side_task.py",
+      "sha256": "0e3571b1a643c5ded520ab334a69703671404842e496eaa5518c44c989b27cad",
+      "size_bytes": 3933
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/required_boundary_contact.py",
+      "sha256": "e038c618c40f91364b305c7f62c090d457950f0ae0874db8518468541db4cbe8",
+      "size_bytes": 4466
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/research_package.py",
+      "sha256": "41efe4f9b87ef7004c47efc5d82a9ba95b6949b2d091fbbea1aa4e7da4ad9424",
+      "size_bytes": 4704
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/runtime_metrics.py",
+      "sha256": "5b2c65c923bd6a235a5a3e8ab19c0911510a9711b9683c4ac20a015b5460d021",
+      "size_bytes": 955
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/scope_assessment.py",
+      "sha256": "34a2f06b14d3867a7acc1906787d3f2aec81e90d27d8f14b8582b4ae3daaa722",
+      "size_bytes": 8332
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/search.py",
+      "sha256": "55eca36fba41900a800d6a82cccdbbedec516af199250797122372c40cc0301d",
+      "size_bytes": 4975
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/side_milling.py",
+      "sha256": "1f8cbea435caed349a3d39662a4bfb729dbdffa1e43ed6c2663dabc563a612e4",
+      "size_bytes": 14413
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/snapshot_cache.py",
+      "sha256": "42a20457530feed50a5fb518a0ad96aad640117d59b08a2682e806e08fd7878a",
+      "size_bytes": 1441
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/spherical_turning_clearance.py",
+      "sha256": "90facbddeb22bace36db488193d7b7cf62d6fa1b9009eeabf66164608ece216f",
+      "size_bytes": 1744
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/storage.py",
+      "sha256": "d73290578b7bfc830be0ab44f2e465a2af607c8f8664ee144d99057a6e600425",
+      "size_bytes": 22973
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_catalog.py",
+      "sha256": "027fef90ca1b42f57c4679d48f9369f91e5c2d3ff9fdc053de53567abf7a1362",
+      "size_bytes": 13395
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_diagnostics.py",
+      "sha256": "bde781618e4fcb1917c6c331c14ae41b79a9f5d7517d259a64b1355e1823dc80",
+      "size_bytes": 3778
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_experiment.py",
+      "sha256": "727b9b81c5c89ab2a9929e7cf074a538b1d9698727bca2acc66f1260c361f24c",
+      "size_bytes": 12906
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_features.py",
+      "sha256": "edf10098b3326dce49ffa340c78030deca4f2adf79b410062f56d58397b32fc5",
+      "size_bytes": 2945
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_gym.py",
+      "sha256": "5c7f2b9f699dbadd8843652b372ef3f735918bcf0c6c5a354982ecaf1fb6f29e",
+      "size_bytes": 2908
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_learning.py",
+      "sha256": "3780e8aa47aeb04eb9c8fb7e9d74685727a24e9c4cd5b12097547405cbbb39b2",
+      "size_bytes": 2203
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_replay.py",
+      "sha256": "91f6b86f22a4478de426dc3d641ea4d12c625a117c154a62b5411e435ff545af",
+      "size_bytes": 3346
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_research_package.py",
+      "sha256": "6bb291e5777eda53da7cf12a83e11b35d2e70ee453e2f1eee6eb9cd47ad278fa",
+      "size_bytes": 14770
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/tool_tasks.py",
+      "sha256": "c24311f1e95ade1e6c1ec4c36e9e89a23baf6afcac3c84fff8136599cec6db0c",
+      "size_bytes": 6456
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/training_gate.py",
+      "sha256": "973d26d1204738db871dd17c285f7d9f0de4ad9a9e9d6b74b3f1c5aa7c42a18a",
+      "size_bytes": 4913
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/transitions.py",
+      "sha256": "64bd00a2995b0608837e68fa6c967d09c6b788dd20d642717543cc6cf72dfbe5",
+      "size_bytes": 36156
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning_context.py",
+      "sha256": "d5f7acd946e5f701b28892d61d91bc92158990897827b9c81cda6604b5a0e94d",
+      "size_bytes": 2039
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning_exchange_journal.py",
+      "sha256": "4466ae78fb1f3a0c11d46a954a1177f4037c281a44b276eedc85ae6bef76f635",
+      "size_bytes": 12558
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning_exchange.py",
+      "sha256": "70578a4a2ccae39020d4fd048c263963fbd3aeed6ac7e0f4b11d1b572bf974d7",
+      "size_bytes": 6289
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning_tools.py",
+      "sha256": "a929a9cf8910e151393f8a1c69d9400113c42830d4b0fb2ab6e82e442bc08b1b",
+      "size_bytes": 3279
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning_transfer.py",
+      "sha256": "682baeec0f4af0ed9cf959e0faa14564eee62e34bb06cf659cd8c16241b95938",
+      "size_bytes": 7772
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/turning.py",
+      "sha256": "bc793cc072742c810ecce995817a9259dddc46705ff5df688b31a6a8845b1ebe",
+      "size_bytes": 12905
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/uniform_allowance.py",
+      "sha256": "2b7b15e47cbab2bd96787ad66dd95719adec723e802d62681381c491b06c7146",
+      "size_bytes": 3832
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/wasm_completion.py",
+      "sha256": "604cd3909ce6de12a29910d5d12b90f7b6bc8905171dd3f188bcc979cdf4ffce",
+      "size_bytes": 4084
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/wasm_material.py",
+      "sha256": "a644e9323a4ff1eb6411c104a7a9d891f2ef6c4d881c7020b68c698f052cb834",
+      "size_bytes": 3420
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/wasm_remaining.py",
+      "sha256": "745adb559ce41c23c1ae44db7444fd10883d199f0d15ec7cc45625fd76799b4b",
+      "size_bytes": 1853
+    },
+    {
+      "path": "python/src/autocam/adaptive_delta/wasm_removal.py",
+      "sha256": "11bcf1c9aebaa291e97381c55ec9fb539ebf9ae8407890626e63e20b093f2812",
+      "size_bytes": 2804
+    },
+    {
+      "path": "python/tests/build_task5_manual.py",
+      "sha256": "8f4830700120bbbf42fd9b93d86a5da5ad5e521a372a9eedbebef0181b400384",
+      "size_bytes": 2392
+    },
+    {
+      "path": "python/tests/test_example_manifest_contract.py",
+      "sha256": "440eb6034891162116e0e3ab0dfbeb2e950637aac666eda2cdff44f38f093f96",
+      "size_bytes": 5230
+    },
+    {
+      "path": "python/tests/test_training_output_boundary.py",
+      "sha256": "844cd17e7bf0ffc748fa161a846e9e0b7e7584efd2c010a59e6c238f6064215d",
+      "size_bytes": 3377
+    },
+    {
+      "path": "python/tests/test_training_rejections.py",
+      "sha256": "862562b9cecc7695fa048aeb38e7ca93e7f0f331223c983a708566ebc47ee078",
+      "size_bytes": 9283
+    },
+    {
+      "path": "python/train_cylindrical_policy.py",
+      "sha256": "dff8e16327b55ed060560348538d71a42ea918c9d98370496475b073f491d3a4",
+      "size_bytes": 4862
+    },
+    {
+      "path": "python/train_operator_episode.py",
+      "sha256": "43c37aa3ee826b6ba02cb2af9e3783dcfe1f34b736f7bd95e687d95f6b66b453",
+      "size_bytes": 3230
+    },
+    {
+      "path": "python/train_recorded_regional.py",
+      "sha256": "ec60eaf415c7f5cc935547ef40902a63cbb4e63d95199ee14fa2d981f04f7aef",
+      "size_bytes": 4455
+    },
+    {
+      "path": "python/train_recorded_remaining.py",
+      "sha256": "45b19add63bcb10494681289190c844f054d9a63d38ffe92c1877ea6e1643485",
+      "size_bytes": 4373
+    },
+    {
+      "path": "python/training_support.py",
+      "sha256": "d86a98b0509ae39425f133200b68cbe8bd01bf4da34339879aac3bfafd0d4a3e",
+      "size_bytes": 4812
+    },
+    {
+      "path": "python/verify_cylindrical_examples.py",
+      "sha256": "38e534c66e671e2dbab89b3844c422c9473ae5e0237d076ebde45cb0b6458123",
+      "size_bytes": 11900
+    },
+    {
+      "path": "python/verify_examples.py",
+      "sha256": "dcbbd923300b359108e064f29b5dd449d1ed61656bf1a26be8548c53e22d50d3",
+      "size_bytes": 13496
+    },
+    {
+      "path": "README.md",
+      "sha256": "1b3d0e83bee42e246ce347cdd267524eb8395e9c1fd1dc4e27bbded0c7b5590b",
+      "size_bytes": 3019
+    }
+  ],
+  "documentation_training_inputs_sha256": "af14f5e791fc26981435edcd9a1d9db13a14e1f4f844fe75cd9d323cf0e8bc05",
+  "configured_dependencies": {
+    "release": "v1",
+    "stepUpload": true,
+    "catalogUrl": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
+    "dataCommit": "a2965f894440d202fad749be9a8ef1205a25d50d",
+    "adaptiveRuntimeRelease": {
+      "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a7f98ddad1a80034ee7caab1c70222d9f782ae22/releases/adaptive-capture-snapshot-reuse-20260921/runtime/release.json",
+      "sha256": "754ec77b3378dab6d6a167cf7cd9e9daa03c0c1dff693bc3d57fee12418192cb"
+    },
+    "adaptiveCadRelease": {
+      "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/170772bbbad760d2c8a7177224fca0b2754f1984/releases/adaptive-completion-cache-20260920/cad/release.json",
+      "sha256": "e4c8f7bdb174dd96c1ab9bca54510234d6e9e8906a17c1ab689dca20ad5cd9e4"
+    }
+  },
+  "entry_points": {
+    "manual": "README.html",
+    "scope": "docs/MODULE3_SCOPE.html",
+    "examples": "examples/README.html"
+  },
+  "verification": "See docs/VERIFICATION_STATUS.html for executed scope; a build is not human acceptance.",
+  "manufacturing_qualified": false
+}

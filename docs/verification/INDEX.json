@@ -1,0 +1,680 @@
+{
+  "schema": "autocam-module3-software-evidence-index-1",
+  "status": "passed",
+  "source_commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+  "platforms": [
+    {
+      "platform": "windows",
+      "source_commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+      "source_inventory_sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece",
+      "checks": 19,
+      "unit": {
+        "tests": 609,
+        "pass": 609,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "release": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "parity_fixtures": 916,
+      "python_tests": 21,
+      "browser": "155.0.4283.62",
+      "learned_worker_cases": 7,
+      "environment": {
+        "node": "v24.14.0",
+        "platform": "win32",
+        "architecture": "x64",
+        "python": "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\.venv\\Scripts\\python.exe"
+      }
+    },
+    {
+      "platform": "linux",
+      "source_commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+      "source_inventory_sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece",
+      "checks": 19,
+      "unit": {
+        "tests": 609,
+        "pass": 609,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "release": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "parity_fixtures": 916,
+      "python_tests": 21,
+      "browser": "153.0.8010.12",
+      "learned_worker_cases": 7,
+      "environment": {
+        "node": "v24.14.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "python": "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "windows/capabilities.log",
+      "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+      "size_bytes": 47
+    },
+    {
+      "path": "windows/documentation.log",
+      "sha256": "977ced4fffbca57de5d4df4ac95fee1a48bd03122c763e3562653781b68bd529",
+      "size_bytes": 621
+    },
+    {
+      "path": "windows/unit.log",
+      "sha256": "73a0e26595de7bfcde6d57b733cd0c52de55500d27877f1fa00e20d47e2a22be",
+      "size_bytes": 133751
+    },
+    {
+      "path": "windows/release-assets.log",
+      "sha256": "997b2ccdcde21c00a6bf262a343f6663e2f5f9248a602c71e47e37ba16555ade",
+      "size_bytes": 1428
+    },
+    {
+      "path": "windows/release-build.log",
+      "sha256": "63397e299595a2a3d65450a2d8d93f10b5e9447666d8691bee0f22c5c40961cf",
+      "size_bytes": 175
+    },
+    {
+      "path": "windows/data.log",
+      "sha256": "2884524a82245c11c83f8e5153177694b41d5ab779b5ef4ffff777e0bae9e690",
+      "size_bytes": 36
+    },
+    {
+      "path": "windows/core-wasm.log",
+      "sha256": "3c0f643fb1a680a70ee965787789b0f5daa48e2ba77062914b7d8100b8e9fc70",
+      "size_bytes": 54
+    },
+    {
+      "path": "windows/step-import.log",
+      "sha256": "393584703fc0cc0f84f7c5fa065aac812e4712e48df552fa15df2274aba0968d",
+      "size_bytes": 57
+    },
+    {
+      "path": "windows/parity.log",
+      "sha256": "fb72c9f26c3159929050b7ae5edba8368ede7a4ea9112c913f83af78ffaf31bd",
+      "size_bytes": 100
+    },
+    {
+      "path": "windows/classic-browser.log",
+      "sha256": "0e5c8938bb8addce580015f39f141ff890da466911bb7f8e475ba9b1b9a413fa",
+      "size_bytes": 1160
+    },
+    {
+      "path": "windows/step-browser.log",
+      "sha256": "da4429adad4d9801e551eb2ac9932b115d96a55de69d36c3cac925e8ee3bdb23",
+      "size_bytes": 578
+    },
+    {
+      "path": "windows/module3-workflow.log",
+      "sha256": "590ee26c97c4cbc2e049186c90026f9da21fe3975a2293fc598b0a20bafecd77",
+      "size_bytes": 256
+    },
+    {
+      "path": "windows/model-upload-cancellation.log",
+      "sha256": "6009bbfd2de2f1545c9e8a16967c60a5d72b4695e9c27c68fbb83f6e6750ed7b",
+      "size_bytes": 217
+    },
+    {
+      "path": "windows/recorded-trained-browser.log",
+      "sha256": "0aa68aa45dcc3880d891ae32d10016455f6abd6ec18ea65457a728aed2d363a4",
+      "size_bytes": 809
+    },
+    {
+      "path": "windows/recorded-trained-ui.log",
+      "sha256": "88011d023513e62e96bcaafffdac12f16dfc9cbcc046591eed3215fb3e82ee3c",
+      "size_bytes": 1496
+    },
+    {
+      "path": "windows/python-rejections.log",
+      "sha256": "24ebd53a86e73c331655245972b6bf99fe5e8c4b9e02c7dff3474b20043b1ccc",
+      "size_bytes": 3806
+    },
+    {
+      "path": "windows/examples.log",
+      "sha256": "424c024bd1c443effc711aebeee93e84890c9ec1114d6ee54d0ed4b5239eac6e",
+      "size_bytes": 1487
+    },
+    {
+      "path": "windows/packaged-trained-browser.log",
+      "sha256": "745488556918b9159b48e16170038d0acc7e10bf3983ae43f1cd620a386bd34c",
+      "size_bytes": 6876
+    },
+    {
+      "path": "windows/build-integrity.log",
+      "sha256": "2a733571b4cd58c848e39eec27cb3b3112146234a6c402df5a373d74aa1ae5da",
+      "size_bytes": 431
+    },
+    {
+      "path": "windows/software.json",
+      "sha256": "524b86076c69360af0826b79b2c5ff81614171a7ca62d443f4f7035f88626f3a",
+      "size_bytes": 10573
+    },
+    {
+      "path": "windows/source-inputs.json",
+      "sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece",
+      "size_bytes": 274922
+    },
+    {
+      "path": "windows/build-integrity.json",
+      "sha256": "f52225bbe5d51b41c90c4d5a33a5f4d9c8a4ee8171eb36720b69ed73d4a7b03c",
+      "size_bytes": 493
+    },
+    {
+      "path": "windows/examples.json",
+      "sha256": "e2611076f031c00381ee3899b87a8e020a73c7eca682bc03c6b255ff75a8d441",
+      "size_bytes": 1841
+    },
+    {
+      "path": "windows/training.json",
+      "sha256": "5586f88fadeeecfbbd0274b23cb6f7f3064f0e0f1e32b4c9374b15888a609d89",
+      "size_bytes": 6666
+    },
+    {
+      "path": "windows/cylindrical.json",
+      "sha256": "c74bc2af02174f9ae39dbcb7a1b39855fdbda0e15b4bf5b1505aa984293f4dd0",
+      "size_bytes": 9683
+    },
+    {
+      "path": "windows/recorded-browser.json",
+      "sha256": "f1dae138d3c96a14c35ed020d783a8dd18aac9d0efb5bd50e44b5c18428ad721",
+      "size_bytes": 546
+    },
+    {
+      "path": "windows/recorded-ui.json",
+      "sha256": "b94c175b4def2ff6d2ee7fb29bf34ab1e9955e99d469a14b2b7b4ced5cd9d65b",
+      "size_bytes": 1564
+    },
+    {
+      "path": "windows/packaged-browser.json",
+      "sha256": "cb6850421745be5fcca34da686acecca2c996a7d9f209746e40e3cf77f7679f3",
+      "size_bytes": 8617
+    },
+    {
+      "path": "windows/build-manifest.json",
+      "sha256": "60ee3776311548ea1273ea0bc7a4624871db1ca9c40c12d2be80d37ce1bfd976",
+      "size_bytes": 37607
+    },
+    {
+      "path": "windows/execution-build.json",
+      "sha256": "0a3af0230cd84ac2dd507a72aa91fa7007ef9f5782161433914dcdee25f6a821",
+      "size_bytes": 27151
+    },
+    {
+      "path": "windows/release.json",
+      "sha256": "21aab24e17ffb2bd6d31609392b72d04d0611047eac0ed4b007b2e525ad6b87c",
+      "size_bytes": 67079
+    },
+    {
+      "path": "windows/install/clone-context.json",
+      "sha256": "c5ae009a131f1f2b2a62b94dbeadfca98ad4a476f52bc09d1b622b2d0e53982c",
+      "size_bytes": 208
+    },
+    {
+      "path": "windows/install/git-clone.log",
+      "sha256": "7d99c3c75bf80ac95e99de968e1ecd39fde1b814dc7cb999364f39959874b3ad",
+      "size_bytes": 2914
+    },
+    {
+      "path": "windows/install/install-context.json",
+      "sha256": "72cab92c723ee17040d6b84517e9a66bb40f7a7049f8c57a1d999d8dfb9d1c13",
+      "size_bytes": 526
+    },
+    {
+      "path": "windows/install/npm-audit.json",
+      "sha256": "7ec8701ebef04ceba641994e0a13a70735b2f5634f69b597bbcfa021ffd0df6a",
+      "size_bytes": 385
+    },
+    {
+      "path": "windows/install/npm-ci.log",
+      "sha256": "5269d9a4713c606245b3e31caa63c29f3763419f23936fa7add06e8e17e215f7",
+      "size_bytes": 365
+    },
+    {
+      "path": "windows/install/pip-freeze.txt",
+      "sha256": "48c64377bf32f4d559f77e55e2f59dbdb93667cee2d6426b35ca01e302cd1a98",
+      "size_bytes": 108
+    },
+    {
+      "path": "windows/install/pip-install.log",
+      "sha256": "5c46c969c6c88027b8f459c8729ac21293fcb068852ea24b57dcd5ae562f9dda",
+      "size_bytes": 1666
+    },
+    {
+      "path": "windows/install/venv-create.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "windows/install/browser-install-for-task.log",
+      "sha256": "e45991bd58e0b81b2b8403796cb1416ec642a96a99395d30eac4d3ef8570416b",
+      "size_bytes": 8990
+    },
+    {
+      "path": "windows/install/install-manifest.json",
+      "sha256": "a0f98fb572ce0e06560c10e4a5935e7f083fdff767e792df416038999fceecee",
+      "size_bytes": 1786
+    },
+    {
+      "path": "linux/capabilities.log",
+      "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+      "size_bytes": 47
+    },
+    {
+      "path": "linux/documentation.log",
+      "sha256": "977ced4fffbca57de5d4df4ac95fee1a48bd03122c763e3562653781b68bd529",
+      "size_bytes": 621
+    },
+    {
+      "path": "linux/unit.log",
+      "sha256": "61e80bcc20e0eed7df6f29a2d92cd16a21dd93137d0179aba7cd64b3df3443a1",
+      "size_bytes": 134721
+    },
+    {
+      "path": "linux/release-assets.log",
+      "sha256": "00bc4b5a4434dd89368adefbd3fb1e4372cb65768008d15d6c1f76af24cfe238",
+      "size_bytes": 1444
+    },
+    {
+      "path": "linux/release-build.log",
+      "sha256": "6cfa8133d74ceced7a5c0ac2534846028b8bb8f050907f3e694a717f374f443d",
+      "size_bytes": 139
+    },
+    {
+      "path": "linux/data.log",
+      "sha256": "2884524a82245c11c83f8e5153177694b41d5ab779b5ef4ffff777e0bae9e690",
+      "size_bytes": 36
+    },
+    {
+      "path": "linux/core-wasm.log",
+      "sha256": "3c0f643fb1a680a70ee965787789b0f5daa48e2ba77062914b7d8100b8e9fc70",
+      "size_bytes": 54
+    },
+    {
+      "path": "linux/step-import.log",
+      "sha256": "393584703fc0cc0f84f7c5fa065aac812e4712e48df552fa15df2274aba0968d",
+      "size_bytes": 57
+    },
+    {
+      "path": "linux/parity.log",
+      "sha256": "fb72c9f26c3159929050b7ae5edba8368ede7a4ea9112c913f83af78ffaf31bd",
+      "size_bytes": 100
+    },
+    {
+      "path": "linux/classic-browser.log",
+      "sha256": "0e5c8938bb8addce580015f39f141ff890da466911bb7f8e475ba9b1b9a413fa",
+      "size_bytes": 1160
+    },
+    {
+      "path": "linux/step-browser.log",
+      "sha256": "da4429adad4d9801e551eb2ac9932b115d96a55de69d36c3cac925e8ee3bdb23",
+      "size_bytes": 578
+    },
+    {
+      "path": "linux/module3-workflow.log",
+      "sha256": "04a83362716466945e4fde598ebe56c48c84319b419896a3432c60f26e1d29c2",
+      "size_bytes": 260
+    },
+    {
+      "path": "linux/model-upload-cancellation.log",
+      "sha256": "817ef2108be14a62d478a0aa787d96a00022ad286de2511d6bf01d48cb2fbf4c",
+      "size_bytes": 221
+    },
+    {
+      "path": "linux/recorded-trained-browser.log",
+      "sha256": "afed91c746caa38e3cda9f9deb236a765ead806ac0dff618f6474f772689cb29",
+      "size_bytes": 809
+    },
+    {
+      "path": "linux/recorded-trained-ui.log",
+      "sha256": "daa2a94c039b1a6cc1ccdd70b930e2cbea749feb3d2734917040e41ece168f7d",
+      "size_bytes": 1496
+    },
+    {
+      "path": "linux/python-rejections.log",
+      "sha256": "f488538efc6ce72a3b4e5d45a43e067ae5d27b4447313c105ef61b48b7894dc8",
+      "size_bytes": 3779
+    },
+    {
+      "path": "linux/examples.log",
+      "sha256": "22b4c3eb9a51bc84bea7d8786eb85bec7bc672d78dfe22bd0b54ee7f37192580",
+      "size_bytes": 1447
+    },
+    {
+      "path": "linux/packaged-trained-browser.log",
+      "sha256": "5d7739fcec3b0ca24c9dacf07bedf2c479939fb986b3038df70a28b14e7bc25a",
+      "size_bytes": 6827
+    },
+    {
+      "path": "linux/build-integrity.log",
+      "sha256": "455c9c876807f4962fbb907d5777e200d3e1742bd702c020e4eef822a91193d2",
+      "size_bytes": 431
+    },
+    {
+      "path": "linux/software.json",
+      "sha256": "2d05d2fd0b872c9ecb8db983c25c28ef72017bd9de1e2e3a48b3789d80edaa8a",
+      "size_bytes": 10753
+    },
+    {
+      "path": "linux/source-inputs.json",
+      "sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece",
+      "size_bytes": 274922
+    },
+    {
+      "path": "linux/build-integrity.json",
+      "sha256": "c292d59ce273271b7e0b5c8bfeda6d861c6419448f6a6b1579ec7bbaf957ea3b",
+      "size_bytes": 493
+    },
+    {
+      "path": "linux/examples.json",
+      "sha256": "c3a86084152f03e02eee3c7108ac949a729c76e232b56b23c84848672dae0c2d",
+      "size_bytes": 1841
+    },
+    {
+      "path": "linux/training.json",
+      "sha256": "cf38184e357162de416b088f693b3e0075150a968ef9faf7c41b9f56275c1cbe",
+      "size_bytes": 6619
+    },
+    {
+      "path": "linux/cylindrical.json",
+      "sha256": "770d76400956ad998bd7c5bcd24291a63ae73298b29e3333fffe332d7955b255",
+      "size_bytes": 9633
+    },
+    {
+      "path": "linux/recorded-browser.json",
+      "sha256": "7ea713818192b9c3fdced5889b308615015bb461de1cd9f412a5c221dabd1f8a",
+      "size_bytes": 546
+    },
+    {
+      "path": "linux/recorded-ui.json",
+      "sha256": "8797542e29049e49d871bf927fc957a55f8c6b9588995a4c0ce8c3e105568299",
+      "size_bytes": 1564
+    },
+    {
+      "path": "linux/packaged-browser.json",
+      "sha256": "ed24bc96cbf2702e02acd90cfdeb8eec376322bbcb23227873a7bf354281b473",
+      "size_bytes": 8615
+    },
+    {
+      "path": "linux/build-manifest.json",
+      "sha256": "7cc88e4c3c9ddfcb5972225116bb7d7ab43bc0d654fb622a6fcec7f95123b455",
+      "size_bytes": 37607
+    },
+    {
+      "path": "linux/execution-build.json",
+      "sha256": "083067445c018b0915a7eb058729081c2ace22581b3294b14ef176a799721c5c",
+      "size_bytes": 27151
+    },
+    {
+      "path": "linux/release.json",
+      "sha256": "21aab24e17ffb2bd6d31609392b72d04d0611047eac0ed4b007b2e525ad6b87c",
+      "size_bytes": 67079
+    },
+    {
+      "path": "linux/install/clone.log",
+      "sha256": "c22769f538aa63fd537a0959253b22fead73cb52c5e67a4b42e82455b3c35830",
+      "size_bytes": 29
+    },
+    {
+      "path": "linux/install/environment.log",
+      "sha256": "036c13d1c6fa16689aafea25a9f19e15581aaa42afd6b53fe823f32dc800fa30",
+      "size_bytes": 434
+    },
+    {
+      "path": "linux/install/npm-ci.log",
+      "sha256": "e5f640e7006973e523aaa8cf9c8eeb785c1f509b9b6a73d3fb204c8553ed29c8",
+      "size_bytes": 352
+    },
+    {
+      "path": "linux/install/npm-audit.json",
+      "sha256": "32ffbc5c75a748e4aa1f4d83942e3bb4b04fbfa30a022e0120915297e5c9b2d5",
+      "size_bytes": 363
+    },
+    {
+      "path": "linux/install/venv.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "linux/install/pip-install.log",
+      "sha256": "4bd06939d3cd94cefc36453ada2e3cfca0f1652b04b1364c30b3f477606dfa2a",
+      "size_bytes": 1836
+    },
+    {
+      "path": "linux/install/python-packages.txt",
+      "sha256": "ca51c57b7b85f792f9a2ab69ee13eae190d3125373839c810eb8f3b95707ad30",
+      "size_bytes": 103
+    },
+    {
+      "path": "linux/install/install-manifest.json",
+      "sha256": "d7003f25841caee947d81abd43167e292a301761b8bf5bbaebf7f072aba84b7d",
+      "size_bytes": 1339
+    },
+    {
+      "path": "additional-ui/summary.json",
+      "sha256": "420517267ef27e06b05f3ad4057dd948d886f729d53e1c4b056c81d329a5c2fa",
+      "size_bytes": 8502
+    },
+    {
+      "path": "additional-ui/input-pins.json",
+      "sha256": "55e3475c57acfc32e7e3c520ada946cd3521c7c388409f80ab0d88cec7d2aa1f",
+      "size_bytes": 2090
+    },
+    {
+      "path": "additional-ui/network.json",
+      "sha256": "2997a4230ebcbe617c5539d21673824939dd3fbb4ab46e882dd00f276c86767c",
+      "size_bytes": 1872
+    },
+    {
+      "path": "additional-ui/regional-v3-preview.png",
+      "sha256": "3c72d5d37cc92aae0e920140a399fe94915dbfcff1e6cf02046ae8c596d5c7d2",
+      "size_bytes": 63936
+    },
+    {
+      "path": "additional-ui/cylindrical-v3-preview.png",
+      "sha256": "bc8ccb92b9607540458ae607439b1c623e7c0cd32a4cd776084a97997e3355cf",
+      "size_bytes": 67511
+    },
+    {
+      "path": "additional-ui/mixed-A-preview.png",
+      "sha256": "0f6c6d9e01bb8eb12296d535178b8bba11d65e9802b428e1e2d1fab54a1f6d81",
+      "size_bytes": 55040
+    },
+    {
+      "path": "build-correction/windows/build-1.log",
+      "sha256": "ba385343d0848f1504c553ac107424eaa45a9609a3b011f23661e29afce6a372",
+      "size_bytes": 166
+    },
+    {
+      "path": "build-correction/windows/build-2.log",
+      "sha256": "ba385343d0848f1504c553ac107424eaa45a9609a3b011f23661e29afce6a372",
+      "size_bytes": 166
+    },
+    {
+      "path": "build-correction/windows/build-integrity.json",
+      "sha256": "9b4515b7846a8712fa3f39097747028e1fae2408e09073528c6b502c49c2239d",
+      "size_bytes": 493
+    },
+    {
+      "path": "build-correction/windows/build-manifest.json",
+      "sha256": "99d789d8c817a6539055a39636e84bd791502b3b1b11374769ba5579020f893c",
+      "size_bytes": 53921
+    },
+    {
+      "path": "build-correction/windows/capabilities.log",
+      "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+      "size_bytes": 47
+    },
+    {
+      "path": "build-correction/windows/documentation.log",
+      "sha256": "527a189c5a9071fafedae315cc99bc55ecda7a9e065b92e580ef0c4d656cd9a3",
+      "size_bytes": 621
+    },
+    {
+      "path": "build-correction/windows/execution-build.json",
+      "sha256": "1bd276e792daa4298538c397230e1266f06d5f05b379e4d7054c4271b617b680",
+      "size_bytes": 27151
+    },
+    {
+      "path": "build-correction/windows/integrity.log",
+      "sha256": "b9f1a4e381227a0364c647b722e4c469b6a75fc85c3b1febea4df9f1bcafe04a",
+      "size_bytes": 431
+    },
+    {
+      "path": "build-correction/windows/release.json",
+      "sha256": "76cdb8408f32b01136fe7c12881219f9cc110123ec760a5fc03bc2ce88469f24",
+      "size_bytes": 83223
+    },
+    {
+      "path": "build-correction/windows/release.log",
+      "sha256": "68ef2ce2b41056008a2308180e561a01ab6c7852570b0e39fa5290f3550596a5",
+      "size_bytes": 1426
+    },
+    {
+      "path": "build-correction/windows/result.json",
+      "sha256": "cf0b92c7039d64bb9292608c32ff476c7b9899411aa74d25d8c2611b34332f48",
+      "size_bytes": 4451
+    },
+    {
+      "path": "build-correction/windows/runtime-asset-comparison.json",
+      "sha256": "e1e74083b6a606cbf5ee37d9470b2def9ed2f5fd888fc4329d8e2fabe8a04ea3",
+      "size_bytes": 628
+    },
+    {
+      "path": "build-correction/windows/source-inputs.json",
+      "sha256": "a42cd4690fd258529c152ffb1e0295dfa705a761e159cd331e6d26a5eb1d2a8b",
+      "size_bytes": 295265
+    },
+    {
+      "path": "build-correction/windows/targeted.log",
+      "sha256": "25cfb373d36bcd38ec1a87524d35aae52a2a8a6e7b42f0008ae52dd0285ee6bf",
+      "size_bytes": 1361
+    },
+    {
+      "path": "build-correction/linux/build-integrity.json",
+      "sha256": "e8d57e31fd91dea9285c60686a5b8e954a221063bb80dab1c9471a6718b16052",
+      "size_bytes": 493
+    },
+    {
+      "path": "build-correction/linux/build-integrity.log",
+      "sha256": "4716f7b8ffb1e2271bb8ba518502be8249dc6f5ecd4541a1baa91589f82b692e",
+      "size_bytes": 431
+    },
+    {
+      "path": "build-correction/linux/build-manifest.json",
+      "sha256": "6a113b81543ca26f434866a4ae285ac8a9ecb0e2993651d76b544a82f29e9342",
+      "size_bytes": 53921
+    },
+    {
+      "path": "build-correction/linux/capabilities.log",
+      "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+      "size_bytes": 47
+    },
+    {
+      "path": "build-correction/linux/clone.log",
+      "sha256": "34d77e5d2d3383be725028eb400be85d5a1b23bdf31b517dece6997d3808dfe3",
+      "size_bytes": 93
+    },
+    {
+      "path": "build-correction/linux/documentation.log",
+      "sha256": "527a189c5a9071fafedae315cc99bc55ecda7a9e065b92e580ef0c4d656cd9a3",
+      "size_bytes": 621
+    },
+    {
+      "path": "build-correction/linux/execution-build.json",
+      "sha256": "ce9165c3a2f310190b5c9452e3ae13a386e586f23dc628473976579c242d9e6f",
+      "size_bytes": 27151
+    },
+    {
+      "path": "build-correction/linux/local-copy-verification.json",
+      "sha256": "30b5e58f0a41c65989b089be2da17ecd947727aa62eea509e1e983e2c67d60d6",
+      "size_bytes": 539
+    },
+    {
+      "path": "build-correction/linux/npm-ci.log",
+      "sha256": "77d90173cb335ae2c436edfff16a0fb2c89d0a9457d1d30ef4620676de5e24c9",
+      "size_bytes": 352
+    },
+    {
+      "path": "build-correction/linux/release-build-first.log",
+      "sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94",
+      "size_bytes": 232
+    },
+    {
+      "path": "build-correction/linux/release-build-second.log",
+      "sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94",
+      "size_bytes": 232
+    },
+    {
+      "path": "build-correction/linux/release-tests.log",
+      "sha256": "2dc1a73500b24357064115ad65ad916d7262fec6689e279ff16b1acbf0401fa3",
+      "size_bytes": 1676
+    },
+    {
+      "path": "build-correction/linux/release.json",
+      "sha256": "76cdb8408f32b01136fe7c12881219f9cc110123ec760a5fc03bc2ce88469f24",
+      "size_bytes": 83223
+    },
+    {
+      "path": "build-correction/linux/result.json",
+      "sha256": "2a9f04068fdfa82b30c35a93091fc9e772e247f9399f39582ab0691b351df578",
+      "size_bytes": 7647
+    },
+    {
+      "path": "build-correction/linux/source-after.json",
+      "sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+      "size_bytes": 288107
+    },
+    {
+      "path": "build-correction/linux/source-before.json",
+      "sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+      "size_bytes": 288107
+    },
+    {
+      "path": "build-correction/linux/targeted-tests.log",
+      "sha256": "ae3f84e91e37886da201d5d0c9ef8e370d37781a6c1c00485a027ddd4f2f44e7",
+      "size_bytes": 1380
+    },
+    {
+      "path": "BUILD_CORRECTION.json",
+      "sha256": "3bcd1347fbdad30c8fbe5d2fd6afc7ed1698024ea96421913e9ac74f27598c9d",
+      "size_bytes": 910
+    }
+  ],
+  "authority_effect": false,
+  "human_acceptance": "not_performed",
+  "public_candidate_deployment": "not_performed",
+  "manufacturing_qualified": false,
+  "scope": "Finite automated software scenarios; browser parity uses the same pinned runtime owner. Derived cylindrical2/3 have replay/profile checks, not historical expected-output hashes.",
+  "additional_ui": {
+    "status": "passed",
+    "scenarios": 3,
+    "source_commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+    "scope": "Additional automated React UI diagnostics in the existing Windows candidate environment; not cold verification or human acceptance.",
+    "receipt": "additional-ui/summary.json",
+    "probe_sha256": "4595f81ffbd1ea9011b3db4cda42043a60dfa03316052d46161a0d42b0944173",
+    "full_evidence_archive": "additional-ui-evidence.zip",
+    "full_evidence_archive_sha256": "e4915fecae827074039ec69466aa4557e373e01340a4da4a8bce7364b3a7cf63",
+    "input_provenance": "Prior candidate fixtures/models; exact pins retained. These scenarios did not consume the final cold-run outputs. The mixed checkpoint came from an earlier run whose positive reproduction passed but whose parent rejection suite failed; its bytes equal the final passing mixed-A reference."
+  },
+  "build_correction": {
+    "status": "passed",
+    "receipt": "BUILD_CORRECTION.json",
+    "source_commit": "6517909584701ea4bc4ddb64477472e2c595e7a0"
+  }
+}
