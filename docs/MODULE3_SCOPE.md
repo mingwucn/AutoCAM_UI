@@ -10,7 +10,7 @@ Candidate verification and independent user acceptance are separate steps.
 | Workflow | Input and purpose | Available functions and limits |
 | --- | --- | --- |
 | Industrial sampled GYM | Pinned prepared cases, including 3-29-00350 | Manual turning/milling, one shared stock, a staged greedy baseline and replay. Volumes are sampled estimates. This route does not train an industrial policy. |
-| Classic STEP import | A local STEP solid that the browser importer accepts, plus voxel/stock/setup settings | Builds a sampled turning/milling case. Import acceptance does not establish machining feasibility or support in the separate adaptive workflow. |
+| Classic STEP import | A local STEP solid that the browser importer accepts, plus the selected engine and stock/setup settings | OpenCascade B-Rep cuts or sampled voxel turning/milling, depending on the selected mode. Import acceptance does not establish machining feasibility or support in the separate adaptive workflow. |
 | Synthetic mixed learning | The compatible turning, transfer, indexing, face-milling and drilling task | Record/replay actions, train locally, load a compatible 34-weight model, request policy or bounded MCTS suggestions, preview and explicitly accept an action. Costs are synthetic. |
 | Recorded task-5/task-6 learning | Compatible remaining-stock or cleared-holder browser episodes | Standalone launchers and examples for separate training/model families. Platform and browser checks are recorded independently. These checkpoints are incompatible with mixed-learning models. |
 | Cylindrical policy learning | Exact compatible configuration, initial state and weights | Separate cylindrical trainer and model contracts; consult the training-family guide and per-scenario verification before use. |
@@ -41,20 +41,33 @@ General arbitrary STEP machining, an industrial trained planning policy,
 qualified manufacturing plans, NC generation and machine execution are not
 established by this package.
 
-## Knowledge and complete Module 3 scope
+## Complete repository scope and component interfaces
 
-The GYM enforces action, material, tool, setup, model and state contracts. The
-Master project's governed knowledge-control prototype and any partner-owned
-components are separate. Their presence in another repository does not mean they
-are delivered here. This package does not provide a general rule-authoring,
-human review, company qualification or policy-activation workflow.
+The owner confirmed that this review covers all Module 3 functions in the single
+`mingwucn/AutoCAM_UI` repository. The inventory below describes that delivery;
+other Master research programmes are not implicitly part of this release.
 
-The authoritative whole-Module-3 specification, partner/component inventory and
-required industrial/knowledge interfaces have not been supplied with this
-candidate. These remain **open acceptance requirements**, owned by the Module 3
-acceptance owner; passing the bounded GYM tests cannot close them.
+| Component | Input and output interface | Implementation / use |
+| --- | --- | --- |
+| Material-removal GYM | Pinned case or supported imported STEP; current stock, checked actions and history | Classic sampled and B-Rep engines, plus family-specific adaptive sessions; manual and supported staged greedy operation |
+| Adaptive preparation and inspection | Supported STEP/profile/settings or an exact prepared task/stock pair; prepared case, original-face and constraint views | Pinned CAD/runtime packages selected in `site.config.json`; stages and restrictions remain profile-specific |
+| Recording and replay | Checked session decisions and exact initial context; versioned episode/transition downloads and compatible restoration | Browser session adapters preserve task, state, setup and tool identities; a valid recording is not automatically trainable by every trainer |
+| Local learning pipeline | Compatible recorded episode or cylindrical configuration/state/model tuple; replay, training record and checkpoint | The four launchers under `python/`, packaged owner source and pinned dependencies; see the training-family inventory |
+| Agent / model search | Compatible checkpoint, accepted state and search settings; suggested or explicitly executed checked action | Family-specific policy and bounded MCTS interfaces; industrial greedy and learned synthetic routes are distinct |
+| Knowledge and constraints | Exact input/action/tool/setup/model/evidence contracts; allowed action or explicit rejection/unresolved result | Executable checks in the GYM and preserved runtime owners; see the allowed/blocked examples in knowledge scope |
+
+The GYM does not provide a general rule-authoring, human rule-review, company
+qualification or policy-activation workflow. The broader Master's governed
+knowledge-control prototype is separate; describing it does not import it or
+claim that this repository delivers it. These unavailable capabilities are
+explicit boundaries, not a hidden prerequisite to running the supplied package.
+
+The [workflow catalogue](WORKFLOW_CATALOGUE.md) maps every advertised family to
+its input route, controls, expected observations and verification scope. Full
+repository coverage, public delivery and independent-user acceptance require
+their own evidence; a test for one family does not establish another.
 
 See [the functional contract](FUNCTIONAL_CONTRACT.md) for observable behavior and
-[training families](TRAINING_FAMILIES.md) for packaged versus external trainers.
+[training families](TRAINING_FAMILIES.md) for available and unavailable trainers.
 The candidate must retain its verification record and record independent human
 acceptance explicitly; neither is inferred from documentation or agent output.

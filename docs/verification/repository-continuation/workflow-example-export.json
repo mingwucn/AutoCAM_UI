@@ -1,0 +1,317 @@
+{
+  "schema": "autocam-workflow-example-export-1",
+  "status": "passed",
+  "catalogue_sha256": "e32221a023eb8f3ed7120fd78a0f4271b6694def13e758e65a25f6f8390d5b12",
+  "groups": [
+    "task4",
+    "combined",
+    "indexed",
+    "cylindrical-choice",
+    "inspection",
+    "adaptive-planar",
+    "adaptive-coaxial",
+    "task4-model",
+    "adaptive-planar-machining",
+    "adaptive-rational"
+  ],
+  "manifests": [
+    {
+      "path": "tests/fixtures/transitions/manifest.json",
+      "sha256": "65474c4826d1b5c335f4dcf2d06f545343d6b8ac837ed70e77a8b74240f3dc15"
+    },
+    {
+      "path": "tests/fixtures/journal-transitions/manifest.json",
+      "sha256": "3cd59a68b24e9dcb837df82e8b70c8546c57825bf496d4b4c8c44d1ad0c2f763"
+    },
+    {
+      "path": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "sha256": "b7f93bc859736c8e802fa5f9b272e4e9ff02f0987ab3a797d2319ce33a6798c8"
+    },
+    {
+      "path": "tests/fixtures/adaptive/manifest.json",
+      "sha256": "29034f20531c7f9a07a72f00ef40558aef625cedb8be6eb1816fd39490f1b153"
+    },
+    {
+      "path": "tests/fixtures/allowance/manifest.json",
+      "sha256": "5b926e6c821be54a9a0b6eafafc5f9616c78f7390e249294c335ac11d651046d"
+    },
+    {
+      "path": "tests/fixtures/shadow/manifest.json",
+      "sha256": "47b4375551e068e977b941e9781a706e267a92cc942efc00c6ae02c7a2a05c67"
+    },
+    {
+      "path": "tests/fixtures/workflow-models/manifest.json",
+      "sha256": "367438b204feedd5f6bb35ed28e0f4df7f47b3849ceafc6b8c86b289b42c28f1"
+    },
+    {
+      "path": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "sha256": "3e9cb685381d73628d75db1b26fda9d04c9f7fcf2bf19d1101cd75e6d7e242ee"
+    },
+    {
+      "path": "tests/fixtures/workflow-inputs/adaptive-rational/manifest.json",
+      "sha256": "0396d4806c151996fd7273f6e586be0aa92721db1baa5a74fd62237c7ed76f59"
+    }
+  ],
+  "files": [
+    {
+      "name": "task4/task.json",
+      "manifest": "tests/fixtures/transitions/manifest.json",
+      "source": "task4.json",
+      "sha256": "71dfd47870ed7662fe41d4b6c23b05cd48f0a33f70d74840441dfa19bfdf9482",
+      "size_bytes": 33810
+    },
+    {
+      "name": "task4/initial.bin",
+      "manifest": "tests/fixtures/transitions/manifest.json",
+      "source": "initial.bin",
+      "sha256": "2172202e949579fdaca580ae9e6bbc78440691a32d59e2da08d9046cf5df5342",
+      "size_bytes": 781025
+    },
+    {
+      "name": "combined/task.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "combined/task.json",
+      "sha256": "26cf693b00162774a8e09281ac4e5d6f7cc65f44690f8faec2e04e24c57dada7",
+      "size_bytes": 5614
+    },
+    {
+      "name": "combined/initial.bin",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "combined/initial.bin",
+      "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+      "size_bytes": 1910104
+    },
+    {
+      "name": "combined/model.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "combined/model.json",
+      "sha256": "0d3c089149a3f88b58d0b284a2bb82617b131cd7304e813f91a7a2e43b407d82",
+      "size_bytes": 871
+    },
+    {
+      "name": "combined/expected.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "combined/expected.json",
+      "sha256": "07f4ed41339ffef9e0525094a33c8fe5dc25576f24cedaf22ba7024222cf9b2b",
+      "size_bytes": 37511312
+    },
+    {
+      "name": "indexed/task.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "indexed/task.json",
+      "sha256": "c7fd0f911607f151830bcf9c2ec5ca7f441557dac0095a3e8d4d802fc7dc2b1b",
+      "size_bytes": 4309
+    },
+    {
+      "name": "indexed/initial.bin",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "indexed/initial.bin",
+      "sha256": "7d3d0374602b76cc575c0f80a0c366137987c6145bf8ffe576188a561d54ceda",
+      "size_bytes": 187113
+    },
+    {
+      "name": "indexed/model.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "indexed/model.json",
+      "sha256": "7ee440b704d4da98443938e09203903b995cf4fb5f785957d94ab8c0e6b9cddf",
+      "size_bytes": 529
+    },
+    {
+      "name": "indexed/expected.json",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "source": "indexed/expected.json",
+      "sha256": "0f703ac49cb3d4a74f1ed1e6ee1bf25f4edc1cdb3489643fb867a6c10f53a47c",
+      "size_bytes": 2512047
+    },
+    {
+      "name": "cylindrical-choice/task.json",
+      "manifest": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "source": "baseline/indexed-v1/task.json",
+      "sha256": "78e541dde585792aefec7bdf9376109ba866480873c2f6ef6de2666ebff3f0c6",
+      "size_bytes": 158896
+    },
+    {
+      "name": "cylindrical-choice/initial.bin",
+      "manifest": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "source": "baseline/indexed-v1/initial.bin",
+      "sha256": "1ef9e52d8831d545f4ce7b5c90e3287a478dafc431c7de82ee3f7a61de390115",
+      "size_bytes": 188374
+    },
+    {
+      "name": "cylindrical-choice/episode.json",
+      "manifest": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "source": "baseline/indexed-v1/episode.json",
+      "sha256": "0266ad18c55f8d3ac29006e421d78c650b3d3e5c32f56f816811bb29fdeafa49",
+      "size_bytes": 209147
+    },
+    {
+      "name": "cylindrical-choice/initial-episode.json",
+      "manifest": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "source": "baseline/indexed-v1/initial-episode.json",
+      "sha256": "b542c8ef136ec18c69d997c4c76036788da9f33444c4f45d563bf985afcd6bb1",
+      "size_bytes": 160821
+    },
+    {
+      "name": "inspection/legacy.json",
+      "manifest": "tests/fixtures/adaptive/manifest.json",
+      "source": "legacy.json",
+      "sha256": "40c080ae186b2c7bb1f5df898940a202995e48d1538c4d6f72b120879c0784d6",
+      "size_bytes": 13670811
+    },
+    {
+      "name": "inspection/tools.json",
+      "manifest": "tests/fixtures/adaptive/manifest.json",
+      "source": "tools.json",
+      "sha256": "ef05e3413dc838887aa50a893e2f1d291bceb1fb139bb76e521aef626a4fe146",
+      "size_bytes": 2918389
+    },
+    {
+      "name": "adaptive-planar/box.step",
+      "manifest": "tests/fixtures/allowance/manifest.json",
+      "source": "box.step",
+      "sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "size_bytes": 15418
+    },
+    {
+      "name": "adaptive-planar/box-allowance.bin",
+      "manifest": "tests/fixtures/allowance/manifest.json",
+      "source": "box-allowance.bin",
+      "sha256": "aace13f914df71b2d989d1f22c00a7bff6f26a6d1862b258c17858079c40f1bb",
+      "size_bytes": 1102605
+    },
+    {
+      "name": "adaptive-planar/box-allowance-proposal.json",
+      "manifest": "tests/fixtures/allowance/manifest.json",
+      "source": "box-allowance-proposal.json",
+      "sha256": "0d5d612fbab8bc3a089451b862896807c5010acba176534ca2e8bdf7140127bd",
+      "size_bytes": 305
+    },
+    {
+      "name": "adaptive-coaxial/annular/coaxial-tube.step",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "annular/coaxial-tube.step",
+      "sha256": "e38ebd6a9e5005b65a1c9dd5502392139177f4f7f583ce11f54099fed19b744e",
+      "size_bytes": 9217
+    },
+    {
+      "name": "adaptive-coaxial/annular/coaxial-tube-certificate.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "annular/coaxial-tube-certificate.json",
+      "sha256": "3a1fd723e81d86854edad0a2f8f4330be75188763327a59cba74dd8080f92cb2",
+      "size_bytes": 15301
+    },
+    {
+      "name": "adaptive-coaxial/annular/coaxial-tube-allowance.bin",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "annular/coaxial-tube-allowance.bin",
+      "sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+      "size_bytes": 429007
+    },
+    {
+      "name": "adaptive-coaxial/annular/coaxial-tube-allowance-proposal.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "annular/coaxial-tube-allowance-proposal.json",
+      "sha256": "69a1b197ead50c92063ea342b3edf6ca47563f44cddceefd49e13ae5afe941cb",
+      "size_bytes": 315
+    },
+    {
+      "name": "adaptive-coaxial/refined/setup.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "refined/setup.json",
+      "sha256": "767f1672629937a81a2c4d752eb8132f440d3378154b03b531549451eaf81f76",
+      "size_bytes": 4753
+    },
+    {
+      "name": "adaptive-coaxial/refined/policy.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "refined/policy.json",
+      "sha256": "69a6c79401b52277f5dcfa40a3fcc822316c1ae0e535b75dc4d974b20e4b1f8a",
+      "size_bytes": 590
+    },
+    {
+      "name": "adaptive-coaxial/refined/configuration.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "refined/configuration.json",
+      "sha256": "f753d19dd35d9bcabb502de09f2b1e6e260df88d85f857152e7b4e46341351f7",
+      "size_bytes": 6486
+    },
+    {
+      "name": "adaptive-coaxial/refined/preparation.json",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "source": "refined/preparation.json",
+      "sha256": "15059fb4fc6ead36acdc8e450dd7a0da2795a2d510c2bc88060e3ab8d3ffc069",
+      "size_bytes": 3900
+    },
+    {
+      "name": "task4-model/untrained-checkpoint.json",
+      "manifest": "tests/fixtures/workflow-models/manifest.json",
+      "source": "untrained-checkpoint.json",
+      "sha256": "69efc4c8c87b0b5f982d55eae58928ff6f87b3a49bdb7f3afc359f21d86496e8",
+      "size_bytes": 267
+    },
+    {
+      "name": "adaptive-planar-machining/box.step",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "box.step",
+      "sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "size_bytes": 15418
+    },
+    {
+      "name": "adaptive-planar-machining/setup.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "setup.json",
+      "sha256": "767f1672629937a81a2c4d752eb8132f440d3378154b03b531549451eaf81f76",
+      "size_bytes": 4753
+    },
+    {
+      "name": "adaptive-planar-machining/policy.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "policy.json",
+      "sha256": "ceb41aa5f8abde51a8509f318969f09a771f5d2ab606ede2f60f18b0fe6f6476",
+      "size_bytes": 541
+    },
+    {
+      "name": "adaptive-planar-machining/expected/final-completion.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "expected/final-completion.json",
+      "sha256": "ff239816e78a77082fadc766048d5b949f9d98dbc81edf254e04e912e4920c41",
+      "size_bytes": 1489
+    },
+    {
+      "name": "adaptive-planar-machining/expected/checks.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "expected/checks.json",
+      "sha256": "b201519c7ac0bf84e1b342b34041ffdc8c23363500e753fefb2dd7ddba287767",
+      "size_bytes": 1413
+    },
+    {
+      "name": "adaptive-planar-machining/expected/stock-proposal.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "expected/stock-proposal.json",
+      "sha256": "f294aa7689a4af7dc6f57c20022c9636fcc25a79efd58ce2ed301c4ca4f43459",
+      "size_bytes": 287
+    },
+    {
+      "name": "adaptive-planar-machining/expected/preparation.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "expected/preparation.json",
+      "sha256": "eba5366e2716cb6c6fa1873fb26f15886022405bd3d5f9e3037a17555523343b",
+      "size_bytes": 11037
+    },
+    {
+      "name": "adaptive-planar-machining/expected/configuration.json",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "source": "expected/configuration.json",
+      "sha256": "fe67c74f170ec66cfef9e750adde3b8a45854977a65f4f68f0bd07ec0afa867a",
+      "size_bytes": 9363
+    },
+    {
+      "name": "adaptive-rational/rational-prism.step",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-rational/manifest.json",
+      "source": "rational-prism.step",
+      "sha256": "d71d43038d48b1aeb9481f37994a9cbc028fcc493faa3eb084c0ab9cefb7bb38",
+      "size_bytes": 20495
+    }
+  ],
+  "interpretation": "Original software fixture bytes; model files are not evidence of training or qualification."
+}

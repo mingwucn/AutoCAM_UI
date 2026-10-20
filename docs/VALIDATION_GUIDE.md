@@ -159,4 +159,5 @@ For each result, distinguish:
 Do not edit expected outputs merely to accommodate a failure. Record the cause;
 an intentional behavior change needs an explicit new-version expectation while
 preserving V1 references. A release may only advertise the workflows whose
-applicable gates pass. Required whole-module unknowns remain open.
+applicable gates pass. Assess every family in the [workflow catalogue](WORKFLOW_CATALOGUE.md);
+untested paths and unavailable functions remain explicit.

@@ -46,8 +46,13 @@ outputs, and reject incompatible inputs before producing a usable checkpoint.
 Read [verification status](VERIFICATION_STATUS.md) and the exact scenario receipt
 before claiming a workflow tested on your platform.
 
-Unpackaged legacy routes remain visible scope gaps. If the authoritative Module 3
-acceptance contract requires them, they need a separately complete delivery;
-labelling them external does not close that requirement. Similarly, successful
-synthetic fitting does not establish a completing policy, held-out quality or
-industrial training coverage.
+Task-4, indexed configuration 1 and combined configuration 1 expose the model
+consumption described above, but have no promised standalone training command in
+this repository. Their separate Master research contracts do not make those
+trainers installed by this package. Keep that boundary visible when using those
+models; inference support does not imply a local training route. All advertised
+standalone trainers are the packaged routes listed in this table.
+
+Successful synthetic fitting does not establish a completing policy, held-out
+quality or industrial training coverage. Use the [workflow catalogue](WORKFLOW_CATALOGUE.md)
+for the non-training controls and exact input routes of each model family.

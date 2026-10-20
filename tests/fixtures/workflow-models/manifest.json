@@ -1,0 +1,24 @@
+{
+  "schema": "autocam-workflow-model-fixtures-1",
+  "purpose": "Untrained zero checkpoint for task-4 compatibility and browser controls only; no training or performance evidence.",
+  "trained": false,
+  "owner": {
+    "path": "src/adaptive-bounded-mill-turn-model.mjs",
+    "sha256": "d6fc4d732be7a69042509ee5c056fb4b83c29a91bbc753e52f7bac365722d86f"
+  },
+  "construction": {
+    "schema": "adaptive-linear-q-checkpoint-4",
+    "features": 54,
+    "feature_contract_id": "79502847e05d5fe3d1562061083e19224f0ac266644ec656d0c9b24eb941f448",
+    "all_weights": 0
+  },
+  "files": [
+    {
+      "path": "untrained-checkpoint.json",
+      "sha256": "69efc4c8c87b0b5f982d55eae58928ff6f87b3a49bdb7f3afc359f21d86496e8",
+      "size_bytes": 267,
+      "gzip_sha256": "1ec4fdc266f838716308b0e1af48f3117cd8ebcbc6959ae5d2d9b68c2bfc173c",
+      "gzip_size_bytes": 155
+    }
+  ]
+}

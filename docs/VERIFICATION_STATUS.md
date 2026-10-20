@@ -1,12 +1,21 @@
 # Candidate verification status
 
-Both final clean-install software runs passed. The
-executable source tested is
+The retained Windows and Linux clean-install software runs passed. The
+executable source tested in those runs is
 `d97adaded7f1e094f562c7759cdc2291e3db4128`, version `1.1.0-rc.1`.
 The delivery also includes the separately verified build correction below and
 subsequent documentation/receipts. Use `git log` and the built `release.json` for
 its final identity; this does not claim another complete numerical test run. V1 commit
 `de20f204114767124296542d8d8ecc0361e7666a` remains the comparison release.
+
+The subsequent single-repository continuation documents all 23 advertised
+families, exports 37 original workflow files from ten groups and repairs hosted
+manual source links. [Additional workflow receipts](verification/repository-continuation/README.md)
+cover fresh STEP preparation/machining, task-4 model controls and the older
+inspection, diagnostic and comparison controls on the unchanged runtime.
+The public integration is [PR 19](https://github.com/mingwucn/AutoCAM_UI/pull/19);
+read its checks for the exact tested head. The tables below retain their original
+source identities and do not claim every check was rerun after documentation changes.
 
 ## Fresh-checkout software checks
 
@@ -74,9 +83,9 @@ this candidate.
 
 | Requirement | Status |
 | --- | --- |
-| Public candidate deployment and matching hosted manifest | Not performed |
+| Public candidate deployment and matching hosted manifest | Separate from local receipts; consult the [Pages workflow](https://github.com/mingwucn/AutoCAM_UI/actions/workflows/pages.yml) and actual hosted `release.json` |
 | Independent user completes scenarios without developer coaching | Not performed; [checklist supplied](ACCEPTANCE_CHECKLIST.md) |
-| Authoritative whole-Module-3 scope and partner interfaces | Owner specification/acceptance still required |
+| Single-repository scope | Owner confirmed `mingwucn/AutoCAM_UI`; all advertised families are mapped in the [workflow catalogue](WORKFLOW_CATALOGUE.md); coverage is assessed per family |
 | Industrial policy quality, whole-plan coverage and manufacturing qualification | Not established or claimed |
 | Video | Deferred; no video work used as evidence |
 

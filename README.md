@@ -19,7 +19,9 @@ tested, published and accepted.
 | Prepare your own STEP input | [STEP examples](examples/step/README.md) | Supported-profile preparation/actions, or an explained rejection |
 | Use regional or cylindrical learning | [Training families](docs/TRAINING_FAMILIES.md) | Exact task/model compatibility, packaged commands and examples |
 
-Read [what is supported](docs/MODULE3_SCOPE.md) and the
+This repository is the complete Module 3 delivery being reviewed. Use the
+[workflow catalogue](docs/WORKFLOW_CATALOGUE.md) for every advertised family,
+[what is supported](docs/MODULE3_SCOPE.md) and the
 [case/profile table](docs/CAPABILITIES.md) before choosing a workflow. The
 industrial greedy baseline, synthetic learning and adaptive STEP routes have
 different capabilities.
@@ -50,8 +52,8 @@ result, not a claim of improved performance.
 Use the [validation guide](docs/VALIDATION_GUIDE.md) for automated checks and the
 [acceptance checklist](docs/ACCEPTANCE_CHECKLIST.md) for independent use.
 [Troubleshooting](docs/TROUBLESHOOTING.md) covers dependency, input and model errors.
-[Knowledge scope](docs/KNOWLEDGE_SCOPE.md) separates enforced GYM constraints from
-the broader knowledge-control work.
+[Knowledge scope](docs/KNOWLEDGE_SCOPE.md) explains the executable constraints
+delivered here and the rule-authoring/activation functions that are unavailable.
 
 Technical details: [functional contract](docs/FUNCTIONAL_CONTRACT.md),
 [developer reference](docs/REFERENCE_UI_README.md),

@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "build_manifest_sha256": "c3c292d41eb284bcbc4c6c7d3f901b69b3d9b11f8d2d3459d6b5d0a6064c9a91",
+  "production_full_site": true,
+  "model_untrained": true,
+  "model_zero_weights": 54,
+  "load_read_only": true,
+  "cancellation_recovery_exact": true,
+  "reset_restores_initial": true,
+  "checks": [
+    {
+      "mode": "model",
+      "action": 0,
+      "one_checked_commit": true,
+      "checkpoint_sha256": "69efc4c8c87b0b5f982d55eae58928ff6f87b3a49bdb7f3afc359f21d86496e8"
+    },
+    {
+      "mode": "model_mcts",
+      "action": 0,
+      "one_checked_commit": true,
+      "checkpoint_sha256": "69efc4c8c87b0b5f982d55eae58928ff6f87b3a49bdb7f3afc359f21d86496e8"
+    }
+  ],
+  "errors": [],
+  "blocked": [],
+  "limits": [
+    "Tests compatible inference and UI commit behavior, not learned performance",
+    "Explicit task4 prepared fixture only; no standalone task4 trainer claimed"
+  ]
+}

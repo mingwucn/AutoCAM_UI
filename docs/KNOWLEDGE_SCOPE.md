@@ -27,11 +27,16 @@ reviewer credentials, trusted-time/revocation services, policy qualification,
 shop activation or machine execution. That prototype is not imported into this
 standalone GYM package by describing it here.
 
-Partner-owned repositories, the authoritative whole-Module-3 requirements and
-any required cross-component knowledge interface still need an owner-supplied
-inventory. If acceptance requires users to author, import, review, evaluate or
-activate rules, that is an **open requirement** until the specified interface
-and its positive/negative examples are delivered and tested.
+The review's delivery boundary is this single `mingwucn/AutoCAM_UI` repository,
+as confirmed by its owner. Knowledge formalization here means the executable
+contracts and constraint checks listed above. There is no separate partner
+repository needed to execute them. General company-rule authoring, import,
+human review, qualification and activation are unavailable in this delivery;
+neither the browser nor local trainers claim to provide those interfaces.
+
+Use the [complete workflow catalogue](WORKFLOW_CATALOGUE.md) and its positive
+and rejection paths to assess the delivered checks. A passing geometric or
+model-compatibility check does not establish a missing company-policy service.
 
 The source of this inventory is the Master `DOC-KNW-001` owner packet and
 `CODE-KNW-001`, consulted for scope only. Standalone GYM operation does not

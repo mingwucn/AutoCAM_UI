@@ -1,0 +1,224 @@
+{
+  "schema": "autocam-workflow-examples-1",
+  "purpose": "Export original manifest-pinned software fixtures for documented user workflows; no model training or qualification claim.",
+  "groups": [
+    {
+      "id": "task4",
+      "manifest": "tests/fixtures/transitions/manifest.json",
+      "manifest_sha256": "65474c4826d1b5c335f4dcf2d06f545343d6b8ac837ed70e77a8b74240f3dc15",
+      "files": [
+        {
+          "source": "task4.json",
+          "output": "task.json"
+        },
+        {
+          "source": "initial.bin",
+          "output": "initial.bin"
+        }
+      ]
+    },
+    {
+      "id": "combined",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "manifest_sha256": "3cd59a68b24e9dcb837df82e8b70c8546c57825bf496d4b4c8c44d1ad0c2f763",
+      "files": [
+        {
+          "source": "combined/task.json",
+          "output": "task.json"
+        },
+        {
+          "source": "combined/initial.bin",
+          "output": "initial.bin"
+        },
+        {
+          "source": "combined/model.json",
+          "output": "model.json"
+        },
+        {
+          "source": "combined/expected.json",
+          "output": "expected.json"
+        }
+      ]
+    },
+    {
+      "id": "indexed",
+      "manifest": "tests/fixtures/journal-transitions/manifest.json",
+      "manifest_sha256": "3cd59a68b24e9dcb837df82e8b70c8546c57825bf496d4b4c8c44d1ad0c2f763",
+      "files": [
+        {
+          "source": "indexed/task.json",
+          "output": "task.json"
+        },
+        {
+          "source": "indexed/initial.bin",
+          "output": "initial.bin"
+        },
+        {
+          "source": "indexed/model.json",
+          "output": "model.json"
+        },
+        {
+          "source": "indexed/expected.json",
+          "output": "expected.json"
+        }
+      ]
+    },
+    {
+      "id": "cylindrical-choice",
+      "manifest": "tests/fixtures/cylindrical-transitions/manifest.json",
+      "manifest_sha256": "b7f93bc859736c8e802fa5f9b272e4e9ff02f0987ab3a797d2319ce33a6798c8",
+      "files": [
+        {
+          "source": "baseline/indexed-v1/task.json",
+          "output": "task.json"
+        },
+        {
+          "source": "baseline/indexed-v1/initial.bin",
+          "output": "initial.bin"
+        },
+        {
+          "source": "baseline/indexed-v1/episode.json",
+          "output": "episode.json"
+        },
+        {
+          "source": "baseline/indexed-v1/initial-episode.json",
+          "output": "initial-episode.json"
+        }
+      ]
+    },
+    {
+      "id": "inspection",
+      "manifest": "tests/fixtures/adaptive/manifest.json",
+      "manifest_sha256": "29034f20531c7f9a07a72f00ef40558aef625cedb8be6eb1816fd39490f1b153",
+      "files": [
+        {
+          "source": "legacy.json",
+          "output": "legacy.json"
+        },
+        {
+          "source": "tools.json",
+          "output": "tools.json"
+        }
+      ]
+    },
+    {
+      "id": "adaptive-planar",
+      "manifest": "tests/fixtures/allowance/manifest.json",
+      "manifest_sha256": "5b926e6c821be54a9a0b6eafafc5f9616c78f7390e249294c335ac11d651046d",
+      "files": [
+        {
+          "source": "box.step",
+          "output": "box.step"
+        },
+        {
+          "source": "box-allowance.bin",
+          "output": "box-allowance.bin"
+        },
+        {
+          "source": "box-allowance-proposal.json",
+          "output": "box-allowance-proposal.json"
+        }
+      ]
+    },
+    {
+      "id": "adaptive-coaxial",
+      "manifest": "tests/fixtures/shadow/manifest.json",
+      "manifest_sha256": "47b4375551e068e977b941e9781a706e267a92cc942efc00c6ae02c7a2a05c67",
+      "files": [
+        {
+          "source": "annular/coaxial-tube.step",
+          "output": "annular/coaxial-tube.step"
+        },
+        {
+          "source": "annular/coaxial-tube-certificate.json",
+          "output": "annular/coaxial-tube-certificate.json"
+        },
+        {
+          "source": "annular/coaxial-tube-allowance.bin",
+          "output": "annular/coaxial-tube-allowance.bin"
+        },
+        {
+          "source": "annular/coaxial-tube-allowance-proposal.json",
+          "output": "annular/coaxial-tube-allowance-proposal.json"
+        },
+        {
+          "source": "refined/setup.json",
+          "output": "refined/setup.json"
+        },
+        {
+          "source": "refined/policy.json",
+          "output": "refined/policy.json"
+        },
+        {
+          "source": "refined/configuration.json",
+          "output": "refined/configuration.json"
+        },
+        {
+          "source": "refined/preparation.json",
+          "output": "refined/preparation.json"
+        }
+      ]
+    },
+    {
+      "id": "task4-model",
+      "manifest": "tests/fixtures/workflow-models/manifest.json",
+      "manifest_sha256": "367438b204feedd5f6bb35ed28e0f4df7f47b3849ceafc6b8c86b289b42c28f1",
+      "files": [
+        {
+          "source": "untrained-checkpoint.json",
+          "output": "untrained-checkpoint.json"
+        }
+      ]
+    },
+    {
+      "id": "adaptive-planar-machining",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-planar-machining/manifest.json",
+      "manifest_sha256": "3e9cb685381d73628d75db1b26fda9d04c9f7fcf2bf19d1101cd75e6d7e242ee",
+      "files": [
+        {
+          "source": "box.step",
+          "output": "box.step"
+        },
+        {
+          "source": "setup.json",
+          "output": "setup.json"
+        },
+        {
+          "source": "policy.json",
+          "output": "policy.json"
+        },
+        {
+          "source": "expected/final-completion.json",
+          "output": "expected/final-completion.json"
+        },
+        {
+          "source": "expected/checks.json",
+          "output": "expected/checks.json"
+        },
+        {
+          "source": "expected/stock-proposal.json",
+          "output": "expected/stock-proposal.json"
+        },
+        {
+          "source": "expected/preparation.json",
+          "output": "expected/preparation.json"
+        },
+        {
+          "source": "expected/configuration.json",
+          "output": "expected/configuration.json"
+        }
+      ]
+    },
+    {
+      "id": "adaptive-rational",
+      "manifest": "tests/fixtures/workflow-inputs/adaptive-rational/manifest.json",
+      "manifest_sha256": "0396d4806c151996fd7273f6e586be0aa92721db1baa5a74fd62237c7ed76f59",
+      "files": [
+        {
+          "source": "rational-prism.step",
+          "output": "rational-prism.step"
+        }
+      ]
+    }
+  ]
+}

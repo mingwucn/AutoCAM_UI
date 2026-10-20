@@ -74,6 +74,6 @@ if (receipt.status === 'running') {
   } else receipt.status = 'passed';
 }
 receipt.finished_at = new Date().toISOString();
-receipt.note = 'Software checks on the declared finite scenarios. Does not close unknown whole-module requirements or independent human acceptance.';
+receipt.note = 'Software checks on the declared finite scenarios. Compare the workflow catalogue for family coverage; these checks do not establish independent human acceptance or manufacturing qualification.';
 save();
 console.log(JSON.stringify({status: receipt.status, steps: receipt.steps.length, output}));

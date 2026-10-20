@@ -12,11 +12,20 @@ and bounded expected result; it does not qualify other parts or a learned model.
 | [Cylindrical policy training](cylindrical-policy/README.md) | Pinned full-cycle configuration, original stock, weights and decisions | Recorded replay, deterministic self-play and learned-model read-only search with profile-specific checkpoints |
 | [STEP preparation](step/README.md) | Public synthetic STEP fixtures | Supported-stage results, rejected invalid/unsupported input, resource-limit handling and cancellation recovery |
 | [Rejections](rejections/README.md) | Deliberately invalid variants of supplied synthetic inputs | Failure at the expected check, no trained checkpoint or corrupted accepted state |
+| [Complete workflow catalogue](../docs/WORKFLOW_CATALOGUE.md) | Pinned prepared-case, inspection and adaptive STEP fixtures exported by `npm run prepare:workflows -- --output runs/workflow-examples-01` | Input loading, supported controls, original-face inspection, reset and deliberate rejections for the advertised families |
 
 [The manifest](manifest.json) supplies scenario identities, custody and exact
 expected results. [The validation guide](../docs/VALIDATION_GUIDE.md) describes
 automated and manual checks. Operator examples already existed in V1; this index
 makes them easier to find and adds the missing workflow families.
+
+The additional workflow exporter uses its separate
+[pinned fixture selection](../config/workflow-examples.json) and writes a
+`receipt.json` with the original manifest and output identities. It verifies
+compressed and expanded bytes before writing, uses a new folder below `runs/`,
+and refuses overwrite. These fixtures are additional to the recorded-training
+manifest above. The task-4 model fixture has 54 zero weights and is explicitly
+**untrained**: it demonstrates compatibility and controls, not learned quality.
 
 ## Custody and interpretation
 

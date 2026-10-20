@@ -25,10 +25,10 @@ for the particular supplied input and accepted state.
 | F-06 | Reset, restoration and replay have explicit state semantics. | Reset starts a new case state; successful restore/replay reconstructs the recorded state. Failed import/replay/cancellation preserves prior accepted state. |
 | F-07 | Completion and failure states remain distinct. | Complete, truncated, blocked, unresolved and error outcomes retain their actual meaning. A valid checked transition can still leave completion unresolved. |
 | F-08 | Local training checks exact episode identity, replays before updates and validates model compatibility. | Wrong hashes, altered invalid histories and incompatible/nonfinite checkpoints reject. Existing output directories are not overwritten. No undeclared parent repository is required by a promised standalone route. |
-| F-09 | Policy and MCTS use a compatible checkpoint and accepted state. | Mixed reference initial policy selects action 0; MCTS with 16 simulations, depth 2 and exploration 1 selects action 1. Inference preserves accepted state. |
+| F-09 | Policy and MCTS use a compatible checkpoint and accepted state. | Mixed reference initial policy selects action 0; MCTS with 16 simulations, depth 2 and exploration 1 selects action 1. Suggestion-only inference preserves accepted state. Task-4/task-5/task-6 explicitly labelled Run controls then commit one checked choice, as specified by F-03. |
 | F-10 | Numerical learning claims match measured outcomes. | Mixed A/B each have six updates and 28/34 changed weights. Synthetic demonstrated costs are 161.6/228.4 seconds. Starting/A/B select the same actions at the two published comparison states; no improvement is inferred. |
 | F-11 | Dependency and example identities are reproducible. | Exact UI/data/runtime/CAD versions are recorded. Missing or changed inputs fail clearly. A fresh standalone checkout can execute every promised scenario. |
-| F-12 | Scope and independent execution claims have evidence. | Each manual route names inputs, steps, results, restrictions and recovery. Platform tests and unassisted human acceptance are recorded separately. Unknown whole-module requirements remain open. |
+| F-12 | Scope and independent execution claims have evidence. | Every advertised family in this single repository has an input route, steps, results, restrictions and recovery. Platform tests and unassisted human acceptance are recorded separately; untested families remain explicit. |
 
 ## Learning families
 
@@ -61,5 +61,5 @@ newlines. Preserve original V1 references when introducing new candidate output.
 Software consistency, native replay, browser parity and physical qualification
 are separate evidence levels. This contract requires evidence for the claimed
 level only and does not convert one into another. Independent human acceptance,
-unknown partner requirements and publication status must never be inferred from
-a passing test suite.
+complete advertised-family coverage and publication status must never be
+inferred from a passing test suite for a smaller set of scenarios.
