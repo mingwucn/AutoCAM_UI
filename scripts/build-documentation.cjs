@@ -12,6 +12,13 @@ function buildDocumentation({root, out, execution}) {
   const captured = new Set(), linkedSources = new Set();
   const renderer = new marked.Renderer();
   renderer.html = ({text}) => escape(text);
+  const renderParagraph = renderer.paragraph.bind(renderer);
+  renderer.paragraph = token => {
+    // Repository manuals use standalone empty anchors for stable section links.
+    // Accept only this exact ASCII form; all other raw HTML remains escaped.
+    const anchor = /^<a id="([a-z][a-z0-9-]{0,63})"><\/a>$/.exec(token.text);
+    return anchor ? '<a id="' + anchor[1] + '"></a>\n' : renderParagraph(token);
+  };
   const render = (text, relative, historical) => marked.parse(text, {renderer, walkTokens(token) {
     if ((token.type === 'link' || token.type === 'image') && !/^(?:[a-z]+:|\/\/|#)/i.test(token.href) && !historical) {
       const name = decodeURIComponent(token.href.split(/[?#]/)[0]);

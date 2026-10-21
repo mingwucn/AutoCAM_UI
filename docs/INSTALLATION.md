@@ -1,16 +1,98 @@
 # Install and run
 
-Use the supplied candidate checkout or its exact published commit. Do not assume
-the existing hosted site contains unpublished candidate changes. Record
-`git rev-parse HEAD` and `git status --short` before verification; a release
-archive should carry the corresponding source/build manifest.
+## Use the hosted application
 
-The historical comparison release is `v1.0.0` at
-`de20f204114767124296542d8d8ecc0361e7666a`. Cloning that tag reproduces V1, not
-this candidate. Repository access may require KU Leuven credentials or an SSH
-key; source access is separate from access to the public hosted demonstration.
+Open the [public AutoCAM application](https://mingwucn.github.io/AutoCAM_UI/)
+in a current desktop browser. Built-in cases need no local installation.
+Follow the [workflow catalogue](WORKFLOW_CATALOGUE.md) for their menu names and
+steps. Local file examples need the source files described below; generating
+additional example inputs and training models also needs the listed tools.
 
-## Requirements
+Save the site's [release.json](https://mingwucn.github.io/AutoCAM_UI/release.json).
+Its `source_repository.revision` identifies the source used for that served
+build. The current GitHub `main` branch can contain changes awaiting deployment,
+so use this published revision when comparing a local run with the website.
+
+## Obtain the public source and examples
+
+The source and committed examples are in the public
+[mingwucn/AutoCAM_UI repository](https://github.com/mingwucn/AutoCAM_UI).
+Reading or cloning it over HTTPS requires no KU Leuven account or SSH key.
+Install Git, then choose the recipe for your platform. Each reads the current
+served revision before cloning and checks out that exact revision.
+
+Windows PowerShell:
+
+```powershell
+$publishedRevision = (Invoke-RestMethod -Uri 'https://mingwucn.github.io/AutoCAM_UI/release.json' -ErrorAction Stop).source_repository.revision
+if ($publishedRevision -notmatch '^[0-9a-f]{40}$') { throw 'The served release has no valid source revision.' }
+git clone https://github.com/mingwucn/AutoCAM_UI.git
+if ($LASTEXITCODE -ne 0) { throw 'Clone failed; stop and resolve the error.' }
+Set-Location -LiteralPath AutoCAM_UI -ErrorAction Stop
+git checkout --detach $publishedRevision
+if ($LASTEXITCODE -ne 0) { throw 'Published checkout failed; do not continue from another revision.' }
+git rev-parse HEAD
+git status --short
+```
+
+Linux/POSIX shell, using Python 3.12 from the requirements below:
+
+```sh
+published_revision=$(python3.12 - <<'PY'
+import json
+import re
+import urllib.request
+with urllib.request.urlopen('https://mingwucn.github.io/AutoCAM_UI/release.json', timeout=30) as response:
+    revision = json.load(response)['source_repository']['revision']
+if not isinstance(revision, str) or not re.fullmatch('[0-9a-f]{40}', revision):
+    raise SystemExit('The served release has no valid source revision.')
+print(revision)
+PY
+) || exit 1
+git clone https://github.com/mingwucn/AutoCAM_UI.git || exit 1
+cd AutoCAM_UI || exit 1
+git checkout --detach "$published_revision" || exit 1
+git rev-parse HEAD
+git status --short
+```
+
+Keep the selected revision and status with your results; a fresh checkout should
+have no local changes. If either recipe fails, resolve that error before
+continuing; do not substitute `main` or an older revision.
+
+Without Git, open the public `release.json`, copy the full
+`source_repository.revision` value, and replace `PUBLISHED_REVISION` in this URL:
+
+```text
+https://github.com/mingwucn/AutoCAM_UI/archive/PUBLISHED_REVISION.zip
+```
+
+Download and extract that ZIP, then open a terminal in the extracted folder
+containing `package.json`. Keep the archive and its selected commit identity;
+Git status commands do not apply to an extracted ZIP.
+
+### Optional: reproduce the walkthrough's historical starting version
+
+The manual walkthrough began on 21 October 2026 from public commit
+`c602567afb005777315ee6ecdd3696ffafb26dd6`. To reproduce that older starting
+version intentionally, use the following command inside the cloned repository:
+
+```text
+git checkout --detach c602567afb005777315ee6ecdd3696ffafb26dd6
+```
+
+The [historical starting-source ZIP](https://github.com/mingwucn/AutoCAM_UI/archive/c602567afb005777315ee6ecdd3696ffafb26dd6.zip)
+is the same older version. It does not include subsequent walkthrough fixes;
+use the primary recipe above for the current published application.
+
+The original GYM V1 comparison release was tagged `v1.0.0` at
+`de20f204114767124296542d8d8ecc0361e7666a` in the original GitLab repository;
+see [original V1 provenance](PUBLICATION_PROVENANCE.json). These are historical
+provenance identifiers, not checkout targets in this public clone. The public
+GitHub repository does not provide the `v1.0.0` tag. Use the current served
+revision to obtain the supported package.
+
+## Requirements for local build and training
 
 - Node.js 24 with npm; use the committed `package-lock.json` with `npm ci`.
 - Python 3.12 for local training and the example HTTP server.
