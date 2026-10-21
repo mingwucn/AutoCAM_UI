@@ -38,7 +38,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
     setSnapshot({view:next,geometry:geom});setStale(false);setSelection('');setPreview(null);setInference(null);
   }
   useEffect(()=>{
-    const token=++generation.current;active.current=true;setPhase('Starting learning gym…');setStale(true);setError('');setSnapshot(null);setTransitionSupported(false);
+    const token=++generation.current;active.current=true;setPhase('Starting learning gym…');setStale(true);setError('');setSnapshot(null);setTransitionSupported(false);setSaveStatus('Opening local save…');setSaveError('');
     const session=new MixedLearningPythonSession(new URL(prepared.configuration.workerURL,location.href).href);
     owner.current=session;storage.current=new DrillLocalSave();
     (async()=>{
@@ -50,7 +50,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
       await refresh(session,token);
       const supportsTransitions=await session.supportsTransitionRecord();check(token);setTransitionSupported(supportsTransitions);
       if(saved.available)await save(session,token);
-    })().catch(e=>{if(token===generation.current)setError(e.message);}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
+    })().catch(e=>{if(token===generation.current){setError(e.message);setSaveStatus(current=>current==='Opening local save…'?'Local save opening did not complete.':current);}}).finally(()=>{if(token===generation.current){active.current=false;setPhase('');}});
     return()=>{generation.current++;active.current=false;session.dispose();};
   },[prepared.key]);
   async function run(message,command,{mutates=false,refreshView=false}={}){
@@ -88,7 +88,11 @@ export function MixedLearningLiveGym({prepared,onClose}){
     if(canonicalAdaptive(episode)!==raw||episode.schema!=='adaptive-mixed-learning-episode-1')throw Error('Select a canonical mixed learning decision download.');
     const expected_export_id=await adaptiveHash(episode);check(token);await invoke(session,'restore',{episode,expected_export_id});check(token);setDecision(null);
   },{mutates:true,refreshView:true});}
-  function cancel(){generation.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setPreview(null);setError('Stopped. Recover the last completed actions before continuing.');}
+  function cancel(){generation.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setPreview(null);setError('Stopped. Recover the last completed actions before continuing.');setSaveStatus('Stopped. Browser save not rechecked.');}
+  function recover(){return run('Recovering completed actions and model…',async(session,token)=>{
+    await session.recover();check(token);await refresh(session,token);check(token);
+    setSaveStatus('Completed actions and model recovered. Use Save in this browser to confirm the local save.');
+  });}
   const action=currentPreview?mixedLearningPreviewAction(view,currentPreview):null;
   const pose=view?.full.phase==='turning'?view.full.initialPose.pose:view?.full.suffix.pose.pose;
   const choiceLabel=choice=>mixedLearningChoiceLabel(choice,view.inputs.full.genesis.catalog.tools);
@@ -109,7 +113,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
         <p className="adaptive-small">Inference runs here; train downloaded decisions locally. This constructed example does not qualify the loaded model for other parts.</p>
       </>}
       <div className="action-row"><button disabled={blocked} onClick={()=>run('Resetting to initial stock…',async(session,token)=>{await invoke(session,'reset');check(token);setDecision(null);},{mutates:true,refreshView:true})}>Reset to initial stock</button><button disabled={blocked} onClick={()=>run('Preparing learning download…',async(session,token)=>{const raw=await invoke(session,'export');check(token);download(raw);})}>Download learning decisions</button>{transitionSupported&&<button disabled={blocked} onClick={downloadTransitions}>Download transitions</button>}<button disabled={blocked} onClick={downloadRunDetails} title="Software and input identities for the matching decision file">Download run details</button>{busy&&<button onClick={cancel}>Cancel computation</button>}</div>
-      {!busy&&owner.current?.needsRecovery&&<button onClick={()=>run('Recovering completed actions and model…',session=>session.recover(),{refreshView:true})}>Recover completed actions</button>}
+      {!busy&&owner.current?.needsRecovery&&<button onClick={recover}>Recover completed actions</button>}
       {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing accepted stock…',async()=>{},{refreshView:true})}>Refresh accepted stock</button>}
       <label>Restore learning decisions<input aria-label="Restore learning decisions" type="file" accept=".json" disabled={blocked} onChange={e=>{restore(e.target.files?.[0]);e.target.value='';}}/></label>
       <div className="action-row"><button disabled={blocked} onClick={()=>run('Saving in this browser…',(session,token)=>save(session,token,true))}>Save in this browser</button><button disabled={busy||!storage.current?.available} onClick={()=>run('Forgetting local save…',async(_session,token)=>{await storage.current.forget();check(token);setSaveError('');setSaveStatus('Local save forgotten. Automatic saving is off.');})}>Forget local save</button></div>

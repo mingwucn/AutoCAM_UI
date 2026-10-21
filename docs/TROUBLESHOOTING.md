@@ -22,6 +22,9 @@ directories; choose a new output path for a new attempt.
 | STEP import, profile or grid limit rejects | Retry the documented synthetic fixture/settings first. Increase voxel pitch if the classic grid exceeds its limit. An unsupported adaptive profile requires a supported input, not a forced acceptance. |
 | Model weights changed but action did not | This is possible and occurs in the mixed reference examples. Compare actual scores/actions at identical states; do not infer improved quality. |
 | Model run changed stock immediately | Task-4/5/6 **Run model** controls are explicit execution. Mixed/cylindrical suggestion controls require a later Apply/Accept. Read the workflow label. |
+| **Build provenance identity differs from the executing worker** | Run details were refused because the received build record does not match the executing worker. The app may have updated, or different release files may have been served. Keep existing downloads and follow [app-update recovery](ILLUSTRATED_MODULE3_MANUAL.md#build-update-recovery). Do not bypass the identity check or use Reset/Forget to clear the message. |
+
+<a id="report-a-reproducible-problem"></a>
 
 ## Report a reproducible problem
 

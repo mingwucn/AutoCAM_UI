@@ -246,6 +246,8 @@ For a controlled A/B comparison, keep the task, starting stock, starting checkpo
 
 Under **Run the adaptive shadow gym**, select **Synthetic learning gym: turning, face milling and drilling; local weights and recorded actions**, then **Open case**. For each choice, use **Preview checked action**, inspect the preview, and explicitly **Accept checked action**. Preview alone must not change stock.
 
+Opening the case may restore a previous browser save. Before starting example A below, select **Reset to initial stock** and wait until the ready screen shows **Step 0 / 6 · 0 s**. Start the six-step recording from that initial state.
+
 Choose example A if you want to demonstrate the supplied sequence with the shorter synthetic time. Follow these six choices in order. For every row, select the choice, preview it, inspect the result, then explicitly accept it. Wait for each computation to finish before continuing.
 
 | Step | Choice to demonstrate | What to check before continuing |
@@ -470,6 +472,25 @@ Load the task-family-compatible model. In the observed v2 check, deliberately lo
 **Status of the dated follow-up:** the selected planar and named four-face completion, prepared face/drill continuation, initial-stock turn/transfer/face/drill chain and fresh regional-v2/cylindrical-v1/v2 browser-consumption checks above passed within their stated boundaries. The subsequent `262c5c9` release and its affected-route walkthrough were verified separately; this does not turn the earlier observations into tests of that later release. Other unfinished catalogue UI checks remain open. New preparation-recovery changes are still a local candidate. No independent human trial, acceptance-owner decision or manufacturing qualification is asserted. The newly trained mixed model completed both policy and MCTS suggestion checks as illustrated above. Video remains deferred.
 
 ## 9. Additional inspection and recovery workflows
+
+<a id="build-update-recovery"></a>
+
+### App update while a case is open
+
+**Build provenance identity differs from the executing worker** means that run-details export was refused: the received build record does not match the worker running your case. This protects the identity of the export; the message alone does not show that accepted material changed. An app update or mixed release files can cause this mismatch. The loader requests the record without using the browser HTTP cache, but a retained old worker must still reject a genuinely newer record.
+
+1. Keep your existing downloaded decisions, matching run details and transition supplement, plus the error and case identity. Export controls may be disabled, so retain files already saved.
+2. Reload the app and reopen the exact same case or task/initial-stock pair. Wait for loading and saved-state checking to finish. Reloading is a recovery attempt, not a guarantee that the server supplied matching release files.
+3. If the previous accepted head has not returned, use the case's **Restore … decisions** control with your actual decisions download. A transition supplement is not a decisions recording. Retain any rejection message.
+4. Check the accepted head, action history and elapsed time. When available, download new paired decisions/run details and confirm that the build record matches the executing worker. Older run details remain evidence of their original release, not the newly loaded release.
+
+Do not use **Forget local save**, **Delete local save** or **Reset** just to clear the message. If it persists after reopening, retain the exact message, case/input identities and existing downloads, then [report the problem](TROUBLESHOOTING.md#report-a-reproducible-problem). The cache correction has a focused simulated regression; successful hosted update recovery must be verified separately.
+
+<a id="mixed-save-recovery"></a>
+
+### Mixed case: recover after cancelling a calculation or saved-action check
+
+In the mixed learning case, wait while **Checking saved actions and model…** is active, or use **Cancel computation** once. Then select **Recover completed actions** when offered and wait for the accepted view to return. The terminal message **Completed actions and model recovered. Use Save in this browser to confirm the local save.** confirms recovery of the acknowledged session; it does not confirm a new browser save or whole-part completion. Check the step, elapsed time and loaded model, retain your decisions, then select **Save in this browser** if you want to confirm local storage. A successful save displays **Saved in this browser · revision …**; keep any save error instead of assuming success. This status correction has controlled component regression coverage; a hosted recovery check is separate evidence.
 
 <a id="recorded-episode-inspection"></a>
 

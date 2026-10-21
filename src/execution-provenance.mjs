@@ -31,10 +31,10 @@ export async function loadExecutionBuild(workerURL,expectedSHA256,{fetcher=fetch
   if(!pin(expectedSHA256))throw Error('Invalid worker build provenance identity.');
   const worker=new URL(workerURL,baseURL),url=new URL('../execution-build.json',worker);
   if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error('Invalid build provenance URL.');
-  const response=await fetcher(url.href,{signal,redirect:'error'});
+  const response=await fetcher(url.href,{signal,redirect:'error',cache:'no-store'});
   if(response.url&&new URL(response.url).origin!==worker.origin)throw Error('Build provenance origin differs.');
   const bytes=await boundedResponse(response,1024**2);
-  if(await executionHash(bytes)!==expectedSHA256)throw Error('Build provenance identity differs from the executing worker.');
+  if(await executionHash(bytes)!==expectedSHA256)throw Error('Build provenance identity differs from the executing worker. The app may have updated. Keep your downloaded decisions, reload the app, and reopen the same case before trying again.');
   const record=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
   if(record?.schema!=='shadow-gym-ui-execution-build-1'||record.scope!=='ui_build_inputs_only'||
      !Array.isArray(record.inputs)||record.inputs.length>4096||record.authority?.runtime_observed!==false||
