@@ -34,7 +34,6 @@ if(!embed){
   }
   fs.writeFileSync(path.join(out,'config.js'),'window.SHADOW_CONFIG='+JSON.stringify({...config,catalogUrl:url,...(adaptiveRuntime?{adaptiveRuntime}:{}),...(adaptiveCad?{adaptiveCad}:{})})+';\n');
   fs.copyFileSync(path.join(root,'index.html'),path.join(out,'index.html'));
-  fs.writeFileSync(path.join(out,'.nojekyll'),'');
 }
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 if(!embed)require('./build-documentation.cjs').buildDocumentation({root,out,execution:executionBuild.record});
