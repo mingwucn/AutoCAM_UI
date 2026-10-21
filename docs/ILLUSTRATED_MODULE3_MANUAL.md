@@ -231,7 +231,7 @@ Both complete the constructed requirements. Choosing B records the 4 mm choice; 
 1. **Record in the browser:** open the synthetic learning case; choose, preview and accept checked actions. Use your chosen valid sequence. See [the six-step example](#record-decisions).
 2. **Download the data:** select **Download learning decisions**. Keep that actual file; it is an episode, not a trained model.
 3. **Train in local Python:** run [the command below](#replay-and-training) with your downloaded episode and the compatible starting checkpoint. A successful run produces a new `checkpoint.json` and replay/training reports.
-4. **Load the result:** reset the same compatible case, select **Load learning model**, and choose your new checkpoint. See [load and use](#load-and-use-model).
+4. **Load the result:** reset the same compatible case, select **Load local model** (accessible name: **Load learning model**), and choose `runs/operator-new-01/checkpoint.json` from your checkout, or `checkpoint.json` in your chosen output folder. See [load and use](#load-and-use-model).
 5. **Evaluate before accepting:** request policy/MCTS suggestions at the same state and compare completion, synthetic cost and chosen actions. Preview and explicitly accept to execute. Changed weights alone do not demonstrate better decisions.
 
 For a controlled A/B comparison, keep the task, starting stock, starting checkpoint and training recipe the same; change only the demonstrated choice. This route verifies a learning workflow for its compatible task. It does not automatically train a policy for a new uploaded industrial part. Other supported training families use [their own commands and compatible inputs](#validation-examples).
@@ -242,7 +242,18 @@ For a controlled A/B comparison, keep the task, starting stock, starting checkpo
 
 Under **Run the adaptive shadow gym**, select **Synthetic learning gym: turning, face milling and drilling; local weights and recorded actions**, then **Open case**. For each choice, use **Preview checked action**, inspect the preview, and explicitly **Accept checked action**. Preview alone must not change stock.
 
-Follow example A: turn to radius **13.5 mm**; transfer to the **15 mm face tool**; index **180°**; face mill with **9 mm stepover**; exchange to the **long drill**; drill. Example B uses **4 mm** facing stepover instead. Wait for each computation to finish before continuing.
+Choose example A if you want to demonstrate the supplied sequence with the shorter synthetic time. Follow these six choices in order. For every row, select the choice, preview it, inspect the result, then explicitly accept it. Wait for each computation to finish before continuing.
+
+| Step | Choice to demonstrate | What to check before continuing |
+| --- | --- | --- |
+| 1 | Turn to **13.5 mm radius**. | The checked turning action is accepted. |
+| 2 | Transfer to the **15 mm face tool**. | The face tool is mounted. |
+| 3 | Index the workpiece to **180°**. | The accepted index is 180°. |
+| 4 | Face mill with **9 mm stepover**. | The facing choice shows **65.4 s** synthetic cost. |
+| 5 | Exchange to the **long drill**. | The mounted tool is **mixed-drill-long**. |
+| 6 | Select the available drilling action and accept it. | The case reaches **Step 6 / 6**, **COMPLETE**, and **161.6 s** total synthetic cost. |
+
+To demonstrate example B instead, reset to the initial stock and repeat the sequence using **4 mm stepover** at step 4. Its facing cost is **132 s** and total cost is **228.4 s**. Download each recording separately and train each from the same starting checkpoint into a separate output folder. These are two demonstrations under the same fixed reward; choosing B does not create a preference label or a surface-quality objective.
 
 At the end select **Download learning decisions** and **Download run details**. Keep the exact files. The decisions schema is `adaptive-mixed-learning-episode-1`; the paired run details retain software/input identities.
 
@@ -280,6 +291,8 @@ $modelHash = (Get-FileHash -LiteralPath $model -Algorithm SHA256).Hash.ToLower()
 
 When prompted, enter the actual absolute or checkout-relative path of your downloaded decisions file. Never reuse a run directory: the trainer rejects overwriting it.
 
+For the command above, the model you will load is **`runs/operator-new-01/checkpoint.json`**, relative to your repository checkout. If you change `--output`, load `checkpoint.json` from that new folder. Keep the downloaded decisions file as the recording; use the newly produced checkpoint as the model.
+
 The launcher verifies exact input bytes, reconstructs the episode, checks replay and applies the published fixed TD-Q update: learning rate **0.05**, discount **1**, error clip **1**. The supplied checkpoint has 34 weights. Demonstrated choices provide the operator input; this is not free-text intent learning.
 
 <a id="measured-training-results"></a>
@@ -299,7 +312,7 @@ The actual new download happens to match supplied A bytes exactly; the trained c
 
 ### Load and request a suggestion
 
-Use **Reset to initial stock**. Select **Load learning model** and choose the new `checkpoint.json`. Wait until controls are ready. Choose **16 simulations**, **depth 2**, **exploration 1** for the published comparison; request **Suggest with policy** or **Search with MCTS**. A suggestion does not execute a cut. Use Preview and Accept for an explicit subsequent action.
+Use **Reset to initial stock** in the same synthetic mixed-learning case. Select **Load local model** (accessible name: **Load learning model**) and choose the new `runs/operator-new-01/checkpoint.json`. Wait until the screen confirms **Compatible model loaded** and the controls are ready. Choose **16 simulations**, **depth 2**, **exploration 1** for the published comparison; request **Suggest with policy** or **Search with MCTS**. A suggestion does not execute a cut: the initial state should still show **Step 0 / 6 · 0 s**. Inspect the selected suggestion with **Preview checked action**, then use **Accept checked action** to execute it. Continue with checked actions and compare the resulting completion and synthetic cost; do not assume that the loaded model will reproduce your demonstrated sequence.
 
 The saved browser sequence shows the new checkpoint loading followed by ready model controls.
 
