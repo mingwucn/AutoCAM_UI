@@ -158,6 +158,8 @@ After a valid case exists, try the guide's rejection examples. `broken.step` con
 
 The browser record shows **1,680,000,000 cells; limit 300,000** for the tiny-pitch attempt, while the prior two-action stock remains visible. Malformed-input and cancellation observations also retain that prior case.
 
+For a live GYM calculation, **Cancel computation** stops pending work. Use the offered recovery control and wait for the ready state. Cancellation does not undo a command that the simulator has already acknowledged. In the indexed GYM, **Recording restored; refreshing accepted state…** means the recording is already accepted while its material view is being refreshed. Cancel at that point and **Restore last completed state** recovers that restored recording. Cancel before the restore is acknowledged and recovery retains the previous acknowledged state. After recovery, verify the ready state and retain matching **Download decisions** and **Download run details** files; the older image shown during a pending refresh does not establish the latest acknowledged head.
+
 <a id="figure-8"></a>
 
 ![B-Rep malformed STEP import rejection](images/module3/04-step-rejection.jpg)
