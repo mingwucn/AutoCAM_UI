@@ -180,6 +180,10 @@ The tested planar allowance example produced stock bounds **15 × 13 × 11 mm**,
 
 At the initial walkthrough cutoff, the saved planar machining receipt still said **Preparing source-derived machining candidates**, so that attempt was not counted as completed machining. The [dated agent follow-up](#followup-20261021) records a later completed, separately configured planar case. Figure 9 remains evidence of its original preparation/inspection case. Other routes are claimed only to the extent of their stated browser observations; native fixture results alone do not close an unobserved UI check.
 
+For the [prepared cylindrical-choice workflow](WORKFLOW_CATALOGUE.md#cylindrical-choice), select the physical tool by both its profile and exact ID: **Ball end mill (BALL_END-long)** and **Flat end mill (FLAT_END-long)** are different tools even when both show 20 mm reach. The picker and dependency comparisons use the same descriptions. Preview the intended choice and read its actual result before applying; a descriptive label is not an acceptance result.
+
+In the [task-5 remaining-stock workflow](RECORDED_TRAINING_QUICKSTART.md), the adaptive Tool picker also shows exact IDs and flute lengths: **long-flute** has a 20 mm flute and **short-flute** a 4 mm flute, while both have 20 mm usable reach. Select the intended tool by ID and flute length; reach alone does not describe its cutting length or shank clearance.
+
 <a id="operator-learning"></a>
 
 ## 5. Operator decisions → local learning → browser model use

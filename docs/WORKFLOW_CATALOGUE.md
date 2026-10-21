@@ -295,6 +295,10 @@ and [transitions-browser.mjs](../tests/transitions-browser.mjs).
 
 Use P1 with `examples/recorded-training/task5/manual/{task.json,initial.bin}`.
 Follow F08 manual controls and the [recorded training guide](RECORDED_TRAINING_QUICKSTART.md).
+Choose the tool by its exact ID and flute length: **long-flute** has a 20 mm
+cutting flute and **short-flute** has a 4 mm cutting flute; both have 20 mm usable
+reach. The Tool picker shows these separately. Equal reach does not make their
+cutting and shank geometry interchangeable; read the checked action's actual result.
 Train `episode.json` from that directory into a new output, load its resulting
 checkpoint and execute each model control from a reset state. Repeat with the
 separate `task5/model-mcts/` pair and its explicit starting-checkpoint recipe
@@ -453,10 +457,16 @@ same-state recommendations; this is not policy improvement evidence. Native
 and learned-worker checks are in [verification status](VERIFICATION_STATUS.md);
 record a participant's new recording/train/reload separately.
 
+<a id="cylindrical-choice"></a>
+
 ### F20 — Cylindrical choice (`cylindrical-choice`)
 
 Use P1 with `W/cylindrical-choice/{task.json,initial.bin}`. Select **Next machining
-choice** (accessible **Machining choice**), **Preview machining choice**, then
+choice** (accessible **Machining choice**) by its physical tool profile and
+exact tool ID as well as region, method, reach and angle. For example, **Ball end
+mill (BALL_END-long)** and **Flat end mill (FLAT_END-long)** are different tools
+even when their reach and other displayed settings match. The same descriptions
+appear in the dependency selectors. Select **Preview machining choice**, then
 **Apply machining choice** when allowed. Record the actual rejection for a
 blocked choice. Download decisions/transitions when offered, and **Reset stock**.
 `episode.json` and `initial-episode.json` retain reference history in the same

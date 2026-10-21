@@ -8,6 +8,7 @@ import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {CylindricalPythonSession} from './cylindrical-python-session.mjs';
 import {localRecovery} from './adaptive-local-recovery.mjs';
 import {readCylindricalView} from './cylindrical-live-view.mjs';
+import {cylindricalChoiceLabel} from './cylindrical-choice-label.mjs';
 import {readCombinedCellInspection} from './combined-live-view.mjs';
 import {adaptiveHash,canonicalAdaptive,exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
 
@@ -143,12 +144,7 @@ export function CylindricalLiveGym({prepared,onClose}){
       }else{await localRecovery('delete');check(t);setLocalSaveStatus('Local save deleted.');}
     },operation==='load');
   }
-  function label(c){const tool=view.catalog.tools.find(t=>t.tool_id===c.tool_id);
-    if(c.operation==='turn')return `Turn · ${c.tool_id}${c.phase_available?'':' · unavailable in this phase'}`;
-    if(c.operation==='transfer')return `Tool transfer · ${c.tool_id}${c.phase_available?'':' · unavailable in this phase'}`;
-    const region=[...new Set(view.choices.filter(row=>row.source_face_id!==null).map(row=>row.source_face_id))].indexOf(c.source_face_id)+1;
-    const method=c.method_id==='planar_end_raster_1'?'End facing':c.method_id.startsWith('ball_')?'Ball-end milling':c.method_id.includes('flank')?'Side milling':c.method_id.replaceAll('_',' ');
-    return `Region ${region} · ${method} · ${fmt(exactNumber(tool.usable_reach))} mm reach · ${angle(c.pose)} · ${c.constructed_strokes} strokes`;}
+  const label=c=>cylindricalChoiceLabel(c,view);
   return <div className="adaptive-live cylindrical-live" data-state-hash={view?.observation.material_hash||''} data-attempts={view?.observation.attempts??''} data-stale={stale}>
     <section className="adaptive-live-controls" aria-label="Machining choice controls">
       <div className="gym-heading"><div><h2>Machining choices</h2><p>{prepared.name}</p></div><button onClick={onClose}>Close live case</button></div>
