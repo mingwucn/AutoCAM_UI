@@ -4,7 +4,7 @@
 
 <a id="verification-identity"></a>
 
-The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The [tested source revision](https://github.com/mingwucn/AutoCAM_UI/tree/c602567afb005777315ee6ecdd3696ffafb26dd6) identifies that historical walkthrough; its detailed execution records are retained separately from this product manual. One Windows training-packaging defect was found and repaired in a separate candidate checkout. Candidate checks are identified below; they do not retroactively change the original public result.
+The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The [initial tested source](https://github.com/mingwucn/AutoCAM_UI/tree/c602567afb005777315ee6ecdd3696ffafb26dd6) identifies that historical walkthrough. The Windows training-packaging repair and earlier documentation corrections were subsequently published as [source `262c5c9`](https://github.com/mingwucn/AutoCAM_UI/tree/262c5c9b537b25dcd87cf845a9128f4a2353ab37); its hosted files and affected workflows were checked separately. Later observations identify their version below. The new preparation-recovery correction remains a local candidate pending its own CI and publication checks. Detailed execution records are retained separately from this product manual; later checks do not change the original public result.
 
 <a id="scope"></a>
 
@@ -61,7 +61,7 @@ npm ci
 npm run build:release
 ```
 
-**Historical reproduction only:** the walkthrough's exact source was `c602567afb005777315ee6ecdd3696ffafb26dd6`. Checking out that fixed revision reproduces the initial observations, including the cylindrical issue; it does not acquire a later repair. The primary recipe above selects the served source, which may still contain that issue until the correction is published.
+**Historical reproduction only:** the walkthrough's exact source was `c602567afb005777315ee6ecdd3696ffafb26dd6`. Checking out that fixed revision reproduces the initial observations, including the cylindrical issue; it does not acquire a later repair. The primary recipe above selects the served source. Published `262c5c9` includes the Windows path-length correction described below.
 
 Select an installed **Python 3.12** interpreter as `python` before the next commands; confirm the version. The walkthrough machine default was 3.13, so an installed 3.12 interpreter was explicitly selected. Use a fresh checkout-local environment:
 
@@ -365,7 +365,7 @@ The public cylindrical acquisition/verification recipe is:
 ./.venv/Scripts/python.exe python/verify_cylindrical_examples.py --output ./runs/cylindrical-verification-01
 ```
 
-On the original deep Windows checkout, retaining one producer file created a 261-character path and failed before self-play. The focused repair changes filesystem path handling, not learning or geometry. Its regression failed before and passed afterward; six source/output boundary tests passed. Repeating the documented command with a fresh output name produced a 264-character equivalent path and passed, including v2/v3 models. This is candidate repair evidence until the corrected release is published and identified.
+On the original deep Windows checkout, retaining one producer file created a 261-character path and failed before self-play. The focused repair changes filesystem path handling, not learning or geometry. Its regression failed before and passed afterward; six source/output boundary tests passed. Repeating the documented command with a fresh output name produced a 264-character equivalent path and passed, including v2/v3 models. This correction is included in published `262c5c9`; the original failed run remains a historical observation.
 
 Public fixture acquisition also passed:
 
@@ -399,14 +399,14 @@ The delivered knowledge layer is these executable bounded contracts. General com
 
 ## 8. Direct response to reviewer comments 9–12
 
-The concerns below are paraphrased to keep the response tied to observable evidence, rather than presented as verbatim reviewer quotations.
+The concerns below are paraphrased to keep the response tied to observable evidence, rather than presented as verbatim reviewer quotations. For comments 9 and 12, the additional [recorded-episode instructions](#recorded-episode-inspection) and [preparation-recovery steps](#adaptive-preparation-recovery) provide further executable workflows and screenshots. For comment 11, those sections distinguish display controls from accepted state and explain when a preparation replaces an existing case.
 
 | Comment / original concern | Actual response and verification | Status / remaining work |
 | --- | --- | --- |
 | **9 — Documentation is difficult to understand or follow.** | Follow [installation](#installation), the [industrial steps](#industrial-workflow), [STEP preparation](#step-workflow), [what training means](#training-overview) and [training in five steps](#training-steps). The [rules/learning table](#rules-and-learning) and [preferred-solution explanation](#choosing-preferred-solution) distinguish operator choice from the fixed learning objective. See the [industrial result](#figure-3), [STEP settings](#figure-5), [policy suggestion](#figure-13), [MCTS result](#figure-14), [completed planar controls](#figure-16) and [prepared face/drill controls](#figure-17). The manual-only exercise also identified missing acquisition information, a mismatched import label, reference/new-model ambiguity and discount formatting. | Concrete instructions, screenshots and agent walkthrough evidence are provided. Incomplete UI coverage remains explicit. Independent human comprehension has not been measured. |
 | **10 — Validation examples and outcomes are insufficiently visible in Git.** | See the [repository example-index screenshot](#figure-15), [family-by-family validation examples](#validation-examples), [measured new-recording results](#measured-training-results) and [dated follow-up outcomes](#followup-20261021), including reset/restore and fresh-model browser checks. The [public example index](https://mingwucn.github.io/AutoCAM_UI/examples/README.html) and [validation guide](https://mingwucn.github.io/AutoCAM_UI/docs/VALIDATION_GUIDE.html) provide the repository entry points. Fresh runs reproduced reference checkpoints/training outputs; the original/corrected cylindrical command result remains recorded above. | Repository examples and reproducible outcomes are demonstrated for the listed routes. Their presence is not a pass for every advertised UI family, held-out model quality or manufacturing validation. |
 | **11 — It is unclear what the system can be used for and where its boundaries lie.** | Read the [function/scope map](#scope), [stage-by-stage capability matrix](#figure-2), [supported STEP input boundaries](#step-input-boundaries) and [knowledge/model contracts](#knowledge-boundaries). The [rejection example](#failure-recovery), [adaptive stock/face limits](#adaptive-stock-faces), [case-specific completion](#figure-16) and [checkpoint-rejection recovery](#checkpoint-recovery) show why importing, inspecting, machining and completing are separate claims. | Boundaries are documented and selected positive/rejection cases observed. Arbitrary STEP machining, general knowledge activation and industrial learned-policy quality remain outside the demonstrated scope. |
-| **12 — Another user cannot execute the system without developer support.** | The [fresh-install commands](#installation), [replay-before-training recipe](#replay-and-training), [actual model reload and use](#load-and-use-model), [replay controls and recorded-state example](#step-replay), and [failure recovery instructions](#failure-recovery) give executable steps and observed outcomes. The newly recorded episode produced a checkpoint, a [completed policy suggestion](#figure-13) and a [completed bounded MCTS suggestion](#figure-14). The [actual downloaded recording also restored to completion](#recording-restoration). The [dated follow-up](#followup-20261021) adds selected planar, prepared-operation and fresh regional/cylindrical-model checks, including [recovery after an incompatible checkpoint](#checkpoint-recovery). Prerequisite selection, acquisition assistance and the separate Windows repair remain disclosed. | Software execution is demonstrated by an agent. The original guide needed the supplied public repository URL, and the Windows defect needed a code repair. A final corrected release walkthrough and an unassisted human trial are distinct remaining evidence; neither is claimed from this draft. |
+| **12 — Another user cannot execute the system without developer support.** | The [fresh-install commands](#installation), [replay-before-training recipe](#replay-and-training), [actual model reload and use](#load-and-use-model), [replay controls and recorded-state example](#step-replay), and [failure recovery instructions](#failure-recovery) give executable steps and observed outcomes. The newly recorded episode produced a checkpoint, a [completed policy suggestion](#figure-13) and a [completed bounded MCTS suggestion](#figure-14). The [actual downloaded recording also restored to completion](#recording-restoration). The [dated follow-up](#followup-20261021) adds selected planar, prepared-operation and fresh regional/cylindrical-model checks, including [recovery after an incompatible checkpoint](#checkpoint-recovery). Prerequisite selection, acquisition assistance and the separate Windows repair remain disclosed. | Software execution is demonstrated by an agent. The original guide needed the supplied public repository URL, and the Windows defect needed a code repair. The corrected `262c5c9` release has separate affected-route checks. A complete catalogue walkthrough and an unassisted human trial remain separate requirements; neither is claimed from selected checks. |
 
 <a id="comment-11-subpoints"></a>
 
@@ -463,4 +463,45 @@ The following targeted functional checks were completed after the initial walkth
 
 Load the task-family-compatible model. In the observed v2 check, deliberately loading the v1 checkpoint displayed **Incompatible full-cycle checkpoint** and left controls, including downloads, disabled while accepted material awaited verification. Select **Refresh accepted material** to verify the accepted state and restore ready controls. The observed recovery retained **1 attempt** and **12.75 s**; the actual downloaded decisions after refresh were byte-identical to the restored applied head. The incompatible model was rejected, and accepted stock did not change. This recovery does not make the incompatible model valid: select matching v2 weights for further model-guided search.
 
-**Current status after this follow-up:** the selected planar and named four-face completion, prepared face/drill continuation, initial-stock turn/transfer/face/drill chain and fresh regional-v2/cylindrical-v1/v2 browser-consumption checks above have passed within their stated boundaries. Other uncompleted catalogue UI checks are not marked passed. Candidate fixes remain separate from the original hosted revision; final corrected-release publication and its affected-route walkthrough require their own version-specific evidence. No independent human trial, acceptance-owner decision or manufacturing qualification is asserted. The newly trained mixed model has completed both policy and MCTS suggestion checks as illustrated above. Video remains deferred.
+**Status of the dated follow-up:** the selected planar and named four-face completion, prepared face/drill continuation, initial-stock turn/transfer/face/drill chain and fresh regional-v2/cylindrical-v1/v2 browser-consumption checks above passed within their stated boundaries. The subsequent `262c5c9` release and its affected-route walkthrough were verified separately; this does not turn the earlier observations into tests of that later release. Other unfinished catalogue UI checks remain open. New preparation-recovery changes are still a local candidate. No independent human trial, acceptance-owner decision or manufacturing qualification is asserted. The newly trained mixed model completed both policy and MCTS suggestion checks as illustrated above. Video remains deferred.
+
+## 9. Additional inspection and recovery workflows
+
+<a id="recorded-episode-inspection"></a>
+
+### Inspect a recorded episode and its tool movement
+
+1. Obtain the inspection examples using the [workflow catalogue's acquisition command](WORKFLOW_CATALOGUE.md). In the resulting output folder, use `inspection/legacy.json` or `inspection/tools.json`.
+2. In the application, open **Inspect an adaptive Shadow Gym episode**, then select the **Adaptive episode file** and choose the JSON file.
+3. Select a numbered frame, or use **Previous**, **Next** and **Play recorded steps**. These controls display the states supplied by the recording; they do not execute new machining actions or verify a new replay.
+4. In `tools.json`, compare **Short tool: reach rejected** with **Long flat-end plunge**. The short tool records `tool_reach_exceeded`; the long-tool frame shows **3,784–4,048 mm³** remaining and **48–312 mm³** removed. Read the selected frame's recorded result before interpreting the geometry.
+5. Move **Tool position** (accessible name: **Recorded tool position**) from 0% to 100%, or toggle **Show recorded tool** and **Show cutting sweep**. These are display controls. The tool pose changes while the recorded material remains at the selected frame.
+6. Select a cell and inspect **Partition and recorded transition** and its predicate information. Use **Export inspection PNG** and **Export display metadata** to retain the displayed state and context.
+
+On hosted `262c5c9`, all six legacy frames, Previous/Next and playback to the final frame were observed. In the tools example, changing tool position altered two displayed tool transforms while all non-display metadata remained equal. Loading malformed JSON displayed **Invalid adaptive JSON object key.** and retained the previously accepted viewer: the exported metadata before and after rejection was byte-identical. You can continue inspecting the retained episode or choose another valid file.
+
+<a id="figure-18"></a>
+
+![Recorded long flat-end plunge with the tool-position and sweep display controls](images/module3/18-recorded-inspector.jpg)
+
+*Figure 18 — The recorded **Long flat-end plunge** frame shows **3,784–4,048 mm³** remaining and **48–312 mm³** removed. Tool position is **100%** with the tool and cutting sweep visible. The caption on screen states that this is a position preview and that recorded material stays at this step. It is a view of producer-recorded results, not newly executed machining or manufacturing approval.*
+
+<a id="adaptive-preparation-recovery"></a>
+
+### Recover from an incompatible STEP or machining setup
+
+The local recovery correction keeps accepted preparations separate from the files and settings you are editing. Its screenshot and checks below are local candidate observations; see [version identity](#verification-identity) for the published-versus-candidate distinction.
+
+1. Prepare a supported STEP case and, where supported, its machining actions. Keep downloads of the initial stock, machining task and accepted decisions before trying replacement inputs.
+2. Changing a STEP profile, file or machining setup creates a draft. The retained result is labelled as the **previous accepted preparation** or **previously prepared actions**. It still belongs to its original profile and inputs.
+3. Select **Prepare STEP stock** or **Prepare machining actions** to try the replacement. If it fails, read the short error and expand **Technical error details** when the full diagnostic is needed. Select a compatible file or correct its fields before retrying. For example, a task JSON is not a machine-and-tools setup JSON.
+4. To stop an active request, use **Cancel STEP preparation** or **Cancel machining preparation** while that control is visible. Cancellation retains the accepted preparation; a late result must not replace it.
+5. A successfully prepared new stock replaces the old stock and closes its old uploaded machining gym. Successful machining-action preparation alone retains the current gym: select **Open machining gym** explicitly to start an episode with the new actions. Starting that new gym replaces the current episode, so keep its decisions first.
+
+The fresh local candidate check completed the coaxial example in **one action and 16.25 s**. An incompatible setup then showed **Machining preparation failed: Unknown or missing fields** with its traceback collapsed under **Technical error details**. Expanding the disclosure showed the full diagnostic. The completed decision recording and previously prepared task remained byte-identical after rejection. Earlier local checks also retained accepted stock/task/history across cancellation and confirmed that a successful stock replacement invalidates the previous uploaded gym. These observations do not establish that an arbitrary replacement input is supported.
+
+<a id="figure-19"></a>
+
+![Concise machining-setup error with the previously prepared actions retained](images/module3/19-preparation-error-recovery.jpg)
+
+*Figure 19 — The local recovery correction reports the incompatible setup in one line and keeps **Technical error details** collapsed. The notice says that the current setup has not replaced the **previously prepared actions**; the prior three proposals, four source faces and download controls remain available. Separate actual downloads confirmed that the accepted completed episode and machining task were unchanged.*

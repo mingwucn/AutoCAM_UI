@@ -20,6 +20,15 @@ function buildFile(out,name,content='current'){
   fs.writeFileSync(path.join(out,'build-manifest.json'),JSON.stringify({schema:'shadow-gym-ui-build-1',files:[{path:name}]}));
 }
 
+test('Pages runs the adaptive preparation browser regression after installing Chromium',()=>{
+  const workflow=fs.readFileSync(path.resolve(__dirname,'../.github/workflows/pages.yml'),'utf8');
+  const commands=[...workflow.matchAll(/^\s*- run:\s*(.+)$/gm)].map(match=>match[1].trim());
+  const command='npm run test:module3-workflow';
+  assert.equal(commands.filter(value=>value===command).length,1,'Pages must execute the browser regression exactly once, without --build-only');
+  const install=commands.indexOf('npx playwright install --with-deps chromium');
+  assert(install>=0&&commands.indexOf(command)>install,'Install the browser before running its regression');
+});
+
 test('rebuilding replaces the complete generated tree and removes obsolete manual/example files',()=>fixture(options=>{
   withBuildOutput(options,out=>buildFile(out,'docs/old.html','obsolete'));
   withBuildOutput(options,out=>buildFile(out,'examples/current.json','{}'));
