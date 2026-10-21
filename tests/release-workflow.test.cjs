@@ -52,10 +52,17 @@ test('release build records nested evidence manifests and accepts a fresh rebuil
   const checkout=path.resolve(__dirname,'..'),build=path.join(checkout,'scripts/build.cjs');
   const evidence=['docs/verification/linux/build-manifest.json','docs/verification/windows/build-manifest.json'];
   const inputs=evidence.map(name=>({name,bytes:fs.readFileSync(path.join(checkout,name))}));
+  // An existing, owned release may still contain the obsolete Pages marker.
+  buildFile(output,'.nojekyll','');
   for(let generation=0;generation<2;generation++){
     execFileSync(process.execPath,[build,'--out',output],{cwd:checkout,encoding:'utf8',windowsHide:true,timeout:120000,stdio:'pipe'});
     const manifest=JSON.parse(fs.readFileSync(path.join(output,'build-manifest.json'),'utf8'));
     assert(!manifest.files.some(row=>row.path==='build-manifest.json'),'Only the output-root manifest excludes itself');
+    assert(!fs.existsSync(path.join(output,'.nojekyll')),'Rebuilding removes the obsolete Pages marker');
+    // The configured Pages action excludes hidden paths from its uploaded tar.
+    // A locally valid manifest must not promise files that production omits.
+    assert.deepEqual(manifest.files.filter(row=>row.path.split('/').some(part=>part.startsWith('.'))),[],
+      'Every release file must survive the configured Pages upload filtering');
     for(const {name,bytes} of inputs){
       const entries=manifest.files.filter(row=>row.path===name);
       assert.equal(entries.length,1,'Nested evidence must have exactly one output entry: '+name);
