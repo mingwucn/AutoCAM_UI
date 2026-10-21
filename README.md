@@ -12,7 +12,7 @@ tested, published and accepted.
 ## Start here
 
 Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
-15 application screenshots, step-by-step workflows and linked responses to
+17 application screenshots, step-by-step workflows and linked responses to
 reviewer comments 9–12.
 
 Open the [hosted application](https://mingwucn.github.io/AutoCAM_UI/) to try built-in
