@@ -2,6 +2,7 @@
 from hashlib import sha256
 from importlib import metadata
 import json
+import os
 from pathlib import Path
 import platform
 import re
@@ -13,10 +14,29 @@ def digest(raw):
     return sha256(raw).hexdigest()
 
 
+def resolved_path(path):
+    """Use one canonical spelling for source/output boundary comparisons."""
+    path = str(Path(path).resolve())
+    if os.name == 'nt':
+        if path.startswith('\\\\?\\UNC\\'):
+            path = '\\\\' + path[8:]
+        elif path.startswith('\\\\?\\'):
+            path = path[4:]
+    return Path(path)
+
+
+def filesystem_path(path):
+    """Permit deep retained snapshots without changing Windows system settings."""
+    path = str(resolved_path(path))
+    if os.name == 'nt':
+        path = '\\\\?\\UNC\\' + path[2:] if path.startswith('\\\\') else '\\\\?\\' + path
+    return Path(path)
+
+
 def checked_input(path, expected, limit=64 * 1024**2):
     if not isinstance(expected, str) or not re.fullmatch(r'[0-9a-fA-F]{64}', expected):
         raise ValueError('Expected SHA-256 must contain exactly 64 hexadecimal characters')
-    path = Path(path)
+    path = filesystem_path(path)
     if not 1 <= path.stat().st_size <= limit:
         raise ValueError(f'Input size outside 1..{limit} bytes: {path.name}')
     raw = path.read_bytes()
@@ -30,23 +50,24 @@ def json_bytes(value):
 
 
 def write_json(path, value):
-    Path(path).write_bytes(json_bytes(value))
+    filesystem_path(path).write_bytes(json_bytes(value))
 
 
 def file_pin(path, root):
+    path, root = filesystem_path(path), filesystem_path(root)
     raw = path.read_bytes()
     return dict(path=path.relative_to(root).as_posix(), sha256=digest(raw), size_bytes=len(raw))
 
 
 def checked_output(output, launcher):
     """Keep new run artifacts outside the executable producer and package inputs."""
-    output = Path(output).resolve()
-    python_root = Path(launcher).resolve().parent
+    output = resolved_path(output)
+    python_root = resolved_path(launcher).parent
     checkout = python_root.parent
     protected = [python_root] + [checkout / name for name in
         ('src', 'source', 'docs', 'examples', 'scripts', 'tests', 'config', 'core', '.git', 'node_modules')]
     for source in protected:
-        source = source.resolve()
+        source = resolved_path(source)
         if output.is_relative_to(source) or source.is_relative_to(output):
             raise ValueError('Training output overlaps producer source or package inputs: ' + str(output))
     return output
@@ -54,11 +75,11 @@ def checked_output(output, launcher):
 
 def prepare_run(output, inputs, launcher, recipe):
     """Reserve a fresh run and retain executable source, exact inputs and environment."""
-    output = checked_output(output, launcher)
+    output = filesystem_path(checked_output(output, launcher))
     output.mkdir(parents=True, exist_ok=False)
-    python_root = Path(launcher).resolve().parent
+    python_root = filesystem_path(launcher).parent
     source_files = sorted((python_root / 'src').rglob('*.py'))
-    source_files += [python_root / 'requirements.txt', Path(launcher).resolve(), Path(__file__).resolve()]
+    source_files += [python_root / 'requirements.txt', filesystem_path(launcher), filesystem_path(__file__)]
     for source in dict.fromkeys(source_files):
         target = output / 'producer' / 'python' / source.relative_to(python_root)
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -100,6 +121,7 @@ def assert_inputs_unchanged(output, pins):
 
 
 def finish_run(output, result):
+    output = filesystem_path(output)
     write_json(output / 'result.json', result)
     write_json(output / 'index.json', [file_pin(p, output) for p in sorted(output.rglob('*'))
                                      if p.is_file() and p.name != 'index.json'])

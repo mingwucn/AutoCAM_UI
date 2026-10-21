@@ -4,7 +4,7 @@ test('built manual resolves local Markdown links, escapes raw HTML and pins down
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'autocam-docs-')),out=path.join(root,'dist');
   try{
     for(const dir of ['docs','examples','python','config','dist'])fs.mkdirSync(path.join(root,dir));
-    fs.writeFileSync(path.join(root,'README.md'),'# Manual\n\n[Scope](docs/MODULE3_SCOPE.md)\n[Verifier](python/verifier.py)\n<script>alert(1)</script>');
+    fs.writeFileSync(path.join(root,'README.md'),'# Manual\n\n[Scope](docs/MODULE3_SCOPE.md)\n[Verifier](python/verifier.py)\n<script>alert(1)</script>\n\n<a id="reviewer-comments-9-12"></a>\n\n[Reviewer response](#reviewer-comments-9-12)\n\n<a id="bad" onclick="alert(1)"></a>\n\n<a id="Bad"></a>\n\n<a href="javascript:alert(1)">unsafe anchor</a>');
     fs.writeFileSync(path.join(root,'docs/MODULE3_SCOPE.md'),'# Scope\n\n[Home](../README.md)');
     fs.writeFileSync(path.join(root,'examples/example.json'),'{}');
     fs.writeFileSync(path.join(root,'python/launcher.py'),'print("fixture")');
@@ -14,6 +14,11 @@ test('built manual resolves local Markdown links, escapes raw HTML and pins down
     const release=buildDocumentation({root,out,execution:{source_repository:{revision:'fixture'},input_inventory_sha256:'fixture'}});
     const html=fs.readFileSync(path.join(out,'README.html'),'utf8');
     assert(html.includes('docs/MODULE3_SCOPE.html'));assert(!html.includes('<script>'));assert(html.includes('&lt;script&gt;'));
+    assert(html.includes('<a id="reviewer-comments-9-12"></a>'));
+    assert(html.includes('href="#reviewer-comments-9-12"'));
+    assert(!html.includes('<a id="bad"'));assert(html.includes('&lt;a id=&quot;bad&quot; onclick='));
+    assert(!html.includes('<a id="Bad"'));assert(html.includes('&lt;a id=&quot;Bad&quot;&gt;'));
+    assert(!html.includes('<a href="javascript:'));assert(html.includes('&lt;a href=&quot;javascript:'));
     assert(fs.readFileSync(path.join(out,'docs/MODULE3_SCOPE.html'),'utf8').includes('../README.html'));
     assert.equal(fs.readFileSync(path.join(out,'examples/example.json'),'utf8'),'{}');
     assert(release.documentation_training_inputs.some(row=>row.path==='python/launcher.py'&&row.sha256.length===64));

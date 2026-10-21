@@ -14,9 +14,12 @@ trained models and transition exports are different file types.
 
 ## Obtain the inputs
 
-The release build fetches pinned runtime and catalogue assets. The prepared
-case menu is usable after [building and serving](INSTALLATION.md); it does not
-require extracting test fixtures. For the additional local-file examples, run:
+The prepared case menu is available in the
+[hosted application](https://mingwucn.github.io/AutoCAM_UI/) without a local
+build or fixture extraction. You can also [build and serve locally](INSTALLATION.md).
+For local-file examples, first obtain the public source using
+[installation](INSTALLATION.md). After installing its Node dependencies, run
+this command from the repository root:
 
 ```text
 node scripts/prepare-workflow-examples.mjs --output runs/workflow-examples-01
@@ -363,8 +366,8 @@ rejection/recovery controls are the same as F12; record v3 separately.
 
 Use P1 with `W/indexed/{task.json,initial.bin}`. Select **Indexed action**, use
 **Preview selected action**, then **Apply indexed action**. Load
-`W/indexed/model.json` with **Indexed model weights**, then **Suggest with model
-+ MCTS**; suggestion is read-only. This supplied fixture is untrained. Use
+`W/indexed/model.json` with **Indexed model weights**, then
+**Suggest with model + MCTS**; suggestion is read-only. This supplied fixture is untrained. Use
 **Restore indexed decisions** for P3, and reject a combined/regional checkpoint
 without replacing accepted state. There is no separate policy button or
 packaged trainer. `W/indexed/expected.json` holds reference actions/exports.

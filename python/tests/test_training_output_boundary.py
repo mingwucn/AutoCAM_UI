@@ -1,5 +1,6 @@
 """Run directories must not recursively absorb or modify their producer package."""
 from pathlib import Path
+import os
 import sys
 import tempfile
 import unittest
@@ -33,6 +34,18 @@ class TrainingOutputBoundaryTests(unittest.TestCase):
         with patch.object(Path, 'mkdir', side_effect=AssertionError('mkdir before boundary check')):
             with self.assertRaisesRegex(ValueError, 'overlaps producer'):
                 prepare_run(self.checkout, {}, self.launcher, {})
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows extended path syntax')
+    def test_extended_path_spelling_cannot_bypass_source_boundary(self):
+        output = self.checkout / 'src' / 'nested-run'
+        for supplied_output, supplied_launcher in (
+            (Path('\\\\?\\' + str(output)), self.launcher),
+            (output, Path('\\\\?\\' + str(self.launcher))),
+        ):
+            with self.subTest(output=supplied_output, launcher=supplied_launcher):
+                with self.assertRaisesRegex(ValueError, 'overlaps producer'):
+                    checked_output(supplied_output, supplied_launcher)
+        self.assertFalse(output.exists())
 
     def test_new_external_and_runs_directories_are_allowed_without_being_created(self):
         for output in (self.base / 'external-run', self.checkout / 'runs' / 'new-run'):

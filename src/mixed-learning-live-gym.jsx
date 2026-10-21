@@ -3,6 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import {AdaptiveInspector} from './adaptive-inspector.jsx';
 import {MixedLearningPythonSession} from './mixed-learning-python-session.mjs';
 import {DrillLocalSave} from './drill-local-save.mjs';
+import {mixedLearningChoiceLabel} from './mixed-learning-choice-label.mjs';
 import {adaptiveHash,canonicalAdaptive,parseAdaptiveJson,exactNumber} from './adaptive-provider.mjs';
 import {readMixedLearningInputs,readMixedLearningView,readMixedLearningGeometry,readMixedLearningPreview,mixedLearningPreviewAction,readMixedLearningInference} from './mixed-learning-live-view.mjs';
 
@@ -90,11 +91,7 @@ export function MixedLearningLiveGym({prepared,onClose}){
   function cancel(){generation.current++;active.current=false;owner.current?.cancel();setPhase('');setStale(true);setPreview(null);setError('Stopped. Recover the last completed actions before continuing.');}
   const action=currentPreview?mixedLearningPreviewAction(view,currentPreview):null;
   const pose=view?.full.phase==='turning'?view.full.initialPose.pose:view?.full.suffix.pose.pose;
-  const choiceLabel=choice=>{
-    const e=choice.entry,m=choice.after_machine,t=view.inputs.full.genesis.catalog.tools.find(t=>(t.tool_id??t.assembly_id)===m.tool_id);
-    const angle=Math.atan2(exactNumber(m.sine),exactNumber(m.cosine))*180/Math.PI;
-    return `${names[e.specification.kind]} · ${m.tool_id}${t?.usable_reach?` · ${fmt(exactNumber(t.usable_reach))} mm reach`:''} · ${fmt(angle)}° · ${fmt(exactNumber(e.charged_seconds))} s`;
-  };
+  const choiceLabel=choice=>mixedLearningChoiceLabel(choice,view.inputs.full.genesis.catalog.tools);
   return <div className="adaptive-live mixed-learning-live" data-head={view?.observation.head??''} data-stale={stale} data-state-hash={geometry?.bundle.frames[0].state_hash??''}>
     <section className="adaptive-live-controls" aria-label="Learning gym controls">
       <div className="gym-heading"><div><h2>Finite-tool learning gym</h2><p>{prepared.name}</p></div><button onClick={onClose}>Close live case</button></div>

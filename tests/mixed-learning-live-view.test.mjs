@@ -4,11 +4,28 @@ import fs from 'node:fs';
 import {canonicalAdaptive,parseAdaptiveJson} from '../src/adaptive-provider.mjs';
 import {readMixedLearningInputs,readMixedLearningView,readMixedLearningGeometry,readMixedLearningPreview,mixedLearningPreviewAction,readMixedLearningInference} from '../src/mixed-learning-live-view.mjs';
 import {stockDisplayRequest,validateStockDisplayRequest} from '../src/accepted-stock-mesh.mjs';
+import {mixedLearningChoiceLabel} from '../src/mixed-learning-choice-label.mjs';
 
 const fixture=parseAdaptiveJson(fs.readFileSync(process.env.MIXED_LEARNING_VIEW_FIXTURE??new URL('./fixtures/mixed-learning-view/fixture.json',import.meta.url),'utf8'));
 const bytes=s=>new TextEncoder().encode(s),clone=structuredClone;
 const inputs=()=>readMixedLearningInputs(bytes(fixture.configuration),bytes(fixture.snapshot));
 const checked=async s=>readMixedLearningView(s.view,await inputs(),s.observation);
+
+test('manual learning choices distinguish the documented turning radius and face stepover',async()=>{
+  for(const [state,kind,expected] of [[0,'turn',['radius 13 mm','radius 13.5 mm']],[3,'face',['stepover 9 mm','stepover 4 mm']]]){
+    const view=await checked(fixture.states[state]),before=canonicalAdaptive(view.observation);
+    const choices=view.choices.filter(c=>c.entry.specification.kind===kind);
+    const labels=choices.map(c=>mixedLearningChoiceLabel(c,view.inputs.full.genesis.catalog.tools));
+    assert.equal(labels.length,expected.length);
+    for(let i=0;i<labels.length;i++){
+      assert.ok(labels[i].includes(expected[i]),`Missing ${expected[i]} in ${labels[i]}`);
+      assert.ok(labels[i].includes(choices[i].after_machine.tool_id));
+      assert.match(labels[i],/mm reach.*°.* s$/);
+    }
+    assert.equal(new Set(labels).size,labels.length);
+    assert.equal(canonicalAdaptive(view.observation),before,'Formatting must not change the checked observation');
+  }
+});
 
 test('learning reader binds all seven actual states to inherited stock and exact checked choices',async()=>{
   const envelopeCounts=[0,1,1,1,2,2,3];
