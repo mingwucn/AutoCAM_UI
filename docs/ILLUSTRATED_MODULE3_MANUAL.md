@@ -279,7 +279,7 @@ After training and model checks, select **Restore learning decisions** and choos
 
 ### Train the actual downloaded file
 
-From the repository root, after installing the fresh Python environment, substitute the downloaded filename and choose a new output directory. Use the same training options as the walkthrough:
+From the repository root, after installing the fresh Python environment, substitute the downloaded filename and choose a new output directory. If you are serving the app locally, leave the server terminal running and open a second PowerShell terminal at the repository root for training. Use the same training options as the walkthrough:
 
 ```powershell
 $episode = Read-Host 'Full path to your downloaded decisions JSON'
