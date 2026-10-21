@@ -453,10 +453,16 @@ same-state recommendations; this is not policy improvement evidence. Native
 and learned-worker checks are in [verification status](VERIFICATION_STATUS.md);
 record a participant's new recording/train/reload separately.
 
+<a id="cylindrical-choice"></a>
+
 ### F20 — Cylindrical choice (`cylindrical-choice`)
 
 Use P1 with `W/cylindrical-choice/{task.json,initial.bin}`. Select **Next machining
-choice** (accessible **Machining choice**), **Preview machining choice**, then
+choice** (accessible **Machining choice**) by its physical tool profile and
+exact tool ID as well as region, method, reach and angle. For example, **Ball end
+mill (BALL_END-long)** and **Flat end mill (FLAT_END-long)** are different tools
+even when their reach and other displayed settings match. The same descriptions
+appear in the dependency selectors. Select **Preview machining choice**, then
 **Apply machining choice** when allowed. Record the actual rejection for a
 blocked choice. Download decisions/transitions when offered, and **Reset stock**.
 `episode.json` and `initial-episode.json` retain reference history in the same
