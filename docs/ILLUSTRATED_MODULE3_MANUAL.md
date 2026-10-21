@@ -484,6 +484,12 @@ Load the task-family-compatible model. In the observed v2 check, deliberately lo
 
 Do not use **Forget local save**, **Delete local save** or **Reset** just to clear the message. If it persists after reopening, retain the exact message, case/input identities and existing downloads, then [report the problem](TROUBLESHOOTING.md#report-a-reproducible-problem). The cache correction has a focused simulated regression; successful hosted update recovery must be verified separately.
 
+<a id="mixed-save-recovery"></a>
+
+### Mixed case: recover after cancelling a calculation or saved-action check
+
+In the mixed learning case, wait while **Checking saved actions and model…** is active, or use **Cancel computation** once. Then select **Recover completed actions** when offered and wait for the accepted view to return. The terminal message **Completed actions and model recovered. Use Save in this browser to confirm the local save.** confirms recovery of the acknowledged session; it does not confirm a new browser save or whole-part completion. Check the step, elapsed time and loaded model, retain your decisions, then select **Save in this browser** if you want to confirm local storage. A successful save displays **Saved in this browser · revision …**; keep any save error instead of assuming success. This status correction has controlled component regression coverage; a hosted recovery check is separate evidence.
+
 <a id="recorded-episode-inspection"></a>
 
 ### Inspect a recorded episode and its tool movement
