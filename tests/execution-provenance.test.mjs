@@ -103,6 +103,32 @@ test('closed or uninitialized sessions cannot export, and runtime transport fail
  }finally{session.dispose();}
 });
 
+test('metadata loading bypasses stale default-cache bytes and binds only the executing worker record',async()=>{
+ const url='https://fixture.invalid/assets/worker.js',signal=new AbortController().signal;
+ const staleBytes=encoder.encode(JSON.stringify({...fixtureBuild,source_repository:{head:'previous-release'}}));
+ const stalePin=await executionHash(staleBytes),requests=[];
+ assert.notEqual(stalePin,buildPin);
+ const cacheAwareFetcher=async(requestURL,options)=>{
+  requests.push({url:requestURL,...options});
+  return new Response(options.cache==='no-store'?buildBytes:staleBytes);
+ };
+ // A fresh-looking HTTP-cache entry can be valid provenance for another release.
+ // Simulate default caching independently of the loader's requested mode.
+ await assert.rejects(loadExecutionBuild(url,buildPin,{signal,
+  fetcher:(requestURL,options)=>cacheAwareFetcher(requestURL,{...options,cache:'default'})}),/identity differs/);
+ const record=await loadExecutionBuild(url,buildPin,{signal,fetcher:cacheAwareFetcher});
+ assert.equal(record.status,'bound_to_worker');assert.equal(record.sha256,buildPin);
+ assert.deepEqual(record.record,fixtureBuild);
+ assert.deepEqual(requests.at(-1),{url:'https://fixture.invalid/execution-build.json',signal,redirect:'error',cache:'no-store'});
+ // A retained old worker must still reject the genuinely newer network record.
+ await assert.rejects(loadExecutionBuild(url,stalePin,{signal,fetcher:cacheAwareFetcher}),error=>{
+  assert.match(error.message,/Build provenance identity differs from the executing worker\./);
+  assert.match(error.message,/may have updated/);assert.match(error.message,/Keep your downloaded decisions, reload the app, and reopen the same case/);
+  return true;
+ });
+ assert.equal(requests.at(-1).cache,'no-store');
+});
+
 test('metadata loading enforces pinned bytes, schema, origin and streaming budget',async()=>{
  const url='https://fixture.invalid/assets/worker.js';
  await assert.rejects(loadExecutionBuild(url,buildPin,{fetcher:async()=>new Response('',{status:404})}),/unavailable/);

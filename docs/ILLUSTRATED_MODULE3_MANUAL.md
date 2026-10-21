@@ -471,6 +471,19 @@ Load the task-family-compatible model. In the observed v2 check, deliberately lo
 
 ## 9. Additional inspection and recovery workflows
 
+<a id="build-update-recovery"></a>
+
+### App update while a case is open
+
+**Build provenance identity differs from the executing worker** means that run-details export was refused: the received build record does not match the worker running your case. This protects the identity of the export; the message alone does not show that accepted material changed. An app update or mixed release files can cause this mismatch. The loader requests the record without using the browser HTTP cache, but a retained old worker must still reject a genuinely newer record.
+
+1. Keep your existing downloaded decisions, matching run details and transition supplement, plus the error and case identity. Export controls may be disabled, so retain files already saved.
+2. Reload the app and reopen the exact same case or task/initial-stock pair. Wait for loading and saved-state checking to finish. Reloading is a recovery attempt, not a guarantee that the server supplied matching release files.
+3. If the previous accepted head has not returned, use the case's **Restore … decisions** control with your actual decisions download. A transition supplement is not a decisions recording. Retain any rejection message.
+4. Check the accepted head, action history and elapsed time. When available, download new paired decisions/run details and confirm that the build record matches the executing worker. Older run details remain evidence of their original release, not the newly loaded release.
+
+Do not use **Forget local save**, **Delete local save** or **Reset** just to clear the message. If it persists after reopening, retain the exact message, case/input identities and existing downloads, then [report the problem](TROUBLESHOOTING.md#report-a-reproducible-problem). The cache correction has a focused simulated regression; successful hosted update recovery must be verified separately.
+
 <a id="recorded-episode-inspection"></a>
 
 ### Inspect a recorded episode and its tool movement
