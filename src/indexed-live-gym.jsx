@@ -72,7 +72,7 @@ export function IndexedLiveGym({prepared,onClose}){
     }else{
       const episode=parseAdaptiveJson(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),pin=await adaptiveHash(episode);check(token);
       await session.invoke(canonicalAdaptive({operation:'restore',episode,expected_export_id:pin}));
-      check(token);setDecision(null);
+      check(token);setPhase('Recording restored; refreshing accepted state…');setDecision(null);
     }
   });}
   function choiceLabel(c){const tool=view.catalog.tools.find(t=>t.tool_id===c.candidate.tool_id);
