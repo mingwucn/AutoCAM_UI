@@ -246,6 +246,8 @@ For a controlled A/B comparison, keep the task, starting stock, starting checkpo
 
 Under **Run the adaptive shadow gym**, select **Synthetic learning gym: turning, face milling and drilling; local weights and recorded actions**, then **Open case**. For each choice, use **Preview checked action**, inspect the preview, and explicitly **Accept checked action**. Preview alone must not change stock.
 
+Opening the case may restore a previous browser save. Before starting example A below, select **Reset to initial stock** and wait until the ready screen shows **Step 0 / 6 · 0 s**. Start the six-step recording from that initial state.
+
 Choose example A if you want to demonstrate the supplied sequence with the shorter synthetic time. Follow these six choices in order. For every row, select the choice, preview it, inspect the result, then explicitly accept it. Wait for each computation to finish before continuing.
 
 | Step | Choice to demonstrate | What to check before continuing |
