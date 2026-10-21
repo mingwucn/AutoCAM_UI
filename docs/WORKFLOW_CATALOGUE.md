@@ -295,6 +295,10 @@ and [transitions-browser.mjs](../tests/transitions-browser.mjs).
 
 Use P1 with `examples/recorded-training/task5/manual/{task.json,initial.bin}`.
 Follow F08 manual controls and the [recorded training guide](RECORDED_TRAINING_QUICKSTART.md).
+Choose the tool by its exact ID and flute length: **long-flute** has a 20 mm
+cutting flute and **short-flute** has a 4 mm cutting flute; both have 20 mm usable
+reach. The Tool picker shows these separately. Equal reach does not make their
+cutting and shank geometry interchangeable; read the checked action's actual result.
 Train `episode.json` from that directory into a new output, load its resulting
 checkpoint and execute each model control from a reset state. Repeat with the
 separate `task5/model-mcts/` pair and its explicit starting-checkpoint recipe

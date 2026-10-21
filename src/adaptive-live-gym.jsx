@@ -9,11 +9,11 @@ import {createPreparedLiveCase} from './adaptive-prepared-case.mjs';
 import {preparedCaseConfiguration} from './adaptive-runtime-selection.mjs';
 import {recordedTrainingGuide} from './adaptive-training-guide.mjs';
 import {latestPreparation} from './latest-preparation.mjs';
+import {adaptiveToolLabel} from './adaptive-tool-label.mjs';
 
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const interval=v=>`${fmt(exactNumber(v.lower_mm3))} – ${fmt(exactNumber(v.upper_mm3))}`;
 const sha=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
-const label=tool=>(tool.profile==='BALL_END'?'Ball-end mill':tool.profile==='FLAT_END'?'Flat-end mill':'Turning blade')+' · '+fmt(exactNumber(tool.usable_reach))+' mm';
 function saveText(raw,name,type){
   const url=URL.createObjectURL(new Blob([raw],{type})),link=document.createElement('a');
   link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -130,7 +130,7 @@ export function AdaptiveLiveGym({prepared,onClose}){
   return <div className="adaptive-live" data-case-key={prepared.key} data-task-hash={view?.task_id||''} data-state-hash={view?.state_hash||''} data-planning-hash={view?.planning_state_id||''} data-stale={stale}>
     <section className="adaptive-live-controls" aria-label="Interactive adaptive controls"><div className="gym-heading"><div><h2>Adaptive shadow gym</h2><p>{prepared.name} · shared mill-turn stock</p></div><button onClick={onClose}>Close live case</button></div>
       <div className="controls"><label>Operation<select aria-label="Adaptive operation" value={profile||''} disabled={!view||busy} onChange={e=>choose(c=>c.profile===e.target.value)}>{Object.entries(operationNames).filter(([p])=>view?.choices.some(c=>c.profile===p)).map(([value,name])=><option key={value} value={value}>{name}</option>)}</select></label>
-      <label>Tool<select aria-label="Adaptive tool" value={toolID||''} disabled={!view||busy} onChange={e=>choose(c=>c.profile===profile&&c.toolID===e.target.value&&c.core===core)}>{tools.map(t=><option key={t.tool_id} value={t.tool_id}>{label(t)}</option>)}</select></label>
+      <label>Tool<select aria-label="Adaptive tool" value={toolID||''} disabled={!view||busy} onChange={e=>choose(c=>c.profile===profile&&c.toolID===e.target.value&&c.core===core)}>{tools.map(t=><option key={t.tool_id} value={t.tool_id}>{adaptiveToolLabel(t)}</option>)}</select></label>
       <label>Region<select aria-label="Adaptive region" value={core??0} disabled={!view||busy} onChange={e=>choose(c=>c.profile===profile&&c.toolID===toolID&&c.core===+e.target.value)}>{task.cores.map((_,i)=><option value={i} key={i}>Region {i+1}</option>)}</select></label>
       <label className="grow">Direction<select aria-label="Adaptive direction" value={selection??''} disabled={!view||busy} onChange={e=>setSelection(+e.target.value)}>{available.map(c=><option value={c.index} key={c.index}>{c.label}{c.allowed?'':' · '+c.reason.replaceAll('_',' ')}</option>)}</select></label></div>
       {choice&&<p className="adaptive-action-status">{choice.reason.replaceAll('_',' ')} · candidate removal bound {interval(view.candidate_bounds[choice.index])} mm³</p>}
