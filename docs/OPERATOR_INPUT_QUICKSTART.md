@@ -5,6 +5,33 @@ This route uses a synthetic turning/face-milling/drilling task and a compatible
 demonstration. See [the training family guide](TRAINING_GUIDE.md) if your download
 comes from task-5 or task-6.
 
+## Before starting: rules, your choices and the learning objective
+
+**You choose the demonstrated sequence; checked action availability and the
+learning reward remain fixed.** The geometric/tool checks first determine the
+available choices. You can select an exposed tool, order, turning radius or
+facing stepover. A learned score cannot make a blocked action executable.
+
+Your accepted actions and simulated outcomes become the training episode.
+The local Python trainer verifies replay and adjusts 34 model weights using
+that episode's rewards and estimated future action values. Its fixed reward
+credits progress/completion and charges synthetic time, repeats/no-ops and
+excess. The model learns action scores under that reward; it does not simply
+copy every demonstrated choice or learn new geometric rules.
+
+You can record your preferred available sequence, but there is **no “prefer A
+over B” label or configurable surface-quality/tool-life objective** in this
+workflow. For example, selecting 4 mm instead of 9 mm facing stepover records
+that choice. It does not tell the learner that smaller stepover is better.
+The example has no measured surface-quality objective, and its fixed reward
+still charges simulated time.
+
+**Browser acceptance records data; it does not train the model.** The full loop
+is: choose/preview/accept → download decisions → run Python training → load the
+new checkpoint → compare suggestions → explicitly accept a checked action.
+The [illustrated training explanation](ILLUSTRATED_MODULE3_MANUAL.md#training-overview)
+shows the separate roles and a five-step checklist.
+
 ## Record choices in the browser
 
 1. Build and serve the candidate using [installation](INSTALLATION.md). At
