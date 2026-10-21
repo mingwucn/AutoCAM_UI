@@ -4,17 +4,18 @@ import {prepareCadMachining} from './adaptive-cad-client.mjs';
 import {parseAdaptiveJson} from './adaptive-json.mjs';
 import {createPreparedLiveCase} from './adaptive-prepared-case.mjs';
 import {preparedMachiningRuntimeConfiguration} from './adaptive-runtime-selection.mjs';
+import {adaptivePreparationError} from './adaptive-preparation-error.mjs';
 
 const encoder=new TextEncoder();
-export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configuration,runtimeConfiguration,onPrepared,onInvalidate=()=>{}}){
+export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configuration,runtimeConfiguration,onPrepared}){
   const [setup,setSetup]=useState(null),[policy,setPolicy]=useState(null);
   const [busy,setBusy]=useState(false),[phase,setPhase]=useState(''),[error,setError]=useState(''),[result,setResult]=useState(null);
-  const ticket=useRef(0),pending=useRef(null);
+  const ticket=useRef(0),pending=useRef(null),draftRevision=useRef(0);
   useEffect(()=>{
     setResult(null);setBusy(false);setPhase('');setError('');
     return()=>{ticket.current++;pending.current?.abort();};
   },[initial,sourceProvenance,configuration,runtimeConfiguration]);
-  function edit(set,value){set(value);setResult(null);setError('');setPhase('');onInvalidate();}
+  function edit(set,value){draftRevision.current++;set(value);setError('');setPhase('');}
   function cancel(){ticket.current++;pending.current?.abort();pending.current=null;setBusy(false);setPhase('Machining preparation canceled.');}
   async function read(file){
     if(!file||!Number.isSafeInteger(file.size)||file.size<1||file.size>1024**2)
@@ -25,8 +26,8 @@ export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configu
   }
   async function prepare(event){
     event.preventDefault();if(busy)return;
-    const id=++ticket.current,controller=new AbortController();pending.current=controller;
-    setBusy(true);setResult(null);setError('');setPhase('Reading machining setup…');onInvalidate();
+    const id=++ticket.current,controller=new AbortController(),inputRevision=draftRevision.current;pending.current=controller;
+    setBusy(true);setError('');setPhase('Reading machining setup…');
     try{
       const [setupBytes,policyBytes]=await Promise.all([read(setup),read(policy)]);
       if(ticket.current!==id)return;
@@ -39,8 +40,8 @@ export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configu
       if(prepared.task.schema!=='adaptive-combined-browser-config-3')throw Error('Machining preparation returned an unsupported task.');
       if(sourceProvenance)await readCadProvenanceAttachment(sourceProvenance,parseAdaptiveJson(initial).logical.source.target_construction);
       if(ticket.current!==id)return;
-      setResult({output,ledger,prepared:{...prepared,origin:'uploaded-step',cadPreparation:output.preparation,sourceProvenance}});setPhase('Machining actions prepared.');
-    }catch(e){if(ticket.current===id){if(e.name!=='AbortError')setError(e.message);setPhase('');}}
+      setResult({output,ledger,inputRevision,prepared:{...prepared,origin:'uploaded-step',cadPreparation:output.preparation,sourceProvenance}});setPhase('Machining actions prepared.');
+    }catch(e){if(ticket.current===id){if(e?.name!=='AbortError')setError(adaptivePreparationError(e,'Machining preparation'));setPhase('');}}
     finally{if(ticket.current===id){pending.current=null;setBusy(false);}}
   }
   function download(key,name){
@@ -55,8 +56,8 @@ export function AdaptiveCadMachining({initial,sourceProvenance=null,name,configu
       <label>Machine and tools<input aria-label="Machining setup file" type="file" accept=".json" disabled={busy} onChange={e=>edit(setSetup,e.target.files?.[0]||null)}/></label>
       <label>Roughing requirements<input aria-label="Machining requirements file" type="file" accept=".json" disabled={busy} onChange={e=>edit(setPolicy,e.target.files?.[0]||null)}/></label>
     </div><div className="action-row"><button className="primary" type="submit" disabled={busy||!setup||!policy}>Prepare machining actions</button>{busy&&<button type="button" onClick={cancel}>Cancel machining preparation</button>}</div></form>
-    {phase&&<p role="status">{phase}</p>}{error&&<p role="alert" className="step-error">{error}</p>}
-    {result&&<div aria-label="Prepared machining task"><p>{result.ledger.candidate_count} proposed actions · {result.ledger.face_count} source faces retained. Unsupported faces remain listed in the preparation record.</p>
+    {phase&&<p role="status">{phase}</p>}{error&&<><p role="alert" className="step-error">{error.message}</p>{error.details&&<details><summary>Technical error details</summary><pre>{error.details}</pre></details>}</>}
+    {result&&<div aria-label="Prepared machining task">{(busy||result.inputRevision!==draftRevision.current)&&<p role="status">These are the previously prepared actions. The current setup and requirements have not replaced them.</p>}<p>{result.ledger.candidate_count} proposed actions · {result.ledger.face_count} source faces retained. Unsupported faces remain listed in the preparation record.</p><p>Open machining gym to start an episode with these actions. The currently open gym is unchanged until then.</p>
       <div className="action-row"><button className="primary" onClick={()=>onPrepared(result.prepared)}>Open machining gym</button>
         <button onClick={()=>download('configuration','machining-task.json')}>Download machining task</button>
         <button onClick={()=>download('preparation','machining-preparation.json')}>Download preparation record</button></div></div>}
