@@ -10,6 +10,10 @@ test('guide binds exact download bytes, retains newlines and ignores untrusted l
   assert.equal(guide.episodeSHA256,expected);assert.ok(Object.isFrozen(guide));
   assert.ok(guide.text.includes(`--expected-sha256 ${expected}`));assert.ok(guide.text.includes('```powershell\n'));
   assert.ok(guide.text.includes('train_recorded_remaining.py `\n'));assert.ok(!guide.text.includes('secrets'));
+  assert.ok(guide.text.includes('python/train_recorded_remaining.py'));
+  assert.ok(guide.text.includes('```sh\n'));assert.ok(guide.text.includes('starts from zero weights'));
+  assert.ok(!guide.text.includes('$env:PYTHONPATH'));assert.ok(!guide.text.includes('tools/shadow_gym'));assert.ok(!guide.text.includes('artifacts/shadow-gym'));
+  assert.ok(guide.text.includes('immediately\napplies one checked action'));
   assert.notEqual((await task5TrainingGuide(raw+'\n')).episodeSHA256,expected);
 });
 test('guide rejects other formats and empty demonstrations',async()=>{

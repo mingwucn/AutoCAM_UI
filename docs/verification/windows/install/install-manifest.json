@@ -1,0 +1,53 @@
+{
+  "schema": "module3-clean-windows-install-1",
+  "verification_kind": "independent_agent",
+  "human_acceptance": "not_performed",
+  "files": [
+    {
+      "path": "clone-context.json",
+      "sha256": "c5ae009a131f1f2b2a62b94dbeadfca98ad4a476f52bc09d1b622b2d0e53982c",
+      "size_bytes": 208
+    },
+    {
+      "path": "git-clone.log",
+      "sha256": "7d99c3c75bf80ac95e99de968e1ecd39fde1b814dc7cb999364f39959874b3ad",
+      "size_bytes": 2914
+    },
+    {
+      "path": "install-context.json",
+      "sha256": "72cab92c723ee17040d6b84517e9a66bb40f7a7049f8c57a1d999d8dfb9d1c13",
+      "size_bytes": 526
+    },
+    {
+      "path": "npm-audit.json",
+      "sha256": "7ec8701ebef04ceba641994e0a13a70735b2f5634f69b597bbcfa021ffd0df6a",
+      "size_bytes": 385
+    },
+    {
+      "path": "npm-ci.log",
+      "sha256": "5269d9a4713c606245b3e31caa63c29f3763419f23936fa7add06e8e17e215f7",
+      "size_bytes": 365
+    },
+    {
+      "path": "pip-freeze.txt",
+      "sha256": "48c64377bf32f4d559f77e55e2f59dbdb93667cee2d6426b35ca01e302cd1a98",
+      "size_bytes": 108
+    },
+    {
+      "path": "pip-install.log",
+      "sha256": "5c46c969c6c88027b8f459c8729ac21293fcb068852ea24b57dcd5ae562f9dda",
+      "size_bytes": 1666
+    },
+    {
+      "path": "venv-create.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "browser-install-for-task.log",
+      "sha256": "e45991bd58e0b81b2b8403796cb1416ec642a96a99395d30eac4d3ef8570416b",
+      "size_bytes": 8990
+    }
+  ],
+  "browser_installation": "Browser binaries were provisioned once for this Windows task during run A and reused in the final run; they were not downloaded again for the final clone."
+}

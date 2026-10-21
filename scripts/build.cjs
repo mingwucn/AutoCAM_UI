@@ -2,9 +2,10 @@ const fs=require('fs'),path=require('path'),esbuild=require('esbuild'),crypto=re
 const root=path.resolve(__dirname,'..'),args=process.argv.slice(2);
 const option=(name,fallback)=>args.includes(name)?args[args.indexOf(name)+1]:fallback;
 const source=path.resolve(option('--ui-source',path.join(root,'src')));
-const out=path.resolve(option('--out',path.join(root,'dist'))),development=args.includes('--development');
+const destination=path.resolve(option('--out',path.join(root,'dist'))),development=args.includes('--development');
 const embed=args.includes('--embed');
 const executionBuild=require('./build-execution-provenance.cjs').captureBuildProvenance({root,source,development,embed});
+require('./build-output.cjs').withBuildOutput({root,source,output:destination},out=>{
 fs.mkdirSync(path.join(out,'assets'),{recursive:true});
 require('./accepted-stock-assets.cjs')({source,out:path.join(out,'assets'),minify:!development});
 esbuild.buildSync({entryPoints:[path.join(source,'view.js')],bundle:true,minify:true,format:'iife',target:'es2020',outfile:path.join(out,'assets/view.js'),legalComments:'eof',nodePaths:[path.join(root,'node_modules')]});
@@ -36,8 +37,10 @@ if(!embed){
   fs.writeFileSync(path.join(out,'.nojekyll'),'');
 }
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+if(!embed)require('./build-documentation.cjs').buildDocumentation({root,out,execution:executionBuild.record});
 fs.writeFileSync(path.join(out,'execution-build.json'),executionBuild.finalize());
-const files=[];
-function walk(dir){for(const name of fs.readdirSync(dir).sort()){const p=path.join(dir,name);if(fs.statSync(p).isDirectory())walk(p);else if(name!=='build-manifest.json')files.push({path:path.relative(out,p).replaceAll('\\','/'),sha256:sha(p),size_bytes:fs.statSync(p).size});}}
-walk(out);fs.writeFileSync(path.join(out,'build-manifest.json'),JSON.stringify({schema:'shadow-gym-ui-build-1',development,embed,files},null,2)+'\n');
-console.log(JSON.stringify({output:out,react:require('react/package.json').version,development,embed}));
+const files=[],manifestPath=path.join(out,'build-manifest.json');
+function walk(dir){for(const name of fs.readdirSync(dir).sort()){const p=path.join(dir,name);if(fs.statSync(p).isDirectory())walk(p);else if(p!==manifestPath)files.push({path:path.relative(out,p).replaceAll('\\','/'),sha256:sha(p),size_bytes:fs.statSync(p).size});}}
+walk(out);fs.writeFileSync(manifestPath,JSON.stringify({schema:'shadow-gym-ui-build-1',development,embed,files},null,2)+'\n');
+});
+console.log(JSON.stringify({output:destination,react:require('react/package.json').version,development,embed}));

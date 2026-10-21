@@ -177,7 +177,7 @@ export function CylindricalLiveGym({prepared,onClose}){
       {localSaveStatus&&<p role="status">{localSaveStatus}</p>}
       {policy&&<div className="adaptive-inference"><label>Model weights<input aria-label="Machining model weights" type="file" accept=".json" disabled={blocked} onChange={e=>{loadModel(e.target.files?.[0]);e.target.value='';}}/></label>
         <button disabled={blocked||!modelLoaded||view.observation.attempts>=prepared.task.horizon} onClick={suggest}>Suggest with model + MCTS</button>
-        <p>{modelLoaded?'Compatible weights loaded.':'Load locally trained machining weights.'} Search selects a suggestion; Apply executes it. Training runs locally.</p></div>}
+        <p>{modelLoaded?'Compatible weights loaded.':'Load compatible cylindrical machining weights.'} Search selects a suggestion; Apply executes it. Train compatible cylindrical policy tasks locally with python/train_cylindrical_policy.py; task, stock and model identities must match. <a href="docs/TRAINING_GUIDE.html">Training family requirements</a>.</p></div>}
       {view&&<div className="metrics"><div>Workpiece state<strong>{view.turning?'Turning':angle(view.pose)}</strong></div><div>Estimated elapsed time<strong>{fmt(exactNumber(view.elapsed_seconds))} s</strong></div><div>Recorded attempts<strong>{view.observation.attempts} / 64</strong></div></div>}
       {result&&<p role="status">{result.preview?'Preview':'Recorded action'}: {result.evaluation.status}. Accepted geometry changes only when an action is applied.</p>}
       {result?.preview&&result.evaluation.status==='ACCEPTED'&&<div className="preview-measurement">

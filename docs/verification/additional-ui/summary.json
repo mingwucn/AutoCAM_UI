@@ -1,0 +1,207 @@
+{
+  "status": "passed",
+  "scope": "Additional automated actual React operator checks; not human acceptance or full cold verification",
+  "source_revision": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+  "browser": "155.0.4283.62",
+  "checks": [
+    {
+      "case": "regional-v3",
+      "passed": true,
+      "input_source": "committed prepared pair and expected checkpoint; prior native training verifier confirmed emitted checkpoint equality",
+      "selected": "0",
+      "uploaded_prepared_pair": true,
+      "model_upload": true,
+      "policy_suggestion": false,
+      "mcts_suggestion": true,
+      "preview_read_only": true,
+      "explicit_apply": true,
+      "reset_exact": true,
+      "downloads": [
+        {
+          "stage": "initial",
+          "file": "regional-v3-initial.json",
+          "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+          "state_hash": "2e5b00c1e2cfe83af76135fc1c93b0b47bbc000233a70a4c710d30edd9ce6d4c",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "model-loaded",
+          "file": "regional-v3-model-loaded.json",
+          "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+          "state_hash": "2e5b00c1e2cfe83af76135fc1c93b0b47bbc000233a70a4c710d30edd9ce6d4c",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "mcts-suggested",
+          "file": "regional-v3-mcts-suggested.json",
+          "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+          "state_hash": "2e5b00c1e2cfe83af76135fc1c93b0b47bbc000233a70a4c710d30edd9ce6d4c",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "preview",
+          "file": "regional-v3-preview.json",
+          "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+          "state_hash": "2e5b00c1e2cfe83af76135fc1c93b0b47bbc000233a70a4c710d30edd9ce6d4c",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "applied",
+          "file": "regional-v3-applied.json",
+          "sha256": "848d1a889e3a1be2b6064b313d41b865776a84786388fd9c6a9d81d6f41f0f95",
+          "state_hash": "e14ce1ef6906e1c2eebe89a11ab32bab10e5204fd02a9d4c50f5ed5e052fb495",
+          "head": null,
+          "records": 1
+        },
+        {
+          "stage": "reset",
+          "file": "regional-v3-reset.json",
+          "sha256": "4d3cde354f4a2ec22067b8a3c00cb6572d90016c0124b55c848c9577d1b24341",
+          "state_hash": "2e5b00c1e2cfe83af76135fc1c93b0b47bbc000233a70a4c710d30edd9ce6d4c",
+          "head": null,
+          "records": 0
+        }
+      ]
+    },
+    {
+      "case": "cylindrical-v3",
+      "passed": true,
+      "input_source": "retained exact profile3 inputs and learned weights emitted by passed prior cylindrical native verifier; no historical golden claim",
+      "selected": "c403b95d1901759319613217e9dd181350764cc5708d37909d8b8e8add449b85",
+      "uploaded_prepared_pair": true,
+      "model_upload": true,
+      "policy_suggestion": false,
+      "mcts_suggestion": true,
+      "preview_read_only": true,
+      "explicit_apply": true,
+      "reset_exact": true,
+      "downloads": [
+        {
+          "stage": "initial",
+          "file": "cylindrical-v3-initial.json",
+          "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+          "state_hash": "05ee0da06931b295ad09013af6388ca3df5654413ddf7052786bb0263859c7af",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "model-loaded",
+          "file": "cylindrical-v3-model-loaded.json",
+          "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+          "state_hash": "05ee0da06931b295ad09013af6388ca3df5654413ddf7052786bb0263859c7af",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "mcts-suggested",
+          "file": "cylindrical-v3-mcts-suggested.json",
+          "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+          "state_hash": "05ee0da06931b295ad09013af6388ca3df5654413ddf7052786bb0263859c7af",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "preview",
+          "file": "cylindrical-v3-preview.json",
+          "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+          "state_hash": "05ee0da06931b295ad09013af6388ca3df5654413ddf7052786bb0263859c7af",
+          "head": null,
+          "records": 0
+        },
+        {
+          "stage": "applied",
+          "file": "cylindrical-v3-applied.json",
+          "sha256": "f658aee62176791d3c609267694774048a2df710215e1dfaa7ca5a0ee94faf4a",
+          "state_hash": "cb70fe8b084580239a6b7ab0797cf5870586f4fdad700066ecc721c1cf99a2cf",
+          "head": null,
+          "records": 1
+        },
+        {
+          "stage": "reset",
+          "file": "cylindrical-v3-reset.json",
+          "sha256": "2eeb054af5aa11f89c448d278e92d0991344a0c7c223f970bef18be7a10e1a03",
+          "state_hash": "05ee0da06931b295ad09013af6388ca3df5654413ddf7052786bb0263859c7af",
+          "head": null,
+          "records": 0
+        }
+      ]
+    },
+    {
+      "case": "mixed-A",
+      "passed": true,
+      "input_source": "shipped mixed prepared pair and emitted mixedA checkpoint; prior subcase exact reference check passed; parent verifier later failed unrelated stale rejection assertion",
+      "selected": "1",
+      "uploaded_prepared_pair": true,
+      "model_upload": true,
+      "policy_suggestion": true,
+      "mcts_suggestion": true,
+      "preview_read_only": true,
+      "explicit_apply": true,
+      "reset_exact": true,
+      "downloads": [
+        {
+          "stage": "initial",
+          "file": "mixed-A-initial.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        },
+        {
+          "stage": "model-loaded",
+          "file": "mixed-A-model-loaded.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        },
+        {
+          "stage": "policy-suggested",
+          "file": "mixed-A-policy-suggested.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        },
+        {
+          "stage": "mcts-suggested",
+          "file": "mixed-A-mcts-suggested.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        },
+        {
+          "stage": "preview",
+          "file": "mixed-A-preview.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        },
+        {
+          "stage": "applied",
+          "file": "mixed-A-applied.json",
+          "sha256": "28ffb716be78410ea91648674483367b0a7579d7fee21bae324034c499a29c7f",
+          "state_hash": "917a51bdf22a4966422f15ed4e0276430a9da6c8d0e6d15f2af10ef9e64626be",
+          "head": "d5a6967693d3a8f20843d1e831b9fd586fbe8495ed5e628a007930eb1a565f93",
+          "records": 1
+        },
+        {
+          "stage": "reset",
+          "file": "mixed-A-reset.json",
+          "sha256": "eb00ba17ff9fa8c78dfd526da02fe6f0fed4700c71d9b144e3b3577808fe5ba6",
+          "state_hash": "f36fcf1a4e5544b036575201f7d69a4153103236ce5f8ae0bf5e26da7ae3c672",
+          "head": "f59ef1e1e8c0376d75851a1e500e46cff998589db12870e4959f7d8f78efe715",
+          "records": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "blocked": []
+}

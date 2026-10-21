@@ -1,0 +1,26 @@
+{
+  "schema": "autocam-workflow-input-fixtures-1",
+  "purpose": "Original newly constructed synthetic rational Bezier cap/prism STEP. Use the separately supported rational_nominal UI interpretation with zero allowance; this does not claim exact original trim closure or machining support.",
+  "owner": {
+    "path": "docs/proposals/DOC-SGYM-002/codex-20260906-01/CAD_RATIONAL_PATCH_SOURCE_CONTRACT.md",
+    "sha256": "400bf01855c46b16c25cfabae420ad2782aaa69b0fde4f48c9aa6f69f0798acf"
+  },
+  "files": [
+    {
+      "path": "rational-prism.step",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-rational-patch-source-01/fixtures/rational-prism.step",
+      "sha256": "d71d43038d48b1aeb9481f37994a9cbc028fcc493faa3eb084c0ab9cefb7bb38",
+      "size_bytes": 20495,
+      "gzip_sha256": "b7c3d48eae96f71c522d5deec86836b13179e37aa031b878b3e17b159fae97c7",
+      "gzip_size_bytes": 3968
+    }
+  ],
+  "original_generator": {
+    "path": "artifacts/shadow-gym/adaptive-delta/cad-rational-patch-source-01/producer/native/autocam_volume/rational_patch_step_fixtures.cpp",
+    "sha256": "2cb746052810cc16527aa9e42ada2292b35f17149c98e336653db7799807af70"
+  },
+  "original_index": {
+    "path": "artifacts/shadow-gym/adaptive-delta/cad-rational-patch-source-01/index.json",
+    "sha256": "9985fea0da2d7107d472cd113ca263c5308663aee9fbe61c33f0d709a832fdd8"
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "schema": "autocam-software-verification-1",
+  "status": "passed",
+  "source": {
+    "commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+    "status": "",
+    "input_manifest_sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece"
+  },
+  "environment": {
+    "node": "v24.14.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "python": "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python"
+  },
+  "prerequisite": "Fresh declared dependency installation and browser installation must have separate logs.",
+  "human_acceptance": "not_performed",
+  "manufacturing_qualified": false,
+  "steps": [
+    {
+      "id": "capabilities",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/generate-capabilities.mjs",
+        "--check"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.037,
+      "log": "capabilities.log",
+      "log_sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41"
+    },
+    {
+      "id": "documentation",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/check-documentation.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.082,
+      "log": "documentation.log",
+      "log_sha256": "977ced4fffbca57de5d4df4ac95fee1a48bd03122c763e3562653781b68bd529"
+    },
+    {
+      "id": "unit",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/test.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 60.734,
+      "log": "unit.log",
+      "log_sha256": "61e80bcc20e0eed7df6f29a2d92cd16a21dd93137d0179aba7cd64b3df3443a1"
+    },
+    {
+      "id": "release-assets",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "--test",
+        "tests/release-assets.test.mjs",
+        "tests/adaptive-model-assets.test.mjs",
+        "tests/test-fixtures.test.mjs",
+        "tests/allowance-fixtures.test.mjs",
+        "tests/cad-rational-assets.test.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.173,
+      "log": "release-assets.log",
+      "log_sha256": "00bc4b5a4434dd89368adefbd3fb1e4372cb65768008d15d6c1f76af24cfe238"
+    },
+    {
+      "id": "release-build",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/build-release.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 19.687,
+      "log": "release-build.log",
+      "log_sha256": "6cfa8133d74ceced7a5c0ac2534846028b8bb8f050907f3e694a717f374f443d"
+    },
+    {
+      "id": "data",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/fetch-test-data.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.91,
+      "log": "data.log",
+      "log_sha256": "2884524a82245c11c83f8e5153177694b41d5ab779b5ef4ffff777e0bae9e690"
+    },
+    {
+      "id": "core-wasm",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "core/tests/wasm-smoke.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.028,
+      "log": "core-wasm.log",
+      "log_sha256": "3c0f643fb1a680a70ee965787789b0f5daa48e2ba77062914b7d8100b8e9fc70"
+    },
+    {
+      "id": "step-import",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "core/tests/occt-step-smoke.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 3.434,
+      "log": "step-import.log",
+      "log_sha256": "393584703fc0cc0f84f7c5fa065aac812e4712e48df552fa15df2274aba0968d"
+    },
+    {
+      "id": "parity",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/parity.cjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 12.367,
+      "log": "parity.log",
+      "log_sha256": "fb72c9f26c3159929050b7ae5edba8368ede7a4ea9112c913f83af78ffaf31bd"
+    },
+    {
+      "id": "classic-browser",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/browser.cjs",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/classic-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 49.077,
+      "log": "classic-browser.log",
+      "log_sha256": "0e5c8938bb8addce580015f39f141ff890da466911bb7f8e475ba9b1b9a413fa"
+    },
+    {
+      "id": "step-browser",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/step-upload.cjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 16.692,
+      "log": "step-browser.log",
+      "log_sha256": "da4429adad4d9801e551eb2ac9932b115d96a55de69d36c3cac925e8ee3bdb23"
+    },
+    {
+      "id": "module3-workflow",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/module3-workflow-browser.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.385,
+      "log": "module3-workflow.log",
+      "log_sha256": "04a83362716466945e4fde598ebe56c48c84319b419896a3432c60f26e1d29c2"
+    },
+    {
+      "id": "model-upload-cancellation",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/model-upload-cancellation-browser.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.897,
+      "log": "model-upload-cancellation.log",
+      "log_sha256": "817ef2108be14a62d478a0aa787d96a00022ad286de2511d6bf01d48cb2fbf4c"
+    },
+    {
+      "id": "recorded-trained-browser",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/recorded-training-browser.mjs",
+        "--site",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/dist",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/recorded-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 124.179,
+      "log": "recorded-trained-browser.log",
+      "log_sha256": "afed91c746caa38e3cda9f9deb236a765ead806ac0dff618f6474f772689cb29"
+    },
+    {
+      "id": "recorded-trained-ui",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/recorded-training-ui-browser.mjs",
+        "--site",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/dist",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/recorded-ui"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 43.721,
+      "log": "recorded-trained-ui.log",
+      "log_sha256": "daa2a94c039b1a6cc1ccdd70b930e2cbea749feb3d2734917040e41ece168f7d"
+    },
+    {
+      "id": "python-rejections",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python",
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "python/tests",
+        "-v"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 59.12,
+      "log": "python-rejections.log",
+      "log_sha256": "f488538efc6ce72a3b4e5d45a43e067ae5d27b4447313c105ef61b48b7894dc8"
+    },
+    {
+      "id": "examples",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/verify-examples.mjs",
+        "--python",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/examples"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 311.549,
+      "log": "examples.log",
+      "log_sha256": "22b4c3eb9a51bc84bea7d8786eb85bec7bc672d78dfe22bd0b54ee7f37192580"
+    },
+    {
+      "id": "packaged-trained-browser",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "tests/packaged-training-browser.mjs",
+        "--site",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/dist",
+        "--training-runs",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/examples/training",
+        "--cylindrical-runs",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/examples/cylindrical-training",
+        "--python",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/.venv/bin/python",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/packaged-trained-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 70.687,
+      "log": "packaged-trained-browser.log",
+      "log_sha256": "5d7739fcec3b0ca24c9dacf07bedf2c479939fb986b3038df70a28b14e7bc25a"
+    },
+    {
+      "id": "build-integrity",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/verify-build.mjs",
+        "--output",
+        "/home/mingwucn/.cache/autocam-module3-20261020-linux-final/AutoCAM_UI/runs/linux-final-01/build-integrity.json"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.474,
+      "log": "build-integrity.log",
+      "log_sha256": "455c9c876807f4962fbb907d5777e200d3e1742bd702c020e4eef822a91193d2"
+    }
+  ],
+  "finished_at": "2026-10-20T20:46:14.299Z",
+  "note": "Software checks on the declared finite scenarios. Does not close unknown whole-module requirements or independent human acceptance."
+}

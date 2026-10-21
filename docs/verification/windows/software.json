@@ -1,0 +1,287 @@
+{
+  "schema": "autocam-software-verification-1",
+  "status": "passed",
+  "source": {
+    "commit": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+    "status": "",
+    "input_manifest_sha256": "01b8c6ce74aa9bb49c0bde5ff22b8d691d1faae651bd8de41d2011104818cece"
+  },
+  "environment": {
+    "node": "v24.14.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "python": "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\.venv\\Scripts\\python.exe"
+  },
+  "prerequisite": "Fresh declared dependency installation and browser installation must have separate logs.",
+  "human_acceptance": "not_performed",
+  "manufacturing_qualified": false,
+  "steps": [
+    {
+      "id": "capabilities",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/generate-capabilities.mjs",
+        "--check"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.109,
+      "log": "capabilities.log",
+      "log_sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41"
+    },
+    {
+      "id": "documentation",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/check-documentation.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.25,
+      "log": "documentation.log",
+      "log_sha256": "977ced4fffbca57de5d4df4ac95fee1a48bd03122c763e3562653781b68bd529"
+    },
+    {
+      "id": "unit",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/test.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 136.786,
+      "log": "unit.log",
+      "log_sha256": "73a0e26595de7bfcde6d57b733cd0c52de55500d27877f1fa00e20d47e2a22be"
+    },
+    {
+      "id": "release-assets",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "--test",
+        "tests/release-assets.test.mjs",
+        "tests/adaptive-model-assets.test.mjs",
+        "tests/test-fixtures.test.mjs",
+        "tests/allowance-fixtures.test.mjs",
+        "tests/cad-rational-assets.test.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.75,
+      "log": "release-assets.log",
+      "log_sha256": "997b2ccdcde21c00a6bf262a343f6663e2f5f9248a602c71e47e37ba16555ade"
+    },
+    {
+      "id": "release-build",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/build-release.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 12.182,
+      "log": "release-build.log",
+      "log_sha256": "63397e299595a2a3d65450a2d8d93f10b5e9447666d8691bee0f22c5c40961cf"
+    },
+    {
+      "id": "data",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/fetch-test-data.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 1,
+      "log": "data.log",
+      "log_sha256": "2884524a82245c11c83f8e5153177694b41d5ab779b5ef4ffff777e0bae9e690"
+    },
+    {
+      "id": "core-wasm",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "core/tests/wasm-smoke.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11,
+      "log": "core-wasm.log",
+      "log_sha256": "3c0f643fb1a680a70ee965787789b0f5daa48e2ba77062914b7d8100b8e9fc70"
+    },
+    {
+      "id": "step-import",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "core/tests/occt-step-smoke.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 8.73,
+      "log": "step-import.log",
+      "log_sha256": "393584703fc0cc0f84f7c5fa065aac812e4712e48df552fa15df2274aba0968d"
+    },
+    {
+      "id": "parity",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/parity.cjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 28.194,
+      "log": "parity.log",
+      "log_sha256": "fb72c9f26c3159929050b7ae5edba8368ede7a4ea9112c913f83af78ffaf31bd"
+    },
+    {
+      "id": "classic-browser",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/browser.cjs",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\classic-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 100.315,
+      "log": "classic-browser.log",
+      "log_sha256": "0e5c8938bb8addce580015f39f141ff890da466911bb7f8e475ba9b1b9a413fa"
+    },
+    {
+      "id": "step-browser",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/step-upload.cjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 30.042,
+      "log": "step-browser.log",
+      "log_sha256": "da4429adad4d9801e551eb2ac9932b115d96a55de69d36c3cac925e8ee3bdb23"
+    },
+    {
+      "id": "module3-workflow",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/module3-workflow-browser.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 4.279,
+      "log": "module3-workflow.log",
+      "log_sha256": "590ee26c97c4cbc2e049186c90026f9da21fe3975a2293fc598b0a20bafecd77"
+    },
+    {
+      "id": "model-upload-cancellation",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/model-upload-cancellation-browser.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.563,
+      "log": "model-upload-cancellation.log",
+      "log_sha256": "6009bbfd2de2f1545c9e8a16967c60a5d72b4695e9c27c68fbb83f6e6750ed7b"
+    },
+    {
+      "id": "recorded-trained-browser",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/recorded-training-browser.mjs",
+        "--site",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\dist",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\recorded-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 299.753,
+      "log": "recorded-trained-browser.log",
+      "log_sha256": "0aa68aa45dcc3880d891ae32d10016455f6abd6ec18ea65457a728aed2d363a4"
+    },
+    {
+      "id": "recorded-trained-ui",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/recorded-training-ui-browser.mjs",
+        "--site",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\dist",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\recorded-ui"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 92.775,
+      "log": "recorded-trained-ui.log",
+      "log_sha256": "88011d023513e62e96bcaafffdac12f16dfc9cbcc046591eed3215fb3e82ee3c"
+    },
+    {
+      "id": "python-rejections",
+      "executable": "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\.venv\\Scripts\\python.exe",
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "python/tests",
+        "-v"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 184.437,
+      "log": "python-rejections.log",
+      "log_sha256": "24ebd53a86e73c331655245972b6bf99fe5e8c4b9e02c7dff3474b20043b1ccc"
+    },
+    {
+      "id": "examples",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/verify-examples.mjs",
+        "--python",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\.venv\\Scripts\\python.exe",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\examples"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 819.447,
+      "log": "examples.log",
+      "log_sha256": "424c024bd1c443effc711aebeee93e84890c9ec1114d6ee54d0ed4b5239eac6e"
+    },
+    {
+      "id": "packaged-trained-browser",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "tests/packaged-training-browser.mjs",
+        "--site",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\dist",
+        "--training-runs",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\examples\\training",
+        "--cylindrical-runs",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\examples\\cylindrical-training",
+        "--python",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\.venv\\Scripts\\python.exe",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\packaged-trained-browser"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 149.455,
+      "log": "packaged-trained-browser.log",
+      "log_sha256": "745488556918b9159b48e16170038d0acc7e10bf3983ae43f1cd620a386bd34c"
+    },
+    {
+      "id": "build-integrity",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "arguments": [
+        "scripts/verify-build.mjs",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\runs\\windows-final-01\\build-integrity.json"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.585,
+      "log": "build-integrity.log",
+      "log_sha256": "2a733571b4cd58c848e39eec27cb3b3112146234a6c402df5a373d74aa1ae5da"
+    }
+  ],
+  "finished_at": "2026-10-20T21:05:48.957Z",
+  "note": "Software checks on the declared finite scenarios. Does not close unknown whole-module requirements or independent human acceptance."
+}

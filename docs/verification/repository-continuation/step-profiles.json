@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "phase": "rational:faces",
+  "browser": "153.0.8010.12",
+  "production_full_site": true,
+  "build_manifest_sha256": "c3c292d41eb284bcbc4c6c7d3f901b69b3d9b11f8d2d3459d6b5d0a6064c9a91",
+  "checks": [
+    {
+      "id": "planar",
+      "profile": "rectilinear",
+      "status": "passed",
+      "raw_step_sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "stock_sha256": "aace13f914df71b2d989d1f22c00a7bff6f26a6d1862b258c17858079c40f1bb",
+      "certificate_sha256": "2b9a971ed05e1ed210d771d7f45e3d61fe62f0b8fe6aae7e505e779025b15bf3",
+      "geometry_matches_preserved_fixture": true,
+      "face_query_read_only": true,
+      "selected_cell": 314,
+      "face_overlay_selected": true,
+      "face_count": 6,
+      "query_associations": 3,
+      "rational_machining_disabled": false
+    },
+    {
+      "id": "coaxial",
+      "profile": "periodic_nominal",
+      "status": "passed",
+      "raw_step_sha256": "e38ebd6a9e5005b65a1c9dd5502392139177f4f7f583ce11f54099fed19b744e",
+      "stock_sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+      "certificate_sha256": "3a1fd723e81d86854edad0a2f8f4330be75188763327a59cba74dd8080f92cb2",
+      "geometry_matches_preserved_fixture": true,
+      "face_query_read_only": true,
+      "selected_cell": 211,
+      "face_overlay_selected": true,
+      "face_count": 4,
+      "query_associations": 2,
+      "rational_machining_disabled": false
+    },
+    {
+      "id": "rational",
+      "profile": "rational_nominal",
+      "status": "passed",
+      "raw_step_sha256": "d71d43038d48b1aeb9481f37994a9cbc028fcc493faa3eb084c0ab9cefb7bb38",
+      "stock_sha256": "178c79f97ccbecb43751071e06b4993f4bb79fcbe64dc6da88f80609d76eb27c",
+      "certificate_sha256": "5aecbb79918ee770a0728e0fd7fac4005da40bd573e96980d1c004696e157c85",
+      "geometry_matches_preserved_fixture": false,
+      "face_query_read_only": true,
+      "selected_cell": 0,
+      "face_overlay_selected": true,
+      "face_count": 6,
+      "query_associations": 3,
+      "rational_machining_disabled": true
+    }
+  ],
+  "errors": [],
+  "blocked": [],
+  "limits": [
+    "Three finite STEP fixtures; no arbitrary CAD qualification",
+    "Rational fixture acquired from a preserved owner artifact, not yet a public repository example",
+    "No machining actions executed by this preparation/inspection probe"
+  ]
+}

@@ -1,0 +1,5 @@
+{"phase":"recorded_training_browser","case":"task5-manual","mode":"configured"}
+{"phase":"recorded_training_browser","case":"task5-model-mcts","mode":"configured"}
+{"phase":"recorded_training_browser","case":"task6-manual","mode":"configured"}
+{"phase":"recorded_training_browser","case":"task6-model-mcts","mode":"configured"}
+{"status":"passed","browser":"155.0.4283.62","platform":"win32","cases":4,"requested_backends":["configured"],"backends":["reference"],"sessions":4,"policy_and_mcts_per_session":true,"native_action_trace_parity":true,"browser_backend_response_state_parity":"not_applicable_single_backend","optional_modes":"Materialized/packed require a separately configured compatible remaining/removal ABI runtime; the current local-upload route uses reference.","blocked_external_requests":[]}

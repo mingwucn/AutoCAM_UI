@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "production_full_site": true,
+  "build_manifest_sha256": "c3c292d41eb284bcbc4c6c7d3f901b69b3d9b11f8d2d3459d6b5d0a6064c9a91",
+  "old_native_index_sha256": "179b948511773046f2d707451c4b79a470b00df18e90ab9fab864ecbf444097f",
+  "exact_preparation_and_episodes": true,
+  "actions": [
+    {
+      "action": 0,
+      "material_hash": "cf2e9ce625c7d73b2a4f781ef203486919ada1209bbbefbffbb846ac606b7261"
+    },
+    {
+      "action": 1,
+      "material_hash": "cf2e9ce625c7d73b2a4f781ef203486919ada1209bbbefbffbb846ac606b7261"
+    },
+    {
+      "action": 3,
+      "material_hash": "89fb34c9842c838e5dbbdfa9d235f8ff1e56ea78cf71b326f4e8322e1ab7fb02"
+    },
+    {
+      "action": 5,
+      "material_hash": "7214175896821f62ccf2d3cb6782369197177203b3fb5df615c3dbccd4b58d55"
+    },
+    {
+      "action": 7,
+      "material_hash": "9878961f0e3dea533d82dee99aeacbf2a2b9ea382579de72d63e7d92e256fd6a"
+    },
+    {
+      "action": 9,
+      "material_hash": "ecb3b075850c8adb02c60971567c4eb66e4aab0f13ebaa0bf6ea9684e7d735e3"
+    }
+  ],
+  "downloads": [
+    {
+      "path": "initial.bin",
+      "sha256": "aeb245a607c9ee8c60125c1a85181cc482637751d752587354366b6c18156774",
+      "size_bytes": 7839968,
+      "expected": "initial.bin"
+    },
+    {
+      "path": "configuration.json",
+      "sha256": "fe67c74f170ec66cfef9e750adde3b8a45854977a65f4f68f0bd07ec0afa867a",
+      "size_bytes": 9363,
+      "expected": "configuration.json"
+    },
+    {
+      "path": "preparation.json",
+      "sha256": "eba5366e2716cb6c6fa1873fb26f15886022405bd3d5f9e3037a17555523343b",
+      "size_bytes": 11037,
+      "expected": "preparation.json"
+    },
+    {
+      "path": "final-episode.json",
+      "sha256": "51ab717fc779c26c86c1fb7024917e67a4652733cb222d7977b5affb860f0aad",
+      "size_bytes": 16034436,
+      "expected": "final-episode.json"
+    },
+    {
+      "path": "reset-episode.json",
+      "sha256": "bb28789a4074c309cf3b33f5662a648860155dbdd905ef7913ce20277f88fded",
+      "size_bytes": 15699452,
+      "expected": "reset-episode.json"
+    },
+    {
+      "path": "restored-episode.json",
+      "sha256": "51ab717fc779c26c86c1fb7024917e67a4652733cb222d7977b5affb860f0aad",
+      "size_bytes": 16034436,
+      "expected": "final-episode.json"
+    },
+    {
+      "path": "after-machining-initial.bin",
+      "sha256": "aeb245a607c9ee8c60125c1a85181cc482637751d752587354366b6c18156774",
+      "size_bytes": 7839968,
+      "expected": "initial.bin"
+    }
+  ],
+  "reset_and_restore_exact": true,
+  "stock_unchanged": true,
+  "errors": [],
+  "blocked": [],
+  "limits": [
+    "One predeclared planar roughing recipe; no arbitrary CAD or manufacturing qualification",
+    "No native algorithm was reimplemented by this browser probe"
+  ]
+}

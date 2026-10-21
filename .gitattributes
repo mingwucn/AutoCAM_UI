@@ -13,3 +13,12 @@ site.config.json -text
 index.html -text
 README.md -text
 .gitignore -text
+python/src/** -text
+examples/operator-input/*.json -text
+examples/operator-input/trained-*/*.json -text
+
+# Candidate custody includes exact training, documentation and example bytes.
+python/** -text
+docs/** -text
+config/** -text
+examples/** -text

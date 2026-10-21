@@ -1,0 +1,235 @@
+{
+  "schema": "module3-linux-build-correction-1",
+  "status": "passed",
+  "verification_kind": "independent_agent",
+  "human_acceptance": "not_performed",
+  "scope": "Build-only correction; full19 software verification remains pinned to d97adaded7f1e094f562c7759cdc2291e3db4128.",
+  "expected_commit": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+  "bundle_sha256": "798c0b39cc2ac9330b27bff4d21816f5eaac6c8615022b6680b9d1bc6b220ca9",
+  "steps": [
+    {
+      "id": "clone",
+      "executable": "git",
+      "arguments": [
+        "clone",
+        "--branch",
+        "codex/module3-remediation",
+        "/home/mingwucn/.cache/autocam-module3-20261020-build-correction/candidate-build-correction.bundle",
+        "/home/mingwucn/.cache/autocam-module3-20261020-build-correction/AutoCAM_UI"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.943,
+      "log": "clone.log",
+      "log_sha256": "34d77e5d2d3383be725028eb400be85d5a1b23bdf31b517dece6997d3808dfe3"
+    },
+    {
+      "id": "npm-ci",
+      "executable": "npm",
+      "arguments": [
+        "ci",
+        "--cache",
+        "/home/mingwucn/.cache/autocam-module3-20261020-build-correction/npm-empty-cache"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 7.237,
+      "log": "npm-ci.log",
+      "log_sha256": "77d90173cb335ae2c436edfff16a0fb2c89d0a9457d1d30ef4620676de5e24c9"
+    },
+    {
+      "id": "targeted-tests",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "--test",
+        "tests/release-workflow.test.cjs",
+        "tests/build-documentation.test.cjs",
+        "tests/build-execution-provenance.test.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.595,
+      "log": "targeted-tests.log",
+      "log_sha256": "ae3f84e91e37886da201d5d0c9ef8e370d37781a6c1c00485a027ddd4f2f44e7"
+    },
+    {
+      "id": "release-tests",
+      "executable": "npm",
+      "arguments": [
+        "run",
+        "test:release"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.256,
+      "log": "release-tests.log",
+      "log_sha256": "2dc1a73500b24357064115ad65ad916d7262fec6689e279ff16b1acbf0401fa3"
+    },
+    {
+      "id": "release-build-first",
+      "executable": "npm",
+      "arguments": [
+        "run",
+        "build:release"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 12.701,
+      "log": "release-build-first.log",
+      "log_sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94"
+    },
+    {
+      "id": "release-build-second",
+      "executable": "npm",
+      "arguments": [
+        "run",
+        "build:release"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 18.408,
+      "log": "release-build-second.log",
+      "log_sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94"
+    },
+    {
+      "id": "build-integrity",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/verify-build.mjs",
+        "--output",
+        "runs/linux-build-correction-01/result.json"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.453,
+      "log": "build-integrity.log",
+      "log_sha256": "4716f7b8ffb1e2271bb8ba518502be8249dc6f5ecd4541a1baa91589f82b692e"
+    },
+    {
+      "id": "documentation",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/check-documentation.mjs"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.162,
+      "log": "documentation.log",
+      "log_sha256": "527a189c5a9071fafedae315cc99bc55ecda7a9e065b92e580ef0c4d656cd9a3"
+    },
+    {
+      "id": "capabilities",
+      "executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+      "arguments": [
+        "scripts/generate-capabilities.mjs",
+        "--check"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.064,
+      "log": "capabilities.log",
+      "log_sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41"
+    }
+  ],
+  "environment": {
+    "node": "v24.14.0",
+    "npm": "11.9.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "node_executable": "/home/mingwucn/.cache/autocam-module3-20261020-tools/node_modules/node/bin/node",
+    "fresh_empty_npm_cache": "/home/mingwucn/.cache/autocam-module3-20261020-build-correction/npm-empty-cache",
+    "pythonpath_present": false
+  },
+  "started_at": "2026-10-20T21:11:52.060Z",
+  "source_before": {
+    "commit": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+    "status": "",
+    "input_manifest_sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+    "file_count": 1789
+  },
+  "source_after": {
+    "commit": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+    "status": "",
+    "input_manifest_sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+    "file_count": 1789
+  },
+  "source_bytes_unchanged": true,
+  "finished_at": "2026-10-20T21:12:35.581Z",
+  "files": [
+    {
+      "path": "build-integrity.json",
+      "sha256": "e8d57e31fd91dea9285c60686a5b8e954a221063bb80dab1c9471a6718b16052",
+      "size_bytes": 493
+    },
+    {
+      "path": "build-integrity.log",
+      "sha256": "4716f7b8ffb1e2271bb8ba518502be8249dc6f5ecd4541a1baa91589f82b692e",
+      "size_bytes": 431
+    },
+    {
+      "path": "build-manifest.json",
+      "sha256": "6a113b81543ca26f434866a4ae285ac8a9ecb0e2993651d76b544a82f29e9342",
+      "size_bytes": 53921
+    },
+    {
+      "path": "capabilities.log",
+      "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+      "size_bytes": 47
+    },
+    {
+      "path": "clone.log",
+      "sha256": "34d77e5d2d3383be725028eb400be85d5a1b23bdf31b517dece6997d3808dfe3",
+      "size_bytes": 93
+    },
+    {
+      "path": "documentation.log",
+      "sha256": "527a189c5a9071fafedae315cc99bc55ecda7a9e065b92e580ef0c4d656cd9a3",
+      "size_bytes": 621
+    },
+    {
+      "path": "execution-build.json",
+      "sha256": "ce9165c3a2f310190b5c9452e3ae13a386e586f23dc628473976579c242d9e6f",
+      "size_bytes": 27151
+    },
+    {
+      "path": "npm-ci.log",
+      "sha256": "77d90173cb335ae2c436edfff16a0fb2c89d0a9457d1d30ef4620676de5e24c9",
+      "size_bytes": 352
+    },
+    {
+      "path": "release-build-first.log",
+      "sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94",
+      "size_bytes": 232
+    },
+    {
+      "path": "release-build-second.log",
+      "sha256": "7344b5a863ab92605b75933a5623ab37fa6e6f22ce1c02fc7bc831dbb2a92f94",
+      "size_bytes": 232
+    },
+    {
+      "path": "release-tests.log",
+      "sha256": "2dc1a73500b24357064115ad65ad916d7262fec6689e279ff16b1acbf0401fa3",
+      "size_bytes": 1676
+    },
+    {
+      "path": "release.json",
+      "sha256": "76cdb8408f32b01136fe7c12881219f9cc110123ec760a5fc03bc2ce88469f24",
+      "size_bytes": 83223
+    },
+    {
+      "path": "source-after.json",
+      "sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+      "size_bytes": 288107
+    },
+    {
+      "path": "source-before.json",
+      "sha256": "57b69889936e2e8f750dc38a0ccec8e8e16a65687d83540eef974cced3896cd5",
+      "size_bytes": 288107
+    },
+    {
+      "path": "targeted-tests.log",
+      "sha256": "ae3f84e91e37886da201d5d0c9ef8e370d37781a6c1c00485a027ddd4f2f44e7",
+      "size_bytes": 1380
+    }
+  ]
+}

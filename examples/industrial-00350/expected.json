@@ -1,0 +1,50 @@
+{
+  "schema": "autocam-industrial-example-1",
+  "case_id": "industrial",
+  "title": "3-29-00350",
+  "units": "mm3",
+  "sampled": true,
+  "manufacturing_qualified": false,
+  "input": {
+    "catalog_url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/catalog.json",
+    "catalog_sha256": "6eeb997ac37a92c93ed90e32b8ef21b0254813bffde0024a1badc7e71e298769",
+    "catalog_size_bytes": 2230,
+    "dataset": {
+      "sha256": "f20d5673d8cfd9021604b6b80dda59384a7e65ef5ef45adc54162308ff53245a",
+      "size_bytes": 8058296,
+      "url": "cases/industrial/case.json"
+    },
+    "data_commit": "a2965f894440d202fad749be9a8ef1205a25d50d",
+    "local_path": ".test-data/cases/industrial/case.json",
+    "custody": "External immutable AutoCAM_Data release; no raw industrial CAD redistributed in this repository.",
+    "acquisition": "node scripts/fetch-test-data.mjs"
+  },
+  "initial_excess_mm3": 388600,
+  "steps": [
+    {
+      "process": "turning",
+      "action_id": "outside@40mm",
+      "removed_mm3": 101850,
+      "residual_excess_mm3": 286750
+    },
+    {
+      "process": "milling",
+      "action_id": "mill_+0_+0_-1@80mm",
+      "removed_mm3": 253514,
+      "residual_excess_mm3": 33236
+    },
+    {
+      "process": "milling",
+      "action_id": "mill_+0_+0_+1@40mm",
+      "removed_mm3": 33236,
+      "residual_excess_mm3": 0
+    }
+  ],
+  "invariants": [
+    "process_switch_preserves_stock",
+    "preview_preserves_stock",
+    "target_and_holding_preserved",
+    "exhausted_repeat_rejected",
+    "reset_reconstructs_initial_stock"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "autocam-repository-continuation-evidence-1",
+  "scope": "Byte-preserved finite software probe receipts and original-byte example export, not human acceptance.",
+  "runtime_source_commit": "c2a23788f20b37d3dfcdda61586d49c9c32507ce",
+  "runtime_build_manifest_sha256": "c3c292d41eb284bcbc4c6c7d3f901b69b3d9b11f8d2d3459d6b5d0a6064c9a91",
+  "runtime_matches_github_base_tree": "95083d1020c208d6e954e592e5825200c37c4645",
+  "receipts": [
+    {
+      "path": "step-profiles.json",
+      "sha256": "e9fb54a5f7d840cad1519e443465b978a97d87099808a42976247e35e332558e",
+      "size_bytes": 2393,
+      "task_evidence_path": "supplemental-probes/adaptive-step-profiles-03/result.json"
+    },
+    {
+      "path": "planar-machining.json",
+      "sha256": "69aac573d9733baed7747a218ae65814c3fcfa5d9b7d4f020b437019598daa84",
+      "size_bytes": 2760,
+      "task_evidence_path": "supplemental-probes/planar-machining-01/result.json"
+    },
+    {
+      "path": "coaxial-machining.json",
+      "sha256": "58d6af854581f5c526650b869341c44eacbb588b59ff52e4e6d136fba0dc2631",
+      "size_bytes": 2343,
+      "task_evidence_path": "supplemental-probes/coaxial-machining-01/result.json"
+    },
+    {
+      "path": "task4-model.json",
+      "sha256": "e971dee7a4d166da517b8d0c44e84518f4a263719236235f09cb494ee9e91f0c",
+      "size_bytes": 939,
+      "task_evidence_path": "supplemental-probes/task4-model-02/result.json"
+    },
+    {
+      "path": "inspection-cylindrical.json",
+      "sha256": "f44893cbbc04e16457f77439423443fc47dd7f87d828c5f8db7ab8e119925b8c",
+      "size_bytes": 98373,
+      "task_evidence_path": "supplemental-probes/catalogue-controls/attempt-03/result.json"
+    },
+    {
+      "path": "recorded-tool.json",
+      "sha256": "90262b70eb13257faa7825bddfcc494076a1898e87642866d8d499b88dd2f713",
+      "size_bytes": 95145,
+      "task_evidence_path": "supplemental-probes/catalogue-controls/attempt-04/result.json"
+    },
+    {
+      "path": "fixture-shadows.json",
+      "sha256": "cb9c904dceec0bff63b6d3e4f1768f9582347be8ce405cb3e5d889cb5d19f3b3",
+      "size_bytes": 97340,
+      "task_evidence_path": "supplemental-probes/catalogue-controls/attempt-06/result.json"
+    },
+    {
+      "path": "equivalent-groove.json",
+      "sha256": "b3ea84effc10247b8a2fdaf624907b33f2d9f55b221e33ba7256fed55d9c68c2",
+      "size_bytes": 95712,
+      "task_evidence_path": "supplemental-probes/catalogue-controls/attempt-05/result.json"
+    },
+    {
+      "path": "workflow-example-export.json",
+      "sha256": "6c4cf5af745685ccff4af76ead916ca105acdfd3570382d11a4d981b3582a9f6",
+      "size_bytes": 12642,
+      "task_evidence_path": "publication-audit/github-integration/runs/workflow-examples-04/receipt.json"
+    }
+  ],
+  "human_acceptance": "not_performed",
+  "video_work": false
+}

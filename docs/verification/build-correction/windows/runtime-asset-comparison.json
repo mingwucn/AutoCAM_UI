@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "baseline": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+  "candidate": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+  "selected_files": 73,
+  "exact_files": 72,
+  "only_changed_file": "assets/adaptive-python-worker.js",
+  "only_change": "One generated build_record_sha256 identity constant; all other bytes equal.",
+  "old_build_record": "0a3af0230cd84ac2dd507a72aa91fa7007ef9f5782161433914dcdee25f6a821",
+  "new_build_record": "1bd276e792daa4298538c397230e1266f06d5f05b379e4d7054c4271b617b680",
+  "scope": "assets/ plus config.js and index.html; documentation and build records excluded"
+}

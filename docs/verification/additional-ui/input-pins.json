@@ -1,0 +1,65 @@
+[
+  {
+    "case": "regional-v3",
+    "role": "task",
+    "path": "examples/recorded-training/regional-v3/task.json",
+    "sha256": "e368ca103783a4820f87c55a21595dbeb2d24bb2185d1f048889a7e3cdd20ac4",
+    "size_bytes": 6248
+  },
+  {
+    "case": "regional-v3",
+    "role": "initial",
+    "path": "examples/recorded-training/regional-v3/initial.bin",
+    "sha256": "8ebedab9a8d32cf0b33a2da5dd525b1db9e0fccd83ed8ce33e089fb1893b48b8",
+    "size_bytes": 1910104
+  },
+  {
+    "case": "regional-v3",
+    "role": "model",
+    "path": "examples/recorded-training/regional-v3/expected-checkpoint.json",
+    "sha256": "7285e4cfc3a50c5bdd01ee163ca64cea9c683a5020e981c64e857e94e8b2e56e",
+    "size_bytes": 1872
+  },
+  {
+    "case": "cylindrical-v3",
+    "role": "task",
+    "path": "runs/cylindrical-verification-02/profile-3/configuration.bin",
+    "sha256": "f85aa7e90fb43b66016662e5d6c2fd5d241a31872d65fc44e1d1ddefb823c0e5",
+    "size_bytes": 352171
+  },
+  {
+    "case": "cylindrical-v3",
+    "role": "initial",
+    "path": "runs/cylindrical-verification-02/profile-3/initial.bin",
+    "sha256": "fd409c5428f8c673909483da4fc7a480d4bb0b2cacd13b604050f2a253900f62",
+    "size_bytes": 188414
+  },
+  {
+    "case": "cylindrical-v3",
+    "role": "model",
+    "path": "runs/cylindrical-verification-02/profile-3/weights.json",
+    "sha256": "cabc5a48ba210b00256b5ddc4336c5ce9ab550d11af41d1751cdb4dd6e529981",
+    "size_bytes": 1615
+  },
+  {
+    "case": "mixed-A",
+    "role": "task",
+    "path": "dist/assets/adaptive/mixed-learning/task.json",
+    "sha256": "686db12d01696666cc9f570f5db8c0d94d2c6e4de148c3b16eb9ff87d7ae0640",
+    "size_bytes": 31986
+  },
+  {
+    "case": "mixed-A",
+    "role": "initial",
+    "path": "dist/assets/adaptive/mixed-learning/initial.bin",
+    "sha256": "cb2ed5aa32e6419b01208849aa41994bd80895fc4ade70eab48b42a44a26375e",
+    "size_bytes": 4324
+  },
+  {
+    "case": "mixed-A",
+    "role": "model",
+    "path": ".verification/python-examples-01/mixed-A/checkpoint.json",
+    "sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+    "size_bytes": 848
+  }
+]

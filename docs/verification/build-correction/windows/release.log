@@ -1,0 +1,21 @@
+✔ declared model survives build and release; unlisted diagnostics stay out; bad model references reject (266.4206ms)
+✔ allowance fixture transport rejects corrupt bytes, false declarations and escaping membership without a receipt (182.548ms)
+✔ optional package selects separate rational assets and preserves original protocol (55.3371ms)
+✔ legacy package does not advertise a missing rational runtime (65.0344ms)
+✔ rehashed manifest faults and changed module bytes reject before copying (204.111ms)
+✔ partial or malformed optional runtime is never available (33.8518ms)
+✔ verified assets retain exact bytes and existing destinations are not overwritten (92.7624ms)
+✔ bad index/file hashes, truncation, missing files and redirects never produce a verified receipt (29.0572ms)
+✔ closed paths, fields, duplicates and byte budgets are checked before downloading (3.636ms)
+✔ plain builds do no fetching; configured runtime/CAD releases supply the existing builder flags (24.9317ms)
+✔ export excludes diagnostic members and rejects changed or unpassed packages before output (33.1484ms)
+✔ fixture transport rejects changed, truncated, missing and coherently misdeclared data (111.4634ms)
+✔ fixture paths, aliases, environment overrides and missing members reject before staging (20.1371ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 484.8313

@@ -8,6 +8,7 @@ import {inspectInitialCellFaces} from './cad-initial-faces.mjs';
 import {prepareCadFile} from './adaptive-cad-client.mjs';
 import {exactNumber,parseAdaptiveJson} from './adaptive-provider.mjs';
 import {cadConfigurationForProfile,hasRationalCadRuntime} from './cad-profile-configuration.mjs';
+import {CapabilityPanel} from './module3-capabilities.jsx';
 
 const fmt=value=>Number(value).toLocaleString('en-US',{maximumFractionDigits:3});
 export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared,onInvalidate,showStockPreview=true}){
@@ -61,6 +62,7 @@ export function AdaptiveCadUpload({configuration,runtimeConfiguration,onPrepared
   if(!configuration)return null;
   return <details className="step-upload adaptive-cad-upload" open><summary>Prepare stock from your STEP file</summary><div className="step-upload-body">
     <p>Your file stays in this browser. Supported now: axis-aligned planar solids, coaxial cylindrical parts and complete principal-frame spheres{rationalAvailable?', plus the experimental rational-prism profile':''}. {runtimeConfiguration&&typeof onPrepared==='function'?'Prepare the stock, then supply a machining setup to generate roughing actions.':'Download the prepared stock for the next machining step.'}</p>
+    <CapabilityPanel profile={profile} compact/>
     <form onSubmit={prepare}><div className="controls">
       <label>STEP file<input aria-label="Adaptive STEP file" type="file" accept=".step,.stp" disabled={busy} onChange={e=>edit(setFile,e.target.files?.[0]||null)}/></label>
       <label>Part geometry<select aria-label="STEP geometry profile" value={profile} disabled={busy} onChange={e=>{edit(setProfile,e.target.value);setDepth(e.target.value==='rational_nominal'?1:4);setAllowance('0');}}><option value="rectilinear">Axis-aligned planar solid</option><option value="periodic_nominal">Coaxial cylindrical part</option><option value="spherical_nominal">Complete principal-frame sphere</option>{rationalAvailable&&<option value="rational_nominal">Rational surface prism · experimental</option>}</select></label>

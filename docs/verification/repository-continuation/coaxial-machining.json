@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "build_manifest_sha256": "c3c292d41eb284bcbc4c6c7d3f901b69b3d9b11f8d2d3459d6b5d0a6064c9a91",
+  "production_full_site": true,
+  "raw_step_sha256": "e38ebd6a9e5005b65a1c9dd5502392139177f4f7f583ce11f54099fed19b744e",
+  "candidate_count": 3,
+  "action": 0,
+  "completed_under_declared_profile": true,
+  "exact_preparation": true,
+  "exact_native_completion": true,
+  "reset_and_restore_exact": true,
+  "stock_unchanged": true,
+  "downloads": [
+    {
+      "path": "initial.bin",
+      "sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+      "size_bytes": 429007,
+      "expected": "coaxial-tube-allowance.bin"
+    },
+    {
+      "path": "configuration.json",
+      "sha256": "f753d19dd35d9bcabb502de09f2b1e6e260df88d85f857152e7b4e46341351f7",
+      "size_bytes": 6486,
+      "expected": "configuration.json"
+    },
+    {
+      "path": "preparation.json",
+      "sha256": "15059fb4fc6ead36acdc8e450dd7a0da2795a2d510c2bc88060e3ab8d3ffc069",
+      "size_bytes": 3900,
+      "expected": "preparation.json"
+    },
+    {
+      "path": "initial-episode.json",
+      "sha256": "f2c2828744dfdd60b303d2488acd292b5a97564ff2d05ef2d5e42eeb4e73310a",
+      "size_bytes": 872310,
+      "expected": null
+    },
+    {
+      "path": "after-turn.json",
+      "sha256": "4e2ffd15fe2197edef24a4e41e89483fef724d08865dc7b49f677b9678b57373",
+      "size_bytes": 895054,
+      "expected": null
+    },
+    {
+      "path": "reset.json",
+      "sha256": "f2c2828744dfdd60b303d2488acd292b5a97564ff2d05ef2d5e42eeb4e73310a",
+      "size_bytes": 872310,
+      "expected": null
+    },
+    {
+      "path": "restored.json",
+      "sha256": "4e2ffd15fe2197edef24a4e41e89483fef724d08865dc7b49f677b9678b57373",
+      "size_bytes": 895054,
+      "expected": null
+    },
+    {
+      "path": "after-turn-initial.bin",
+      "sha256": "7b951b433f729c1d43adf212626539528d7451c0a3ccc8cc1fcec6ee9b71e409",
+      "size_bytes": 429007,
+      "expected": "coaxial-tube-allowance.bin"
+    }
+  ],
+  "errors": [],
+  "blocked": [],
+  "limits": [
+    "Outside roughing only with empty required-planar-face list; two caps remain unavailable under this setup",
+    "No inner boring, facing or complete-part manufacture claim",
+    "Exact existing regional_refined_history_1 fixture; no new planner or tolerance"
+  ]
+}

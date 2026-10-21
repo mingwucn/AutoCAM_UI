@@ -21,6 +21,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: npm run check:docs
+      - run: npm run check:capabilities
+      - run: npm run prepare:workflows -- --output runs/workflow-examples-ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: workflow-example-receipt
+          path: runs/workflow-examples-ci/receipt.json
+          if-no-files-found: error
       - run: npm run test:release
       - run: npm run test:core-wasm
       - run: npm run test:step-import

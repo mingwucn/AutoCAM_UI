@@ -1,0 +1,3668 @@
+TAP version 13
+# Subtest: initial stock, through-hole axes, and ray clearance use accepted envelopes
+ok 1 - initial stock, through-hole axes, and ray clearance use accepted envelopes
+  ---
+  duration_ms: 89.2547
+  type: 'test'
+  ...
+# Subtest: joined blind drill profiles retain a conical bottom for all signed axes
+ok 2 - joined blind drill profiles retain a conical bottom for all signed axes
+  ---
+  duration_ms: 92.3295
+  type: 'test'
+  ...
+# Subtest: indexed off-centre cut and multiple overlapping envelopes are subtracted once
+ok 3 - indexed off-centre cut and multiple overlapping envelopes are subtracted once
+  ---
+  duration_ms: 57.186
+  type: 'test'
+  ...
+# Subtest: sphere, cone and unions are supported; unsupported profiles fail and release allocated objects
+ok 4 - sphere, cone and unions are supported; unsupported profiles fail and release allocated objects
+  ---
+  duration_ms: 233.7999
+  type: 'test'
+  ...
+# Subtest: native acknowledged fixtures preserve initial/pending/reset and accepted/restored meshes; bindings refuse substitution
+ok 5 - native acknowledged fixtures preserve initial/pending/reset and accepted/restored meshes; bindings refuse substitution
+  ---
+  duration_ms: 2314.7341
+  type: 'test'
+  ...
+# Subtest: worker client cancels obsolete work, refuses wrong identity, caches and disposes
+ok 6 - worker client cancels obsolete work, refuses wrong identity, caches and disposes
+  ---
+  duration_ms: 1.5922
+  type: 'test'
+  ...
+# Subtest: worker time budget terminates computation and a later request can recover
+ok 7 - worker time budget terminates computation and a later request can recover
+  ---
+  duration_ms: 48.2949
+  type: 'test'
+  ...
+# Subtest: proposed removal clips air, excludes overlapping accepted cuts and leaves accepted stock unchanged
+ok 8 - proposed removal clips air, excludes overlapping accepted cuts and leaves accepted stock unchanged
+  ---
+  duration_ms: 104.7538
+  type: 'test'
+  ...
+# Subtest: native prepared removal matches the later committed difference; changed semantic and request bindings refuse
+ok 9 - native prepared removal matches the later committed difference; changed semantic and request bindings refuse
+  ---
+  duration_ms: 588.6835
+  type: 'test'
+  ...
+# Subtest: removal worker response from a different preparation cannot populate the cache
+ok 10 - removal worker response from a different preparation cannot populate the cache
+  ---
+  duration_ms: 1.271
+  type: 'test'
+  ...
+# Subtest: direct-residual consumer rejects the previous 54-feature contract in both directions
+ok 11 - direct-residual consumer rejects the previous 54-feature contract in both directions
+  ---
+  duration_ms: 2.2476
+  type: 'test'
+  ...
+# Subtest: direct-residual scorer keeps exact cancellation, first ties and terminal mask semantics
+ok 12 - direct-residual scorer keeps exact cancellation, first ties and terminal mask semantics
+  ---
+  duration_ms: 3.4212
+  type: 'test'
+  ...
+# Subtest: 505-row v4 roster uses residual globals and rejects malformed dense features and masks
+ok 13 - 505-row v4 roster uses residual globals and rejects malformed dense features and masks
+  ---
+  duration_ms: 19.3976
+  type: 'test'
+  ...
+# Subtest: v4 raw checkpoint loader checks bytes, immutable weights and UTF-8
+ok 14 - v4 raw checkpoint loader checks bytes, immutable weights and UTF-8
+  ---
+  duration_ms: 16.7286
+  type: 'test'
+  ...
+# Subtest: owned exact-byte transport preserves caller arrays, subviews and large rationals
+ok 15 - owned exact-byte transport preserves caller arrays, subviews and large rationals
+  ---
+  duration_ms: 27.4847
+  type: 'test'
+  ...
+# Subtest: bad input bytes, detached buffers and cross-origin assets fail before creating a worker
+ok 16 - bad input bytes, detached buffers and cross-origin assets fail before creating a worker
+  ---
+  duration_ms: 3.5962
+  type: 'test'
+  ...
+# Subtest: malformed and noncanonical policy bytes stay exact until Python reports the error
+ok 17 - malformed and noncanonical policy bytes stay exact until Python reports the error
+  ---
+  duration_ms: 3.6429
+  type: 'test'
+  ...
+# Subtest: closed terminal responses, byte hashes and declared bindings are required
+ok 18 - closed terminal responses, byte hashes and declared bindings are required
+  ---
+  duration_ms: 43.3097
+  type: 'test'
+  ...
+# Subtest: noncanonical output is rejected even when its byte hash is correct
+ok 19 - noncanonical output is rejected even when its byte hash is correct
+  ---
+  duration_ms: 2.5329
+  type: 'test'
+  ...
+# Subtest: result verification owns returned bytes before asynchronous hash checks
+ok 20 - result verification owns returned bytes before asynchronous hash checks
+  ---
+  duration_ms: 4.756
+  type: 'test'
+  ...
+# Subtest: duplicate terminal messages during asynchronous verification reject without publishing a result
+ok 21 - duplicate terminal messages during asynchronous verification reject without publishing a result
+  ---
+  duration_ms: 13.7796
+  type: 'test'
+  ...
+# Subtest: abort before launch and during response verification preserves inputs and allows a fresh worker
+ok 22 - abort before launch and during response verification preserves inputs and allows a fresh worker
+  ---
+  duration_ms: 39.6063
+  type: 'test'
+  ...
+# Subtest: progress cannot break preparation and malformed progress/crashes reject ambiguous work
+ok 23 - progress cannot break preparation and malformed progress/crashes reject ambiguous work
+  ---
+  duration_ms: 6.2432
+  type: 'test'
+  ...
+# Subtest: postMessage failures reject exactly once without retrying or detaching caller bytes
+ok 24 - postMessage failures reject exactly once without retrying or detaching caller bytes
+  ---
+  duration_ms: 1.3174
+  type: 'test'
+  ...
+# Subtest: partition status remains recorded metadata with depth range and explicit unknowns
+ok 25 - partition status remains recorded metadata with depth range and explicit unknowns
+  ---
+  duration_ms: 2.4055
+  type: 'test'
+  ...
+# Subtest: before frame is bound by identity and credit is not a subtraction of endpoints
+ok 26 - before frame is bound by identity and credit is not a subtraction of endpoints
+  ---
+  duration_ms: 3.2355
+  type: 'test'
+  ...
+# Subtest: rejection, unresolved and refinement retain zero credit without inventing an event
+ok 27 - rejection, unresolved and refinement retain zero credit without inventing an event
+  ---
+  duration_ms: 0.7166
+  type: 'test'
+  ...
+# Subtest: duplicate deliveries show original removal separately and no additional credit
+ok 28 - duplicate deliveries show original removal separately and no additional credit
+  ---
+  duration_ms: 0.7745
+  type: 'test'
+  ...
+# Subtest: large exact intervals are retained and altered bindings or invalid arithmetic reject
+ok 29 - large exact intervals are retained and altered bindings or invalid arithmetic reject
+  ---
+  duration_ms: 1.1088
+  type: 'test'
+  ...
+# Subtest: real legacy episode provides accepted/repeat/reject/refine context and rejects rehashed false records
+ok 30 - real legacy episode provides accepted/repeat/reject/refine context and rejects rehashed false records
+  ---
+  duration_ms: 27441.3404
+  type: 'test'
+  ...
+# Subtest: mixed-depth fractional volume summaries preserve five distinct roles
+ok 31 - mixed-depth fractional volume summaries preserve five distinct roles
+  ---
+  duration_ms: 7.7619
+  type: 'test'
+  ...
+# Subtest: depth20 and integers beyond Number precision retain exact identity
+ok 32 - depth20 and integers beyond Number precision retain exact identity
+  ---
+  duration_ms: 1.5829
+  type: 'test'
+  ...
+# Subtest: rehashed recorded bundles reject all five false volume projections and changed membership
+ok 33 - rehashed recorded bundles reject all five false volume projections and changed membership
+  ---
+  duration_ms: 52511.3431
+  type: 'test'
+  ...
+# Subtest: live projection matches the acknowledged writer and complete finite candidate order
+ok 34 - live projection matches the acknowledged writer and complete finite candidate order
+  ---
+  duration_ms: 4180.726
+  type: 'test'
+  ...
+# Subtest: live projection rejects a different acknowledged task or material state
+ok 35 - live projection rejects a different acknowledged task or material state
+  ---
+  duration_ms: 1789.5344
+  type: 'test'
+  ...
+# Subtest: rehashing cannot hide altered candidate identities or inconsistent masks
+ok 36 - rehashing cannot hide altered candidate identities or inconsistent masks
+  ---
+  duration_ms: 5695.8186
+  type: 'test'
+  ...
+# Subtest: live projection rejects malformed intervals and a substituted inspection state
+ok 37 - live projection rejects malformed intervals and a substituted inspection state
+  ---
+  duration_ms: 4256.4279
+  type: 'test'
+  ...
+# Subtest: shared 54-term sum preserves cancellation across the old width boundary
+ok 38 - shared 54-term sum preserves cancellation across the old width boundary
+  ---
+  duration_ms: 4.4322
+  type: 'test'
+  ...
+# Subtest: mixed model selects first enabled tie and rejects old weights and malformed inputs
+ok 39 - mixed model selects first enabled tie and rejects old weights and malformed inputs
+  ---
+  duration_ms: 2.6819
+  type: 'test'
+  ...
+# Subtest: 505-row mixed roster honors masks, later features and immutable inputs
+ok 40 - 505-row mixed roster honors masks, later features and immutable inputs
+  ---
+  duration_ms: 16.8531
+  type: 'test'
+  ...
+# Subtest: mixed byte loader verifies caller hash and copies/freeze weights
+ok 41 - mixed byte loader verifies caller hash and copies/freeze weights
+  ---
+  duration_ms: 32.7769
+  type: 'test'
+  ...
+# Subtest: packed case selection is explicit, isolated, task5-only and removed for reference
+ok 42 - packed case selection is explicit, isolated, task5-only and removed for reference
+  ---
+  duration_ms: 4.0797
+  type: 'test'
+  ...
+# Subtest: trusted client rejects malformed packed dependencies before transfer and copies selection
+ok 43 - trusted client rejects malformed packed dependencies before transfer and copies selection
+  ---
+  duration_ms: 4.3786
+  type: 'test'
+  ...
+# Subtest: indexed facing configuration selects the shared Python machining runtime
+ok 44 - indexed facing configuration selects the shared Python machining runtime
+  ---
+  duration_ms: 14.6832
+  type: 'test'
+  ...
+# Subtest: uploaded machining executes its preparation archive while catalogue runtime remains intact
+ok 45 - uploaded machining executes its preparation archive while catalogue runtime remains intact
+  ---
+  duration_ms: 3.0729
+  type: 'test'
+  ...
+# Subtest: production CAD-relative assets keep the same locations in preparation and the live Gym
+ok 46 - production CAD-relative assets keep the same locations in preparation and the live Gym
+  ---
+  duration_ms: 0.8968
+  type: 'test'
+  ...
+# Subtest: machining handoff rejects missing, cross-origin or unusable URL bases
+ok 47 - machining handoff rejects missing, cross-origin or unusable URL bases
+  ---
+  duration_ms: 1.0994
+  type: 'test'
+  ...
+# Subtest: reference handoff retains exact original task bytes and owns independent buffers
+ok 48 - reference handoff retains exact original task bytes and owns independent buffers
+  ---
+  duration_ms: 3.612
+  type: 'test'
+  ...
+# Subtest: catalogue routing remains schema-specific while explicit reference removes both query locations
+ok 49 - catalogue routing remains schema-specific while explicit reference removes both query locations
+  ---
+  duration_ms: 0.8394
+  type: 'test'
+  ...
+# Subtest: invalid and detached inputs or unrecognized backend never produce a live case
+ok 50 - invalid and detached inputs or unrecognized backend never produce a live case
+  ---
+  duration_ms: 0.9304
+  type: 'test'
+  ...
+# Subtest: machining choices select the reference worker without mutating other runtime profiles
+ok 51 - machining choices select the reference worker without mutating other runtime profiles
+  ---
+  duration_ms: 0.607
+  type: 'test'
+  ...
+# Subtest: outer facing configurations select the machining choice runtime
+ok 52 - outer facing configurations select the machining choice runtime
+  ---
+  duration_ms: 0.4777
+  type: 'test'
+  ...
+# Subtest: accepted-choice exclusion policy selects the machining runtime
+ok 53 - accepted-choice exclusion policy selects the machining runtime
+  ---
+  duration_ms: 0.4695
+  type: 'test'
+  ...
+# Subtest: routes rejection-memory policy configuration
+ok 54 - routes rejection-memory policy configuration
+  ---
+  duration_ms: 0.3173
+  type: 'test'
+  ...
+# Subtest: face case uses its dedicated controller and reference runtime without changing drill dispatch
+ok 55 - face case uses its dedicated controller and reference runtime without changing drill dispatch
+  ---
+  duration_ms: 0.6626
+  type: 'test'
+  ...
+# Subtest: prepared drill tasks select the existing reference worker without packed volume side effects
+ok 56 - prepared drill tasks select the existing reference worker without packed volume side effects
+  ---
+  duration_ms: 0.2873
+  type: 'test'
+  ...
+# Subtest: task5 selects the shared live controls and reference assets
+ok 57 - task5 selects the shared live controls and reference assets
+  ---
+  duration_ms: 0.2999
+  type: 'test'
+  ...
+# Subtest: task5 rejects malformed explicit remaining selection and honors explicit reference
+ok 58 - task5 rejects malformed explicit remaining selection and honors explicit reference
+  ---
+  duration_ms: 0.4973
+  type: 'test'
+  ...
+# Subtest: learning profile selects its controller and reference assets without changing the full profile
+ok 59 - learning profile selects its controller and reference assets without changing the full profile
+  ---
+  duration_ms: 0.7194
+  type: 'test'
+  ...
+# Subtest: profile frame winding follows all six coordinate permutations
+ok 60 - profile frame winding follows all six coordinate permutations
+  ---
+  duration_ms: 1.6618
+  type: 'test'
+  ...
+# Subtest: a groove opening along the second radial axis preserves offset centre and section area
+ok 61 - a groove opening along the second radial axis preserves offset centre and section area
+  ---
+  duration_ms: 2.82
+  type: 'test'
+  ...
+# Subtest: four through flats retain curved corner segments on every cylinder axis
+ok 62 - four through flats retain curved corner segments on every cylinder axis
+  ---
+  duration_ms: 4.0919
+  type: 'test'
+  ...
+# Subtest: pockets and cutters that do not span the other radial dimension decline this display path
+ok 63 - pockets and cutters that do not span the other radial dimension decline this display path
+  ---
+  duration_ms: 0.3902
+  type: 'test'
+  ...
+# Subtest: through grooves retain a semicircular end and reject blind or mismatched cutter unions
+ok 64 - through grooves retain a semicircular end and reject blind or mismatched cutter unions
+  ---
+  duration_ms: 1.0114
+  type: 'test'
+  ...
+# Subtest: exact rational and address presentation rejects unsupported integers
+ok 65 - exact rational and address presentation rejects unsupported integers
+  ---
+  duration_ms: 4.6759
+  type: 'test'
+  ...
+# Subtest: canonical encoder matches Python ASCII escaping
+ok 66 - canonical encoder matches Python ASCII escaping
+  ---
+  duration_ms: 0.5186
+  type: 'test'
+  ...
+# Subtest: lossless integers retain Python canonical bytes and display fractions
+ok 67 - lossless integers retain Python canonical bytes and display fractions
+  ---
+  duration_ms: 1.7633
+  type: 'test'
+  ...
+# Subtest: lossless parser rejects malformed, duplicate, fractional and excessive input
+ok 68 - lossless parser rejects malformed, duplicate, fractional and excessive input
+  ---
+  duration_ms: 0.8246
+  type: 'test'
+  ...
+# Subtest: periodic CAD source preserves exact proof arithmetic and declared scope
+ok 69 - periodic CAD source preserves exact proof arithmetic and declared scope
+  ---
+  duration_ms: 20836.2228
+  type: 'test'
+  ...
+# Subtest: display bounds cover non-box analytic stock
+ok 70 - display bounds cover non-box analytic stock
+  ---
+  duration_ms: 1.3018
+  type: 'test'
+  ...
+# Subtest: real producer bundle validates and corrupted identities reject
+ok 71 - real producer bundle validates and corrupted identities reject
+  ---
+  duration_ms: 12543.9528
+  type: 'test'
+  ...
+# Subtest: tool episode binds dimensions, selected action and assessment
+ok 72 - tool episode binds dimensions, selected action and assessment
+  ---
+  duration_ms: 4119.1578
+  type: 'test'
+  ...
+# Subtest: side timeline retains separate spindle and travel axes and rejects relabelling
+ok 73 - side timeline retains separate spindle and travel axes and rejects relabelling
+  ---
+  duration_ms: 10844.2797
+  type: 'test'
+  ...
+# Subtest: CAD nominal source binds its complete construction and original input
+ok 74 - CAD nominal source binds its complete construction and original input
+  ---
+  duration_ms: 7611.3378
+  type: 'test'
+  ...
+# Subtest: shared turning/milling episode binds axis, insert family, full-angle semantics and assessments
+ok 75 - shared turning/milling episode binds axis, insert family, full-angle semantics and assessments
+  ---
+  duration_ms: 18577.9881
+  type: 'test'
+  ...
+# Subtest: actual spherical browser preview preserves source identity and rejects altered construction claims
+ok 76 - actual spherical browser preview preserves source identity and rejects altered construction claims
+  ---
+  duration_ms: 3584.353
+  type: 'test'
+  ...
+# Subtest: recorded turning transport accepts only the explicit band profile and keeps assessment binding
+ok 77 - recorded turning transport accepts only the explicit band profile and keeps assessment binding
+  ---
+  duration_ms: 7140.9877
+  type: 'test'
+  ...
+# Subtest: spherical source-face display preserves the source and forms an outward bounded mesh
+ok 78 - spherical source-face display preserves the source and forms an outward bounded mesh
+  ---
+  duration_ms: 187.1992
+  type: 'test'
+  ...
+# Subtest: history selection is explicit, requires volume assets and is copied
+ok 79 - history selection is explicit, requires volume assets and is copied
+  ---
+  duration_ms: 7.3621
+  type: 'test'
+  ...
+# Subtest: explicit pinned volume assets are copied and malformed fields are rejected
+ok 80 - explicit pinned volume assets are copied and malformed fields are rejected
+  ---
+  duration_ms: 0.5985
+  type: 'test'
+  ...
+# Subtest: initialization copies caller bytes and responses preserve exact integer text
+ok 81 - initialization copies caller bytes and responses preserve exact integer text
+  ---
+  duration_ms: 1.7058
+  type: 'test'
+  ...
+# Subtest: only one command can be pending and no failed command is implicitly retried
+ok 82 - only one command can be pending and no failed command is implicitly retried
+  ---
+  duration_ms: 1.0411
+  type: 'test'
+  ...
+# Subtest: checkpoint transport copies bytes and keeps the original caller pin
+ok 83 - checkpoint transport copies bytes and keeps the original caller pin
+  ---
+  duration_ms: 0.622
+  type: 'test'
+  ...
+# Subtest: disposal rejects pending work, ignores late replies and prevents reuse
+ok 84 - disposal rejects pending work, ignores late replies and prevents reuse
+  ---
+  duration_ms: 4.9899
+  type: 'test'
+  ...
+# Subtest: initialization failure and worker crash require a new session
+ok 85 - initialization failure and worker crash require a new session
+  ---
+  duration_ms: 0.9538
+  type: 'test'
+  ...
+# Subtest: wrong request identity and non-text response close ambiguous sessions
+ok 86 - wrong request identity and non-text response close ambiguous sessions
+  ---
+  duration_ms: 3.068
+  type: 'test'
+  ...
+# Subtest: invalid input fails before transmission and setup may follow a validation error
+ok 87 - invalid input fails before transmission and setup may follow a validation error
+  ---
+  duration_ms: 4.2543
+  type: 'test'
+  ...
+# Subtest: a throwing view progress callback cannot break the pending command
+ok 88 - a throwing view progress callback cannot break the pending command
+  ---
+  duration_ms: 2.8158
+  type: 'test'
+  ...
+# Subtest: message transmission errors reject once without automatic retries
+ok 89 - message transmission errors reject once without automatic retries
+  ---
+  duration_ms: 0.6737
+  type: 'test'
+  ...
+# Subtest: paired removal requires explicit history and remaining selection before transmission
+ok 90 - paired removal requires explicit history and remaining selection before transmission
+  ---
+  duration_ms: 0.7913
+  type: 'test'
+  ...
+# Subtest: recovery retains the originally selected nested volume query assets
+ok 91 - recovery retains the originally selected nested volume query assets
+  ---
+  duration_ms: 26.1977
+  type: 'test'
+  ...
+# Subtest: cancel restores only acknowledged actions and exact export before allowing continuation
+ok 92 - cancel restores only acknowledged actions and exact export before allowing continuation
+  ---
+  duration_ms: 7.2831
+  type: 'test'
+  ...
+# Subtest: copied task and checkpoint bytes survive caller mutation and restore model inference
+ok 93 - copied task and checkpoint bytes survive caller mutation and restore model inference
+  ---
+  duration_ms: 12.7965
+  type: 'test'
+  ...
+# Subtest: a byte mismatch closes the replacement and preserves the complete journal for retry
+ok 94 - a byte mismatch closes the replacement and preserves the complete journal for retry
+  ---
+  duration_ms: 12.9342
+  type: 'test'
+  ...
+# Subtest: cancel during replay cannot let a late failure close a newer recovery
+ok 95 - cancel during replay cannot let a late failure close a newer recovery
+  ---
+  duration_ms: 20.3275
+  type: 'test'
+  ...
+# Subtest: a late completed abandoned cut cannot enter the new journal
+ok 96 - a late completed abandoned cut cannot enter the new journal
+  ---
+  duration_ms: 14.5045
+  type: 'test'
+  ...
+# Subtest: journal and model payload caps reject before transmission; disposal permanently releases custody
+ok 97 - journal and model payload caps reject before transmission; disposal permanently releases custody
+  ---
+  duration_ms: 69.1872
+  type: 'test'
+  ...
+# Subtest: worker crash permits prefix recovery while ordinary errors are never replayed
+ok 98 - worker crash permits prefix recovery while ordinary errors are never replayed
+  ---
+  duration_ms: 7.9828
+  type: 'test'
+  ...
+# Subtest: capsule restores a fresh session including model and exact acknowledged responses
+ok 99 - capsule restores a fresh session including model and exact acknowledged responses
+  ---
+  duration_ms: 24.4852
+  type: 'test'
+  ...
+# Subtest: capsule invalid input, operation, model and limits leave fresh session usable
+ok 100 - capsule invalid input, operation, model and limits leave fresh session usable
+  ---
+  duration_ms: 46.5564
+  type: 'test'
+  ...
+# Subtest: capsule response mismatch quarantines replacement and prevents further commands
+ok 101 - capsule response mismatch quarantines replacement and prevents further commands
+  ---
+  duration_ms: 28.2798
+  type: 'test'
+  ...
+# Subtest: catalogue remaining selection applies to exactly the selected case
+ok 102 - catalogue remaining selection applies to exactly the selected case
+  ---
+  duration_ms: 2.0704
+  type: 'test'
+  ...
+# Subtest: paired removal is case-local, task5-only and cleared by reference selection
+ok 103 - paired removal is case-local, task5-only and cleared by reference selection
+  ---
+  duration_ms: 1.0178
+  type: 'test'
+  ...
+# Subtest: task5 remaining weights are explicit and reference selection strips every acceleration flag
+ok 104 - task5 remaining weights are explicit and reference selection strips every acceleration flag
+  ---
+  duration_ms: 0.5902
+  type: 'test'
+  ...
+# Subtest: only v3 selects query assets and resolves paths relative to the page
+ok 105 - only v3 selects query assets and resolves paths relative to the page
+  ---
+  duration_ms: 0.2965
+  type: 'test'
+  ...
+# Subtest: build copies pinned query assets and rejects wrong hashes and extra fields
+ok 106 - build copies pinned query assets and rejects wrong hashes and extra fields
+  ---
+  duration_ms: 310.798
+  type: 'test'
+  ...
+# Subtest: history selection is isolated to objective v3 and malformed configuration rejects
+ok 107 - history selection is isolated to objective v3 and malformed configuration rejects
+  ---
+  duration_ms: 0.765
+  type: 'test'
+  ...
+# Subtest: all eleven metadata projections equal shared native results
+ok 108 - all eleven metadata projections equal shared native results
+  ---
+  duration_ms: 147.3016
+  type: 'test'
+  ...
+# Subtest: ten scoped wrappers preserve validated legacy frames and their identities
+ok 109 - ten scoped wrappers preserve validated legacy frames and their identities
+  ---
+  duration_ms: 2050.134
+  type: 'test'
+  ...
+# Subtest: geometric scope is not mislabeled directional and cannot imply tool access
+ok 110 - geometric scope is not mislabeled directional and cannot imply tool access
+  ---
+  duration_ms: 13.3909
+  type: 'test'
+  ...
+# Subtest: repinned fabricated scope pass, frame binding and label changes reject
+ok 111 - repinned fabricated scope pass, frame binding and label changes reject
+  ---
+  duration_ms: 154.4685
+  type: 'test'
+  ...
+# Subtest: turning and rejected short-tool scopes retain their original limitations
+ok 112 - turning and rejected short-tool scopes retain their original limitations
+  ---
+  duration_ms: 307.1831
+  type: 'test'
+  ...
+# Subtest: score sum preserves cancellation, binary ties and subnormal values
+ok 113 - score sum preserves cancellation, binary ties and subnormal values
+  ---
+  duration_ms: 2.6637
+  type: 'test'
+  ...
+# Subtest: masked first ties and cancellation-sensitive choices preserve inputs
+ok 114 - masked first ties and cancellation-sensitive choices preserve inputs
+  ---
+  duration_ms: 4.7461
+  type: 'test'
+  ...
+# Subtest: consumer rejects changed feature contracts, malformed data and nonfinite weights
+ok 115 - consumer rejects changed feature contracts, malformed data and nonfinite weights
+  ---
+  duration_ms: 0.9266
+  type: 'test'
+  ...
+# Subtest: loader authenticates raw bytes and freezes copied weights
+ok 116 - loader authenticates raw bytes and freezes copied weights
+  ---
+  duration_ms: 35.1419
+  type: 'test'
+  ...
+# Subtest: guide binds exact download bytes, retains newlines and ignores untrusted labels
+ok 117 - guide binds exact download bytes, retains newlines and ignores untrusted labels
+  ---
+  duration_ms: 30.5935
+  type: 'test'
+  ...
+# Subtest: guide rejects other formats and empty demonstrations
+ok 118 - guide rejects other formats and empty demonstrations
+  ---
+  duration_ms: 1.5381
+  type: 'test'
+  ...
+# Subtest: shared guide selects task6 explicitly while preserving task5 text
+ok 119 - shared guide selects task6 explicitly while preserving task5 text
+  ---
+  duration_ms: 5.1191
+  type: 'test'
+  ...
+# Subtest: turning preview preserves the two path segments and actual rectangular assemblies on every axis/bearing
+ok 120 - turning preview preserves the two path segments and actual rectangular assemblies on every axis/bearing
+  ---
+  duration_ms: 16.128
+  type: 'test'
+  ...
+# Subtest: groove preview handles zero axial feed and omits an absent shank
+ok 121 - groove preview handles zero axial feed and omits an absent shank
+  ---
+  duration_ms: 0.69
+  type: 'test'
+  ...
+# Subtest: explicit spherical band profile preserves physical previews and rejects profile smuggling
+ok 122 - explicit spherical band profile preserves physical previews and rejects profile smuggling
+  ---
+  duration_ms: 4.1219
+  type: 'test'
+  ...
+# Subtest: annular display keeps through bores and rejects end disks, offset and overlapping stacks
+ok 123 - annular display keeps through bores and rejects end disks, offset and overlapping stacks
+  ---
+  duration_ms: 2.2872
+  type: 'test'
+  ...
+# Subtest: rejected setup or tool-family bindings cannot acquire a misleading preview
+ok 124 - rejected setup or tool-family bindings cannot acquire a misleading preview
+  ---
+  duration_ms: 0.6629
+  type: 'test'
+  ...
+# Subtest: eight analytic worker projections bind exact curved obstacle poses and accepted stock
+ok 125 - eight analytic worker projections bind exact curved obstacle poses and accepted stock
+  ---
+  duration_ms: 2731.291
+  type: 'test'
+  ...
+# Subtest: exact sphere and cylinder cell classifications match 3000 native queries
+ok 126 - exact sphere and cylinder cell classifications match 3000 native queries
+  ---
+  duration_ms: 327.6759
+  type: 'test'
+  ...
+# Subtest: material cell flags agree with native accepted-stock diagnostics
+ok 127 - material cell flags agree with native accepted-stock diagnostics
+  ---
+  duration_ms: 612.4966
+  type: 'test'
+  ...
+# Subtest: reader rejects forged curved silhouettes, poses, dimensions and profile downgrade
+ok 128 - reader rejects forged curved silhouettes, poses, dimensions and profile downgrade
+  ---
+  duration_ms: 389.1886
+  type: 'test'
+  ...
+# Subtest: round upstream blocker has a circular shadow, preserves stock and stays diagnostic
+ok 129 - round upstream blocker has a circular shadow, preserves stock and stays diagnostic
+  ---
+  duration_ms: 185.6844
+  type: 'test'
+  ...
+# Subtest: eight annular worker projections bind exact curved obstacle poses and accepted stock
+ok 130 - eight annular worker projections bind exact curved obstacle poses and accepted stock
+  ---
+  duration_ms: 2069.0646
+  type: 'test'
+  ...
+# Subtest: closed and open annular cell classifications match 2250 native queries
+ok 131 - closed and open annular cell classifications match 2250 native queries
+  ---
+  duration_ms: 639.6843
+  type: 'test'
+  ...
+# Subtest: material cell flags agree with native accepted-stock diagnostics
+ok 132 - material cell flags agree with native accepted-stock diagnostics
+  ---
+  duration_ms: 604.1925
+  type: 'test'
+  ...
+# Subtest: reader rejects forged curved silhouettes, poses, dimensions and profile downgrade
+ok 133 - reader rejects forged curved silhouettes, poses, dimensions and profile downgrade
+  ---
+  duration_ms: 352.4494
+  type: 'test'
+  ...
+# Subtest: axial bore produces a ring shadow with inherited stock and no machining authorization
+ok 134 - axial bore produces a ring shadow with inherited stock and no machining authorization
+  ---
+  duration_ms: 163.1078
+  type: 'test'
+  ...
+# Subtest: transverse bore is blocked by its upstream wall
+ok 135 - transverse bore is blocked by its upstream wall
+  ---
+  duration_ms: 237.6837
+  type: 'test'
+  ...
+# Subtest: strict through-bore recognition and inner-wall tangency preserve closed material
+ok 136 - strict through-bore recognition and inner-wall tangency preserve closed material
+  ---
+  duration_ms: 295.2419
+  type: 'test'
+  ...
+# Subtest: cancel rejects the in-flight action and restores only the committed checkpoint
+ok 137 - cancel rejects the in-flight action and restores only the committed checkpoint
+  ---
+  duration_ms: 4.4053
+  type: 'test'
+  ...
+# Subtest: worker failure preserves the checkpoint and supports explicit recovery
+ok 138 - worker failure preserves the checkpoint and supports explicit recovery
+  ---
+  duration_ms: 2.2866
+  type: 'test'
+  ...
+# Subtest: close rejects pending work and prevents later requests
+ok 139 - close rejects pending work and prevents later requests
+  ---
+  duration_ms: 0.7054
+  type: 'test'
+  ...
+# Subtest: recovery cannot change the engine build recorded for an episode
+ok 140 - recovery cannot change the engine build recorded for an episode
+  ---
+  duration_ms: 0.966
+  type: 'test'
+  ...
+# Subtest: recorded section requests copy their input and cannot replace the live checkpoint
+ok 141 - recorded section requests copy their input and cannot replace the live checkpoint
+  ---
+  duration_ms: 1.4025
+  type: 'test'
+  ...
+# Subtest: built manual resolves local Markdown links, escapes raw HTML and pins downloadable inputs
+ok 142 - built manual resolves local Markdown links, escapes raw HTML and pins downloadable inputs
+  ---
+  duration_ms: 183.1938
+  type: 'test'
+  ...
+# Subtest: build provenance is deterministic, detached, relative and binds source/lock/tool bytes
+ok 143 - build provenance is deterministic, detached, relative and binds source/lock/tool bytes
+  ---
+  duration_ms: 3168.5712
+  type: 'test'
+  ...
+# Subtest: changed, added, removed or linked inputs cannot receive a finished provenance record
+ok 144 - changed, added, removed or linked inputs cannot receive a finished provenance record
+  ---
+  duration_ms: 1273.9501
+  type: 'test'
+  ...
+# Subtest: actual Git observation distinguishes clean, modified and untracked trees without leaking status paths
+ok 145 - actual Git observation distinguishes clean, modified and untracked trees without leaking status paths
+  ---
+  duration_ms: 4723.512
+  type: 'test'
+  ...
+# Subtest: Git environment redirection is removed and failed/changing observations stay unavailable
+ok 146 - Git environment redirection is removed and failed/changing observations stay unavailable
+  ---
+  duration_ms: 7.9628
+  type: 'test'
+  ...
+# Subtest: exact requested allowance survives client transport and rejects substituted responses
+ok 147 - exact requested allowance survives client transport and rejects substituted responses
+  ---
+  duration_ms: 14314.3742
+  type: 'test'
+  ...
+# Subtest: invalid allowance rejects before creating a worker
+ok 148 - invalid allowance rejects before creating a worker
+  ---
+  duration_ms: 0.8893
+  type: 'test'
+  ...
+# Subtest: legacy preparations remain readable and malformed supplementary provenance rejects
+ok 149 - legacy preparations remain readable and malformed supplementary provenance rejects
+  ---
+  duration_ms: 13693.3446
+  type: 'test'
+  ...
+# Subtest: real annular preview preserves source, exact volumes and display bounds
+ok 150 - real annular preview preserves source, exact volumes and display bounds
+  ---
+  duration_ms: 2488.4896
+  type: 'test'
+  ...
+# Subtest: rehashed malformed annular sources reject before display
+ok 151 - rehashed malformed annular sources reject before display
+  ---
+  duration_ms: 8022.8642
+  type: 'test'
+  ...
+# Subtest: annular STEP client retains requested profile and rejects substituted policy
+ok 152 - annular STEP client retains requested profile and rejects substituted policy
+  ---
+  duration_ms: 1728.2714
+  type: 'test'
+  ...
+# Subtest: four native-produced profile records preserve exact imported references and legacy joins
+ok 153 - four native-produced profile records preserve exact imported references and legacy joins
+  ---
+  duration_ms: 516.0864
+  type: 'test'
+  ...
+# Subtest: rehashed source, importer and certificate substitution rejects against caller pins
+ok 154 - rehashed source, importer and certificate substitution rejects against caller pins
+  ---
+  duration_ms: 15.0076
+  type: 'test'
+  ...
+# Subtest: changed inventories, orientations, reduced coefficients and closed record fields reject
+ok 155 - changed inventories, orientations, reduced coefficients and closed record fields reject
+  ---
+  duration_ms: 418.9212
+  type: 'test'
+  ...
+# Subtest: noncanonical and oversized transport rejects; valid records remain independently owned
+ok 156 - noncanonical and oversized transport rejects; valid records remain independently owned
+  ---
+  duration_ms: 18.0413
+  type: 'test'
+  ...
+# Subtest: initial source query keeps exact captured inputs and accepts bound hit or empty responses
+ok 157 - initial source query keeps exact captured inputs and accepts bound hit or empty responses
+  ---
+  duration_ms: 125.2129
+  type: 'test'
+  ...
+# Subtest: source query rejects substituted transport and association fields even with recomputed hashes
+ok 158 - source query rejects substituted transport and association fields even with recomputed hashes
+  ---
+  duration_ms: 522.1885
+  type: 'test'
+  ...
+# Subtest: abort before launch, during hashing and in flight terminates or avoids the worker
+ok 159 - abort before launch, during hashing and in flight terminates or avoids the worker
+  ---
+  duration_ms: 65.621
+  type: 'test'
+  ...
+# Subtest: input, cell, asset and origin boundaries reject before worker launch
+ok 160 - input, cell, asset and origin boundaries reject before worker launch
+  ---
+  duration_ms: 12.0887
+  type: 'test'
+  ...
+# Subtest: worker errors reject and terminate without accepting a subsequent response
+ok 161 - worker errors reject and terminate without accepting a subsequent response
+  ---
+  duration_ms: 8.0257
+  type: 'test'
+  ...
+# Subtest: packaged relative assets resolve beside the nested CAD worker
+ok 162 - packaged relative assets resolve beside the nested CAD worker
+  ---
+  duration_ms: 2.499
+  type: 'test'
+  ...
+# Subtest: actual worker rejects malformed requests and duplicate operations before loading Python
+ok 163 - actual worker rejects malformed requests and duplicate operations before loading Python
+  ---
+  duration_ms: 59.1785
+  type: 'test'
+  ...
+# Subtest: all four profiles carry source metadata through zero and multiple-face joins
+ok 164 - all four profiles carry source metadata through zero and multiple-face joins
+  ---
+  duration_ms: 861.8544
+  type: 'test'
+  ...
+# Subtest: wrong source, importer bytes and incomplete face references refuse
+ok 165 - wrong source, importer bytes and incomplete face references refuse
+  ---
+  duration_ms: 101.0553
+  type: 'test'
+  ...
+# Subtest: captured input ownership survives async mutation and returned maps are independently owned
+ok 166 - captured input ownership survives async mutation and returned maps are independently owned
+  ---
+  duration_ms: 135.0559
+  type: 'test'
+  ...
+# Subtest: legacy absence is explicit and partial or oversized attachments are not accepted
+ok 167 - legacy absence is explicit and partial or oversized attachments are not accepted
+  ---
+  duration_ms: 17.9459
+  type: 'test'
+  ...
+# Subtest: genuine Python rational associations keep proven contact separate from candidates
+ok 168 - genuine Python rational associations keep proven contact separate from candidates
+  ---
+  duration_ms: 148.8021
+  type: 'test'
+  ...
+# Subtest: rational transport refuses omitted or promoted candidates and inconsistent proof summaries
+ok 169 - rational transport refuses omitted or promoted candidates and inconsistent proof summaries
+  ---
+  duration_ms: 544.0564
+  type: 'test'
+  ...
+# Subtest: analytic contact wording remains unchanged
+ok 170 - analytic contact wording remains unchanged
+  ---
+  duration_ms: 0.4509
+  type: 'test'
+  ...
+# Subtest: Python indexed and nested transform records verify with exact browser arithmetic
+ok 171 - Python indexed and nested transform records verify with exact browser arithmetic
+  ---
+  duration_ms: 286.3172
+  type: 'test'
+  ...
+# Subtest: historical versioned and unversioned cell responses keep their certificate API
+ok 172 - historical versioned and unversioned cell responses keep their certificate API
+  ---
+  duration_ms: 19.9828
+  type: 'test'
+  ...
+# Subtest: rehashed transform changes cannot substitute arithmetic, source paths, or inventory
+ok 173 - rehashed transform changes cannot substitute arithmetic, source paths, or inventory
+  ---
+  duration_ms: 206.5352
+  type: 'test'
+  ...
+# Subtest: cell inspection rejects stale bindings and corrupt sidecar hashes
+ok 174 - cell inspection rejects stale bindings and corrupt sidecar hashes
+  ---
+  duration_ms: 34.5774
+  type: 'test'
+  ...
+# Subtest: task6 preserves explicit reference, materialized and packed selection without mutating inputs
+ok 175 - task6 preserves explicit reference, materialized and packed selection without mutating inputs
+  ---
+  duration_ms: 11.2248
+  type: 'test'
+  ...
+# Subtest: task6 malformed packed dependencies reject instead of selecting an older profile
+ok 176 - task6 malformed packed dependencies reject instead of selecting an older profile
+  ---
+  duration_ms: 0.7024
+  type: 'test'
+  ...
+# Subtest: client transports exact task6 bytes and selected capabilities without caller aliasing
+ok 177 - client transports exact task6 bytes and selected capabilities without caller aliasing
+  ---
+  duration_ms: 1.8092
+  type: 'test'
+  ...
+# Subtest: retained actual views and closed spec1/report1 remain valid without mutation
+ok 178 - retained actual views and closed spec1/report1 remain valid without mutation
+  ---
+  duration_ms: 16099.8735
+  type: 'test'
+  ...
+# Subtest: closed spec2/report2 retain exact returned bounds, source cells and completion
+ok 179 - closed spec2/report2 retain exact returned bounds, source cells and completion
+  ---
+  duration_ms: 10935.834
+  type: 'test'
+  ...
+# Subtest: unknown, missing, extra and mismatched schema/profile pairs fail after rehashing
+ok 180 - unknown, missing, extra and mismatched schema/profile pairs fail after rehashing
+  ---
+  duration_ms: 39862.6902
+  type: 'test'
+  ...
+# Subtest: both profiles preserve specification, source, state and global residual bindings
+ok 181 - both profiles preserve specification, source, state and global residual bindings
+  ---
+  duration_ms: 39366.5831
+  type: 'test'
+  ...
+# Subtest: both profiles reject contradictory regional bounds, budgets and completion gates
+ok 182 - both profiles reject contradictory regional bounds, budgets and completion gates
+  ---
+  duration_ms: 26608.0631
+  type: 'test'
+  ...
+# Subtest: accepted indexed view preserves original before/after material and choice checks
+ok 183 - accepted indexed view preserves original before/after material and choice checks
+  ---
+  duration_ms: 363.5461
+  type: 'test'
+  ...
+# Subtest: preserves original material mismatch refusal
+ok 184 - preserves original material mismatch refusal
+  ---
+  duration_ms: 120.5296
+  type: 'test'
+  ...
+# Subtest: preserves original orientation mismatch refusal
+ok 185 - preserves original orientation mismatch refusal
+  ---
+  duration_ms: 107.4602
+  type: 'test'
+  ...
+# Subtest: preserves original catalogue mismatch refusal
+ok 186 - preserves original catalogue mismatch refusal
+  ---
+  duration_ms: 72.7396
+  type: 'test'
+  ...
+# Subtest: preserves original choices mismatch refusal
+ok 187 - preserves original choices mismatch refusal
+  ---
+  duration_ms: 69.4203
+  type: 'test'
+  ...
+# Subtest: preserves original epoch mismatch refusal
+ok 188 - preserves original epoch mismatch refusal
+  ---
+  duration_ms: 108.3514
+  type: 'test'
+  ...
+# Subtest: preserves original inspection mismatch refusal
+ok 189 - preserves original inspection mismatch refusal
+  ---
+  duration_ms: 204.329
+  type: 'test'
+  ...
+# Subtest: preserves stale observation refusal
+ok 190 - preserves stale observation refusal
+  ---
+  duration_ms: 135.3166
+  type: 'test'
+  ...
+# Subtest: outer2-choice2/initial reads exact native accepted view
+ok 191 - outer2-choice2/initial reads exact native accepted view
+  ---
+  duration_ms: 240.323
+  type: 'test'
+  ...
+# Subtest: outer2-choice2/milling reads exact native accepted view
+ok 192 - outer2-choice2/milling reads exact native accepted view
+  ---
+  duration_ms: 198.3474
+  type: 'test'
+  ...
+# Subtest: outer2-choice2/restored reads exact native accepted view
+ok 193 - outer2-choice2/restored reads exact native accepted view
+  ---
+  duration_ms: 147.6556
+  type: 'test'
+  ...
+# Subtest: outer2-choice3/initial reads exact native accepted view
+ok 194 - outer2-choice3/initial reads exact native accepted view
+  ---
+  duration_ms: 149.9783
+  type: 'test'
+  ...
+# Subtest: outer2-choice3/turn reads exact native accepted view
+ok 195 - outer2-choice3/turn reads exact native accepted view
+  ---
+  duration_ms: 185.1861
+  type: 'test'
+  ...
+# Subtest: outer2-choice3/transfer reads exact native accepted view
+ok 196 - outer2-choice3/transfer reads exact native accepted view
+  ---
+  duration_ms: 201.0906
+  type: 'test'
+  ...
+# Subtest: outer2-choice3/milling reads exact native accepted view
+ok 197 - outer2-choice3/milling reads exact native accepted view
+  ---
+  duration_ms: 187.8633
+  type: 'test'
+  ...
+# Subtest: outer2-choice3/restored reads exact native accepted view
+ok 198 - outer2-choice3/restored reads exact native accepted view
+  ---
+  duration_ms: 142.8454
+  type: 'test'
+  ...
+# Subtest: outer1-choice2/initial reads exact native accepted view
+ok 199 - outer1-choice2/initial reads exact native accepted view
+  ---
+  duration_ms: 208.9465
+  type: 'test'
+  ...
+# Subtest: outer1-choice2/milling reads exact native accepted view
+ok 200 - outer1-choice2/milling reads exact native accepted view
+  ---
+  duration_ms: 189.0339
+  type: 'test'
+  ...
+# Subtest: outer1-choice2/restored reads exact native accepted view
+ok 201 - outer1-choice2/restored reads exact native accepted view
+  ---
+  duration_ms: 230.3394
+  type: 'test'
+  ...
+# Subtest: outer1-choice3/initial reads exact native accepted view
+ok 202 - outer1-choice3/initial reads exact native accepted view
+  ---
+  duration_ms: 216.0019
+  type: 'test'
+  ...
+# Subtest: outer1-choice3/turn reads exact native accepted view
+ok 203 - outer1-choice3/turn reads exact native accepted view
+  ---
+  duration_ms: 199.0133
+  type: 'test'
+  ...
+# Subtest: outer1-choice3/transfer reads exact native accepted view
+ok 204 - outer1-choice3/transfer reads exact native accepted view
+  ---
+  duration_ms: 257.2776
+  type: 'test'
+  ...
+# Subtest: outer1-choice3/milling reads exact native accepted view
+ok 205 - outer1-choice3/milling reads exact native accepted view
+  ---
+  duration_ms: 198.3897
+  type: 'test'
+  ...
+# Subtest: outer1-choice3/restored reads exact native accepted view
+ok 206 - outer1-choice3/restored reads exact native accepted view
+  ---
+  duration_ms: 213.0136
+  type: 'test'
+  ...
+# Subtest: indexed-6/initial reads exact native accepted view
+ok 207 - indexed-6/initial reads exact native accepted view
+  ---
+  duration_ms: 190.7297
+  type: 'test'
+  ...
+# Subtest: indexed-6/selected reads exact native accepted view
+ok 208 - indexed-6/selected reads exact native accepted view
+  ---
+  duration_ms: 212.4928
+  type: 'test'
+  ...
+# Subtest: indexed-7/initial reads exact native accepted view
+ok 209 - indexed-7/initial reads exact native accepted view
+  ---
+  duration_ms: 294.9865
+  type: 'test'
+  ...
+# Subtest: indexed-7/selected reads exact native accepted view
+ok 210 - indexed-7/selected reads exact native accepted view
+  ---
+  duration_ms: 412.1234
+  type: 'test'
+  ...
+# Subtest: indexed-8/initial reads exact native accepted view
+ok 211 - indexed-8/initial reads exact native accepted view
+  ---
+  duration_ms: 366.199
+  type: 'test'
+  ...
+# Subtest: indexed-8/selected reads exact native accepted view
+ok 212 - indexed-8/selected reads exact native accepted view
+  ---
+  duration_ms: 334.1412
+  type: 'test'
+  ...
+# Subtest: refuses rehashed outer-profile substitution in outer2 view
+ok 213 - refuses rehashed outer-profile substitution in outer2 view
+  ---
+  duration_ms: 225.4725
+  type: 'test'
+  ...
+# Subtest: refuses rehashed exchange-profile substitution in outer2 view
+ok 214 - refuses rehashed exchange-profile substitution in outer2 view
+  ---
+  duration_ms: 208.8518
+  type: 'test'
+  ...
+# Subtest: refuses rehashed indexed-profile substitution in outer2 view
+ok 215 - refuses rehashed indexed-profile substitution in outer2 view
+  ---
+  duration_ms: 295.9978
+  type: 'test'
+  ...
+# Subtest: refuses rehashed genesis substitution in outer2 view
+ok 216 - refuses rehashed genesis substitution in outer2 view
+  ---
+  duration_ms: 258.2919
+  type: 'test'
+  ...
+# Subtest: refuses rehashed epoch substitution in outer2 view
+ok 217 - refuses rehashed epoch substitution in outer2 view
+  ---
+  duration_ms: 165.5222
+  type: 'test'
+  ...
+# Subtest: refuses rehashed material substitution in outer2 view
+ok 218 - refuses rehashed material substitution in outer2 view
+  ---
+  duration_ms: 237.8846
+  type: 'test'
+  ...
+# Subtest: compact indexed7 refuses a restamped outcome claim
+ok 219 - compact indexed7 refuses a restamped outcome claim
+  ---
+  duration_ms: 223.9951
+  type: 'test'
+  ...
+# Subtest: compact indexed7 refuses a restamped motion claim
+ok 220 - compact indexed7 refuses a restamped motion claim
+  ---
+  duration_ms: 246.0934
+  type: 'test'
+  ...
+# Subtest: compact indexed8 refuses a restamped outcome claim
+ok 221 - compact indexed8 refuses a restamped outcome claim
+  ---
+  duration_ms: 204.299
+  type: 'test'
+  ...
+# Subtest: compact indexed8 refuses a restamped motion claim
+ok 222 - compact indexed8 refuses a restamped motion claim
+  ---
+  duration_ms: 179.3499
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/episode retains exact native cylindrical material
+ok 223 - baseline/full-facing-v6/episode retains exact native cylindrical material
+  ---
+  duration_ms: 1097.8825
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/initial-episode retains exact native cylindrical material
+ok 224 - baseline/full-facing-v6/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 351.6578
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/reset-episode retains exact native cylindrical material
+ok 225 - baseline/full-facing-v6/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 439.7737
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/step-0 retains exact native cylindrical material
+ok 226 - baseline/full-facing-v6/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 505.3286
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/step-1 retains exact native cylindrical material
+ok 227 - baseline/full-facing-v6/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 567.9231
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/step-2 retains exact native cylindrical material
+ok 228 - baseline/full-facing-v6/step-2 retains exact native cylindrical material
+  ---
+  duration_ms: 865.9464
+  type: 'test'
+  ...
+# Subtest: baseline/full-facing-v6/step-3 retains exact native cylindrical material
+ok 229 - baseline/full-facing-v6/step-3 retains exact native cylindrical material
+  ---
+  duration_ms: 2624.1703
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/episode retains exact native cylindrical material
+ok 230 - baseline/full-v3/episode retains exact native cylindrical material
+  ---
+  duration_ms: 995.5618
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/initial-episode retains exact native cylindrical material
+ok 231 - baseline/full-v3/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 370.7378
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/reset-episode retains exact native cylindrical material
+ok 232 - baseline/full-v3/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 599.1232
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/step-0 retains exact native cylindrical material
+ok 233 - baseline/full-v3/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 692.4458
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/step-1 retains exact native cylindrical material
+ok 234 - baseline/full-v3/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 730.4949
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/step-2 retains exact native cylindrical material
+ok 235 - baseline/full-v3/step-2 retains exact native cylindrical material
+  ---
+  duration_ms: 478.9833
+  type: 'test'
+  ...
+# Subtest: baseline/full-v3/step-3 retains exact native cylindrical material
+ok 236 - baseline/full-v3/step-3 retains exact native cylindrical material
+  ---
+  duration_ms: 552.6486
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-facing-v4/episode retains exact native cylindrical material
+ok 237 - baseline/indexed-facing-v4/episode retains exact native cylindrical material
+  ---
+  duration_ms: 607.9175
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-facing-v4/initial-episode retains exact native cylindrical material
+ok 238 - baseline/indexed-facing-v4/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 195.3427
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-facing-v4/reset-episode retains exact native cylindrical material
+ok 239 - baseline/indexed-facing-v4/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 154.8703
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-facing-v4/step-0 retains exact native cylindrical material
+ok 240 - baseline/indexed-facing-v4/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 605.0914
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-v1/episode retains exact native cylindrical material
+ok 241 - baseline/indexed-v1/episode retains exact native cylindrical material
+  ---
+  duration_ms: 149.3375
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-v1/initial-episode retains exact native cylindrical material
+ok 242 - baseline/indexed-v1/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 120.324
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-v1/reset-episode retains exact native cylindrical material
+ok 243 - baseline/indexed-v1/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 112.4936
+  type: 'test'
+  ...
+# Subtest: baseline/indexed-v1/step-0 retains exact native cylindrical material
+ok 244 - baseline/indexed-v1/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 167.2798
+  type: 'test'
+  ...
+# Subtest: baseline/outer-facing-v5/episode retains exact native cylindrical material
+ok 245 - baseline/outer-facing-v5/episode retains exact native cylindrical material
+  ---
+  duration_ms: 869.6707
+  type: 'test'
+  ...
+# Subtest: baseline/outer-facing-v5/initial-episode retains exact native cylindrical material
+ok 246 - baseline/outer-facing-v5/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 334.6736
+  type: 'test'
+  ...
+# Subtest: baseline/outer-facing-v5/reset-episode retains exact native cylindrical material
+ok 247 - baseline/outer-facing-v5/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 323.1329
+  type: 'test'
+  ...
+# Subtest: baseline/outer-facing-v5/step-0 retains exact native cylindrical material
+ok 248 - baseline/outer-facing-v5/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 1158.0752
+  type: 'test'
+  ...
+# Subtest: baseline/outer-v2/episode retains exact native cylindrical material
+ok 249 - baseline/outer-v2/episode retains exact native cylindrical material
+  ---
+  duration_ms: 1137.5296
+  type: 'test'
+  ...
+# Subtest: baseline/outer-v2/initial-episode retains exact native cylindrical material
+ok 250 - baseline/outer-v2/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 382.2408
+  type: 'test'
+  ...
+# Subtest: baseline/outer-v2/reset-episode retains exact native cylindrical material
+ok 251 - baseline/outer-v2/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 380.9203
+  type: 'test'
+  ...
+# Subtest: baseline/outer-v2/step-0 retains exact native cylindrical material
+ok 252 - baseline/outer-v2/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 510.4793
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/episode retains exact native cylindrical material
+ok 253 - baseline/policy-v1/episode retains exact native cylindrical material
+  ---
+  duration_ms: 1275.1267
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/initial-episode retains exact native cylindrical material
+ok 254 - baseline/policy-v1/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 352.176
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/reset-episode retains exact native cylindrical material
+ok 255 - baseline/policy-v1/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 369.3928
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/step-0 retains exact native cylindrical material
+ok 256 - baseline/policy-v1/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 760.9418
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/step-1 retains exact native cylindrical material
+ok 257 - baseline/policy-v1/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 437.759
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v1/step-2 retains exact native cylindrical material
+ok 258 - baseline/policy-v1/step-2 retains exact native cylindrical material
+  ---
+  duration_ms: 578.0986
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/episode retains exact native cylindrical material
+ok 259 - baseline/policy-v2/episode retains exact native cylindrical material
+  ---
+  duration_ms: 391.3102
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/initial-episode retains exact native cylindrical material
+ok 260 - baseline/policy-v2/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 230.2667
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/reset-episode retains exact native cylindrical material
+ok 261 - baseline/policy-v2/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 238.8757
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/step-0 retains exact native cylindrical material
+ok 262 - baseline/policy-v2/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 241.5449
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/step-1 retains exact native cylindrical material
+ok 263 - baseline/policy-v2/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 255.0194
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v2/step-2 retains exact native cylindrical material
+ok 264 - baseline/policy-v2/step-2 retains exact native cylindrical material
+  ---
+  duration_ms: 312.3759
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/episode retains exact native cylindrical material
+ok 265 - baseline/policy-v3/episode retains exact native cylindrical material
+  ---
+  duration_ms: 312.1578
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/initial-episode retains exact native cylindrical material
+ok 266 - baseline/policy-v3/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 209.661
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/reset-episode retains exact native cylindrical material
+ok 267 - baseline/policy-v3/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 201.7736
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/step-0 retains exact native cylindrical material
+ok 268 - baseline/policy-v3/step-0 retains exact native cylindrical material
+  ---
+  duration_ms: 205.5982
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/step-1 retains exact native cylindrical material
+ok 269 - baseline/policy-v3/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 332.7767
+  type: 'test'
+  ...
+# Subtest: baseline/policy-v3/step-2 retains exact native cylindrical material
+ok 270 - baseline/policy-v3/step-2 retains exact native cylindrical material
+  ---
+  duration_ms: 830.1687
+  type: 'test'
+  ...
+# Subtest: matrix/choice2-multi-prefix/episode retains exact native cylindrical material
+ok 271 - matrix/choice2-multi-prefix/episode retains exact native cylindrical material
+  ---
+  duration_ms: 862.6043
+  type: 'test'
+  ...
+# Subtest: matrix/choice2-multi-prefix/initial-episode retains exact native cylindrical material
+ok 272 - matrix/choice2-multi-prefix/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 240.7692
+  type: 'test'
+  ...
+# Subtest: matrix/choice2-multi-prefix/reset-episode retains exact native cylindrical material
+ok 273 - matrix/choice2-multi-prefix/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 744.2756
+  type: 'test'
+  ...
+# Subtest: matrix/choice2-multi-prefix/step-1 retains exact native cylindrical material
+ok 274 - matrix/choice2-multi-prefix/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 839.1029
+  type: 'test'
+  ...
+# Subtest: matrix/choice5-multi-prefix/episode retains exact native cylindrical material
+ok 275 - matrix/choice5-multi-prefix/episode retains exact native cylindrical material
+  ---
+  duration_ms: 730.3502
+  type: 'test'
+  ...
+# Subtest: matrix/choice5-multi-prefix/initial-episode retains exact native cylindrical material
+ok 276 - matrix/choice5-multi-prefix/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 311.2768
+  type: 'test'
+  ...
+# Subtest: matrix/choice5-multi-prefix/reset-episode retains exact native cylindrical material
+ok 277 - matrix/choice5-multi-prefix/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 274.0297
+  type: 'test'
+  ...
+# Subtest: matrix/choice5-multi-prefix/step-1 retains exact native cylindrical material
+ok 278 - matrix/choice5-multi-prefix/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 618.6994
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice1/episode retains exact native cylindrical material
+ok 279 - matrix/policy1-choice1/episode retains exact native cylindrical material
+  ---
+  duration_ms: 115.186
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice1/initial-episode retains exact native cylindrical material
+ok 280 - matrix/policy1-choice1/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 85.051
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice1/reset-episode retains exact native cylindrical material
+ok 281 - matrix/policy1-choice1/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 111.8662
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice1/step-1 retains exact native cylindrical material
+ok 282 - matrix/policy1-choice1/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 211.3098
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice1/episode retains exact native cylindrical material
+ok 283 - matrix/policy2-choice1/episode retains exact native cylindrical material
+  ---
+  duration_ms: 456.7462
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice1/initial-episode retains exact native cylindrical material
+ok 284 - matrix/policy2-choice1/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 260.6957
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice1/reset-episode retains exact native cylindrical material
+ok 285 - matrix/policy2-choice1/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 193.1419
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice1/step-1 retains exact native cylindrical material
+ok 286 - matrix/policy2-choice1/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 201.9471
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice1/episode retains exact native cylindrical material
+ok 287 - matrix/policy3-choice1/episode retains exact native cylindrical material
+  ---
+  duration_ms: 235.0671
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice1/initial-episode retains exact native cylindrical material
+ok 288 - matrix/policy3-choice1/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 118.7132
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice1/reset-episode retains exact native cylindrical material
+ok 289 - matrix/policy3-choice1/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 95.3777
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice1/step-1 retains exact native cylindrical material
+ok 290 - matrix/policy3-choice1/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 123.0141
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice2/episode retains exact native cylindrical material
+ok 291 - matrix/policy1-choice2/episode retains exact native cylindrical material
+  ---
+  duration_ms: 336.483
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice2/initial-episode retains exact native cylindrical material
+ok 292 - matrix/policy1-choice2/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 243.3618
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice2/reset-episode retains exact native cylindrical material
+ok 293 - matrix/policy1-choice2/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 251.5784
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice2/step-1 retains exact native cylindrical material
+ok 294 - matrix/policy1-choice2/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 251.5591
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice2/episode retains exact native cylindrical material
+ok 295 - matrix/policy2-choice2/episode retains exact native cylindrical material
+  ---
+  duration_ms: 277.7844
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice2/initial-episode retains exact native cylindrical material
+ok 296 - matrix/policy2-choice2/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 233.1503
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice2/reset-episode retains exact native cylindrical material
+ok 297 - matrix/policy2-choice2/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 209.5722
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice2/step-1 retains exact native cylindrical material
+ok 298 - matrix/policy2-choice2/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 270.736
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice2/episode retains exact native cylindrical material
+ok 299 - matrix/policy3-choice2/episode retains exact native cylindrical material
+  ---
+  duration_ms: 262.123
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice2/initial-episode retains exact native cylindrical material
+ok 300 - matrix/policy3-choice2/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 204.6383
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice2/reset-episode retains exact native cylindrical material
+ok 301 - matrix/policy3-choice2/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 235.0284
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice2/step-1 retains exact native cylindrical material
+ok 302 - matrix/policy3-choice2/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 279.3783
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice3/episode retains exact native cylindrical material
+ok 303 - matrix/policy1-choice3/episode retains exact native cylindrical material
+  ---
+  duration_ms: 244.4041
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice3/initial-episode retains exact native cylindrical material
+ok 304 - matrix/policy1-choice3/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 174.5343
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice3/reset-episode retains exact native cylindrical material
+ok 305 - matrix/policy1-choice3/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 168.9817
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice3/step-4 retains exact native cylindrical material
+ok 306 - matrix/policy1-choice3/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 245.7629
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice3/episode retains exact native cylindrical material
+ok 307 - matrix/policy2-choice3/episode retains exact native cylindrical material
+  ---
+  duration_ms: 292.7344
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice3/initial-episode retains exact native cylindrical material
+ok 308 - matrix/policy2-choice3/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 189.0038
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice3/reset-episode retains exact native cylindrical material
+ok 309 - matrix/policy2-choice3/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 172.6983
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice3/step-4 retains exact native cylindrical material
+ok 310 - matrix/policy2-choice3/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 274.5589
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice3/episode retains exact native cylindrical material
+ok 311 - matrix/policy3-choice3/episode retains exact native cylindrical material
+  ---
+  duration_ms: 302.0456
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice3/initial-episode retains exact native cylindrical material
+ok 312 - matrix/policy3-choice3/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 175.4096
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice3/reset-episode retains exact native cylindrical material
+ok 313 - matrix/policy3-choice3/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 160.2108
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice3/step-4 retains exact native cylindrical material
+ok 314 - matrix/policy3-choice3/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 258.1778
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice4/episode retains exact native cylindrical material
+ok 315 - matrix/policy1-choice4/episode retains exact native cylindrical material
+  ---
+  duration_ms: 281.1432
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice4/initial-episode retains exact native cylindrical material
+ok 316 - matrix/policy1-choice4/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 99.7187
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice4/reset-episode retains exact native cylindrical material
+ok 317 - matrix/policy1-choice4/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 107.2607
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice4/step-1 retains exact native cylindrical material
+ok 318 - matrix/policy1-choice4/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 262.8364
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice4/episode retains exact native cylindrical material
+ok 319 - matrix/policy2-choice4/episode retains exact native cylindrical material
+  ---
+  duration_ms: 263.6854
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice4/initial-episode retains exact native cylindrical material
+ok 320 - matrix/policy2-choice4/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 103.5654
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice4/reset-episode retains exact native cylindrical material
+ok 321 - matrix/policy2-choice4/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 137.2033
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice4/step-1 retains exact native cylindrical material
+ok 322 - matrix/policy2-choice4/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 292.7594
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice4/episode retains exact native cylindrical material
+ok 323 - matrix/policy3-choice4/episode retains exact native cylindrical material
+  ---
+  duration_ms: 259.8291
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice4/initial-episode retains exact native cylindrical material
+ok 324 - matrix/policy3-choice4/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 104.9837
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice4/reset-episode retains exact native cylindrical material
+ok 325 - matrix/policy3-choice4/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 112.8945
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice4/step-1 retains exact native cylindrical material
+ok 326 - matrix/policy3-choice4/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 258.4662
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice5/episode retains exact native cylindrical material
+ok 327 - matrix/policy1-choice5/episode retains exact native cylindrical material
+  ---
+  duration_ms: 541.5135
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice5/initial-episode retains exact native cylindrical material
+ok 328 - matrix/policy1-choice5/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 275.0754
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice5/reset-episode retains exact native cylindrical material
+ok 329 - matrix/policy1-choice5/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 301.2918
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice5/step-1 retains exact native cylindrical material
+ok 330 - matrix/policy1-choice5/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 525.9878
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice5/episode retains exact native cylindrical material
+ok 331 - matrix/policy2-choice5/episode retains exact native cylindrical material
+  ---
+  duration_ms: 512.1054
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice5/initial-episode retains exact native cylindrical material
+ok 332 - matrix/policy2-choice5/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 257.5322
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice5/reset-episode retains exact native cylindrical material
+ok 333 - matrix/policy2-choice5/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 296.1551
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice5/step-1 retains exact native cylindrical material
+ok 334 - matrix/policy2-choice5/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 597.2337
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice5/episode retains exact native cylindrical material
+ok 335 - matrix/policy3-choice5/episode retains exact native cylindrical material
+  ---
+  duration_ms: 523.9069
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice5/initial-episode retains exact native cylindrical material
+ok 336 - matrix/policy3-choice5/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 248.82
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice5/reset-episode retains exact native cylindrical material
+ok 337 - matrix/policy3-choice5/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 302.6834
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice5/step-1 retains exact native cylindrical material
+ok 338 - matrix/policy3-choice5/step-1 retains exact native cylindrical material
+  ---
+  duration_ms: 537.564
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice6/episode retains exact native cylindrical material
+ok 339 - matrix/policy1-choice6/episode retains exact native cylindrical material
+  ---
+  duration_ms: 510.242
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice6/initial-episode retains exact native cylindrical material
+ok 340 - matrix/policy1-choice6/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 224.557
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice6/reset-episode retains exact native cylindrical material
+ok 341 - matrix/policy1-choice6/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 215.6663
+  type: 'test'
+  ...
+# Subtest: matrix/policy1-choice6/step-4 retains exact native cylindrical material
+ok 342 - matrix/policy1-choice6/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 518.0929
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice6/episode retains exact native cylindrical material
+ok 343 - matrix/policy2-choice6/episode retains exact native cylindrical material
+  ---
+  duration_ms: 481.9891
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice6/initial-episode retains exact native cylindrical material
+ok 344 - matrix/policy2-choice6/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 251.9798
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice6/reset-episode retains exact native cylindrical material
+ok 345 - matrix/policy2-choice6/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 240.3647
+  type: 'test'
+  ...
+# Subtest: matrix/policy2-choice6/step-4 retains exact native cylindrical material
+ok 346 - matrix/policy2-choice6/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 484.2244
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice6/episode retains exact native cylindrical material
+ok 347 - matrix/policy3-choice6/episode retains exact native cylindrical material
+  ---
+  duration_ms: 480.8734
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice6/initial-episode retains exact native cylindrical material
+ok 348 - matrix/policy3-choice6/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 216.154
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice6/reset-episode retains exact native cylindrical material
+ok 349 - matrix/policy3-choice6/reset-episode retains exact native cylindrical material
+  ---
+  duration_ms: 241.3649
+  type: 'test'
+  ...
+# Subtest: matrix/policy3-choice6/step-4 retains exact native cylindrical material
+ok 350 - matrix/policy3-choice6/step-4 retains exact native cylindrical material
+  ---
+  duration_ms: 547.5206
+  type: 'test'
+  ...
+# Subtest: full-size/indexed-facing/episode retains exact native cylindrical material
+ok 351 - full-size/indexed-facing/episode retains exact native cylindrical material
+  ---
+  duration_ms: 7311.6851
+  type: 'test'
+  ...
+# Subtest: full-size/indexed-facing/initial-episode retains exact native cylindrical material
+ok 352 - full-size/indexed-facing/initial-episode retains exact native cylindrical material
+  ---
+  duration_ms: 5382.6922
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-6/initial retains exact native cylindrical material
+ok 353 - profiles/indexed-6/initial retains exact native cylindrical material
+  ---
+  duration_ms: 82.5634
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-6/selected retains exact native cylindrical material
+ok 354 - profiles/indexed-6/selected retains exact native cylindrical material
+  ---
+  duration_ms: 121.8113
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-7/initial retains exact native cylindrical material
+ok 355 - profiles/indexed-7/initial retains exact native cylindrical material
+  ---
+  duration_ms: 85.8394
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-7/selected retains exact native cylindrical material
+ok 356 - profiles/indexed-7/selected retains exact native cylindrical material
+  ---
+  duration_ms: 100.0281
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-8/initial retains exact native cylindrical material
+ok 357 - profiles/indexed-8/initial retains exact native cylindrical material
+  ---
+  duration_ms: 86.9944
+  type: 'test'
+  ...
+# Subtest: profiles/indexed-8/selected retains exact native cylindrical material
+ok 358 - profiles/indexed-8/selected retains exact native cylindrical material
+  ---
+  duration_ms: 102.5889
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-6/initial retains exact native cylindrical material
+ok 359 - profiles-exchange/indexed-6/initial retains exact native cylindrical material
+  ---
+  duration_ms: 85.9219
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-6/selected retains exact native cylindrical material
+ok 360 - profiles-exchange/indexed-6/selected retains exact native cylindrical material
+  ---
+  duration_ms: 124.9904
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-7/initial retains exact native cylindrical material
+ok 361 - profiles-exchange/indexed-7/initial retains exact native cylindrical material
+  ---
+  duration_ms: 88.1844
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-7/selected retains exact native cylindrical material
+ok 362 - profiles-exchange/indexed-7/selected retains exact native cylindrical material
+  ---
+  duration_ms: 125.4117
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-8/initial retains exact native cylindrical material
+ok 363 - profiles-exchange/indexed-8/initial retains exact native cylindrical material
+  ---
+  duration_ms: 95.9412
+  type: 'test'
+  ...
+# Subtest: profiles-exchange/indexed-8/selected retains exact native cylindrical material
+ok 364 - profiles-exchange/indexed-8/selected retains exact native cylindrical material
+  ---
+  duration_ms: 116.5975
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice2/initial retains exact native cylindrical material
+ok 365 - profiles-outer/outer2-choice2/initial retains exact native cylindrical material
+  ---
+  duration_ms: 207.9134
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice2/milling retains exact native cylindrical material
+ok 366 - profiles-outer/outer2-choice2/milling retains exact native cylindrical material
+  ---
+  duration_ms: 256.7892
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice2/restored retains exact native cylindrical material
+ok 367 - profiles-outer/outer2-choice2/restored retains exact native cylindrical material
+  ---
+  duration_ms: 257.4392
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice3/initial retains exact native cylindrical material
+ok 368 - profiles-outer/outer2-choice3/initial retains exact native cylindrical material
+  ---
+  duration_ms: 182.8568
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice3/turn retains exact native cylindrical material
+ok 369 - profiles-outer/outer2-choice3/turn retains exact native cylindrical material
+  ---
+  duration_ms: 216.1429
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice3/transfer retains exact native cylindrical material
+ok 370 - profiles-outer/outer2-choice3/transfer retains exact native cylindrical material
+  ---
+  duration_ms: 190.1788
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice3/milling retains exact native cylindrical material
+ok 371 - profiles-outer/outer2-choice3/milling retains exact native cylindrical material
+  ---
+  duration_ms: 236.7668
+  type: 'test'
+  ...
+# Subtest: profiles-outer/outer2-choice3/restored retains exact native cylindrical material
+ok 372 - profiles-outer/outer2-choice3/restored retains exact native cylindrical material
+  ---
+  duration_ms: 259.6805
+  type: 'test'
+  ...
+# Subtest: profiles-rejected/indexed-8/initial retains exact native cylindrical material
+ok 373 - profiles-rejected/indexed-8/initial retains exact native cylindrical material
+  ---
+  duration_ms: 100.009
+  type: 'test'
+  ...
+# Subtest: profiles-rejected/indexed-8/selected retains exact native cylindrical material
+ok 374 - profiles-rejected/indexed-8/selected retains exact native cylindrical material
+  ---
+  duration_ms: 104.1192
+  type: 'test'
+  ...
+# Subtest: refused face prefix rejects a restamped writer claim
+ok 375 - refused face prefix rejects a restamped writer claim
+  ---
+  duration_ms: 88.7708
+  type: 'test'
+  ...
+# Subtest: refused face prefix rejects a restamped time claim
+ok 376 - refused face prefix rejects a restamped time claim
+  ---
+  duration_ms: 105.4064
+  type: 'test'
+  ...
+# Subtest: refused face prefix rejects a restamped accepted claim
+ok 377 - refused face prefix rejects a restamped accepted claim
+  ---
+  duration_ms: 103.2767
+  type: 'test'
+  ...
+# Subtest: refused face prefix rejects a restamped route claim
+ok 378 - refused face prefix rejects a restamped route claim
+  ---
+  duration_ms: 100.9375
+  type: 'test'
+  ...
+# Subtest: refused face prefix rejects a restamped coverage claim
+ok 379 - refused face prefix rejects a restamped coverage claim
+  ---
+  duration_ms: 102.4847
+  type: 'test'
+  ...
+# Subtest: outer2 rejects a restamped downgrade of its nested indexed journal
+ok 380 - outer2 rejects a restamped downgrade of its nested indexed journal
+  ---
+  duration_ms: 260.4848
+  type: 'test'
+  ...
+# Subtest: outer2 rejects a transfer assessment from the older exchange profile
+ok 381 - outer2 rejects a transfer assessment from the older exchange profile
+  ---
+  duration_ms: 202.2511
+  type: 'test'
+  ...
+# Subtest: profile 6 rejects a restamped no-op exchange marked as performed
+ok 382 - profile 6 rejects a restamped no-op exchange marked as performed
+  ---
+  duration_ms: 92.6896
+  type: 'test'
+  ...
+# Subtest: profile 7 rejects a restamped no-op exchange marked as performed
+ok 383 - profile 7 rejects a restamped no-op exchange marked as performed
+  ---
+  duration_ms: 99.2171
+  type: 'test'
+  ...
+# Subtest: profile 8 rejects a restamped no-op exchange marked as performed
+ok 384 - profile 8 rejects a restamped no-op exchange marked as performed
+  ---
+  duration_ms: 73.478
+  type: 'test'
+  ...
+# Subtest: explicit profile rejects a restamped setup event claiming a material writer
+ok 385 - explicit profile rejects a restamped setup event claiming a material writer
+  ---
+  duration_ms: 62.7319
+  type: 'test'
+  ...
+# Subtest: profile 6 binds an actual exchange to its station and elapsed time
+ok 386 - profile 6 binds an actual exchange to its station and elapsed time
+  ---
+  duration_ms: 136.9906
+  type: 'test'
+  ...
+# Subtest: profile 7 binds an actual exchange to its station and elapsed time
+ok 387 - profile 7 binds an actual exchange to its station and elapsed time
+  ---
+  duration_ms: 121.5435
+  type: 'test'
+  ...
+# Subtest: profile 8 binds an actual exchange to its station and elapsed time
+ok 388 - profile 8 binds an actual exchange to its station and elapsed time
+  ---
+  duration_ms: 193.4579
+  type: 'test'
+  ...
+# Subtest: rejects a forged prefix count after episode checksum rebinding
+ok 389 - rejects a forged prefix count after episode checksum rebinding
+  ---
+  duration_ms: 224.0272
+  type: 'test'
+  ...
+# Subtest: rejects removal of an inherited turning event
+ok 390 - rejects removal of an inherited turning event
+  ---
+  duration_ms: 173.0078
+  type: 'test'
+  ...
+# Subtest: rejects reordered primitive publications
+ok 391 - rejects reordered primitive publications
+  ---
+  duration_ms: 158.405
+  type: 'test'
+  ...
+# Subtest: rejects a missing macro stroke with restamped choice log and planning head
+ok 392 - rejects a missing macro stroke with restamped choice log and planning head
+  ---
+  duration_ms: 205.0155
+  type: 'test'
+  ...
+# Subtest: rejects an accepted macro placed only in speculative history
+ok 393 - rejects an accepted macro placed only in speculative history
+  ---
+  duration_ms: 202.6444
+  type: 'test'
+  ...
+# Subtest: rejects a changed chosen tool through another configured choice
+ok 394 - rejects a changed chosen tool through another configured choice
+  ---
+  duration_ms: 74.7706
+  type: 'test'
+  ...
+# Subtest: rejects changed rational time despite restamped outer hashes
+ok 395 - rejects changed rational time despite restamped outer hashes
+  ---
+  duration_ms: 204.4383
+  type: 'test'
+  ...
+# Subtest: rejects a setup event claiming a writer publication
+ok 396 - rejects a setup event claiming a writer publication
+  ---
+  duration_ms: 56.0272
+  type: 'test'
+  ...
+# Subtest: rejects a forged nested continuation even when ordinary file checksum matches
+ok 397 - rejects a forged nested continuation even when ordinary file checksum matches
+  ---
+  duration_ms: 207.558
+  type: 'test'
+  ...
+# Subtest: rejects a rejected choice claiming material
+ok 398 - rejects a rejected choice claiming material
+  ---
+  duration_ms: 180.8076
+  type: 'test'
+  ...
+# Subtest: full-size native history uses the explicit 256 capacity without rounding
+ok 399 - full-size native history uses the explicit 256 capacity without rounding
+  ---
+  duration_ms: 7079.1397
+  type: 'test'
+  ...
+# Subtest: other wrappers retain their 128 record limit
+ok 400 - other wrappers retain their 128 record limit
+  ---
+  duration_ms: 316.9474
+  type: 'test'
+  ...
+# Subtest: cylindrical wrapper still refuses 257 records
+ok 401 - cylindrical wrapper still refuses 257 records
+  ---
+  duration_ms: 497.3255
+  type: 'test'
+  ...
+# Subtest: exact outer policy configuration is required
+ok 402 - exact outer policy configuration is required
+  ---
+  duration_ms: 95.5598
+  type: 'test'
+  ...
+# Subtest: restamped route evaluation cannot substitute another bank
+ok 403 - restamped route evaluation cannot substitute another bank
+  ---
+  duration_ms: 136.1997
+  type: 'test'
+  ...
+# Subtest: restamped facing evaluation cannot substitute another row
+ok 404 - restamped facing evaluation cannot substitute another row
+  ---
+  duration_ms: 259.2773
+  type: 'test'
+  ...
+# Subtest: 174 material events do not expand the 128-command recovery budget
+ok 405 - 174 material events do not expand the 128-command recovery budget
+  ---
+  duration_ms: 7480.6549
+  type: 'test'
+  ...
+# Subtest: old choice runtime hides the capability while unrelated errors propagate
+ok 406 - old choice runtime hides the capability while unrelated errors propagate
+  ---
+  duration_ms: 10.21
+  type: 'test'
+  ...
+# Subtest: canceled cylindrical download cannot return late bytes and recovery is exact
+ok 407 - canceled cylindrical download cannot return late bytes and recovery is exact
+  ---
+  duration_ms: 246.3347
+  type: 'test'
+  ...
+# Subtest: eight native shadow responses bind original direction, proposed index, aliases and inherited stock
+ok 408 - eight native shadow responses bind original direction, proposed index, aliases and inherited stock
+  ---
+  duration_ms: 933.5039
+  type: 'test'
+  ...
+# Subtest: reader refuses stale fields, forged extrusions, direction and obstacle transforms
+ok 409 - reader refuses stale fields, forged extrusions, direction and obstacle transforms
+  ---
+  duration_ms: 262.1452
+  type: 'test'
+  ...
+# Subtest: whole-cell box predicates match native queries and material flags never overclaim
+ok 410 - whole-cell box predicates match native queries and material flags never overclaim
+  ---
+  duration_ms: 320.387
+  type: 'test'
+  ...
+# Subtest: shadow mesh is bound, independent and does not modify accepted material
+ok 411 - shadow mesh is bound, independent and does not modify accepted material
+  ---
+  duration_ms: 529.6609
+  type: 'test'
+  ...
+# Subtest: mesher refuses mixed, stale and altered projection requests
+ok 412 - mesher refuses mixed, stale and altered projection requests
+  ---
+  duration_ms: 52.4366
+  type: 'test'
+  ...
+# Subtest: actual upstream fixture produces a sixteen cubic millimetre shadow and keeps stock
+ok 413 - actual upstream fixture produces a sixteen cubic millimetre shadow and keeps stock
+  ---
+  duration_ms: 219.4587
+  type: 'test'
+  ...
+# Subtest: shadow response identity mismatch refuses caching; cancellation ignores late results
+ok 414 - shadow response identity mismatch refuses caching; cancellation ignores late results
+  ---
+  duration_ms: 19.0077
+  type: 'test'
+  ...
+# Subtest: native geometry fixtures bind five read-only states and the unchanged original trace
+ok 415 - native geometry fixtures bind five read-only states and the unchanged original trace
+  ---
+  duration_ms: 95.25
+  type: 'test'
+  ...
+# Subtest: accepted geometry inherits the cut while pending preview and reset preserve initial stock
+ok 416 - accepted geometry inherits the cut while pending preview and reset preserve initial stock
+  ---
+  duration_ms: 990.2885
+  type: 'test'
+  ...
+# Subtest: stale geometry, altered source and substituted initial material refuse
+ok 417 - stale geometry, altered source and substituted initial material refuse
+  ---
+  duration_ms: 665.5855
+  type: 'test'
+  ...
+# Subtest: state-only payload cannot carry an action or downgrade its catalogue protocol
+ok 418 - state-only payload cannot carry an action or downgrade its catalogue protocol
+  ---
+  duration_ms: 451.0887
+  type: 'test'
+  ...
+# Subtest: drill catalogue dimensions and joined point shoulder remain strict
+ok 419 - drill catalogue dimensions and joined point shoulder remain strict
+  ---
+  duration_ms: 279.5953
+  type: 'test'
+  ...
+# Subtest: native short/long length payloads bind to the same current accepted state
+ok 420 - native short/long length payloads bind to the same current accepted state
+  ---
+  duration_ms: 100.0402
+  type: 'test'
+  ...
+# Subtest: reader rejects wrong epoch, candidate, material, source, dimensions and declaration
+ok 421 - reader rejects wrong epoch, candidate, material, source, dimensions and declaration
+  ---
+  duration_ms: 90.3302
+  type: 'test'
+  ...
+# Subtest: display sets match the independent polygonal cylinder minus conical prefix volume
+ok 422 - display sets match the independent polygonal cylinder minus conical prefix volume
+  ---
+  duration_ms: 157.2778
+  type: 'test'
+  ...
+# Subtest: long-tool display is empty and prior removal clips the short-tool overlay
+ok 423 - long-tool display is empty and prior removal clips the short-tool overlay
+  ---
+  duration_ms: 126.3561
+  type: 'test'
+  ...
+# Subtest: length requests cannot mix proposals or reuse stale material and projection identities
+ok 424 - length requests cannot mix proposals or reuse stale material and projection identities
+  ---
+  duration_ms: 50.7762
+  type: 'test'
+  ...
+# Subtest: length worker responses require matching projection identity and cancelled replies stay stale
+ok 425 - length worker responses require matching projection identity and cancelled replies stay stale
+  ---
+  duration_ms: 72.2965
+  type: 'test'
+  ...
+# Subtest: fixture bytes remain pinned synthetic data from the verified worker trace
+ok 426 - fixture bytes remain pinned synthetic data from the verified worker trace
+  ---
+  duration_ms: 72.5496
+  type: 'test'
+  ...
+# Subtest: initial stock and physical catalogue come from pinned inputs
+ok 427 - initial stock and physical catalogue come from pinned inputs
+  ---
+  duration_ms: 79.4029
+  type: 'test'
+  ...
+# Subtest: pending and historical preview preserve saved cost and executable state distinction
+ok 428 - pending and historical preview preserve saved cost and executable state distinction
+  ---
+  duration_ms: 126.0075
+  type: 'test'
+  ...
+# Subtest: wrong source, stale acknowledgement and reordered candidate denominator refuse
+ok 429 - wrong source, stale acknowledgement and reordered candidate denominator refuse
+  ---
+  duration_ms: 51.9253
+  type: 'test'
+  ...
+# Subtest: altered preparation and false current-state claim cannot enable execution
+ok 430 - altered preparation and false current-state claim cannot enable execution
+  ---
+  duration_ms: 176.6061
+  type: 'test'
+  ...
+# Subtest: drill preview uses the saved physical assembly and world motion while historical preview stays unavailable
+ok 431 - drill preview uses the saved physical assembly and world motion while historical preview stays unavailable
+  ---
+  duration_ms: 103.1968
+  type: 'test'
+  ...
+# Subtest: only a checked current preparation exposes proposed material for display
+ok 432 - only a checked current preparation exposes proposed material for display
+  ---
+  duration_ms: 184.4584
+  type: 'test'
+  ...
+# Subtest: structured length and reach rejections render as text without changing backend diagnostics
+ok 433 - structured length and reach rejections render as text without changing backend diagnostics
+  ---
+  duration_ms: 0.5315
+  type: 'test'
+  ...
+# Subtest: acknowledged preparation/cut/reset capsules reopen and replay with exact exports
+ok 434 - acknowledged preparation/cut/reset capsules reopen and replay with exact exports
+  ---
+  duration_ms: 46.0496
+  type: 'test'
+  ...
+# Subtest: different input bindings use independent slots and stale owners cannot overwrite or claim saved
+ok 435 - different input bindings use independent slots and stale owners cannot overwrite or claim saved
+  ---
+  duration_ms: 19.0962
+  type: 'test'
+  ...
+# Subtest: forget retains a revision tombstone, disables autosave and explicit save resumes it
+ok 436 - forget retains a revision tombstone, disables autosave and explicit save resumes it
+  ---
+  duration_ms: 21.8306
+  type: 'test'
+  ...
+# Subtest: altered or incompatible capsule remains stored and is never silently replaced with initial stock
+ok 437 - altered or incompatible capsule remains stored and is never silently replaced with initial stock
+  ---
+  duration_ms: 30.0895
+  type: 'test'
+  ...
+# Subtest: unavailable storage does not prevent in-memory work; explicit retry can publish later
+ok 438 - unavailable storage does not prevent in-memory work; explicit retry can publish later
+  ---
+  duration_ms: 6.8008
+  type: 'test'
+  ...
+# Subtest: store rejects absent IndexedDB, malformed inputs and blocked opens before claiming publication
+ok 439 - store rejects absent IndexedDB, malformed inputs and blocked opens before claiming publication
+  ---
+  duration_ms: 2.8902
+  type: 'test'
+  ...
+# Subtest: drill owner retains explicit commands and epoch checks across worker recovery
+ok 440 - drill owner retains explicit commands and epoch checks across worker recovery
+  ---
+  duration_ms: 52.7998
+  type: 'test'
+  ...
+# Subtest: drill model load refuses before sending a worker command
+ok 441 - drill model load refuses before sending a worker command
+  ---
+  duration_ms: 0.7632
+  type: 'test'
+  ...
+# Subtest: run details bind exact exports, inputs, reset/restore requests and acknowledged model replacements
+ok 442 - run details bind exact exports, inputs, reset/restore requests and acknowledged model replacements
+  ---
+  duration_ms: 119.4805
+  type: 'test'
+  ...
+# Subtest: unbound development worker is explicit; bad build or input bindings leave the session unchanged
+ok 443 - unbound development worker is explicit; bad build or input bindings leave the session unchanged
+  ---
+  duration_ms: 47.5037
+  type: 'test'
+  ...
+# Subtest: concurrent commands are refused while export waits, and cancellation cannot publish a late result
+ok 444 - concurrent commands are refused while export waits, and cancellation cannot publish a late result
+  ---
+  duration_ms: 2.5645
+  type: 'test'
+  ...
+# Subtest: metadata fetch is aborted on cancel; ignored abort and late responses cannot replace a recovered session
+ok 445 - metadata fetch is aborted on cancel; ignored abort and late responses cannot replace a recovered session
+  ---
+  duration_ms: 5.5642
+  type: 'test'
+  ...
+# Subtest: closed or uninitialized sessions cannot export, and runtime transport failure requires recovery
+ok 446 - closed or uninitialized sessions cannot export, and runtime transport failure requires recovery
+  ---
+  duration_ms: 3.5389
+  type: 'test'
+  ...
+# Subtest: metadata loading enforces pinned bytes, schema, origin and streaming budget
+ok 447 - metadata loading enforces pinned bytes, schema, origin and streaming budget
+  ---
+  duration_ms: 6.2804
+  type: 'test'
+  ...
+# Subtest: execution-info client transport obeys initialization and pending-request identity
+ok 448 - execution-info client transport obeys initialization and pending-request identity
+  ---
+  duration_ms: 2.4667
+  type: 'test'
+  ...
+# Subtest: native assembly transport binds all eight projections, hypothetical index and inherited stock
+ok 449 - native assembly transport binds all eight projections, hypothetical index and inherited stock
+  ---
+  duration_ms: 1724.5298
+  type: 'test'
+  ...
+# Subtest: reader refuses stale selection, altered obstacles, wrong frames and segment paths
+ok 450 - reader refuses stale selection, altered obstacles, wrong frames and segment paths
+  ---
+  duration_ms: 296.4836
+  type: 'test'
+  ...
+# Subtest: all segment components mesh independently, fixed obstacles preserve volume and stock is unchanged
+ok 451 - all segment components mesh independently, fixed obstacles preserve volume and stock is unchanged
+  ---
+  duration_ms: 369.2038
+  type: 'test'
+  ...
+# Subtest: assembly display rejects stale or mixed identities and invalid segment selection
+ok 452 - assembly display rejects stale or mixed identities and invalid segment selection
+  ---
+  duration_ms: 100.4466
+  type: 'test'
+  ...
+# Subtest: late worker responses cannot restore cancelled or different segment meshes
+ok 453 - late worker responses cannot restore cancelled or different segment meshes
+  ---
+  duration_ms: 43.1625
+  type: 'test'
+  ...
+# Subtest: face reader accepts exact initial, pending, accepted and restored Python states
+ok 454 - face reader accepts exact initial, pending, accepted and restored Python states
+  ---
+  duration_ms: 243.8304
+  type: 'test'
+  ...
+# Subtest: face geometry cannot substitute a stale observation, source, schema or volume
+ok 455 - face geometry cannot substitute a stale observation, source, schema or volume
+  ---
+  duration_ms: 255.887
+  type: 'test'
+  ...
+# Subtest: physical face record closes dimensions, capabilities and catalog identity
+ok 456 - physical face record closes dimensions, capabilities and catalog identity
+  ---
+  duration_ms: 3.9673
+  type: 'test'
+  ...
+# Subtest: finite annular mesh preserves static and short inactive centres on every axis pair
+ok 457 - finite annular mesh preserves static and short inactive centres on every axis pair
+  ---
+  duration_ms: 1020.8125
+  type: 'test'
+  ...
+# Subtest: prepared removal meshes do not replace inherited accepted stock
+ok 458 - prepared removal meshes do not replace inherited accepted stock
+  ---
+  duration_ms: 72.8615
+  type: 'test'
+  ...
+# Subtest: fixture bytes remain pinned synthetic data from the shared Python session
+ok 459 - fixture bytes remain pinned synthetic data from the shared Python session
+  ---
+  duration_ms: 22.297
+  type: 'test'
+  ...
+# Subtest: initial stock and physical catalogue come from pinned inputs
+ok 460 - initial stock and physical catalogue come from pinned inputs
+  ---
+  duration_ms: 53.3737
+  type: 'test'
+  ...
+# Subtest: pending and historical preview preserve saved cost and executable state distinction
+ok 461 - pending and historical preview preserve saved cost and executable state distinction
+  ---
+  duration_ms: 132.9329
+  type: 'test'
+  ...
+# Subtest: wrong source, stale acknowledgement and reordered candidate denominator refuse
+ok 462 - wrong source, stale acknowledgement and reordered candidate denominator refuse
+  ---
+  duration_ms: 113.7995
+  type: 'test'
+  ...
+# Subtest: altered preparation and false current-state claim cannot enable execution
+ok 463 - altered preparation and false current-state claim cannot enable execution
+  ---
+  duration_ms: 201.4473
+  type: 'test'
+  ...
+# Subtest: spacing aliases remain visible but do not duplicate candidate choices
+ok 464 - spacing aliases remain visible but do not duplicate candidate choices
+  ---
+  duration_ms: 202.7539
+  type: 'test'
+  ...
+# Subtest: broken aliases, duplicate proposals, changed order and missing preparation refuse
+ok 465 - broken aliases, duplicate proposals, changed order and missing preparation refuse
+  ---
+  duration_ms: 242.4614
+  type: 'test'
+  ...
+# Subtest: face owner replays acknowledged mutations and retains restore epochs
+ok 466 - face owner replays acknowledged mutations and retains restore epochs
+  ---
+  duration_ms: 81.6857
+  type: 'test'
+  ...
+# Subtest: face model loading waits for its compatible model contract
+ok 467 - face model loading waits for its compatible model contract
+  ---
+  duration_ms: 0.5526
+  type: 'test'
+  ...
+# Subtest: saved face preview has physical components and complete approach/descent/feed/retract endpoints
+ok 468 - saved face preview has physical components and complete approach/descent/feed/retract endpoints
+  ---
+  duration_ms: 168.991
+  type: 'test'
+  ...
+# Subtest: active face mesh has a central opening on every signed principal axis
+ok 469 - active face mesh has a central opening on every signed principal axis
+  ---
+  duration_ms: 158.8688
+  type: 'test'
+  ...
+# Subtest: face route refuses discontinuity and unknown profile instead of inventing a preview
+ok 470 - face route refuses discontinuity and unknown profile instead of inventing a preview
+  ---
+  duration_ms: 44.8623
+  type: 'test'
+  ...
+# Subtest: full reader binds all eight actual phases and inherited material
+ok 471 - full reader binds all eight actual phases and inherited material
+  ---
+  duration_ms: 1350.7353
+  type: 'test'
+  ...
+# Subtest: initial turning previews use saved action and proposed stock without inventing transfer paths
+ok 472 - initial turning previews use saved action and proposed stock without inventing transfer paths
+  ---
+  duration_ms: 225.2755
+  type: 'test'
+  ...
+# Subtest: checked suffix reuses physical face and drill preview readers
+ok 473 - checked suffix reuses physical face and drill preview readers
+  ---
+  duration_ms: 481.1723
+  type: 'test'
+  ...
+# Subtest: full view rejects unbound journal, contracts, preparation IDs and transfer context
+ok 474 - full view rejects unbound journal, contracts, preparation IDs and transfer context
+  ---
+  duration_ms: 271.7495
+  type: 'test'
+  ...
+# Subtest: full geometry and historical previews cannot claim a different accepted state
+ok 475 - full geometry and historical previews cannot claim a different accepted state
+  ---
+  duration_ms: 279.2681
+  type: 'test'
+  ...
+# Subtest: full inputs reject changed snapshot, unknown contracts and duplicated request family
+ok 476 - full inputs reject changed snapshot, unknown contracts and duplicated request family
+  ---
+  duration_ms: 50.5802
+  type: 'test'
+  ...
+# Subtest: full mill-turn owner retains explicit commands and epoch checks across worker recovery
+ok 477 - full mill-turn owner retains explicit commands and epoch checks across worker recovery
+  ---
+  duration_ms: 54.3712
+  type: 'test'
+  ...
+# Subtest: full mill-turn model load refuses before sending a worker command
+ok 478 - full mill-turn model load refuses before sending a worker command
+  ---
+  duration_ms: 0.7181
+  type: 'test'
+  ...
+# Subtest: display poses rotate about the declared offset spindle for X, Y and Z
+ok 479 - display poses rotate about the declared offset spindle for X, Y and Z
+  ---
+  duration_ms: 12.1077
+  type: 'test'
+  ...
+# Subtest: initial and post-cut indexed browser frames bind the acknowledged writer
+ok 480 - initial and post-cut indexed browser frames bind the acknowledged writer
+  ---
+  duration_ms: 1805.5694
+  type: 'test'
+  ...
+# Subtest: substituted pose, candidate bank, state and epoch are rejected
+ok 481 - substituted pose, candidate bank, state and epoch are rejected
+  ---
+  duration_ms: 2053.1195
+  type: 'test'
+  ...
+# Subtest: indexed owner replays restore and inline model uploads after cancellation
+ok 482 - indexed owner replays restore and inline model uploads after cancellation
+  ---
+  duration_ms: 28.4965
+  type: 'test'
+  ...
+# Subtest: large commands require explicit client opt-in and limits count UTF-8 bytes
+ok 483 - large commands require explicit client opt-in and limits count UTF-8 bytes
+  ---
+  duration_ms: 2.0922
+  type: 'test'
+  ...
+# (node:54684) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/LocalWork/AutoCAM/SBO_AutoCAM_Master/artifacts/module3-remediation-20261020/windows-clean-final/src/material-layers.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\windows-clean-final\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: stock alone starts as all initial material, including target and holding
+ok 484 - stock alone starts as all initial material, including target and holding
+  ---
+  duration_ms: 11.0533
+  type: 'test'
+  ...
+# Subtest: turn then mill inherits accepted material; preview never removes or restores cells
+ok 485 - turn then mill inherits accepted material; preview never removes or restores cells
+  ---
+  duration_ms: 2.3637
+  type: 'test'
+  ...
+# Subtest: overlay hiding reveals inherited stock; turning off stock isolates categories
+ok 486 - overlay hiding reveals inherited stock; turning off stock isolates categories
+  ---
+  duration_ms: 1.0002
+  type: 'test'
+  ...
+# Subtest: combined journal matches exact native records before and after machining
+ok 487 - combined journal matches exact native records before and after machining
+  ---
+  duration_ms: 2992.3574
+  type: 'test'
+  ...
+# Subtest: regional journal matches exact native records before and after machining
+ok 488 - regional journal matches exact native records before and after machining
+  ---
+  duration_ms: 2450.573
+  type: 'test'
+  ...
+# Subtest: objective journal matches exact native records before and after machining
+ok 489 - objective journal matches exact native records before and after machining
+  ---
+  duration_ms: 2089.8607
+  type: 'test'
+  ...
+# Subtest: indexed journal matches exact native records before and after machining
+ok 490 - indexed journal matches exact native records before and after machining
+  ---
+  duration_ms: 244.4101
+  type: 'test'
+  ...
+# Subtest: journal reader rejects forged configuration, head, stock and event associations
+ok 491 - journal reader rejects forged configuration, head, stock and event associations
+  ---
+  duration_ms: 4472.2007
+  type: 'test'
+  ...
+# Subtest: rebinding a tampered episode cannot add setup removal or detach writer decisions
+ok 492 - rebinding a tampered episode cannot add setup removal or detach writer decisions
+  ---
+  duration_ms: 6786.5779
+  type: 'test'
+  ...
+# Subtest: combined and indexed session downloads preserve records and recognize old runtimes
+ok 493 - combined and indexed session downloads preserve records and recognize old runtimes
+  ---
+  duration_ms: 2804.85
+  type: 'test'
+  ...
+# Subtest: indexed input rebinding cannot detach the initial machine and parked-tool journal
+ok 494 - indexed input rebinding cannot detach the initial machine and parked-tool journal
+  ---
+  duration_ms: 129.5248
+  type: 'test'
+  ...
+# Subtest: a late local file read cannot replace the accepted case after cancellation or unmount
+ok 495 - a late local file read cannot replace the accepted case after cancellation or unmount
+  ---
+  duration_ms: 2.5863
+  type: 'test'
+  ...
+# Subtest: new preparation wins even when its cancelled predecessor finishes later
+ok 496 - new preparation wins even when its cancelled predecessor finishes later
+  ---
+  duration_ms: 2.1578
+  type: 'test'
+  ...
+# Subtest: network abort and publication cancellation share one lifetime; stale cleanup preserves new job
+ok 497 - network abort and publication cancellation share one lifetime; stale cleanup preserves new job
+  ---
+  duration_ms: 0.6108
+  type: 'test'
+  ...
+# Subtest: failed replacement leaves the previous accepted case available for retry
+ok 498 - failed replacement leaves the previous accepted case available for retry
+  ---
+  duration_ms: 2.4677
+  type: 'test'
+  ...
+# Subtest: mixed source, both families, turning tools and inherited geometry bind to acknowledged state
+ok 499 - mixed source, both families, turning tools and inherited geometry bind to acknowledged state
+  ---
+  duration_ms: 331.2875
+  type: 'test'
+  ...
+# Subtest: both physical preview families use checked saved preparation and proposed material
+ok 500 - both physical preview families use checked saved preparation and proposed material
+  ---
+  duration_ms: 526.0834
+  type: 'test'
+  ...
+# Subtest: mixed view refuses changed contracts, configuration families, source and geometry
+ok 501 - mixed view refuses changed contracts, configuration families, source and geometry
+  ---
+  duration_ms: 139.1262
+  type: 'test'
+  ...
+# Subtest: mixed batch and preview refuse swapped family, altered saved preparation and forged state
+ok 502 - mixed batch and preview refuse swapped family, altered saved preparation and forged state
+  ---
+  duration_ms: 173.182
+  type: 'test'
+  ...
+# Subtest: compound-v1/episode retains exact native material
+ok 503 - compound-v1/episode retains exact native material
+  ---
+  duration_ms: 1109.6066
+  type: 'test'
+  ...
+# Subtest: compound-v1/initial-episode retains exact native material
+ok 504 - compound-v1/initial-episode retains exact native material
+  ---
+  duration_ms: 120.1253
+  type: 'test'
+  ...
+# Subtest: compound-v1/reset-episode retains exact native material
+ok 505 - compound-v1/reset-episode retains exact native material
+  ---
+  duration_ms: 171.3171
+  type: 'test'
+  ...
+# Subtest: compound-v2/episode retains exact native material
+ok 506 - compound-v2/episode retains exact native material
+  ---
+  duration_ms: 1005.5731
+  type: 'test'
+  ...
+# Subtest: compound-v2/initial-episode retains exact native material
+ok 507 - compound-v2/initial-episode retains exact native material
+  ---
+  duration_ms: 107.2041
+  type: 'test'
+  ...
+# Subtest: compound-v2/reset-episode retains exact native material
+ok 508 - compound-v2/reset-episode retains exact native material
+  ---
+  duration_ms: 177.5918
+  type: 'test'
+  ...
+# Subtest: compound-multi-prefix/initial retains exact native material
+ok 509 - compound-multi-prefix/initial retains exact native material
+  ---
+  duration_ms: 419.2672
+  type: 'test'
+  ...
+# Subtest: compound-multi-prefix/no-op retains exact native material
+ok 510 - compound-multi-prefix/no-op retains exact native material
+  ---
+  duration_ms: 273.1662
+  type: 'test'
+  ...
+# Subtest: compound-multi-prefix/reset retains exact native material
+ok 511 - compound-multi-prefix/reset retains exact native material
+  ---
+  duration_ms: 280.4539
+  type: 'test'
+  ...
+# Subtest: compound-rejected/initial retains exact native material
+ok 512 - compound-rejected/initial retains exact native material
+  ---
+  duration_ms: 187.0379
+  type: 'test'
+  ...
+# Subtest: compound-rejected/stale-no-op retains exact native material
+ok 513 - compound-rejected/stale-no-op retains exact native material
+  ---
+  duration_ms: 143.7907
+  type: 'test'
+  ...
+# Subtest: compound-rejected/stale-index retains exact native material
+ok 514 - compound-rejected/stale-index retains exact native material
+  ---
+  duration_ms: 107.3817
+  type: 'test'
+  ...
+# Subtest: compound-rejected/reset retains exact native material
+ok 515 - compound-rejected/reset retains exact native material
+  ---
+  duration_ms: 128.0118
+  type: 'test'
+  ...
+# Subtest: compound wrapper rejects detached inputs, prefix count and extra fields
+ok 516 - compound wrapper rejects detached inputs, prefix count and extra fields
+  ---
+  duration_ms: 2077.6441
+  type: 'test'
+  ...
+# Subtest: rebound ordinary exports cannot omit or alter accepted selections
+ok 517 - rebound ordinary exports cannot omit or alter accepted selections
+  ---
+  duration_ms: 5447.0137
+  type: 'test'
+  ...
+# Subtest: resealed configuration cannot transplant turning state or invent transfer removal
+ok 518 - resealed configuration cannot transplant turning state or invent transfer removal
+  ---
+  duration_ms: 4368.2428
+  type: 'test'
+  ...
+# Subtest: full/after-transfer retains exact native material
+ok 519 - full/after-transfer retains exact native material
+  ---
+  duration_ms: 175.1852
+  type: 'test'
+  ...
+# Subtest: full/after-turn retains exact native material
+ok 520 - full/after-turn retains exact native material
+  ---
+  duration_ms: 78.5031
+  type: 'test'
+  ...
+# Subtest: full/episode retains exact native material
+ok 521 - full/episode retains exact native material
+  ---
+  duration_ms: 988.9477
+  type: 'test'
+  ...
+# Subtest: full/initial-episode retains exact native material
+ok 522 - full/initial-episode retains exact native material
+  ---
+  duration_ms: 34.0024
+  type: 'test'
+  ...
+# Subtest: full/reset-episode retains exact native material
+ok 523 - full/reset-episode retains exact native material
+  ---
+  duration_ms: 29.534
+  type: 'test'
+  ...
+# Subtest: learning/episode retains exact native material
+ok 524 - learning/episode retains exact native material
+  ---
+  duration_ms: 4706.2929
+  type: 'test'
+  ...
+# Subtest: learning/initial-episode retains exact native material
+ok 525 - learning/initial-episode retains exact native material
+  ---
+  duration_ms: 43.2051
+  type: 'test'
+  ...
+# Subtest: learning/reset-episode retains exact native material
+ok 526 - learning/reset-episode retains exact native material
+  ---
+  duration_ms: 49.815
+  type: 'test'
+  ...
+# Subtest: full reader rejects rebound initial/suffix selections and phase substitutions
+ok 527 - full reader rejects rebound initial/suffix selections and phase substitutions
+  ---
+  duration_ms: 6468.3919
+  type: 'test'
+  ...
+# Subtest: learning reader binds selected branch, experiment and canonical record-string head
+ok 528 - learning reader binds selected branch, experiment and canonical record-string head
+  ---
+  duration_ms: 23276.3751
+  type: 'test'
+  ...
+# Subtest: compound/full/learning negotiate current capture and retain old-runtime behavior
+ok 529 - compound/full/learning negotiate current capture and retain old-runtime behavior
+  ---
+  duration_ms: 3504.9496
+  type: 'test'
+  ...
+# Subtest: learning reader binds all seven actual states to inherited stock and exact checked choices
+ok 530 - learning reader binds all seven actual states to inherited stock and exact checked choices
+  ---
+  duration_ms: 2754.3538
+  type: 'test'
+  ...
+# Subtest: learning previews preserve accepted stock and reuse turning, face and drill overlays
+ok 531 - learning previews preserve accepted stock and reuse turning, face and drill overlays
+  ---
+  duration_ms: 2239.3352
+  type: 'test'
+  ...
+# Subtest: learning wrappers reject stale states, incompatible inputs and tampered checked evaluations
+ok 532 - learning wrappers reject stale states, incompatible inputs and tampered checked evaluations
+  ---
+  duration_ms: 376.0055
+  type: 'test'
+  ...
+# Subtest: changed inference selections and preview material cannot be accepted as current choices
+ok 533 - changed inference selections and preview material cannot be accepted as current choices
+  ---
+  duration_ms: 810.6411
+  type: 'test'
+  ...
+# Subtest: actual nonzero MCTS traces bind checkpoint, selected action and complete root denominator
+ok 534 - actual nonzero MCTS traces bind checkpoint, selected action and complete root denominator
+  ---
+  duration_ms: 653.8298
+  type: 'test'
+  ...
+# Subtest: mixed learning recovery and capsule retain model, actions and epochs; inference is read only
+ok 535 - mixed learning recovery and capsule retain model, actions and epochs; inference is read only
+  ---
+  duration_ms: 33.5984
+  type: 'test'
+  ...
+# Subtest: canceling an unacknowledged mixed step restores only acknowledged model and stock history
+ok 536 - canceling an unacknowledged mixed step restores only acknowledged model and stock history
+  ---
+  duration_ms: 3.3706
+  type: 'test'
+  ...
+# Subtest: all mixed/full diagnostics bind inherited turning, face and drill states
+ok 537 - all mixed/full diagnostics bind inherited turning, face and drill states
+  ---
+  duration_ms: 2484.4695
+  type: 'test'
+  ...
+# Subtest: mixed transport rejects cross-family schema, candidate and acknowledged obstacle substitutions
+ok 538 - mixed transport rejects cross-family schema, candidate and acknowledged obstacle substitutions
+  ---
+  duration_ms: 271.8351
+  type: 'test'
+  ...
+# Subtest: full envelope rejects outer/inner stale identities, false phase and unknown diagnostics
+ok 539 - full envelope rejects outer/inner stale identities, false phase and unknown diagnostics
+  ---
+  duration_ms: 411.7403
+  type: 'test'
+  ...
+# Subtest: inspection does not replace the acknowledged material and restored geometry is identical
+ok 540 - inspection does not replace the acknowledged material and restored geometry is identical
+  ---
+  duration_ms: 777.9774
+  type: 'test'
+  ...
+# Subtest: strict default rejects retained adjacent-prior difference; explicit profile records it
+ok 541 - strict default rejects retained adjacent-prior difference; explicit profile records it
+  ---
+  duration_ms: 8.0669
+  type: 'test'
+  ...
+# Subtest: prior exception cannot hide decisions, rewards, visits, large integers, schemas or larger numerical drift
+ok 542 - prior exception cannot hide decisions, rewards, visits, large integers, schemas or larger numerical drift
+  ---
+  duration_ms: 3.8211
+  type: 'test'
+  ...
+# Subtest: every accepted prepared task schema has an explicit capability family
+ok 543 - every accepted prepared task schema has an explicit capability family
+  ---
+  duration_ms: 27.3928
+  type: 'test'
+  ...
+# Subtest: rational stays preparation-only while regional inference retains its exact runtime/model restrictions
+ok 544 - rational stays preparation-only while regional inference retains its exact runtime/model restrictions
+  ---
+  duration_ms: 0.7773
+  type: 'test'
+  ...
+# Subtest: unknown schemas and profiles remain unknown even with a recognized fallback kind
+ok 545 - unknown schemas and profiles remain unknown even with a recognized fallback kind
+  ---
+  duration_ms: 0.4188
+  type: 'test'
+  ...
+# Subtest: local trainers distinguish bundled mixed/task5/task6 routes from external model families
+ok 546 - local trainers distinguish bundled mixed/task5/task6 routes from external model families
+  ---
+  duration_ms: 1.5465
+  type: 'test'
+  ...
+# Subtest: registry rejects missing restrictions, ambiguous routes and missing stages
+ok 547 - registry rejects missing restrictions, ambiguous routes and missing stages
+  ---
+  duration_ms: 7.9298
+  type: 'test'
+  ...
+# Subtest: all family verification references resolve in the standalone checkout and state their evidence level
+ok 548 - all family verification references resolve in the standalone checkout and state their evidence level
+  ---
+  duration_ms: 131.2495
+  type: 'test'
+  ...
+# Subtest: comparison preserves stock bytes and runtime while separating scenario identity
+ok 549 - comparison preserves stock bytes and runtime while separating scenario identity
+  ---
+  duration_ms: 5.454
+  type: 'test'
+  ...
+# Subtest: comparison rejects changed geometry, action bank, rate or schema
+ok 550 - comparison rejects changed geometry, action bank, rate or schema
+  ---
+  duration_ms: 3.0384
+  type: 'test'
+  ...
+# Subtest: comparison rejects missing, negative and malformed estimates
+ok 551 - comparison rejects missing, negative and malformed estimates
+  ---
+  duration_ms: 2.5775
+  type: 'test'
+  ...
+# Subtest: drill retains native selected, initial, reset and restored material
+ok 552 - drill retains native selected, initial, reset and restored material
+  ---
+  duration_ms: 272.9258
+  type: 'test'
+  ...
+# Subtest: drill rejects detached identities, prefix and writer history
+ok 553 - drill rejects detached identities, prefix and writer history
+  ---
+  duration_ms: 752.9929
+  type: 'test'
+  ...
+# Subtest: drill-prefix retains native selected, initial, reset and restored material
+ok 554 - drill-prefix retains native selected, initial, reset and restored material
+  ---
+  duration_ms: 310.9259
+  type: 'test'
+  ...
+# Subtest: drill-prefix rejects detached identities, prefix and writer history
+ok 555 - drill-prefix rejects detached identities, prefix and writer history
+  ---
+  duration_ms: 582.6398
+  type: 'test'
+  ...
+# Subtest: face retains native selected, initial, reset and restored material
+ok 556 - face retains native selected, initial, reset and restored material
+  ---
+  duration_ms: 108.9528
+  type: 'test'
+  ...
+# Subtest: face rejects detached identities, prefix and writer history
+ok 557 - face rejects detached identities, prefix and writer history
+  ---
+  duration_ms: 599.0558
+  type: 'test'
+  ...
+# Subtest: face-prefix retains native selected, initial, reset and restored material
+ok 558 - face-prefix retains native selected, initial, reset and restored material
+  ---
+  duration_ms: 306.8781
+  type: 'test'
+  ...
+# Subtest: face-prefix rejects detached identities, prefix and writer history
+ok 559 - face-prefix rejects detached identities, prefix and writer history
+  ---
+  duration_ms: 538.0635
+  type: 'test'
+  ...
+# Subtest: drill and face negotiate optional capture and preserve ordinary decisions
+ok 560 - drill and face negotiate optional capture and preserve ordinary decisions
+  ---
+  duration_ms: 189.5966
+  type: 'test'
+  ...
+# Subtest: valid data uses exact bytes, relative assets and successful-case caching
+ok 561 - valid data uses exact bytes, relative assets and successful-case caching
+  ---
+  duration_ms: 94.352
+  type: 'test'
+  ...
+# Subtest: same-sized corruption is rejected by SHA-256
+ok 562 - same-sized corruption is rejected by SHA-256
+  ---
+  duration_ms: 8.5113
+  type: 'test'
+  ...
+# Subtest: truncated download is rejected by byte size
+ok 563 - truncated download is rejected by byte size
+  ---
+  duration_ms: 17.5994
+  type: 'test'
+  ...
+# Subtest: valid hash does not bypass JSON or schema checks
+ok 564 - valid hash does not bypass JSON or schema checks
+  ---
+  duration_ms: 17.627
+  type: 'test'
+  ...
+# Subtest: failed requests are retryable and never cached as success
+ok 565 - failed requests are retryable and never cached as success
+  ---
+  duration_ms: 46.1142
+  type: 'test'
+  ...
+# Subtest: aborted loading cannot fill the successful cache
+ok 566 - aborted loading cannot fill the successful cache
+  ---
+  duration_ms: 38.2281
+  type: 'test'
+  ...
+# Subtest: unknown cases and non-HTTP protocols are rejected
+ok 567 - unknown cases and non-HTTP protocols are rejected
+  ---
+  duration_ms: 5.953
+  type: 'test'
+  ...
+# Subtest: catalog identities and mask dimensions must be consistent
+ok 568 - catalog identities and mask dimensions must be consistent
+  ---
+  duration_ms: 1.2408
+  type: 'test'
+  ...
+# Subtest: bundled provider selects cases without network or modifying source data
+ok 569 - bundled provider selects cases without network or modifying source data
+  ---
+  duration_ms: 0.7773
+  type: 'test'
+  ...
+# Subtest: all six original faces match independent exact nominal patch samples
+ok 570 - all six original faces match independent exact nominal patch samples
+  ---
+  duration_ms: 125.2134
+  type: 'test'
+  ...
+# Subtest: source face mapping is independent of inventory order and rejects inconsistent roles
+ok 571 - source face mapping is independent of inventory order and rejects inconsistent roles
+  ---
+  duration_ms: 204.6498
+  type: 'test'
+  ...
+# Subtest: retained analytic face mesh bytes are unchanged
+ok 572 - retained analytic face mesh bytes are unchanged
+  ---
+  duration_ms: 92.0321
+  type: 'test'
+  ...
+# Subtest: actual completed tube view binds refined profile to acknowledged step
+ok 573 - actual completed tube view binds refined profile to acknowledged step
+  ---
+  duration_ms: 356.546
+  type: 'test'
+  ...
+# Subtest: view rejects substituted report profiles
+ok 574 - view rejects substituted report profiles
+  ---
+  duration_ms: 370.2963
+  type: 'test'
+  ...
+# Subtest: machining transport binds policy2 to returned completion profile
+ok 575 - machining transport binds policy2 to returned completion profile
+  ---
+  duration_ms: 88.859
+  type: 'test'
+  ...
+# Subtest: rebuilding replaces the complete generated tree and removes obsolete manual/example files
+ok 576 - rebuilding replaces the complete generated tree and removes obsolete manual/example files
+  ---
+  duration_ms: 82.717
+  type: 'test'
+  ...
+# Subtest: failed builds preserve the previous release and remove only their own staging tree
+ok 577 - failed builds preserve the previous release and remove only their own staging tree
+  ---
+  duration_ms: 63.0166
+  type: 'test'
+  ...
+# Subtest: build publication refuses repository inputs, unowned directories and unexpected output files
+ok 578 - build publication refuses repository inputs, unowned directories and unexpected output files
+  ---
+  duration_ms: 28.5768
+  type: 'test'
+  ...
+# Subtest: an explicit external build destination remains supported
+ok 579 - an explicit external build destination remains supported
+  ---
+  duration_ms: 17.9756
+  type: 'test'
+  ...
+# Subtest: Python selection uses explicit override, declared environment, then platform venv
+ok 580 - Python selection uses explicit override, declared environment, then platform venv
+  ---
+  duration_ms: 465.5323
+  type: 'test'
+  ...
+# Subtest: verification rejects unignored in-checkout receipts before writing and accepts ignored/external new directories
+ok 581 - verification rejects unignored in-checkout receipts before writing and accepts ignored/external new directories
+  ---
+  duration_ms: 594.0101
+  type: 'test'
+  ...
+# Subtest: both packaged fixture groups extract exact bytes into distinct fresh runs
+ok 582 - both packaged fixture groups extract exact bytes into distinct fresh runs
+  ---
+  duration_ms: 853.1981
+  type: 'test'
+  ...
+# Subtest: corrupt, incomplete, escaping and misbound fixture transports never produce a receipt
+ok 583 - corrupt, incomplete, escaping and misbound fixture transports never produce a receipt
+  ---
+  duration_ms: 2347.8473
+  type: 'test'
+  ...
+# Subtest: all 21 real-worker inspections bind current saved state and remain diagnostics
+ok 584 - all 21 real-worker inspections bind current saved state and remain diagnostics
+  ---
+  duration_ms: 1393.4086
+  type: 'test'
+  ...
+# Subtest: exact frontend predicates match 9720 native cells and points across all bearings and modes
+ok 585 - exact frontend predicates match 9720 native cells and points across all bearings and modes
+  ---
+  duration_ms: 1270.7286
+  type: 'test'
+  ...
+# Subtest: whole-cell overlays preserve accepted stock and exclude no stationary material by subtraction
+ok 586 - whole-cell overlays preserve accepted stock and exclude no stationary material by subtraction
+  ---
+  duration_ms: 2969.8007
+  type: 'test'
+  ...
+# Subtest: reader rejects changed context, bearing, stock, authority and shadow operands
+ok 587 - reader rejects changed context, bearing, stock, authority and shadow operands
+  ---
+  duration_ms: 205.6539
+  type: 'test'
+  ...
+# Subtest: reconstruction refuses rehashed cutout witnesses, off-axis round solids and malformed empty unions
+ok 588 - reconstruction refuses rehashed cutout witnesses, off-axis round solids and malformed empty unions
+  ---
+  duration_ms: 28.4891
+  type: 'test'
+  ...
+# Subtest: axis contact stays a closed line with no interior and is refused by material codec
+ok 589 - axis contact stays a closed line with no interior and is refused by material codec
+  ---
+  duration_ms: 2.9548
+  type: 'test'
+  ...
+# Subtest: expression budgets reject deep and broad forged shadows
+ok 590 - expression budgets reject deep and broad forged shadows
+  ---
+  duration_ms: 1.0214
+  type: 'test'
+  ...
+# Subtest: stationary material surfaces retain occupied shadow locations and never inflate axis contact
+ok 591 - stationary material surfaces retain occupied shadow locations and never inflate axis contact
+  ---
+  duration_ms: 110.966
+  type: 'test'
+  ...
+# Subtest: display rejects rehashed forged stationary geometry or authorization
+ok 592 - display rejects rehashed forged stationary geometry or authorization
+  ---
+  duration_ms: 124.2124
+  type: 'test'
+  ...
+# Subtest: transition download preserves exact integer and historical float bytes
+ok 593 - transition download preserves exact integer and historical float bytes
+  ---
+  duration_ms: 20.8093
+  type: 'test'
+  ...
+# Subtest: transition download rejects changed bindings, bytes, chain and claims
+ok 594 - transition download rejects changed bindings, bytes, chain and claims
+  ---
+  duration_ms: 12.8603
+  type: 'test'
+  ...
+# Subtest: rehashed reordered or substituted evidence cannot detach from accepted material
+ok 595 - rehashed reordered or substituted evidence cannot detach from accepted material
+  ---
+  duration_ms: 4.221
+  type: 'test'
+  ...
+# Subtest: session export is read-only and keeps one operation lock
+ok 596 - session export is read-only and keeps one operation lock
+  ---
+  duration_ms: 8.0468
+  type: 'test'
+  ...
+# Subtest: canceled transition download cannot return stale bytes; recovery is exact
+ok 597 - canceled transition download cannot return stale bytes; recovery is exact
+  ---
+  duration_ms: 4.7541
+  type: 'test'
+  ...
+# Subtest: old archives hide capability without swallowing other errors
+ok 598 - old archives hide capability without swallowing other errors
+  ---
+  duration_ms: 1.9581
+  type: 'test'
+  ...
+# Subtest: all five real-worker turning projections bind the current saved candidate and stock
+ok 599 - all five real-worker turning projections bind the current saved candidate and stock
+  ---
+  duration_ms: 639.4927
+  type: 'test'
+  ...
+# Subtest: 45 exact reconstructed projections and 5625 closed/interior native queries agree
+ok 600 - 45 exact reconstructed projections and 5625 closed/interior native queries agree
+  ---
+  duration_ms: 602.5109
+  type: 'test'
+  ...
+# Subtest: whole material cells preserve native accepted-history bounds
+ok 601 - whole material cells preserve native accepted-history bounds
+  ---
+  duration_ms: 316.2735
+  type: 'test'
+  ...
+# Subtest: reader rejects changed candidate, source, mode, radius, state, context and authority
+ok 602 - reader rejects changed candidate, source, mode, radius, state, context and authority
+  ---
+  duration_ms: 145.3421
+  type: 'test'
+  ...
+# Subtest: exact reconstruction rejects forged bore/facing operands and disappearing witnesses
+ok 603 - exact reconstruction rejects forged bore/facing operands and disappearing witnesses
+  ---
+  duration_ms: 19.7279
+  type: 'test'
+  ...
+# Subtest: squared-radius operands stay outside the material geometry reader
+ok 604 - squared-radius operands stay outside the material geometry reader
+  ---
+  duration_ms: 1.2997
+  type: 'test'
+  ...
+# Subtest: ring display distinguishes outside radial shadow from facing without changing stock
+ok 605 - ring display distinguishes outside radial shadow from facing without changing stock
+  ---
+  duration_ms: 165.4284
+  type: 'test'
+  ...
+# Subtest: display rechecks projection geometry even if a forged request is rehashed
+ok 606 - display rechecks projection geometry even if a forged request is rehashed
+  ---
+  duration_ms: 74.3889
+  type: 'test'
+  ...
+# Subtest: declared test selection rejects missing files, directories, duplicates and command options
+ok 607 - declared test selection rejects missing files, directories, duplicates and command options
+  ---
+  duration_ms: 24.3035
+  type: 'test'
+  ...
+# Subtest: mill-turn workflow shares stock, ignores the old step cap, and terminates globally
+ok 608 - mill-turn workflow shares stock, ignores the old step cap, and terminates globally
+  ---
+  duration_ms: 3.9849
+  type: 'test'
+  ...
+# Subtest: workflow rejects a zero-removal repeat while other actions remain
+ok 609 - workflow rejects a zero-removal repeat while other actions remain
+  ---
+  duration_ms: 0.9502
+  type: 'test'
+  ...
+1..609
+# tests 609
+# suites 0
+# pass 609
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 136086.2472

@@ -16,22 +16,34 @@ async function trainingGuide(raw,expectedSchema){
 This guide belongs to your last downloaded shadow-gym-decisions.json.
 SHA-256: ${hash}
 
-From an AutoCAM Python checkout with its local training dependencies available,
-run the following in PowerShell. Set the episode path to the file you saved;
-your browser may have added a number to its name. Use a new output directory.
+From the standalone AutoCAM_UI repository, install Python 3.12 and the dependencies
+in python/requirements.txt as described in docs/INSTALLATION.md. Activate that
+environment, then run the following from the repository root. Set the episode
+path to your saved file; your browser may have added a number to its name. Use a
+new output directory. No parent AutoCAM checkout or PYTHONPATH setting is needed.
 
 \`\`\`powershell
-$env:PYTHONPATH = 'src;artifacts/shadow-gym/adaptive-delta/training-deps'
-python -B tools/shadow_gym/train_recorded_remaining.py \`
-  --episode 'D:/path/to/shadow-gym-decisions.json' \`
+python -B python/train_recorded_remaining.py \`
+  --episode 'downloads/shadow-gym-decisions.json' \`
   --expected-sha256 ${hash} \`
-  --output artifacts/shadow-gym/adaptive-delta/my-task${version}-training
+  --output results/my-task${version}-training
+\`\`\`
+
+On Linux/macOS, the equivalent single-line command is:
+
+\`\`\`sh
+python -B python/train_recorded_remaining.py --episode 'downloads/shadow-gym-decisions.json' --expected-sha256 ${hash} --output results/my-task${version}-training
 \`\`\`
 
 The local trainer replays the recorded episode before updating weights. It
-writes checkpoint.json and training.json and retains the original decisions.
+writes checkpoint.json, training.json and summary.json and retains the original
+decisions and input identities. By default training starts from zero weights;
+it does not reuse a model mentioned in the episode. To continue a compatible
+checkpoint, supply both --initial-checkpoint and --initial-checkpoint-sha256.
 Load checkpoint.json using "Load model weights" in a compatible task-${version} Gym,
-then use "Run model" or "Run model + MCTS". Training does not run in the browser.
+then use "Run model" or "Run model + MCTS". Each button selects and immediately
+applies one checked action. Training does not run in the browser. Checkpoints
+from mixed learning or another task family are not interchangeable.
 
 One demonstration does not establish policy quality. Keep training and held-out
 evaluation data separate; a file used for training is not held-out evidence for

@@ -36,6 +36,7 @@ function inventory(root,source){
     }
   }
   walk(source,'ui_source');walk(path.join(root,'scripts'),'build_scripts');
+  if(fs.existsSync(path.join(root,'config')))walk(path.join(root,'config'),'capability_configuration');
   for(const name of ['package.json','package-lock.json','site.config.json','index.html'])add(path.join(root,name),name);
   add(path.join(root,'node_modules/esbuild/package.json'),'installed/esbuild/package.json');
   return entries.sort((a,b)=>a.label<b.label?-1:a.label>b.label?1:0);

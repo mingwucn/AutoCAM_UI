@@ -1,0 +1,23 @@
+{
+  "schema": "module3-build-correction-summary-1",
+  "status": "passed",
+  "source_commit": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+  "preceding_full_19_step_source": "d97adaded7f1e094f562c7759cdc2291e3db4128",
+  "change": "Only exclude the output-root build manifest; retain nested evidence manifests.",
+  "platforms": [
+    "windows",
+    "linux"
+  ],
+  "targeted_tests_per_platform": 12,
+  "release_tests_per_platform": 13,
+  "consecutive_release_builds_per_platform": 2,
+  "files_checked_per_build": 296,
+  "same_source_bytes_on_both_platforms": true,
+  "source_files": 1789,
+  "windows": "build-correction/windows/result.json",
+  "linux": "build-correction/linux/result.json",
+  "runtime_asset_comparison": "build-correction/windows/runtime-asset-comparison.json",
+  "full_training_rerun": false,
+  "human_acceptance": "not_performed",
+  "public_deployment": "not_performed"
+}

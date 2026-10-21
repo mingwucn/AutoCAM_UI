@@ -13,3 +13,9 @@ core/brep/**/__pycache__/
 .cache/allowance-fixtures/
 
 .cache/shadow-fixtures/
+
+.venv/
+runs/
+.verification/
+results/
+python/**/__pycache__/

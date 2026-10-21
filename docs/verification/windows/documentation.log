@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "files": 32,
+  "local_links_checked": 114,
+  "errors": [],
+  "historical_source_snapshots_not_standalone_instructions": [
+    "docs/training-contracts/CLEARED_HOLDER_TRAINING.md",
+    "docs/training-contracts/CYLINDRICAL_TRAINING_RUNBOOK.md",
+    "docs/training-contracts/R5_MIXED_LOCAL_TRAINING_CONTRACT.md",
+    "docs/training-contracts/RECORDED_REGIONAL_TRAINING_CONTRACT.md",
+    "docs/training-contracts/REGIONAL_COMPLETION_OBJECTIVE_V3_CONTRACT.md",
+    "docs/training-contracts/REGIONAL_OBJECTIVE_INFERENCE_CONTRACT.md",
+    "docs/training-contracts/REMAINING_RECORDED_TRAINING.md"
+  ]
+}

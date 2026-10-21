@@ -1,0 +1,251 @@
+# AutoCAM Shadow Gym
+
+This retained developer reference describes the original V1 source and its
+historical publishing workflow. For the remediation candidate use
+[installation](INSTALLATION.md), [current capabilities](CAPABILITIES.md),
+[training families](TRAINING_FAMILIES.md) and
+[verification status](VERIFICATION_STATUS.md). Historical test counts and
+publication statements below are not fresh candidate verification.
+
+Interactive React explorer for direction and finite tool reach in milling and
+axis-based turning. Five cases include simple shapes and parts 3-29-00350 and
+3-29-00289. The theme uses KU Leuven blue `#004070`.
+
+The teaching catalogue uses an experimental voxel shadow model. The separate
+adaptive STEP workflow uses the shared Python material model in the browser.
+Neither workflow is a qualified machining or toolpath simulator. React owns controls and session state; the existing
+Three.js renderer and numerical model retain their original behavior.
+
+## Develop
+
+Use Node 24 and run `npm ci`, then `npm run dev`. Open the printed localhost
+URL. Reload after editing; the development server rebuilds on each page load.
+Run `npm run build` for the standalone site in `dist/`.
+
+`site.config.json` pins the public AutoCAM_Data catalog to an exact commit.
+Cases load on demand, with SHA-256 verification, cancellation and caching.
+Use `?case=industrial_00289&process=turning#gym` for a direct link.
+An optional `?data=https://.../catalog.json` selects another compatible catalog.
+Data hosting must permit cross-origin requests. Curated geometry is packed
+voxel data inside each case JSON; no separate CAD download is needed.
+
+Simple cases provide report-authored teaching sequences. Industrial cases use
+one shared stock across a mill-turn workflow: the baseline greedily applies
+positive-removal Turning actions first, then Milling actions, preferring shorter
+reach and action ID on ties. Users may switch process without resetting stock.
+There is no fixed action limit, and zero-removal actions are disabled.
+
+The standalone site also accepts a local `.step` or `.stp` file. The file is
+read inside a Web Worker and is never uploaded. The user selects voxel pitch,
+cylindrical stock allowance, tool reaches, spindle axis, held end and holding
+length. Browser OpenCascade imports and classifies the solid, while
+`core/src/shadow_core.cpp` computes Turning and Milling actions over the same
+stock and grid. The generated baseline turns first and then mills. That same C++ source builds as the
+native library used by the parent repository's Python adapter and as the
+browser WebAssembly module. Local preparations are experimental voxel models.
+
+## Verify
+
+`npm test` expands the committed gzip fixtures into a fresh ignored cache,
+checks compressed and raw SHA-256 hashes and sizes, and runs every selected unit
+test. Missing fixtures, failed tests, skips or cancellations fail the command.
+These are the unchanged synthetic native/browser fixtures from the parent
+project's `packaged-node-regression-02` verification, with provenance recorded
+in `tests/fixtures/adaptive/manifest.json`. They are test data and are not copied
+into the website. No parent checkout or Python installation is needed.
+`npm run test:unit` is the raw test list for developers supplying their own
+fixture environment; use `npm test` for the complete CI check.
+
+Run `npm test`, `npm run test:core-wasm`, `npm run test:step-import`,
+`node scripts/fetch-test-data.mjs`, `npm run test:parity`,
+`npx playwright install chromium`, `npm run build`, `npm run test:browser`,
+and `npm run test:step-upload`.
+Windows browser tests use installed Edge; Linux uses Playwright Chromium.
+The reference corpus has 916 fixtures. Browser tests exercise all seven
+case/process combinations, replay, holding restrictions and asynchronous loads.
+The upload test prepares generated box, overhang and stepped-shaft STEP solids,
+applies milling and turning actions, checks protected material, and verifies
+that no request contains the local file. It also covers invalid input, the
+cell bound, cancellation and stale-result rejection. Set
+`AUTOCAM_STEP_FIXTURES` to a JSON array of `{path, process, pitch, axis}` rows
+to exercise private or parent-repository industrial fixtures locally.
+
+## Offline report embed
+
+Run `npm run build:embed -- --out PATH`. Include its assets in a page with
+`<div id="shadow-gym-root"></div>`. Load the original bundled dataset as
+`window.SHADOW_DATA` before `assets/model.js`, `assets/view.js`, then
+`assets/app.js`. Link `assets/style.css`. The bundled provider uses no network.
+The parent AutoCAM repository owns report prose, figures and export scripts.
+
+## Publish and update
+
+GitHub Pages uses the Actions workflow and publishes only `dist/`. Main-branch
+deployments follow provider, parity and browser checks. In repository Settings
+Ã¢â€ â€™ Pages, select GitHub Actions as the source.
+
+Publish a new data commit first, then update `dataCommit` and `catalogUrl`
+together and rerun verification. Commit and push the UI; the parent repository
+then records that UI commit in its submodule. Roll back by reverting the UI
+commit (including its data pin), redeploying, and restoring the parent gitlink.
+Keep data commits referenced by published UI revisions available.
+
+### Optional adaptive runtime releases
+
+`npm run build:release` verifies and stages any configured adaptive releases
+before calling the normal builder. With no release fields it builds as before.
+The Pages workflow uses this command for both reproducibility builds.
+
+Optional `site.config.json` fields `adaptiveRuntimeRelease` and
+`adaptiveCadRelease` each take exactly `{ "url": "...", "sha256": "..." }`.
+Use a public HTTPS URL such as
+`https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/<commit>/releases/<name>/release.json`
+and the SHA-256 of those exact index bytes. Keep `<commit>` immutable. Each
+index lists relative asset paths, sizes and hashes under schema
+`autocam-ui-assets-1`; all files must remain next to the index at those paths.
+Missing or changed files fail the build. Downloads go into `.cache/releases/`.
+They happen during the build; visitors receive the verified assets from Pages.
+
+From a passed local package with a pinned `index.json`, export its declared
+runtime closure with:
+
+```powershell
+node scripts/export-runtime-release.mjs --package PATH --index-sha256 SHA256 --out NEW_DIRECTORY
+```
+
+The command prints the `release.json` hash and excludes outer producer logs and
+diagnostic checkpoints. It preserves declared runtime bytes, including Python
+runtime source in the archive. Review and publish the exported directory to the
+data repository before selecting its URL/hash in the UI configuration. A
+successful export is not geometry or policy qualification. The complete case
+catalogue and local STEP preparation still need combined release verification.
+This release selects the ordered adaptive catalogue and companion local STEP
+preparation package while retaining the original v1 report datasets.
+
+For local development, `npm run build -- --adaptive-assets PATH` still works.
+The release command rejects conflicting configured and explicit asset paths.
+Run `npm run test:release` to check transport integrity and rejection behavior.
+
+Third-party license notices are included in built assets. `private: true` in
+package.json prevents accidental npm publication; this Git repository is public.
+
+### Local STEP finishing allowance
+
+Set Finishing allowance separately from the starting stock margin. The current
+profile supports positive allowance for axis-aligned planar solids, complete
+principal-frame spheres and coaxial cylindrical parts, including through-bores.
+General CAD remains unsupported by this bounded preparation profile.
+The reserve remains attached to the geometry during indexed workpiece rotation.
+A setup whose turning allowance or planar standoff conflicts with the reserve
+is rejected. The app does not change the supplied machining requirements.
+
+The new CAD package supplies both preparation and inference for uploaded STEP
+tasks. The existing ordered synthetic catalogue retains its original runtime.
+This is an experimental geometric simulator, not a manufacturing-qualified
+planner. Training stays local. Regional-completion tasks currently support
+manual actions and recordings; their model-inference controls remain disabled.
+
+`npm test` expands and verifies the five allowance fixtures into a fresh ignored
+cache, alongside the existing test fixtures. It requires no parent-repository
+artifacts or environment settings. `npm run test:release` includes corrupted
+fixture and unsafe membership rejection checks. Test fixtures are not deployed.
+
+Inspection uploads also verify all five reported volume intervals against the
+recorded sparse cells and removal coverage using exact integer arithmetic.
+Changed summaries reject even when the outer checksum is recomputed. This
+checks internal consistency; it does not replace native geometry or replay
+verification. The standalone launcher rejects missing declared test files
+before extracting fixtures or running tests.
+
+### Original face inspection before machining
+
+Choose Complete principal-frame sphere for a supported spherical STEP solid.
+After preparing stock, select an adaptive cell and choose Load original CAD
+faces. The shared Python code checks exact closed-cell contact with the original
+nominal face; display triangles and finishing allowance do not define that test.
+The result can be empty, and contact does not prove tool access. Highlight all
+touching faces, choose one face, hide the overlay or cancel a running query.
+
+Sphere uploads support stock preparation, inspection and outside-envelope
+turning through the machining setup form. Supply a machine/tool setup and
+roughing requirements, then open the live gym to apply and record actions.
+Curved-surface finishing is not available yet, and material can remain after
+roughing. The nominal construction keeps original
+import tolerances unchanged; it does not repair industrial CAD or establish
+manufacturing qualification. Files stay in the browser.
+
+## Finite drilling and face milling examples
+
+The adaptive catalogue includes six synthetic tool examples, its two existing
+indexed examples, and two fixture-shadow demonstrations (box and round blockers).
+Start with
+drilling or face milling, then use
+the full sequence to turn the initial stock, transfer, index the workpiece,
+face mill, exchange tools and drill. Choices are finite physical assemblies,
+including short and long variants.
+
+A saved face preview shows the cutting band, carrier, arbor, holder and fixed
+obstacles. All five controls start on; select a motion segment to inspect its
+occupied sweep. Drilling separates usable reach from cutting length, including
+for rejected short tools. These displays preserve accepted stock and recorded
+actions. They are diagnostic geometry, not additional clearance certificates.
+
+The shadow demonstrations show material occluded by box and round fixtures
+above the stock. Their rejected candidates cannot execute. **In shadow** and **Unresolved shadow
+cells** start on and can be toggled independently. Hide assembly components
+and click **Home view** to inspect the stock more closely. Toggling layers
+preserves the camera, stock and downloaded actions. The purple surface is a
+display approximation of point-ray shadow; yellow cells remain unresolved.
+The analytic profile supports boxes, spheres, principal cylinders and their
+unions along six signed principal engagement directions, with checked frame
+transforms. Curved shadows use the original analytic dimensions; the display
+mesh is not a clearance certificate. Unsupported annular, oblique or general
+CAD geometry is explicitly unavailable, not clear.
+
+The synthetic learning example loads its compatible checkpoint, suggests with
+the policy or MCTS, and downloads accepted decisions. Training runs locally.
+The checkpoint and costs are experimental, not an industrial optimum.
+Rational STEP preparation supports the selected nominal prism profile;
+arbitrary STEP machining remains outside the supported profiles.
+
+## Through-bore shadow inspection
+
+The annular profile adds exact point-shadow diagnostics for one coaxial through
+bore in a principal-axis cylinder. The axial illustration leaves the bore
+centre open; the transverse illustration shows its upstream wall blocking it.
+The two fixture demonstrations follow all ten existing examples. They preserve
+stock, tool choices and action downloads, and remain rejected for machining.
+
+The checked reader binds each result to the saved candidate and accepted stock.
+Finite-tool and holder clearance remain separate checks. Blind/eccentric holes,
+oblique axes and general CAD shadows are outside this profile. Display meshes
+are approximations; unresolved cells remain explicit.
+
+## Turning shadow inspection
+
+The full mill-turn example offers Inspect turning shadow before preparation and
+after an accepted turning cut. Results bind to the candidate, spindle, mounted
+setup and current accepted stock. The shared Python diagnostic includes bounded
+fixed-bearing stationary obstacles in an identity setup. Display meshes are
+approximations. In shadow and Unresolved shadow cells have independent default-on
+controls. Axis-only contacts have zero volume and are reported without solid
+surfaces. Inspection never prepares, executes or records a machining action.
+Transfer candidates cannot request it. All twelve examples remain available.
+
+An older runtime falls back only for an unsupported operation and explicitly
+reports stationary obstacles as unassessed. Unsupported geometry or setup remains
+unavailable. Point shadow does not certify finite-tool access or whole-machine
+collision. General stationary CAD and oblique/nonidentity setups remain outside
+this profile. Earlier immutable releases remain available.
+
+## Original CAD face inspection
+
+STEP preparation retains a checked import record with original face indices,
+types, orientations, placements and source/importer hashes. Download the record
+from the upload view or the machining gym. Selected-cell references preserve
+proven intersections and unresolved candidates. Rational nominal faces support
+single/all/off highlights. Display meshes are approximations; these read-only
+records do not certify tool access or stable face naming across imports.
+
+All twelve catalogue cases and their runtime remain unchanged. The updated CAD
+archive is used only for uploaded STEP preparation and its machining gym.

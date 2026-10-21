@@ -1,0 +1,75 @@
+{
+  "schema": "autocam-workflow-input-fixtures-1",
+  "purpose": "Original synthetic planar upload fixture. Rectilinear profile, cylinder stock, margin 2.5 mm, Z axis, depth 6, zero finishing allowance. Setup and policy are exact prior task inputs, not inferred resources.",
+  "owner": {
+    "path": "docs/proposals/DOC-SGYM-002/codex-20260906-01/CAD_MACHINING_BROWSER_CONTRACT.md",
+    "sha256": "a90a0ef370a795d9330cd166a9827968333b912b6308df5666739aaa0e7f149f"
+  },
+  "files": [
+    {
+      "path": "box.step",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/source/box.step",
+      "sha256": "5cda26bfd8c4f90b819849cc971e6c6317cb937d84b69c321c53438cc148043f",
+      "size_bytes": 15418,
+      "gzip_sha256": "a56fb2002065800185cc1caf010a883e2a0326759726b0f7748e8de7bf461954",
+      "gzip_size_bytes": 3387
+    },
+    {
+      "path": "setup.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/source/setup.json",
+      "sha256": "767f1672629937a81a2c4d752eb8132f440d3378154b03b531549451eaf81f76",
+      "size_bytes": 4753,
+      "gzip_sha256": "48bc6941f4b63afab268072e81ba351054ab8b66e2060aa201cf394838339c38",
+      "gzip_size_bytes": 1124
+    },
+    {
+      "path": "policy.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/source/policy.json",
+      "sha256": "ceb41aa5f8abde51a8509f318969f09a771f5d2ab606ede2f60f18b0fe6f6476",
+      "size_bytes": 541,
+      "gzip_sha256": "ca788cfe57b5229a95fa295bb84552a7c13f09295d922b79aa2d1ba06a541543",
+      "gzip_size_bytes": 306
+    },
+    {
+      "path": "expected/final-completion.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/native/final-completion.json",
+      "sha256": "ff239816e78a77082fadc766048d5b949f9d98dbc81edf254e04e912e4920c41",
+      "size_bytes": 1489,
+      "gzip_sha256": "22199993e8a0b2e7fdb682ad51fbb06ddd30b5be1bf99eca96d7eade41ce8d72",
+      "gzip_size_bytes": 651
+    },
+    {
+      "path": "expected/checks.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/native/checks.json",
+      "sha256": "b201519c7ac0bf84e1b342b34041ffdc8c23363500e753fefb2dd7ddba287767",
+      "size_bytes": 1413,
+      "gzip_sha256": "a5a96839c38968b222af0c4d13c63cde4f010ff74092f760aa3ade954b7fee46",
+      "gzip_size_bytes": 873
+    },
+    {
+      "path": "expected/stock-proposal.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/native/stock-proposal.json",
+      "sha256": "f294aa7689a4af7dc6f57c20022c9636fcc25a79efd58ce2ed301c4ca4f43459",
+      "size_bytes": 287,
+      "gzip_sha256": "09d1ed16970d9fb69ecfd5045b2c952de690f1581b6cd6615dfff9c366aa3c6c",
+      "gzip_size_bytes": 210
+    },
+    {
+      "path": "expected/preparation.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/native/preparation.json",
+      "sha256": "eba5366e2716cb6c6fa1873fb26f15886022405bd3d5f9e3037a17555523343b",
+      "size_bytes": 11037,
+      "gzip_sha256": "b326de9f7664506f821748639615b18355b7b0b272b034e90a11cd7f10ff90b6",
+      "gzip_size_bytes": 2528
+    },
+    {
+      "path": "expected/configuration.json",
+      "source": "artifacts/shadow-gym/adaptive-delta/cad-machining-ui-02/native/configuration.json",
+      "sha256": "fe67c74f170ec66cfef9e750adde3b8a45854977a65f4f68f0bd07ec0afa867a",
+      "size_bytes": 9363,
+      "gzip_sha256": "0bcd05fa06eeb79f8b0ec599eba0549ce0e201228f014293b07ca02574b7b7e8",
+      "gzip_size_bytes": 1855
+    }
+  ],
+  "expected_interpretation": "Original finite native software reference: six actions, completed regional bounds and nonzero remaining-volume interval. Completion is the declared policy threshold, not an empty-stock or manufacturing-quality claim."
+}

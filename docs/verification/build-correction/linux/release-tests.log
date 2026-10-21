@@ -1,0 +1,25 @@
+
+> shadow-gym-react-explorer@1.1.0-rc.1 test:release
+> node --test tests/release-assets.test.mjs tests/adaptive-model-assets.test.mjs tests/test-fixtures.test.mjs tests/allowance-fixtures.test.mjs tests/cad-rational-assets.test.mjs
+
+✔ declared model survives build and release; unlisted diagnostics stay out; bad model references reject (44.178783ms)
+✔ allowance fixture transport rejects corrupt bytes, false declarations and escaping membership without a receipt (31.155184ms)
+✔ optional package selects separate rational assets and preserves original protocol (3.90638ms)
+✔ legacy package does not advertise a missing rational runtime (2.428655ms)
+✔ rehashed manifest faults and changed module bytes reject before copying (7.936477ms)
+✔ partial or malformed optional runtime is never available (2.02705ms)
+✔ verified assets retain exact bytes and existing destinations are not overwritten (35.20656ms)
+✔ bad index/file hashes, truncation, missing files and redirects never produce a verified receipt (12.753985ms)
+✔ closed paths, fields, duplicates and byte budgets are checked before downloading (1.850026ms)
+✔ plain builds do no fetching; configured runtime/CAD releases supply the existing builder flags (7.775723ms)
+✔ export excludes diagnostic members and rejects changed or unpassed packages before output (6.744414ms)
+✔ fixture transport rejects changed, truncated, missing and coherently misdeclared data (52.111021ms)
+✔ fixture paths, aliases, environment overrides and missing members reject before staging (4.807679ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143.278198

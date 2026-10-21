@@ -1,0 +1,9 @@
+{
+  "episode_sha256": "2b250ff9d4b1f7705482d9c7a86865d8f5e4a87c69542edba5e09548d92fc092",
+  "initial_checkpoint_sha256": "b84e9c965bacf7249a84093c77c070391130a02ab0fa5bfed7cc75ca5c5cc5f4",
+  "checkpoint_sha256": "f8048a9f5c51a993c5cbfe65ac02776693e388397fbe95f2113397c9dcaa0f22",
+  "replay_verified": true,
+  "updates": 6,
+  "changed_weights": 28,
+  "qualified_model": false
+}

@@ -93,7 +93,7 @@ export function IndexedLiveGym({prepared,onClose}){
         {!busy&&stale&&owner.current?.ready&&<button onClick={()=>run('Refreshing material view…',async()=>{})}>Refresh material view</button>}
       </div>
       <div className="adaptive-inference"><label>Model weights<input aria-label="Indexed model weights" type="file" accept=".json" disabled={busy||stale||!view} onChange={e=>upload(e.target.files?.[0],'model')}/></label>
-        <button disabled={blocked||!model} onClick={search}>Suggest with model + MCTS</button><p>{model?'Compatible weights loaded.':'Load compatible indexed weights.'} Search selects a suggestion; Apply executes it. Training runs locally.</p>
+        <button disabled={blocked||!model} onClick={search}>Suggest with model + MCTS</button><p>{model?'Compatible weights loaded.':'Load compatible indexed weights.'} Search selects a suggestion; Apply executes it. Training this model family requires a separate compatible trainer; the standalone mixed/task-5/task-6 trainers do not accept it. <a href="docs/TRAINING_GUIDE.html">Training family requirements</a>.</p>
         <label>Restore decisions<input aria-label="Restore indexed decisions" type="file" accept=".json" disabled={busy||stale||!view} onChange={e=>upload(e.target.files?.[0],'episode')}/></label>
       </div>
       {view&&<div className="metrics"><div>Accepted workpiece angle<strong>{angle(view.pose)}</strong></div><div>Estimated elapsed time<strong>{fmt(exactNumber(view.journal_state.estimated_elapsed_seconds))} s</strong></div><div>Recorded actions<strong>{view.observation.steps} / {view.observation.horizon}</strong></div></div>}

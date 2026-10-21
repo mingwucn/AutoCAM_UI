@@ -1,5 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import {BrepClient} from './brep-client.mjs';
+import {CapabilityPanel} from './module3-capabilities.jsx';
 
 const MAX_FILE_BYTES=100*1024*1024;
 const parseLengths=value=>[...new Set(value.split(',').map(Number).filter(Number.isFinite))].sort((a,b)=>a-b);
@@ -48,17 +49,18 @@ export function StepUpload({enabled,onPrepared,onClear,hasLocalData}) {
     <summary>Open your STEP file</summary>
     <div className="step-upload-body">
       <div><h2>Prepare a local shadow gym</h2><p>Your STEP file stays in this browser tab. OpenCascade keeps the material as B-Rep geometry, using the same C++ engine available to Python.</p></div>
+      <CapabilityPanel prepared={{kind:engine==='brep'?'brep':'classic-voxel'}} compact/>
       <form onSubmit={submit}>
-        <label>STEP model<input id="step-file" type="file" accept=".step,.stp,model/step" onChange={e=>setFile(e.target.files[0]||null)}/><small>{file?`${file.name} · ${(file.size/1048576).toFixed(2)} MiB`:'Up to 100 MiB'}</small></label>
+        <label>STEP model<input id="step-file" disabled={running} type="file" accept=".step,.stp,model/step" onChange={e=>setFile(e.target.files[0]||null)}/><small>{file?`${file.name} Â· ${(file.size/1048576).toFixed(2)} MiB`:'Up to 100 MiB'}</small></label>
         <label>Geometry engine<select id="step-engine" value={engine} onChange={e=>setEngine(e.target.value)} disabled={running}><option value="brep">OpenCascade B-Rep</option><option value="voxel">Voxel comparison</option></select></label>
-        {engine==='brep'?<label>Display deflection (mm)<input id="step-quality" type="number" min="0.01" step="any" value={quality} onChange={e=>setQuality(e.target.value)}/><small>Display quality only; smaller is smoother.</small></label>:<label>Voxel pitch (mm)<input id="step-pitch" type="number" min="0.01" step="any" value={pitch} onChange={e=>setPitch(e.target.value)}/></label>}
-        <label>Stock allowance (mm)<input id="step-allowance" type="number" min="0" step="any" value={allowance} onChange={e=>setAllowance(e.target.value)}/></label>
-        <label>Tool reaches (mm)<input id="step-lengths" value={lengthText} onChange={e=>setLengthText(e.target.value)} placeholder="5, 10, 20"/></label>
-        <label>Spindle direction<select id="step-axis" value={axis} onChange={e=>setAxis(e.target.value)}>{['X','Y','Z'].map(v=><option key={v}>{v}</option>)}</select></label>
+        {engine==='brep'?<label>Display deflection (mm)<input id="step-quality" disabled={running} type="number" min="0.01" step="any" value={quality} onChange={e=>setQuality(e.target.value)}/><small>Display quality only; smaller is smoother.</small></label>:<label>Voxel pitch (mm)<input id="step-pitch" disabled={running} type="number" min="0.01" step="any" value={pitch} onChange={e=>setPitch(e.target.value)}/></label>}
+        <label>Stock allowance (mm)<input id="step-allowance" disabled={running} type="number" min="0" step="any" value={allowance} onChange={e=>setAllowance(e.target.value)}/></label>
+        <label>Tool reaches (mm)<input id="step-lengths" disabled={running} value={lengthText} onChange={e=>setLengthText(e.target.value)} placeholder="5, 10, 20"/></label>
+        <label>Spindle direction<select id="step-axis" disabled={running} value={axis} onChange={e=>setAxis(e.target.value)}>{['X','Y','Z'].map(v=><option key={v}>{v}</option>)}</select></label>
         {engine==='brep'&&<label>Spindle origin<select id="step-origin-mode" value={originMode} onChange={e=>setOriginMode(e.target.value)} disabled={running}><option value="automatic">Infer from model</option><option value="manual">Specify coordinates</option></select><small>{originMode==='automatic'?'Uses a nearby CAD axis when available, otherwise the model center.':'Enter any point on the spindle axis in STEP model coordinates.'}</small></label>}
         {engine==='brep'&&originMode==='manual'&&['X','Y','Z'].map((coordinate,index)=><label key={coordinate}>Origin {coordinate} (mm)<input id={`step-origin-${coordinate.toLowerCase()}`} type="number" step="any" value={originCoordinates[index]} disabled={running} onChange={e=>{const value=e.target.value;setOriginCoordinates(values=>values.map((entry,i)=>i===index?value:entry));}}/></label>)}
-        <label>Held end<select id="step-held" value={held} onChange={e=>setHeld(e.target.value)}><option value="negative">Negative axis end</option><option value="positive">Positive axis end</option></select></label><label>Holding length (mm)<input id="step-holding" type="number" min="0" step="any" value={holdingLength} onChange={e=>setHoldingLength(e.target.value)}/></label>
-        <div className="step-upload-actions"><button id="step-prepare" className="primary" disabled={running} type="submit">{running?'Preparing…':'Prepare shadow gym'}</button>{running&&<button type="button" onClick={()=>stop('Cancelled')}>Cancel</button>}{hasLocalData&&<button type="button" onClick={onClear}>Return to example cases</button>}</div>
+        <label>Held end<select id="step-held" disabled={running} value={held} onChange={e=>setHeld(e.target.value)}><option value="negative">Negative axis end</option><option value="positive">Positive axis end</option></select></label><label>Holding length (mm)<input id="step-holding" disabled={running} type="number" min="0" step="any" value={holdingLength} onChange={e=>setHoldingLength(e.target.value)}/></label>
+        <div className="step-upload-actions"><button id="step-prepare" className="primary" disabled={running} type="submit">{running?'Preparingâ€¦':'Prepare shadow gym'}</button>{running&&<button type="button" onClick={()=>stop('Cancelled')}>Cancel</button>}{hasLocalData&&<button type="button" onClick={()=>{stop('Cancelled');onClear();}}>Return to example cases</button>}</div>
       </form>
       {progress&&<div className="step-progress" role="status" aria-live="polite"><span>{progress.phase}</span><progress max="100" value={progress.percent}/>{Number.isFinite(progress.percent)&&<strong>{progress.percent}%</strong>}</div>}
       {error&&<p className="step-error" role="alert">{error}</p>}

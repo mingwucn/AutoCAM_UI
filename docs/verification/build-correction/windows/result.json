@@ -1,0 +1,145 @@
+{
+  "schema": "module3-build-correction-1",
+  "status": "passed",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "source_commit": "6517909584701ea4bc4ddb64477472e2c595e7a0",
+  "source_clean": true,
+  "source_inventory": {
+    "path": "source-inputs.json",
+    "sha256": "a42cd4690fd258529c152ffb1e0295dfa705a761e159cd331e6d26a5eb1d2a8b",
+    "size_bytes": 295265
+  },
+  "node": "v24.14.0",
+  "scope": "Build-only correction after full software checks at d97adade; existing candidate dependencies; not another full numerical/training run.",
+  "steps": [
+    {
+      "id": "targeted",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "--test",
+        "tests/release-workflow.test.cjs",
+        "tests/build-documentation.test.cjs",
+        "tests/build-execution-provenance.test.mjs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.938,
+      "log": {
+        "path": "targeted.log",
+        "sha256": "25cfb373d36bcd38ec1a87524d35aae52a2a8a6e7b42f0008ae52dd0285ee6bf",
+        "size_bytes": 1361
+      }
+    },
+    {
+      "id": "release",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "--test",
+        "tests/release-assets.test.mjs",
+        "tests/adaptive-model-assets.test.mjs",
+        "tests/test-fixtures.test.mjs",
+        "tests/allowance-fixtures.test.mjs",
+        "tests/cad-rational-assets.test.mjs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.562,
+      "log": {
+        "path": "release.log",
+        "sha256": "68ef2ce2b41056008a2308180e561a01ab6c7852570b0e39fa5290f3550596a5",
+        "size_bytes": 1426
+      }
+    },
+    {
+      "id": "build-1",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/build-release.mjs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 13.234,
+      "log": {
+        "path": "build-1.log",
+        "sha256": "ba385343d0848f1504c553ac107424eaa45a9609a3b011f23661e29afce6a372",
+        "size_bytes": 166
+      }
+    },
+    {
+      "id": "build-2",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/build-release.mjs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 14.875,
+      "log": {
+        "path": "build-2.log",
+        "sha256": "ba385343d0848f1504c553ac107424eaa45a9609a3b011f23661e29afce6a372",
+        "size_bytes": 166
+      }
+    },
+    {
+      "id": "integrity",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/verify-build.mjs",
+        "--output",
+        "D:\\LocalWork\\AutoCAM\\SBO_AutoCAM_Master\\artifacts\\module3-remediation-20261020\\AutoCAM_UI\\runs\\build-correction-windows\\build-integrity.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.812,
+      "log": {
+        "path": "integrity.log",
+        "sha256": "b9f1a4e381227a0364c647b722e4c469b6a75fc85c3b1febea4df9f1bcafe04a",
+        "size_bytes": 431
+      }
+    },
+    {
+      "id": "documentation",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/check-documentation.mjs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.25,
+      "log": {
+        "path": "documentation.log",
+        "sha256": "527a189c5a9071fafedae315cc99bc55ecda7a9e065b92e580ef0c4d656cd9a3",
+        "size_bytes": 621
+      }
+    },
+    {
+      "id": "capabilities",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/generate-capabilities.mjs",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.157,
+      "log": {
+        "path": "capabilities.log",
+        "sha256": "efd48f848f08aa5fd868fbfb81795529b324de02a8349dd8164b07788e459a41",
+        "size_bytes": 47
+      }
+    }
+  ],
+  "source_inputs_unchanged": true,
+  "build_metadata": [
+    {
+      "path": "build-manifest.json",
+      "sha256": "99d789d8c817a6539055a39636e84bd791502b3b1b11374769ba5579020f893c",
+      "size_bytes": 53921
+    },
+    {
+      "path": "execution-build.json",
+      "sha256": "1bd276e792daa4298538c397230e1266f06d5f05b379e4d7054c4271b617b680",
+      "size_bytes": 27151
+    },
+    {
+      "path": "release.json",
+      "sha256": "76cdb8408f32b01136fe7c12881219f9cc110123ec760a5fc03bc2ce88469f24",
+      "size_bytes": 83223
+    }
+  ],
+  "human_acceptance": "not_performed",
+  "public_deployment": "not_performed"
+}
