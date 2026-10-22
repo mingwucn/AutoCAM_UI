@@ -2,31 +2,36 @@
 
 ## Use the hosted application
 
-Open the [public AutoCAM application](https://mingwucn.github.io/AutoCAM_UI/)
-in a current desktop browser. Built-in cases need no local installation.
+From the published or locally served documentation, open the
+[AutoCAM application](../index.html) in a current desktop browser. A repository
+preview shows source files; use the project's deployment link to reach its website.
+Built-in cases need no local installation.
 Follow the [workflow catalogue](WORKFLOW_CATALOGUE.md) for their menu names and
 steps. Local file examples need the source files described below; generating
 additional example inputs and training models also needs the listed tools.
 
-Save the site's [release.json](https://mingwucn.github.io/AutoCAM_UI/release.json).
+Save the site's [release.json](../release.json).
 Its `source_repository.revision` identifies the source used for that served
-build. The current GitHub `main` branch can contain changes awaiting deployment,
+build. The repository's default branch can contain changes awaiting deployment,
 so use this published revision when comparing a local run with the website.
 
 ## Obtain the public source and examples
 
-The source and committed examples are in the public
-[mingwucn/AutoCAM_UI repository](https://github.com/mingwucn/AutoCAM_UI).
-Reading or cloning it over HTTPS requires no KU Leuven account or SSH key.
-Install Git, then choose the recipe for your platform. Each reads the current
-served revision before cloning and checks out that exact revision.
+The source and committed examples belong to [this repository](../README.md).
+Copy its clone URL from the **Code** menu and obtain the current application
+base URL from the project's deployment link. Access requirements depend on the
+repository host. Install Git, then choose the recipe for your platform. Each
+reads the served revision before cloning and checks out that exact revision.
 
 Windows PowerShell:
 
 ```powershell
-$publishedRevision = (Invoke-RestMethod -Uri 'https://mingwucn.github.io/AutoCAM_UI/release.json' -ErrorAction Stop).source_repository.revision
+$siteUrl = Read-Host 'Base URL of the running application, without query or fragment'
+$repositoryUrl = Read-Host 'Clone URL from the repository Code menu'
+$releaseUrl = [Uri]::new([Uri]($siteUrl.TrimEnd('/') + '/'), 'release.json')
+$publishedRevision = (Invoke-RestMethod -Uri $releaseUrl -ErrorAction Stop).source_repository.revision
 if ($publishedRevision -notmatch '^[0-9a-f]{40}$') { throw 'The served release has no valid source revision.' }
-git clone https://github.com/mingwucn/AutoCAM_UI.git
+git clone -- $repositoryUrl AutoCAM_UI
 if ($LASTEXITCODE -ne 0) { throw 'Clone failed; stop and resolve the error.' }
 Set-Location -LiteralPath AutoCAM_UI -ErrorAction Stop
 git checkout --detach $publishedRevision
@@ -38,18 +43,25 @@ git status --short
 Linux/POSIX shell, using Python 3.12 from the requirements below:
 
 ```sh
-published_revision=$(python3.12 - <<'PY'
+printf 'Base URL of the running application, without query or fragment: '
+IFS= read -r site_url
+printf 'Clone URL from the repository Code menu: '
+IFS= read -r repository_url
+published_revision=$(python3.12 - "$site_url" <<'PY'
 import json
 import re
+import sys
 import urllib.request
-with urllib.request.urlopen('https://mingwucn.github.io/AutoCAM_UI/release.json', timeout=30) as response:
+from urllib.parse import urljoin
+release_url = urljoin(sys.argv[1].rstrip('/') + '/', 'release.json')
+with urllib.request.urlopen(release_url, timeout=30) as response:
     revision = json.load(response)['source_repository']['revision']
 if not isinstance(revision, str) or not re.fullmatch('[0-9a-f]{40}', revision):
     raise SystemExit('The served release has no valid source revision.')
 print(revision)
 PY
 ) || exit 1
-git clone https://github.com/mingwucn/AutoCAM_UI.git || exit 1
+git clone -- "$repository_url" AutoCAM_UI || exit 1
 cd AutoCAM_UI || exit 1
 git checkout --detach "$published_revision" || exit 1
 git rev-parse HEAD
@@ -60,16 +72,11 @@ Keep the selected revision and status with your results; a fresh checkout should
 have no local changes. If either recipe fails, resolve that error before
 continuing; do not substitute `main` or an older revision.
 
-Without Git, open the public `release.json`, copy the full
-`source_repository.revision` value, and replace `PUBLISHED_REVISION` in this URL:
-
-```text
-https://github.com/mingwucn/AutoCAM_UI/archive/PUBLISHED_REVISION.zip
-```
-
-Download and extract that ZIP, then open a terminal in the extracted folder
-containing `package.json`. Keep the archive and its selected commit identity;
-Git status commands do not apply to an extracted ZIP.
+Without Git, open the site's [release.json](../release.json) and copy the full
+`source_repository.revision` value. In the repository web interface, select that
+exact commit and choose its source archive download. Extract the archive and
+open a terminal in the folder containing `package.json`. Keep the archive and
+its selected commit identity; Git status commands do not apply to an archive.
 
 ### Optional: reproduce the walkthrough's historical starting version
 
@@ -81,9 +88,9 @@ version intentionally, use the following command inside the cloned repository:
 git checkout --detach c602567afb005777315ee6ecdd3696ffafb26dd6
 ```
 
-The [historical starting-source ZIP](https://github.com/mingwucn/AutoCAM_UI/archive/c602567afb005777315ee6ecdd3696ffafb26dd6.zip)
-is the same older version. It does not include subsequent walkthrough fixes;
-use the primary recipe above for the current published application.
+An archive selected at that same commit reproduces the older starting version.
+It does not include subsequent walkthrough fixes; use the primary recipe above
+for the current published application.
 
 The original GYM V1 comparison release was tagged `v1.0.0` at
 `de20f204114767124296542d8d8ecc0361e7666a` in the original GitLab repository;
@@ -131,7 +138,7 @@ python3.12 --version
 python3.12 -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
-Open <http://127.0.0.1:8080/>. Keep the terminal running; press Ctrl+C to stop.
+Open `http://127.0.0.1:8080/`. Keep the terminal running; press Ctrl+C to stop.
 Use a different free port in both the command and URL if 8080 is occupied.
 Do not open `dist/index.html` as a local file: workers and asset loading need HTTP.
 

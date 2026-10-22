@@ -1,10 +1,10 @@
 # AutoCAM Module 3 — illustrated user manual and verification record
 
-**Draft · 21 October 2026 · agent-tested software demonstrator.** This document covers the single [AutoCAM_UI repository](https://github.com/mingwucn/AutoCAM_UI) and its [hosted application](https://mingwucn.github.io/AutoCAM_UI/). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
+**Draft · 22 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
 <a id="verification-identity"></a>
 
-The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The [initial tested source](https://github.com/mingwucn/AutoCAM_UI/tree/c602567afb005777315ee6ecdd3696ffafb26dd6) identifies that historical walkthrough. The Windows training-packaging repair and earlier documentation corrections were subsequently published as [source `262c5c9`](https://github.com/mingwucn/AutoCAM_UI/tree/262c5c9b537b25dcd87cf845a9128f4a2353ab37); its hosted files and affected workflows were checked separately. Preparation-recovery and physical-tool-label corrections are present in verified published [source `f287dbf`](https://github.com/mingwucn/AutoCAM_UI/tree/f287dbf89865ad0d94453abfe9c88fe8f1d64be7). Build-record loading and mixed-learning recovery captions were corrected in verified published [source `39ce5d7`](https://github.com/mingwucn/AutoCAM_UI/tree/39ce5d725e43bd894ac7071866ee770e1d4aa6cd). This edition also documents the indexed-restore acknowledgement distinction in [source `5e55041`](https://github.com/mingwucn/AutoCAM_UI/tree/5e55041b6458c4e9cd6bf34e4cccf9608abc4b12). Later observations identify their version below; match downloaded run details to the executing release. Detailed execution records are retained separately from this product manual; later checks do not change the original public result.
+The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The Windows training-packaging repair and earlier documentation corrections were subsequently published as source `262c5c9b537b25dcd87cf845a9128f4a2353ab37`; its hosted files and affected workflows were checked separately. Preparation-recovery and physical-tool-label corrections are present in verified published source `f287dbf89865ad0d94453abfe9c88fe8f1d64be7`. Build-record loading and mixed-learning recovery captions were corrected in verified published source `39ce5d725e43bd894ac7071866ee770e1d4aa6cd`. This edition also documents the indexed-restore acknowledgement distinction in source `5e55041b6458c4e9cd6bf34e4cccf9608abc4b12`. Later observations identify their version below; match downloaded run details to the executing release. Detailed execution records are retained separately from this product manual; later checks do not change the original public result.
 
 <a id="scope"></a>
 
@@ -23,7 +23,7 @@ GYM is the interactive environment: load a supported case, inspect material and 
 | Other model consumers | Compatible task-4, combined or indexed model → supported inference/search | No standalone trainer for these families is promised by this package |
 | Knowledge constraints | Exact schemas, state identities and geometric/model checks → accepted operation or stated rejection | No general company-rule authoring, review, qualification or activation service |
 
-The [public workflow catalogue](https://mingwucn.github.io/AutoCAM_UI/docs/WORKFLOW_CATALOGUE.html) lists all 23 advertised families and their exact inputs. This manual groups related functions for readability; it does not mark all 23 browser routes passed.
+The [public workflow catalogue](WORKFLOW_CATALOGUE.md) lists all 23 advertised families and their exact inputs. This manual groups related functions for readability; it does not mark all 23 browser routes passed.
 
 <a id="figure-1"></a>
 
@@ -35,20 +35,23 @@ The [public workflow catalogue](https://mingwucn.github.io/AutoCAM_UI/docs/WORKF
 
 ![Published capability matrix with supported-stage legend](images/module3/12-capability-matrix.jpg)
 
-*Figure 2 — The public capability matrix separates import, stock preparation, inspection, machining, recording/replay, policy, MCTS and local training. Its legend distinguishes supported, restricted, external and unavailable. Read the selected profile across the row; an available import or inspection stage does not promise every later stage. [Public matrix](https://mingwucn.github.io/AutoCAM_UI/docs/CAPABILITIES.html).*
+*Figure 2 — The public capability matrix separates import, stock preparation, inspection, machining, recording/replay, policy, MCTS and local training. Its legend distinguishes supported, restricted, external and unavailable. Read the selected profile across the row; an available import or inspection stage does not promise every later stage. [Public matrix](CAPABILITIES.md).*
 
 <a id="installation"></a>
 
 ## 2. Open the app or install the local trainer
 
-For browser use, open the [hosted application](https://mingwucn.github.io/AutoCAM_UI/) and its **Build identity** link. Record the displayed source revision. A hosted build and an unpublished repair checkout are different versions.
+From the published or locally served documentation, open the [application](../index.html) and its **Build identity** link. In a repository preview, use the project's deployment link to open the running site. Record the displayed source revision. A hosted build and an unpublished repair checkout are different versions.
 
-For local installation, acquire the public source matching the currently served build and record its identity:
+For local installation, enter the current application base URL and the clone URL from the repository's **Code** menu. Use the published source revision and record its identity:
 
 ```powershell
-$publishedRevision = (Invoke-RestMethod -Uri 'https://mingwucn.github.io/AutoCAM_UI/release.json' -ErrorAction Stop).source_repository.revision
+$siteUrl = Read-Host 'Base URL of the running application, without query or fragment'
+$repositoryUrl = Read-Host 'Clone URL from the repository Code menu'
+$releaseUrl = [Uri]::new([Uri]($siteUrl.TrimEnd('/') + '/'), 'release.json')
+$publishedRevision = (Invoke-RestMethod -Uri $releaseUrl -ErrorAction Stop).source_repository.revision
 if ($publishedRevision -notmatch '^[0-9a-f]{40}$') { throw 'The served release has no valid source revision.' }
-git clone https://github.com/mingwucn/AutoCAM_UI.git
+git clone -- $repositoryUrl AutoCAM_UI
 if ($LASTEXITCODE -ne 0) { throw 'Clone failed.' }
 Set-Location -LiteralPath AutoCAM_UI -ErrorAction Stop
 git checkout --detach $publishedRevision
@@ -73,7 +76,7 @@ node scripts/python-command.mjs --version
 python -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
-Open `http://127.0.0.1:8080/`; keep the server terminal open. On Linux, the [installation guide](https://mingwucn.github.io/AutoCAM_UI/docs/INSTALLATION.html) uses `python3.12` and `.venv/bin/python`. The initial installation passed with Node 24.14.0, npm 11.9.0 and Python 3.12.13. Only declared Python requirements were installed. No Master checkout or custom `PYTHONPATH` was used. The build and local HTTP checks passed.
+Open `http://127.0.0.1:8080/`; keep the server terminal open. On Linux, the [installation guide](INSTALLATION.md) uses `python3.12` and `.venv/bin/python`. The initial installation passed with Node 24.14.0, npm 11.9.0 and Python 3.12.13. Only declared Python requirements were installed. No Master checkout or custom `PYTHONPATH` was used. The build and local HTTP checks passed.
 
 The release build downloads pinned runtime/CAD dependencies. Classic catalogue data and some runtime requests also need network access. Opening `dist/index.html` directly does not replace serving it over HTTP. Follow the repository [installation guide](INSTALLATION.md) for prerequisites and [validation guide](VALIDATION_GUIDE.md) to reproduce the build checks.
 
@@ -106,7 +109,7 @@ The release build downloads pinned runtime/CAD dependencies. Classic catalogue d
 
 *Figure 4 — The linked 3D material and 2D section views show the retained target and holding material after the three cuts. Camera and cutaway controls affect inspection, not accepted stock.*
 
-**Play greedy baseline** demonstrates staged removal: turning first, then milling. It is not trained RL or an optimal plan. View rotation, cutaway and section controls change the display, not the accepted material. An exhausted action must not fabricate further progress. [Guide](https://mingwucn.github.io/AutoCAM_UI/docs/GYM_QUICKSTART.html).
+**Play greedy baseline** demonstrates staged removal: turning first, then milling. It is not trained RL or an optimal plan. View rotation, cutaway and section controls change the display, not the accepted material. An exhausted action must not fabricate further progress. [Guide](GYM_QUICKSTART.md).
 
 <a id="step-input-boundaries"></a>
 
@@ -180,7 +183,7 @@ The tested planar allowance example produced stock bounds **15 × 13 × 11 mm**,
 
 *Figure 9 — The completed preparation/inspection screen reports **2,976 partition cells**, continuing boundary uncertainty, **6 original faces** and **OpenCascade 7.8.1**. The import record and stock-stage downloads are available, while machining setup is a separate next stage. Original faces are not automatically machining features or proof of tool access. This demonstrates preparation and inspection only; it does not close planar machining.*
 
-At the initial walkthrough cutoff, the saved planar machining receipt still said **Preparing source-derived machining candidates**, so that attempt was not counted as completed machining. The [dated agent follow-up](#followup-20261021) records a later completed, separately configured planar case. Figure 9 remains evidence of its original preparation/inspection case. Other routes are claimed only to the extent of their stated browser observations; native fixture results alone do not close an unobserved UI check.
+At the initial walkthrough cutoff, the saved planar machining receipt still said **Preparing source-derived machining candidates**, so that attempt was not counted as completed machining. The [dated functional checks](#followup-20261021) record a later completed, separately configured planar case. Figure 9 remains evidence of its original preparation/inspection case. Other routes are claimed only to the extent of their stated browser observations; native fixture results alone do not close an unobserved UI check.
 
 For the [prepared cylindrical-choice workflow](WORKFLOW_CATALOGUE.md#cylindrical-choice), select the physical tool by both its profile and exact ID: **Ball end mill (BALL_END-long)** and **Flat end mill (FLAT_END-long)** are different tools even when both show 20 mm reach. The picker and dependency comparisons use the same descriptions. Preview the intended choice and read its actual result before applying; a descriptive label is not an acceptance result.
 
@@ -344,7 +347,7 @@ The new-model MCTS request subsequently completed with **16 simulations**, **dep
 
 *Figure 14 — The screen reports **MCTS used 16 simulations. Preview and accept the selected action to apply it.** The selected action is **Turning · turning-blade-long · 20 mm reach · 0° · 10.25 s**. Step 0 / 6 and 0 s remain unchanged: search suggests a choice and does not commit the cut.*
 
-Reference A/B learning changes weights, but the published starting/A/B models select the same actions at the two comparison states. Initial policy selects action 0; initial MCTS selects action 1; both select action 8 before facing. Changed weights alone are not evidence of better policy quality. [Mixed guide](https://mingwucn.github.io/AutoCAM_UI/docs/OPERATOR_INPUT_QUICKSTART.html).
+Reference A/B learning changes weights, but the published starting/A/B models select the same actions at the two comparison states. Initial policy selects action 0; initial MCTS selects action 1; both select action 8 before facing. Changed weights alone are not evidence of better policy quality. [Mixed guide](OPERATOR_INPUT_QUICKSTART.md).
 
 <a id="validation-examples"></a>
 
@@ -354,11 +357,11 @@ Choose the guide matching the task. A filename or weight-array length cannot est
 
 | Recipe followed in the fresh clone | Actual local outcome | Source guide/example |
 | --- | --- | --- |
-| Mixed supplied A/B | Both passed; 6 updates and 28 changed weights; checkpoint/training bytes match references | [Operator examples](https://mingwucn.github.io/AutoCAM_UI/examples/operator-input/README.html) |
-| Task-5/task-6 manual recordings | Both passed; 2 updates and 2 skipped decisions each | [Recorded training](https://mingwucn.github.io/AutoCAM_UI/docs/RECORDED_TRAINING_QUICKSTART.html) |
-| Task-5/task-6 model-MCTS recordings | Both passed; 1 update each; reference outputs match | [Recorded examples](https://mingwucn.github.io/AutoCAM_UI/examples/recorded-training/README.html) |
-| Regional v2/v3 | Both passed; 3 updates each; 41/43 changed weights; reference outputs match | [Regional guide](https://mingwucn.github.io/AutoCAM_UI/docs/REGIONAL_TRAINING_QUICKSTART.html) |
-| Cylindrical v1 recorded | Passed; 3 samples, replay and input custody verified | [Cylindrical examples](https://mingwucn.github.io/AutoCAM_UI/examples/cylindrical-policy/README.html) |
+| Mixed supplied A/B | Both passed; 6 updates and 28 changed weights; checkpoint/training bytes match references | [Operator examples](../examples/operator-input/README.md) |
+| Task-5/task-6 manual recordings | Both passed; 2 updates and 2 skipped decisions each | [Recorded training](RECORDED_TRAINING_QUICKSTART.md) |
+| Task-5/task-6 model-MCTS recordings | Both passed; 1 update each; reference outputs match | [Recorded examples](../examples/recorded-training/README.md) |
+| Regional v2/v3 | Both passed; 3 updates each; 41/43 changed weights; reference outputs match | [Regional guide](REGIONAL_TRAINING_QUICKSTART.md) |
+| Cylindrical v1 recorded | Passed; 3 samples, replay and input custody verified | [Cylindrical examples](../examples/cylindrical-policy/README.md) |
 | Cylindrical all-profile command | Initial Windows path-length failure; repaired candidate passed 5 training cases, 4 learned-model searches and 7 rejection checks | [Cylindrical example and verification recipe](../examples/cylindrical-policy/README.md) |
 
 <a id="figure-15"></a>
@@ -384,7 +387,7 @@ node tests/spherical-bands-browser.mjs --check-fixtures-only
 
 The workflow export produced **37 files across 10 groups**, all matching its receipt. The spherical command produced **4 input cases and 27 native reference actions**, without running a browser. Three cases report complete. Origin sphere with 0.5 mm allowance remains incomplete because regional upper residual 664 exceeds a zero regional budget. That is the recorded outcome, not a silently relabelled pass. [Fixture acquisition instructions](WORKFLOW_CATALOGUE.md).
 
-Browse [examples and expected outcomes](https://mingwucn.github.io/AutoCAM_UI/examples/README.html), [validation instructions](https://mingwucn.github.io/AutoCAM_UI/docs/VALIDATION_GUIDE.html) and the [repository verification status](VERIFICATION_STATUS.md). Canonical checkpoint/training files were compared byte-for-byte. Human-readable summary JSON was compared by values where serialization order/newlines differed.
+Browse [examples and expected outcomes](../examples/README.md), [validation instructions](VALIDATION_GUIDE.md) and the [repository verification status](VERIFICATION_STATUS.md). Canonical checkpoint/training files were compared byte-for-byte. Human-readable summary JSON was compared by values where serialization order/newlines differed.
 
 <a id="knowledge-boundaries"></a>
 
@@ -401,7 +404,7 @@ Browse [examples and expected outcomes](https://mingwucn.github.io/AutoCAM_UI/ex
 | Hash and replay checks | Hashes bind bytes; replay also checks valid history. Recomputing a hash after corrupting history does not make it valid |
 | Completion and evidence scope | Complete, blocked, truncated, unresolved and failed retain separate meanings; geometric display is not physical qualification |
 
-The delivered knowledge layer is these executable bounded contracts. General company-rule authoring/import, human review, qualified policy activation and machine execution are unavailable here. A point-shadow display does not establish finite-tool clearance. Original CAD faces are import metadata, not automatically assigned machining features. [Knowledge scope](https://mingwucn.github.io/AutoCAM_UI/docs/KNOWLEDGE_SCOPE.html) · [Functional contract](https://mingwucn.github.io/AutoCAM_UI/docs/FUNCTIONAL_CONTRACT.html) · [Training-family compatibility](https://mingwucn.github.io/AutoCAM_UI/docs/TRAINING_FAMILIES.html).
+The delivered knowledge layer is these executable bounded contracts. General company-rule authoring/import, human review, qualified policy activation and machine execution are unavailable here. A point-shadow display does not establish finite-tool clearance. Original CAD faces are import metadata, not automatically assigned machining features. [Knowledge scope](KNOWLEDGE_SCOPE.md) · [Functional contract](FUNCTIONAL_CONTRACT.md) · [Training-family compatibility](TRAINING_FAMILIES.md).
 
 <a id="reviewer-comments-9-12"></a>
 
@@ -411,10 +414,10 @@ The concerns below are paraphrased to keep the response tied to observable evide
 
 | Comment / original concern | Actual response and verification | Status / remaining work |
 | --- | --- | --- |
-| **9 — Documentation is difficult to understand or follow.** | Follow [installation](#installation), the [industrial steps](#industrial-workflow), [STEP preparation](#step-workflow), [what training means](#training-overview) and [training in five steps](#training-steps). The [rules/learning table](#rules-and-learning) and [preferred-solution explanation](#choosing-preferred-solution) distinguish operator choice from the fixed learning objective. See the [industrial result](#figure-3), [STEP settings](#figure-5), [policy suggestion](#figure-13), [MCTS result](#figure-14), [completed planar controls](#figure-16) and [prepared face/drill controls](#figure-17). The manual-only exercise also identified missing acquisition information, a mismatched import label, reference/new-model ambiguity and discount formatting. | Concrete instructions, screenshots and agent walkthrough evidence are provided. The scope of each UI observation remains explicit. Independent human comprehension has not been measured. |
-| **10 — Validation examples and outcomes are insufficiently visible in Git.** | See the [repository example-index screenshot](#figure-15), [family-by-family validation examples](#validation-examples), [measured new-recording results](#measured-training-results) and [dated follow-up outcomes](#followup-20261021), including reset/restore and fresh-model browser checks. The [public example index](https://mingwucn.github.io/AutoCAM_UI/examples/README.html) and [validation guide](https://mingwucn.github.io/AutoCAM_UI/docs/VALIDATION_GUIDE.html) provide the repository entry points. Fresh runs reproduced reference checkpoints/training outputs; the original/corrected cylindrical command result remains recorded above. | Repository examples and reproducible outcomes are demonstrated for the listed routes. Their presence is not a pass for every advertised UI family, held-out model quality or manufacturing validation. |
+| **9 — Documentation is difficult to understand or follow.** | Follow [installation](#installation), the [industrial steps](#industrial-workflow), [STEP preparation](#step-workflow), [what training means](#training-overview) and [training in five steps](#training-steps). The [rules/learning table](#rules-and-learning) and [preferred-solution explanation](#choosing-preferred-solution) distinguish operator choice from the fixed learning objective. See the [industrial result](#figure-3), [STEP settings](#figure-5), [policy suggestion](#figure-13), [MCTS result](#figure-14), [completed planar controls](#figure-16) and [prepared face/drill controls](#figure-17). The manual-only exercise also identified missing acquisition information, a mismatched import label, reference/new-model ambiguity and discount formatting. | Concrete instructions, screenshots and documented walkthrough results are provided. The scope of each UI observation remains explicit. Independent human comprehension has not been measured. |
+| **10 — Validation examples and outcomes are insufficiently visible in Git.** | See the [repository example-index screenshot](#figure-15), [family-by-family validation examples](#validation-examples), [measured new-recording results](#measured-training-results) and [dated follow-up outcomes](#followup-20261021), including reset/restore and fresh-model browser checks. The [public example index](../examples/README.md) and [validation guide](VALIDATION_GUIDE.md) provide the repository entry points. Fresh runs reproduced reference checkpoints/training outputs; the original/corrected cylindrical command result remains recorded above. | Repository examples and reproducible outcomes are demonstrated for the listed routes. Their presence is not a pass for every advertised UI family, held-out model quality or manufacturing validation. |
 | **11 — It is unclear what the system can be used for and where its boundaries lie.** | Read the [function/scope map](#scope), [stage-by-stage capability matrix](#figure-2), [supported STEP input boundaries](#step-input-boundaries) and [knowledge/model contracts](#knowledge-boundaries). The [rejection example](#failure-recovery), [adaptive stock/face limits](#adaptive-stock-faces), [case-specific completion](#figure-16) and [checkpoint-rejection recovery](#checkpoint-recovery) show why importing, inspecting, machining and completing are separate claims. | Boundaries are documented and selected positive/rejection cases observed. Arbitrary STEP machining, general knowledge activation and industrial learned-policy quality remain outside the demonstrated scope. |
-| **12 — Another user cannot execute the system without developer support.** | The [fresh-install commands](#installation), [replay-before-training recipe](#replay-and-training), [actual model reload and use](#load-and-use-model), [replay controls and recorded-state example](#step-replay), and [failure recovery instructions](#failure-recovery) give executable steps and observed outcomes. The newly recorded episode produced a checkpoint, a [completed policy suggestion](#figure-13) and a [completed bounded MCTS suggestion](#figure-14). The [actual downloaded recording also restored to completion](#recording-restoration). The [dated follow-up](#followup-20261021) adds selected planar, prepared-operation and fresh regional/cylindrical-model checks, including [recovery after an incompatible checkpoint](#checkpoint-recovery). Prerequisite selection, acquisition assistance and the separate Windows repair remain disclosed. | Software execution is demonstrated by an agent. The original guide needed the supplied public repository URL, and the Windows defect needed a code repair. The corrected `262c5c9` release has separate affected-route checks. A complete catalogue walkthrough and an unassisted human trial remain separate requirements; neither is claimed from selected checks. |
+| **12 — Another user cannot execute the system without developer support.** | The [fresh-install commands](#installation), [replay-before-training recipe](#replay-and-training), [actual model reload and use](#load-and-use-model), [replay controls and recorded-state example](#step-replay), and [failure recovery instructions](#failure-recovery) give executable steps and observed outcomes. The newly recorded episode produced a checkpoint, a [completed policy suggestion](#figure-13) and a [completed bounded MCTS suggestion](#figure-14). The [actual downloaded recording also restored to completion](#recording-restoration). The [dated follow-up](#followup-20261021) adds selected planar, prepared-operation and fresh regional/cylindrical-model checks, including [recovery after an incompatible checkpoint](#checkpoint-recovery). Prerequisite selection, acquisition assistance and the separate Windows repair remain disclosed. | The documented walkthrough demonstrates execution for the tested scenarios. The original guide needed the supplied public repository URL, and the Windows defect needed a code repair. The corrected `262c5c9` release has separate affected-route checks. A complete catalogue walkthrough and an unassisted human trial remain separate requirements; neither is claimed from selected checks. |
 
 <a id="comment-11-subpoints"></a>
 
@@ -425,7 +428,7 @@ The concerns below are paraphrased to keep the response tied to observable evide
 | What is the GYM and what does it do? | [Function map](#scope), [industrial workflow](#industrial-workflow), [capability matrix](#figure-2) | A stateful material-removal environment with checked actions, shared stock and replay. Supported stages depend on the selected family. |
 | What is the RL training pipeline? | [What training means](#training-overview), [training in five steps](#training-steps), [record decisions](#record-decisions), [replay and train](#replay-and-training), [measured results](#measured-training-results), [load/use model](#load-and-use-model), [restore recording](#recording-restoration) | Actual decisions were downloaded, replayed and trained locally; the resulting checkpoint was reloaded for policy/MCTS suggestions; the actual recording restored to completion. Browser recording and local weight training are separate operations. |
 | Is training rule guided, and can I choose a preferred solution? | [Rules, demonstrations and learning](#rules-and-learning), [preferred solutions and the A/B example](#choosing-preferred-solution) | Checks constrain action availability; you choose the demonstrated actions; the trainer updates action values using a fixed reward. There is no pairwise preference label, free-text intent input or configurable surface-quality/tool-life learning objective. Demonstration does not guarantee imitation or improved recommendations. |
-| Is the agent learned or greedy? | [Industrial baseline explanation](#industrial-workflow), [learning and model use](#operator-learning), [family-specific training](#validation-examples) | Industrial classic uses a staged greedy baseline. Mixed uses a compatible learned checkpoint; MCTS searches bounded choices using its model. Their roles are separate, and changed weights do not establish improved policy quality. |
+| Is the planning policy learned or greedy? | [Industrial baseline explanation](#industrial-workflow), [learning and model use](#operator-learning), [family-specific training](#validation-examples) | Industrial classic uses a staged greedy baseline. Mixed uses a compatible learned checkpoint; MCTS searches bounded choices using its model. Their roles are separate, and changed weights do not establish improved policy quality. |
 | How much knowledge is formalized? | [Knowledge contracts and limits](#knowledge-boundaries) | Executable input/state/tool/action/model/replay constraints. General company-rule authoring, review, qualification and activation are unavailable. |
 | Can it handle any case, or only demonstrations? | [STEP input boundaries](#step-input-boundaries), [adaptive stock limits](#adaptive-stock-faces), [rejection/recovery](#failure-recovery) | Supplied cases and declared supported profiles can be exercised. Arbitrary STEP machining and automatic learned policies for a new industrial part are not established. |
 | What must be installed or supplied? | [Installation and dependencies](#installation), [STEP settings](#step-workflow), [family inputs](#validation-examples) | Browser/network for hosted use; Node 24 and Python 3.12 plus declared packages for local build/training; compatible input/setup/model files for the selected route. No Master implementation checkout is required. |
@@ -439,7 +442,7 @@ The original walkthrough records and downloads are retained separately; internal
 
 <a id="followup-20261021"></a>
 
-### Dated agent follow-up — 21 October 2026
+### Dated functional checks — 21 October 2026
 
 The following targeted functional checks were completed after the initial walkthrough, on hosted source `c602567afb005777315ee6ecdd3696ffafb26dd6`. They add the stated observations without changing earlier screenshots or pending attempts. These checks followed the earlier diagnosis/source review; they are not a new source-blind reader exercise, an independent human acceptance trial or a test of a later corrected hosted release.
 

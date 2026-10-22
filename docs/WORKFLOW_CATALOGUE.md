@@ -15,7 +15,7 @@ trained models and transition exports are different file types.
 ## Obtain the inputs
 
 The prepared case menu is available in the
-[hosted application](https://mingwucn.github.io/AutoCAM_UI/) without a local
+[hosted application](../index.html) without a local
 build or fixture extraction. You can also [build and serve locally](INSTALLATION.md).
 For local-file examples, first obtain the public source using
 [installation](INSTALLATION.md). After installing its Node dependencies, run

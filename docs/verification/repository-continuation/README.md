@@ -35,7 +35,7 @@ those links resolve. Its focused regression failed before the correction and
 passed afterward. Local checks recorded 617 unit tests before that correction,
 15 focused checks afterward, and 91 working HTTP links across 27 built manual
 pages. Final commit/build identity and later CI results are separate from these
-worktree checks; use [PR 19 checks](https://github.com/mingwucn/AutoCAM_UI/pull/19/checks)
+worktree checks; use the original GitHub PR 19 checks
 and the served `release.json` for the public integration.
 
 Early task-owned probe attempts are retained outside this standalone checkout:

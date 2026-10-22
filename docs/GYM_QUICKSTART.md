@@ -1,8 +1,8 @@
 # Industrial GYM: first run
 
 Build and serve this checkout using [installation](INSTALLATION.md), then open
-<http://127.0.0.1:8080/?case=industrial&process=turning#gym>.
-The existing [public demonstration](https://mingwucn.github.io/AutoCAM_UI/?case=industrial&process=turning#gym)
+`http://127.0.0.1:8080/?case=industrial&process=turning#gym`.
+The existing [public demonstration](../index.html?case=industrial&process=turning#gym)
 is a useful reference; check its displayed version before treating it as the
 candidate under test.
 

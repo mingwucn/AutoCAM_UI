@@ -15,8 +15,9 @@ Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
 19 application screenshots, step-by-step workflows and linked responses to
 reviewer comments 9–12.
 
-Open the [hosted application](https://mingwucn.github.io/AutoCAM_UI/) to try built-in
-cases without a local installation. For local example files, a local build or
+Open the [application](index.html) from the published documentation to try
+built-in cases without a local installation. In a repository preview, use the
+project's deployment link to reach the running website. For local example files, a local build or
 training, follow [public source acquisition and installation](docs/INSTALLATION.md).
 
 | What you want to do | Guide | Expected outcome |
@@ -45,7 +46,7 @@ python -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
 On Linux use `python3.12` for the final command. Open
-<http://127.0.0.1:8080/?case=industrial&process=turning#gym>.
+`http://127.0.0.1:8080/?case=industrial&process=turning#gym`.
 The release build downloads pinned runtime/CAD assets; the classic catalogue
 also requires network access. See [installation](docs/INSTALLATION.md) for
 platform commands, source identity and local training dependencies.
