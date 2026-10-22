@@ -49,6 +49,14 @@
       if(m.length!==Math.ceil(n/8))throw new Error('Scene mask size mismatch');return m;
     }
     reset(){this.live=this.stock.slice();this.steps=0;return this.observation();}
+    // Masks belong to the immutable dataset; only accepted stock/counters vary.
+    fork(){
+      const fork=new Gym(this.data,this.scene.id,this.mode,{workflow:Boolean(this.workflow)});
+      Object.assign(fork,this);
+      fork.live=this.live.slice();
+      fork.actions=new Map(this.actions);
+      return fork;
+    }
     observation(){
       let current=0,excess=0,possible=0,processPossible=0;
       for(let i=0;i<this.live.length;i++){current+=pop[this.live[i]];excess+=pop[this.live[i]&~this.protected[i]];possible+=pop[this.live[i]&this.possible[i]];processPossible+=pop[this.live[i]&this.localPossible[i]];}
@@ -61,14 +69,25 @@
         ...(this.workflow?{process_can_remove_more:processPossible>0}:{}),
         action_availability:Object.fromEntries(this.spec.actions.map(a=>[a.id,a.evaluation.available]))};
     }
-    evaluate(id){
-      const a=this.actions.get(id);if(!a)throw new Error('Action is outside the catalog');
-      const available=a.evaluation.available,remove=available?this.mask(a.remove):null,shadow=available?this.mask(a.shadow):null;
-      let current=0,excess=0,removed=0,blocked=0,protectedCount=0,target=0,holding=0;
+    #totals(){
+      let current=0,excess=0,protectedCount=0,target=0,holding=0;
       for(let i=0;i<this.live.length;i++){
         const live=this.live[i];current+=pop[live];excess+=pop[live&~this.protected[i]];
         protectedCount+=pop[live&this.protected[i]];target+=pop[live&this.target[i]];holding+=pop[live&this.holding[i]];
-        if(available){removed+=pop[live&remove[i]];blocked+=pop[live&shadow[i]];}
+      }
+      return {current,excess,protectedCount,target,holding};
+    }
+    evaluate(id){return this.#evaluate(id,this.#totals());}
+    evaluateMany(ids){
+      const totals=this.#totals();
+      return ids.map(id=>this.#evaluate(id,totals));
+    }
+    #evaluate(id,{current,excess,protectedCount,target,holding}){
+      const a=this.actions.get(id);if(!a)throw new Error('Action is outside the catalog');
+      const available=a.evaluation.available,remove=available?this.mask(a.remove):null,shadow=available?this.mask(a.shadow):null;
+      let removed=0,blocked=0;
+      if(available)for(let i=0;i<this.live.length;i++){
+        const live=this.live[i];removed+=pop[live&remove[i]];blocked+=pop[live&shadow[i]];
       }
       const cv=this.scene.geometry.cell_volume_mm3,beyond=excess-removed-blocked;
       return {action_id:id,direction_id:a.direction,length_mm:a.length,available,

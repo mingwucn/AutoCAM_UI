@@ -29,6 +29,22 @@ and history. Repeating an exhausted action must not create progress.
 The [industrial example package](../examples/industrial-00350/README.md) records
 input identity, expected results and validation commands.
 
+## Industrial baseline, preferences and RL
+
+The [industrial learning quickstart](INDUSTRIAL_LEARNING_QUICKSTART.md) uses two
+pinned sampled cases, 3-29-00350 and 3-29-00289. The second is the working choice
+from the existing catalogue. Generate a rule baseline action by action, keep a
+complete alternative, and give explicit whole-sequence or case-scoped
+turning/milling feedback. Train locally with Node.js 24, load the matching case
+checkpoint, then compare policy and bounded MCTS suggestions. Preview and
+explicit Apply remain separate. Synthetic learning remains available through
+its [own workflow](OPERATOR_INPUT_QUICKSTART.md).
+
+The baseline rules, feedback labels, learned reward, RL weight updates and MCTS
+are distinct operations. Hard geometric and holding checks still decide action
+eligibility. These examples measure sampled removal and preference behavior;
+they do not measure machining time, finish quality or tool life.
+
 ## Compare the baseline
 
 **Play greedy baseline** plays a staged example: positive-removal turning actions
@@ -44,7 +60,7 @@ an action. A replay is a view of recorded states; it does not commit extra cuts.
 
 Volumes are estimates of the sampled geometric representation. Zero sampled
 excess does not establish physical accessibility, tolerance, a released part or
-manufacturing qualification. For learned-model recording and local training,
-use the separate [synthetic operator workflow](OPERATOR_INPUT_QUICKSTART.md).
+manufacturing qualification. The separate [synthetic operator workflow](OPERATOR_INPUT_QUICKSTART.md)
+remains available with its own reward, task and model contract.
 For a local STEP file, use [the STEP guide](../examples/step/README.md) and check
 the selected profile's supported stages first.

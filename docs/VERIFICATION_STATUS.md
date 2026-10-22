@@ -17,6 +17,33 @@ The public integration is GitHub PR 19;
 read its checks for the exact tested head. The tables below retain their original
 source identities and do not claim every check was rerun after documentation changes.
 
+## Two-case industrial extension
+
+The new F24 route covers pinned sampled 00350 and 00289, explicit complete-sequence
+and case-scoped turning/milling preferences, local reward learning and RL, and
+model-guided MCTS. Its current contract and steps are in the
+[industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md). The
+[selected reproducible examples](../examples/industrial-learning/README.md#recorded-example-comparison)
+retain exact-case version-2 models, original scripted feedback and full sequence
+comparisons. Combined labels change both initial choices from milling to turning
+against matched-experience TD without preference fitting. The fine-tuned policies
+complete in three actions each; bounded MCTS completes in eight and six actions,
+all with zero sampled excess. The 00350 MCTS learned return is below its rule
+baseline, and unchanged state recommendations are retained. These are finite
+software examples, not actual human feedback or a general improvement claim.
+
+The [actual two-case browser gate](verification/industrial-learning/README.md)
+passed in Windows/Edge with no page errors: actual feedback download, local
+training, new model load, initial/updated policy and MCTS, preview and one
+explicit suggested Apply per case. Cancellation and wrong-case import preserved
+stock/model, with target and holding stock protected. Its public summary pins
+the exact tested development build, source files and distinct feedback/model
+identities, and links twelve original-pixel screenshots. Complete sequence
+comparisons were also replayed by the shared simulator. This is a development
+software result; final production-byte verification is a separate delivery gate.
+The historical 23-family/platform results below do not verify this extension.
+Independent human acceptance and manufacturing qualification remain unperformed.
+
 ## Fresh-checkout software checks
 
 | Gate | Linux | Windows |

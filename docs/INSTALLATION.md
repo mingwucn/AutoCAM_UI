@@ -102,7 +102,9 @@ revision to obtain the supported package.
 ## Requirements for local build and training
 
 - Node.js 24 with npm; use the committed `package-lock.json` with `npm ci`.
-- Python 3.12 for local training and the example HTTP server.
+- Python 3.12 for the Python learning families and the example HTTP server.
+  The two-case industrial preference trainer runs with Node.js 24 and needs no
+  Python geometry engine; see [industrial learning](INDUSTRIAL_LEARNING_QUICKSTART.md).
 - Internet access to the npm/Python package indexes and pinned AutoCAM_Data
   assets. Browser runtime requests may also need the published runtime's CDN.
 - A current desktop browser with WebAssembly and Web Workers. Automated browser

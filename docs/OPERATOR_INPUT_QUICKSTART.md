@@ -1,8 +1,8 @@
 # Mixed operator learning: record, train and load
 
 This route uses a synthetic turning/face-milling/drilling task and a compatible
-34-weight model. The industrial 00350 sampled view is a separate manual/greedy
-demonstration. See [the training family guide](TRAINING_GUIDE.md) if your download
+34-weight model. The two industrial cases use the separate
+[rule/preference/RL workflow](INDUSTRIAL_LEARNING_QUICKSTART.md). See [the training family guide](TRAINING_GUIDE.md) if your download
 comes from task-5 or task-6.
 
 ## Before starting: rules, your choices and the learning objective

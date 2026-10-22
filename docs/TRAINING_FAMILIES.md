@@ -1,12 +1,13 @@
 # Training and model families
 
 Use the exact family of the prepared task or downloaded episode. Browser model
-inference, a Python training API and a supported standalone command are separate
+inference, a training API and a supported standalone command are separate
 capabilities. A bundled source module alone is not a usable training workflow.
 
 | Family | Browser behavior | Standalone local training in this candidate |
 | --- | --- | --- |
-| Classic sampled industrial/STEP | Manual actions and staged greedy baseline; no model interface | Unavailable; this route does not train an industrial agent |
+| Industrial 00350 and 00289, exact pinned sampled cases | Rule baseline, complete-sequence and case-scoped turning/milling feedback; load matching case checkpoint; policy/MCTS suggest; Preview/Apply executes | Node.js 24, `scripts/train-industrial-episode.mjs --feedback ...`; pairwise reward learning then TD Q fine-tuning. [Industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md). No measured machining-time or quality objective. |
+| Other classic sampled cases and classic STEP | Manual actions and staged greedy baseline where supplied; no compatible industrial model interface | No standalone industrial trainer for these cases or newly uploaded parts |
 | Mixed synthetic learning | Load `adaptive-mixed-linear-q-1` (34 weights); policy/MCTS suggest; Preview/Accept executes | `python/train_operator_episode.py`; [mixed guide](OPERATOR_INPUT_QUICKSTART.md); A/B examples |
 | Task-5 remaining-stock | Compatible checkpoint-5; Run model / Run model + MCTS explicitly executes a checked choice | `python/train_recorded_remaining.py`; [recorded guide](RECORDED_TRAINING_QUICKSTART.md); manual/model-MCTS examples |
 | Task-6 cleared-holder | Separate checkpoint-6; explicit model run actions | Same dispatcher, separate task/model contract and fixtures; never substitute task-5 weights |
@@ -25,6 +26,11 @@ which cylindrical variants and training modes were actually exercised.
 
 ## Compatibility and starting weights
 
+- Industrial feedback, recordings and checkpoints bind one exact 00350 or 00289
+  dataset, action contract, feature order and reward version. Separate case models
+  reject across cases and across every Python family below. Follow the
+  [industrial contract](INDUSTRIAL_LEARNING_CONTRACT.md); retain feedback, episodes,
+  initial checkpoint, training recipe, updated checkpoint and comparison report.
 - Mixed recording schema: `adaptive-mixed-learning-episode-1`.
 - Task-5/task-6 recording schema: `adaptive-browser-episode-1`, with respectively
   `adaptive-mill-turn-core-roughing-task-5` or
@@ -54,5 +60,7 @@ models; inference support does not imply a local training route. All advertised
 standalone trainers are the packaged routes listed in this table.
 
 Successful synthetic fitting does not establish a completing policy, held-out
-quality or industrial training coverage. Use the [workflow catalogue](WORKFLOW_CATALOGUE.md)
+quality or industrial training coverage. The new industrial route requires its
+own verification and does not establish generalization beyond its two pinned cases.
+Use the [workflow catalogue](WORKFLOW_CATALOGUE.md)
 for the non-training controls and exact input routes of each model family.

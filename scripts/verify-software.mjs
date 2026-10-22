@@ -39,6 +39,8 @@ const steps = [
   ['step-browser', process.execPath, ['tests/step-upload.cjs']],
   ['module3-workflow', process.execPath, ['tests/module3-workflow-browser.mjs']],
   ['model-upload-cancellation', process.execPath, ['tests/model-upload-cancellation-browser.mjs']],
+  ['industrial-upload-cancellation', process.execPath, ['tests/industrial-learning-cancellation-browser.mjs']],
+  ['industrial-learning-browser', process.execPath, ['tests/industrial-learning-browser.mjs', '--site', path.join(root, 'dist'), '--output', path.join(output, 'industrial-learning')]],
   ['recorded-trained-browser', process.execPath, ['tests/recorded-training-browser.mjs', '--site', path.join(root, 'dist'), '--output', path.join(output, 'recorded-browser')]],
   ['recorded-trained-ui', process.execPath, ['tests/recorded-training-ui-browser.mjs', '--site', path.join(root, 'dist'), '--output', path.join(output, 'recorded-ui')]],
   ['python-rejections', python, ['-m', 'unittest', 'discover', '-s', 'python/tests', '-v']],

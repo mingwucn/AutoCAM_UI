@@ -44,11 +44,11 @@
   "families": [
     {
       "id": "classic-sampled",
-      "title": "Classic sampled GYM",
+      "title": "Other classic sampled GYM",
       "kinds": [
         "classic-sampled"
       ],
-      "limits": "Manual turning and milling share stock. Teaching sequences and industrial staged greedy baselines are not trained policies.",
+      "limits": "Manual turning and milling share stock. Teaching sequences and staged greedy baselines are not trained policies. The two exact pinned industrial cases have a separate preference-learning family; other cases do not gain model support.",
       "model": "No model interface.",
       "stages": {
         "import": {
@@ -2384,6 +2384,137 @@
           ],
           "scope": "browser_scenario",
           "claim": "Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases."
+        }
+      ]
+    },
+    {
+      "id": "industrial-preference-learning",
+      "title": "Industrial rules, preferences and RL (two cases)",
+      "kinds": [
+        "industrial-preference-learning"
+      ],
+      "limits": "Exact pinned sampled 3-29-00350 and 3-29-00289 only. Build a rule baseline action by action, record complete alternatives and explicit case-scoped sequence/action-kind preferences, learn a reward and fine-tune locally, then load the matching case model. No measured machining-time, surface-quality, tool-life or cross-case generalization claim. Historical 23-family results retain their original scope.",
+      "model": "Separate exact-case industrial checkpoints bind dataset/action identities, feature/reward versions and bounded finite reward/Q weights. Synthetic and cross-case models are incompatible.",
+      "stages": {
+        "import": {
+          "status": "restricted",
+          "detail": "Pinned 3-29-00350 (industrial) and 3-29-00289 (industrial_00289) sampled datasets only. Case names alone are insufficient; raw bytes and parsed/action identities are checked."
+        },
+        "prepare": {
+          "status": "unavailable",
+          "detail": "Uses the existing prepared sampled dataset; no new industrial STEP preparation or action generation."
+        },
+        "inspect": {
+          "status": "restricted",
+          "detail": "Inspect sampled stock, target, holding regions and current action previews; display changes do not accept cuts."
+        },
+        "machine": {
+          "status": "restricted",
+          "detail": "Existing checked Apply path, shared turning/milling stock and positive current removal; blocked or exhausted actions cannot commit."
+        },
+        "record_replay": {
+          "status": "restricted",
+          "detail": "Generate a baseline retaining each accepted action and reason; export replay-bound demonstrations plus explicit whole-sequence and case-scoped turning/milling preference labels. A demonstration alone is not a preference label."
+        },
+        "policy": {
+          "status": "restricted",
+          "detail": "Load the compatible case model, then request an industrial policy suggestion. Learned scores rank current eligible actions without committing stock; preview and explicit Apply remain separate."
+        },
+        "mcts": {
+          "status": "restricted",
+          "detail": "Bounded model-guided MCTS uses the same GYM and learned reward/value guidance. Cancellation and case/history/model changes invalidate stale results. Search only suggests."
+        },
+        "training": {
+          "status": "restricted",
+          "detail": "Node.js 24 scripts/train-industrial-episode.mjs replays exact-hash feedback and episodes, fits a linear reward from pairwise preferences, then applies TD Q updates using demonstrations and simulator exploration. New output directory required; consult the industrial contract for numerical defaults."
+        }
+      },
+      "verification": [
+        {
+          "path": "tests/module3-capabilities.test.mjs",
+          "stages": [
+            "import",
+            "prepare",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "capability_contract",
+          "claim": "Stage metadata and route identity only; no numerical, browser or hosted pass is inferred."
+        },
+        {
+          "path": "docs/INDUSTRIAL_LEARNING_QUICKSTART.md",
+          "stages": [
+            "policy",
+            "mcts",
+            "training"
+          ],
+          "scope": "documented_boundary",
+          "claim": "Exact input, local command, browser controls and objective restrictions; instructions are not execution results."
+        },
+        {
+          "path": "tests/providers.test.mjs",
+          "stages": [
+            "import"
+          ],
+          "scope": "contract_regression",
+          "claim": "Pinned catalogue loading; exact industrial learning eligibility also requires its case identity gate."
+        },
+        {
+          "path": "tests/industrial-learning.test.mjs",
+          "stages": [
+            "import",
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "model_regression",
+          "claim": "Shared-GYM identity, replay, features, model compatibility, policy/search and read-only state boundaries. Consult actual command receipt for the tested revision."
+        },
+        {
+          "path": "tests/industrial-training.test.mjs",
+          "stages": [
+            "record_replay",
+            "training"
+          ],
+          "scope": "local_training_scenario",
+          "claim": "Exact-input replay, deterministic preference reward fitting, RL and failure/output handling; actual execution and results must be retained separately."
+        },
+        {
+          "path": "tests/industrial-learning-browser.mjs",
+          "stages": [
+            "inspect",
+            "machine",
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Two-case industrial baseline/feedback/train/load/suggest/apply and recovery scenario definition. A source file is not proof that the scenario or hosted release passed."
+        },
+        {
+          "path": "tests/industrial-learning-client.test.mjs",
+          "stages": [
+            "policy",
+            "mcts"
+          ],
+          "scope": "contract_regression",
+          "claim": "Worker correlation, cancellation and stale-result lifecycle boundaries; consult the command receipt for execution."
+        },
+        {
+          "path": "tests/industrial-learning-cancellation-browser.mjs",
+          "stages": [
+            "record_replay",
+            "policy",
+            "mcts"
+          ],
+          "scope": "browser_scenario",
+          "claim": "Controlled browser cancellation, delayed file-read and failed-import preservation scenario. Its definition is not a passing receipt."
         }
       ]
     }

@@ -6,6 +6,7 @@ and bounded expected result; it does not qualify other parts or a learned model.
 | Example | Inputs | What to reproduce |
 | --- | --- | --- |
 | [Industrial 00350](industrial-00350/README.md) | Pinned external sampled case; committed expected results | Three cuts reduce sampled excess 388600 → 286750 → 33236 → 0 mm³ while preserving target/holding material |
+| [Industrial preference learning](industrial-learning/README.md) | Exact pinned 00350/00289 datasets; separate replay-bound feedback and case models | Rule baseline, explicit sequence/action-kind preference labels, local reward learning/RL, before/after policy and model-guided MCTS comparison |
 | [Mixed operator learning](operator-input/README.md) | Committed A/B episodes, common model and result files | Replay; six updates and 28/34 changed weights; 161.6/228.4 synthetic seconds; unchanged selected actions at the two comparison states |
 | [Task-5/task-6 recorded training](../docs/RECORDED_TRAINING_QUICKSTART.md) | Separate synthetic browser episode families under `recorded-training/` | Replayed inputs, family-compatible checkpoints, skipped masked decisions and rejected incompatible inputs |
 | [Regional v2/v3 training](../docs/REGIONAL_TRAINING_QUICKSTART.md) | Separate versioned synthetic episodes and expected outputs under `recorded-training/` | Three replayed updates per reference and compatible family-specific checkpoints |
