@@ -35,7 +35,7 @@ shows the separate roles and a five-step checklist.
 ## Record choices in the browser
 
 1. Build and serve the candidate using [installation](INSTALLATION.md). At
-   <http://127.0.0.1:8080/>, select **Synthetic learning gym: turning, face milling
+   `http://127.0.0.1:8080/`, select **Synthetic learning gym: turning, face milling
    and drilling; local weights and recorded actions**, then **Open case**.
 2. Choose an available action, select **Preview checked action**, inspect the
    preview, then **Accept checked action**. Preview alone does not change stock.

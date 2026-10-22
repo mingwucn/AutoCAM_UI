@@ -6,6 +6,23 @@ const {marked} = require('marked');
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const escape = text => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 
+// These links name existing app output or the release record written below;
+// neither is a downloadable documentation source to copy over that output.
+function resolveDocumentationLink(root, relative, href) {
+  if (/^(?:[a-z]+:|\/\/|#)/i.test(href)) return null;
+  const name = decodeURIComponent(href.split(/[?#]/)[0]);
+  if (!name) return null;
+  const target = path.resolve(root, path.dirname(relative), name);
+  const label = path.relative(root, target).replaceAll('\\', '/');
+  if (!label || label === '..' || label.startsWith('../') || path.isAbsolute(label))
+    throw Error('Linked source escapes release root: ' + href);
+  const runtime = label === 'index.html', generated = label === 'release.json';
+  const linkedSource = /^(?:tests|scripts|python|core)\//.test(label);
+  if (!runtime && !generated && !linkedSource && !/^(?:docs\/|examples\/|config\/|README\.(?:md|html)$)/.test(label))
+    throw Error('Undeclared linked source: ' + label);
+  return {target, label, runtime, generated, linkedSource};
+}
+
 // This builds only repository-owned Markdown. It never renders uploaded input.
 function buildDocumentation({root, out, execution}) {
   const sources = [];
@@ -21,17 +38,11 @@ function buildDocumentation({root, out, execution}) {
   };
   const render = (text, relative, historical) => marked.parse(text, {renderer, walkTokens(token) {
     if ((token.type === 'link' || token.type === 'image') && !/^(?:[a-z]+:|\/\/|#)/i.test(token.href) && !historical) {
-      const name = decodeURIComponent(token.href.split(/[?#]/)[0]);
-      const target = path.resolve(root, path.dirname(relative), name);
-      const label = path.relative(root, target).replaceAll('\\', '/');
-      if (!label || label.startsWith('../') || path.isAbsolute(label)) throw Error('Linked source escapes release root: ' + token.href);
-      if (!/^(?:docs\/|examples\/|config\/|README\.md$)/.test(label)) {
-        if (!/^(?:tests|scripts|python|core)\//.test(label)) throw Error('Undeclared linked source: ' + label);
-        linkedSources.add(label);
-      }
+      const resolved = resolveDocumentationLink(root, relative, token.href);
+      if (resolved?.linkedSource) linkedSources.add(resolved.label);
     }
     if (token.type === 'link' && !/^(?:[a-z]+:|\/\/)/i.test(token.href))
-      token.href = token.href.replace(/\.md(?=$|#)/i, '.html');
+      token.href = token.href.replace(/^([^?#]*)\.md(?=$|[?#])/i, '$1.html');
   }});
   const capture = (file, relative, publish) => {
     const stat = fs.lstatSync(file);
@@ -85,4 +96,4 @@ function buildDocumentation({root, out, execution}) {
   fs.writeFileSync(path.join(out, 'release.json'), JSON.stringify(release, null, 2) + '\n');
   return release;
 }
-module.exports = {buildDocumentation};
+module.exports = {buildDocumentation, resolveDocumentationLink};

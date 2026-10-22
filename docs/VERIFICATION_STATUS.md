@@ -13,7 +13,7 @@ families, exports 37 original workflow files from ten groups and repairs hosted
 manual source links. [Additional workflow receipts](verification/repository-continuation/README.md)
 cover fresh STEP preparation/machining, task-4 model controls and the older
 inspection, diagnostic and comparison controls on the unchanged runtime.
-The public integration is [PR 19](https://github.com/mingwucn/AutoCAM_UI/pull/19);
+The public integration is GitHub PR 19;
 read its checks for the exact tested head. The tables below retain their original
 source identities and do not claim every check was rerun after documentation changes.
 
@@ -83,7 +83,7 @@ this candidate.
 
 | Requirement | Status |
 | --- | --- |
-| Public candidate deployment and matching hosted manifest | Separate from local receipts; consult the [Pages workflow](https://github.com/mingwucn/AutoCAM_UI/actions/workflows/pages.yml) and actual hosted `release.json` |
+| Public candidate deployment and matching hosted manifest | Separate from local receipts; consult the [validation guide](VALIDATION_GUIDE.md), the deployment workflow for the tested source and actual hosted `release.json` |
 | Independent user completes scenarios without developer coaching | Not performed; [checklist supplied](ACCEPTANCE_CHECKLIST.md) |
 | Single-repository scope | Owner confirmed `mingwucn/AutoCAM_UI`; all advertised families are mapped in the [workflow catalogue](WORKFLOW_CATALOGUE.md); coverage is assessed per family |
 | Industrial policy quality, whole-plan coverage and manufacturing qualification | Not established or claimed |
