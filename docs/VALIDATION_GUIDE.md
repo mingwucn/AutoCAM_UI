@@ -24,10 +24,15 @@ archive can use the individual checks below but cannot claim this gate passed.
 The one command runs the capability/documentation checks, unit and release
 tests, release build, data acquisition, native geometry checks, classic/STEP
 and specified adaptive browser checks, Python rejection tests, all packaged
-example verifiers, learned-model browser checks and built-file integrity. The
+example verifiers, learned-model browser checks, both industrial learning
+browser flows/cancellation and built-file integrity. The
 last learning check consumes that run's newly emitted mixed A/B, regional v2/v3
 and cylindrical configuration 1–3 models. It checks model loading, read-only
 policy/search and native/browser agreement for the configured production paths.
+The industrial check separately downloads actual UI feedback for each pinned
+case, fine-tunes locally, loads its resulting model and compares policy/MCTS
+with explicit preview/Apply. The cancellation check covers stale work and failed
+imports. These new gates do not inherit the historical platform receipts.
 This is integration with the same runtime owner, not an independent algorithm
 oracle or proof of model quality. Read the recorded step list and
 receipts for its exact finite coverage. It does not itself perform `npm ci`,
@@ -67,6 +72,44 @@ not permission to substitute developer-local inputs.
 V1's recorded reference counts were 592 unit tests and 13 release tests. The
 candidate may add checks; use its retained receipt rather than requiring the
 old count. These are software checks, not manufacturing validation.
+
+## Two-case industrial preference-learning checks
+
+After building the release and acquiring the pinned inputs, run:
+
+```text
+node scripts/fetch-industrial-learning-data.mjs --case all
+npm run test:industrial-browser
+npm run test:industrial-cancellation
+```
+
+The main browser test covers 00350 and 00289 independently: rule baseline,
+complete alternative, whole-sequence and action-kind labels, actual feedback
+download, local reward/RL training, initial/updated matching-case models,
+policy and bounded model-guided MCTS, read-only suggestions and explicit Apply.
+Its result must report actual before/after choices, including unchanged states.
+The cancellation test covers cancelled/stale computations, delayed file reads,
+failed imports and preservation of accepted stock/model.
+
+Core, client and trainer regressions are included in `npm run test:unit`; they
+cover replay/feedback compatibility, hard gates, deterministic learning/search,
+wrong/nonfinite models and failure/output handling. The `npm test` wrapper acquires
+both original industrial inputs with hash/size validation. A capability or
+source-file presence check alone is not the browser/training result.
+
+For reproducible local examples in new directories:
+
+```text
+npm run prepare:industrial-example -- --case industrial --output runs/industrial-example-00350
+npm run prepare:industrial-example -- --case industrial_00289 --output runs/industrial-example-00289
+```
+
+Keep baseline/alternative episodes, original feedback, initial/updated
+checkpoints and comparison/training reports. Follow the
+[industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md) to label your own
+feedback and use its exact local trainer. The numerical contract is separate
+from the synthetic/Python families below. Do not treat example inputs reused
+for fitting as held-out performance evidence.
 
 ## 2. Check examples and native learning
 

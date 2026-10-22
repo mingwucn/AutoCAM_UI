@@ -24,7 +24,7 @@ the [scope contract](MODULE3_SCOPE.md) for unresolved whole-module requirements.
 
 | Case/profile | Import inputs | Prepare stock | Inspect | Machining actions | Record / replay | Policy | MCTS | Local training |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Classic sampled GYM | restricted | unavailable | restricted | restricted | restricted | unavailable | unavailable | unavailable |
+| Other classic sampled GYM | restricted | unavailable | restricted | restricted | restricted | unavailable | unavailable | unavailable |
 | Classic STEP: B-Rep | restricted | restricted | restricted | restricted | restricted | unavailable | unavailable | unavailable |
 | Classic STEP: sampled comparison | restricted | restricted | restricted | restricted | restricted | unavailable | unavailable | unavailable |
 | Adaptive STEP: Axis-aligned planar solid | restricted | restricted | restricted | restricted | restricted | restricted | restricted | restricted |
@@ -47,10 +47,11 @@ the [scope contract](MODULE3_SCOPE.md) for unresolved whole-module requirements.
 | Cylindrical model-guided choices | restricted | unavailable | restricted | restricted | restricted | restricted | restricted | restricted |
 | Recorded adaptive inspection | restricted | unavailable | restricted | unavailable | restricted | unavailable | unavailable | unavailable |
 | Equivalent-groove comparison | restricted | unavailable | restricted | restricted | restricted | unavailable | unavailable | unavailable |
+| Industrial rules, preferences and RL (two cases) | restricted | unavailable | restricted | restricted | restricted | restricted | restricted | restricted |
 
-## Classic sampled GYM
+## Other classic sampled GYM
 
-Manual turning and milling share stock. Teaching sequences and industrial staged greedy baselines are not trained policies.
+Manual turning and milling share stock. Teaching sequences and staged greedy baselines are not trained policies. The two exact pinned industrial cases have a separate preference-learning family; other cases do not gain model support.
 
 Inputs/routes: `classic-sampled`.
 
@@ -728,4 +729,36 @@ Verification scenarios:
 | `tests/prepared-comparison.test.mjs` | import, inspect | contract_fixture: Comparison pair and estimate identity; not general geometric equivalence. |
 | `tests/indexed-react-browser.cjs` | machine, record_replay | browser_scenario: Browser scenario definition; run it with its declared inputs and retain the receipt. Its presence does not mean this release reran all supplied cases. |
 
-Registry SHA-256: `d97427362817e3197f0f15e2afdee7c8da2d4f03ccb8f0976709e248a474cb79`.
+## Industrial rules, preferences and RL (two cases)
+
+Exact pinned sampled 3-29-00350 and 3-29-00289 only. Build a rule baseline action by action, record complete alternatives and explicit case-scoped sequence/action-kind preferences, learn a reward and fine-tune locally, then load the matching case model. No measured machining-time, surface-quality, tool-life or cross-case generalization claim. Historical 23-family results retain their original scope.
+
+Inputs/routes: `industrial-preference-learning`.
+
+Model compatibility: Separate exact-case industrial checkpoints bind dataset/action identities, feature/reward versions and bounded finite reward/Q weights. Synthetic and cross-case models are incompatible.
+
+| Stage | Status | Restriction |
+| --- | --- | --- |
+| Import inputs | restricted | Pinned 3-29-00350 (industrial) and 3-29-00289 (industrial_00289) sampled datasets only. Case names alone are insufficient; raw bytes and parsed/action identities are checked. |
+| Prepare stock | unavailable | Uses the existing prepared sampled dataset; no new industrial STEP preparation or action generation. |
+| Inspect | restricted | Inspect sampled stock, target, holding regions and current action previews; display changes do not accept cuts. |
+| Machining actions | restricted | Existing checked Apply path, shared turning/milling stock and positive current removal; blocked or exhausted actions cannot commit. |
+| Record / replay | restricted | Generate a baseline retaining each accepted action and reason; export replay-bound demonstrations plus explicit whole-sequence and case-scoped turning/milling preference labels. A demonstration alone is not a preference label. |
+| Policy | restricted | Load the compatible case model, then request an industrial policy suggestion. Learned scores rank current eligible actions without committing stock; preview and explicit Apply remain separate. |
+| MCTS | restricted | Bounded model-guided MCTS uses the same GYM and learned reward/value guidance. Cancellation and case/history/model changes invalidate stale results. Search only suggests. |
+| Local training | restricted | Node.js 24 scripts/train-industrial-episode.mjs replays exact-hash feedback and episodes, fits a linear reward from pairwise preferences, then applies TD Q updates using demonstrations and simulator exploration. New output directory required; consult the industrial contract for numerical defaults. |
+
+Verification scenarios:
+
+| Source path | Stage(s) | Evidence level and scope |
+| --- | --- | --- |
+| `tests/module3-capabilities.test.mjs` | import, prepare, inspect, machine, record_replay, policy, mcts, training | capability_contract: Stage metadata and route identity only; no numerical, browser or hosted pass is inferred. |
+| `docs/INDUSTRIAL_LEARNING_QUICKSTART.md` | policy, mcts, training | documented_boundary: Exact input, local command, browser controls and objective restrictions; instructions are not execution results. |
+| `tests/providers.test.mjs` | import | contract_regression: Pinned catalogue loading; exact industrial learning eligibility also requires its case identity gate. |
+| `tests/industrial-learning.test.mjs` | import, inspect, machine, record_replay, policy, mcts | model_regression: Shared-GYM identity, replay, features, model compatibility, policy/search and read-only state boundaries. Consult actual command receipt for the tested revision. |
+| `tests/industrial-training.test.mjs` | record_replay, training | local_training_scenario: Exact-input replay, deterministic preference reward fitting, RL and failure/output handling; actual execution and results must be retained separately. |
+| `tests/industrial-learning-browser.mjs` | inspect, machine, record_replay, policy, mcts | browser_scenario: Two-case industrial baseline/feedback/train/load/suggest/apply and recovery scenario definition. A source file is not proof that the scenario or hosted release passed. |
+| `tests/industrial-learning-client.test.mjs` | policy, mcts | contract_regression: Worker correlation, cancellation and stale-result lifecycle boundaries; consult the command receipt for execution. |
+| `tests/industrial-learning-cancellation-browser.mjs` | record_replay, policy, mcts | browser_scenario: Controlled browser cancellation, delayed file-read and failed-import preservation scenario. Its definition is not a passing receipt. |
+
+Registry SHA-256: `776ebff0f1124b25cafe31ecc5e9e4371457d5593821a14e0ccdf1c69a423349`.

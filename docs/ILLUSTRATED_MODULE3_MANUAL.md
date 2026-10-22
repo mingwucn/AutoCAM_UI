@@ -1,6 +1,6 @@
 # AutoCAM Module 3 — illustrated user manual and verification record
 
-**Draft · 22 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
+**Draft · 23 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
 <a id="verification-identity"></a>
 
@@ -14,7 +14,8 @@ GYM is the interactive environment: load a supported case, inspect material and 
 
 | Function | User input → output | Boundary |
 | --- | --- | --- |
-| Industrial and teaching GYM | Prepared case + action → changed shared stock, sequence and replay | Sampled geometry and a staged greedy baseline; no trained industrial policy |
+| Industrial rules, preferences and RL | Two pinned sampled cases + baseline/explicit feedback → learned reward, RL checkpoint and policy/MCTS suggestions | Separate 00350/00289 models; mandatory stock/holding/action checks; preview and explicit Apply |
+| Other teaching GYM cases | Prepared case + action → changed shared stock, sequence and replay | Sampled geometry and supplied staged baselines; no compatible industrial learner |
 | Local STEP | STEP + engine/profile + stock/tool settings → prepared stock, inspection and eligible actions | Import, inspection and machining are separate stages; support depends on the chosen profile |
 | Mixed operator learning | Recorded turning/face/drill decisions + starting checkpoint → replay-verified learning and 34-weight checkpoint | Synthetic task; fixed reward; policy/MCTS suggestions require explicit preview and acceptance to execute |
 | Task-5/task-6 learning | Family-compatible recorded episode → separate learned checkpoint | Their **Run model** controls execute a checked choice; task-5 and task-6 contracts differ |
@@ -23,7 +24,7 @@ GYM is the interactive environment: load a supported case, inspect material and 
 | Other model consumers | Compatible task-4, combined or indexed model → supported inference/search | No standalone trainer for these families is promised by this package |
 | Knowledge constraints | Exact schemas, state identities and geometric/model checks → accepted operation or stated rejection | No general company-rule authoring, review, qualification or activation service |
 
-The [public workflow catalogue](WORKFLOW_CATALOGUE.md) lists all 23 advertised families and their exact inputs. This manual groups related functions for readability; it does not mark all 23 browser routes passed.
+The [public workflow catalogue](WORKFLOW_CATALOGUE.md) lists 24 current families and their exact inputs. F24 covers both industrial learning cases. Historical 23-family verification remains scoped to its original release; this manual does not mark every current browser route passed.
 
 <a id="figure-1"></a>
 
@@ -191,15 +192,200 @@ In the [task-5 remaining-stock workflow](RECORDED_TRAINING_QUICKSTART.md), the a
 
 <a id="operator-learning"></a>
 
-## 5. Operator decisions → local learning → browser model use
+## 5. Industrial feedback → local RL → browser model use
+
+<a id="industrial-learning"></a>
+
+### Main example: two industrial cases
+
+Use **3-29-00350** and **3-29-00289**, the catalogue-based working choice for the
+second case. Begin with the [industrial learning quickstart](INDUSTRIAL_LEARNING_QUICKSTART.md).
+It gives exact input pins, browser steps, local commands and recovery. The
+synthetic learning example remains below with its existing fixed objective.
+
+| Stage | What you do | What it means |
+| --- | --- | --- |
+| Rule baseline | Generate a sequence from initial stock, one accepted action at a time | Productive turning before milling; greatest sampled removal; shorter reach/action-ID ties; each decision retains its state and reason |
+| Demonstration | Apply your own eligible sequence, or retain a complete alternative | Supplies replayable simulator experience; no preference label is inferred |
+| Whole-sequence preference | Compare two complete replayed sequences and state which you prefer | Labels those exact alternatives; it does not declare every constituent action generally best |
+| Action-kind preference | Prefer turning or milling where both have eligible alternatives | Case/state-scoped soft preference; hard action, holding, target and stock checks still apply |
+| Local learning | Download feedback; run the Node.js trainer in a new output directory | Pairwise logistic reward fitting, then TD Q fine-tuning on demonstrations and simulator exploration |
+| Model use | Load the matching case checkpoint; compare policy and bounded MCTS | Suggestions do not accept cuts. Preview and existing Apply remain separate |
+
+The baseline heuristics are software rules derived from the staged geometric
+comparator; they are not company-qualified manufacturing knowledge. Action-kind
+labels are checked at their recorded anchors; shared case coefficients may
+affect other states of the same case. Reward
+learning starts from normalized sampled removal and fits bounded preference
+terms. RL adjusts action values under that learned reward. MCTS then searches
+using the same simulator and model; search does not train the weights.
+
+The [industrial guide](INDUSTRIAL_LEARNING_QUICKSTART.md#3-acquire-exact-inputs-and-fine-tune-locally)
+contains PowerShell and Linux commands. Successful local output retains
+`feedback.json`, `initial-checkpoint.json`, `checkpoint.json` and
+`training-report.json`. Load 00350 results only into 00350 and 00289 results only
+into 00289. A wrong-case or malformed model must preserve the previous model
+and accepted stock/history.
+
+Compare baseline, initial model, fine-tuned model and model-guided MCTS from the
+same accepted stock under stated budgets for each case. Look for actual action
+or sequence changes alongside unchanged recommendations. Changed weights alone
+are not a behavioral effect or an improvement. No measured machining-time,
+surface-finish, tool-life or cross-case quality conclusion follows.
+
+<a id="industrial-learning-results"></a>
+
+#### Reproducible two-case comparison
+
+The [selected industrial examples](../examples/industrial-learning/README.md#recorded-example-comparison)
+use explicit scripted labels: prefer the rule baseline and Turning over Milling
+at initial stock. They use the seven-feature version 2 model and default
+200/200 learning epochs. These labels are not human feedback. The actual
+UI-download/training walkthrough has separate feedback and model identities.
+
+Every sequence below completes with **0 mm³ sampled excess**. Each case's
+sequences are evaluated under its **same fine-tuned reward**, discount 0.95;
+returns are rounded to six decimals. Separately fitted cases do not share a
+physical-quality scale.
+
+| Sequence | 00350 actions | 00350 learned return | 00289 actions | 00289 learned return |
+| --- | ---: | ---: | ---: | ---: |
+| Rule baseline | 3 | 1.925897 | 3 | 4.368131 |
+| Initial policy | 2 | 0.947194 | 3 | 0.900728 |
+| Fine-tuned policy | 3 | 1.925897 | 3 | 4.369007 |
+| Fine-tuned MCTS | 8 | 1.924920 | 6 | 4.368860 |
+
+The full comparisons also retain the complete alternative, initial-model MCTS,
+all action identities and per-search budgets. MCTS uses **16 simulations, depth
+2, exploration 1** for each requested action. At initial stock it expands only
+**4 of 136 eligible root actions**. In 00350 its eight-action sequence scores
+below the three-action rule baseline; in 00289 its six-action sequence scores
+below the three-action fine-tuned policy. Bounded MCTS does not guarantee a
+better plan or a shorter sequence.
+
+Both initial policies and matched-experience TD without preference fitting
+choose milling first. Combined feedback changes the policy to **outside turning,
+40 mm** in 00350 and **outside turning, 20 mm** in 00289. Both comparisons record
+an actual choice change against matched no-feedback TD. Recommendations remain
+unchanged after baseline prefixes of **one and two actions in 00350**, and
+**two actions in 00289**. Other labels or configurations can leave recommendations
+unchanged; the numerical contract records the single-channel limitation.
+
+The [verification status](VERIFICATION_STATUS.md) keeps this new route separate
+from historical three-cut, synthetic and platform results.
+
+<a id="industrial-browser-walkthrough"></a>
+
+#### Actual browser feedback, training and first Apply
+
+The [two-case browser receipt](verification/industrial-learning/README.md)
+records a passing Windows/Edge run against its pinned development build and
+source bytes. In each case the test accepted a complete alternative through the
+normal controls, entered explicit illustrative labels, downloaded actual
+feedback, trained locally, loaded that new model, compared policy/MCTS,
+previewed and explicitly applied one suggested action. No page errors occurred.
+Cancelled search and failed model import preserved accepted state and model;
+target and holding stock remained protected.
+
+The full sequence comparisons above use the same shared simulator. The final
+image for each case shows **one explicit suggested Apply**, not completion of
+the whole plan. The training images show a **local projection of the saved
+Node.js report**, distinct from application UI. This automated walkthrough is
+not independent human acceptance. Its development build hash does not identify
+the later final production build.
+
+##### 00350: from baseline to accepted suggestion
+
+![00350 complete rule baseline with action reasons](images/module3/industrial-00350-baseline.png)
+
+*00350 — Generate rule baseline lists outside turning at 40 mm, milling −Z at
+80 mm, then milling +Z at 40 mm. Its predicted residuals are 286,750 → 33,236 →
+0 mm³. Generating this replayable sequence leaves accepted stock unchanged.*
+
+![00350 explicit whole-sequence and action-kind feedback](images/module3/industrial-00350-feedback.png)
+
+*00350 — A complete two-action alternative is retained. The test explicitly
+selects Rule baseline and Turning over Milling, saving one label of each kind.
+The action-kind label is anchored at the zero-action accepted prefix in this
+case. Download industrial feedback exports those labels and exact episodes.*
+
+![00350 saved local training report projection](images/module3/industrial-00350-training.png)
+
+*00350 — This local report projection shows a passed training run, 20 stored
+experience transitions, 4,000 TD updates and an actual feedback choice change
+against matched-experience no-feedback TD. It is not an application training
+screen. The receipt retains the exact downloaded feedback and checkpoint hashes.*
+
+![00350 compatible freshly trained industrial model loaded](images/module3/industrial-00350-model-loaded.png)
+
+*00350 — Load industrial model accepts the newly trained checkpoint as compatible.
+Loading it does not apply a cut. The same case's initial model remains available
+for a comparison at the same accepted stock.*
+
+![00350 bounded MCTS suggestion and explored root actions](images/module3/industrial-00350-search.png)
+
+*00350 — Search industrial MCTS suggests outside turning at 40 mm and reports
+16/16 simulations, depth 2/2 and 4/136 root actions explored. The displayed
+1.9029 is a backed-up search estimate, distinct from the full-sequence return
+in the comparison table. Preview suggested action remains a separate step.*
+
+![00350 accepted stock after first explicit suggested Apply](images/module3/industrial-00350-applied.png)
+
+*00350 — After preview and explicit Apply, the normal stock controls show one
+accepted action, 101,850 mm³ just removed and 286,750 mm³ excess remaining.
+The linked 3D/2D views show this first accepted result. Further productive
+milling is needed; this frame does not show a completed plan.*
+
+##### 00289: separate feedback and separate model
+
+![00289 complete rule baseline with action reasons](images/module3/industrial-00289-baseline.png)
+
+*00289 — The rule baseline uses outside turning at 20 mm, milling −Y at 40 mm,
+then milling +Y at 20 mm. Its residuals are 1,062 → 188 → 0 mm³. The state and
+reason attached to each decision belong to this case.*
+
+![00289 exact-case sequence and action-kind feedback](images/module3/industrial-00289-feedback.png)
+
+*00289 — A complete three-action alternative is retained. Rule baseline and
+Turning over Milling are explicitly labeled at this case's initial prefix.
+One whole-sequence label and one action-kind label are saved; the 00350 feedback
+and model cannot be substituted for them.*
+
+![00289 saved local training report projection](images/module3/industrial-00289-training.png)
+
+*00289 — The saved local report projection shows 25 experience transitions,
+5,000 TD updates and an actual feedback choice change. The labels were entered
+by the automated scenario; they are not independent human feedback.*
+
+![00289 compatible freshly trained industrial model loaded](images/module3/industrial-00289-model-loaded.png)
+
+*00289 — Its own newly trained checkpoint loads as compatible before any
+suggested action is accepted. Use initial model, policy suggestion and MCTS
+allow a same-stock comparison with this exact case's model.*
+
+![00289 bounded MCTS suggestion and explored root actions](images/module3/industrial-00289-search.png)
+
+*00289 — MCTS suggests outside turning at 20 mm. The frame reports 16/16
+simulations, depth 2/2, 4/136 root actions explored and a 4.3658 backed-up
+estimate. Search has only suggested the choice; its finite budget does not
+compare every eligible root action.*
+
+![00289 accepted stock after first explicit suggested Apply](images/module3/industrial-00289-applied.png)
+
+*00289 — The first previewed and explicitly applied turning action removes
+21,265 mm³, leaving 1,062 mm³ excess and one accepted action. Target and holding
+material remain protected. The remaining sequence and zero-residual outcome
+are recorded separately in the complete simulator comparisons.*
+
+### Synthetic recording and fixed-reward training
 
 <a id="training-overview"></a>
 
 ### Read this first: what does training mean here?
 
-**You choose the demonstrated actions. Fixed geometric and tool checks determine which actions are available. A fixed reward determines what the learner scores as useful.** These are three separate parts of the system.
+**For the synthetic mixed route below, you choose the demonstrated actions. Fixed geometric and tool checks determine which actions are available. Its fixed reward determines what the learner scores as useful.** These are three separate parts of the system.
 
-The learning route described here is **Synthetic learning gym: turning, face milling and drilling; local weights and recorded actions**. It uses a small linear action-value model with **34 learned weights**. The model scores available actions for the current state. The classic industrial GYM uses its separately labelled greedy baseline; it does not use this training route.
+The learning route described here is **Synthetic learning gym: turning, face milling and drilling; local weights and recorded actions**. It uses a small linear action-value model with **34 learned weights**. The model scores available actions for the current state. The industrial cases use the separate preference-learning route above; they do not use this synthetic trainer or checkpoint.
 
 <a id="rules-and-learning"></a>
 
@@ -218,9 +404,9 @@ The learning route described here is **Synthetic learning gym: turning, face mil
 
 ### Can I teach the solution I prefer?
 
-**You can demonstrate your preferred available sequence, but this release has no “prefer solution A over B” training control.** The recording supplies the chosen actions and their outcomes. The learner updates action values under its existing reward; it does not simply copy the operator or treat every demonstrated choice as best.
+**In this synthetic mixed route you can demonstrate a preferred available sequence, but its trainer has no “prefer solution A over B” label.** The industrial route above has explicit sequence and action-kind labels. The recording supplies the chosen actions and their outcomes. The learner updates action values under its existing reward; it does not simply copy the operator or treat every demonstrated choice as best.
 
-You can choose a different exposed tool, action order, turning radius or facing stepover when the task offers it. You cannot use this workflow to teach a new geometric rule, authorize a blocked action, supply a new unexposed toolpath, or select a new learning objective such as surface finish or tool life. Those preferences are not represented by a user preference setting in the current trainer. No free-text preference or good/bad solution label is consumed.
+You can choose a different exposed tool, action order, turning radius or facing stepover when the task offers it. You cannot use this workflow to teach a new geometric rule, authorize a blocked action, supply a new unexposed toolpath, or select a new learning objective such as surface finish or tool life. Those preferences are not represented by a user preference setting in this synthetic trainer. No free-text preference or good/bad solution label is consumed.
 
 For example, the supplied demonstrations use the same task and starting model:
 
@@ -414,7 +600,7 @@ The concerns below are paraphrased to keep the response tied to observable evide
 
 | Comment / original concern | Actual response and verification | Status / remaining work |
 | --- | --- | --- |
-| **9 — Documentation is difficult to understand or follow.** | Follow [installation](#installation), the [industrial steps](#industrial-workflow), [STEP preparation](#step-workflow), [what training means](#training-overview) and [training in five steps](#training-steps). The [rules/learning table](#rules-and-learning) and [preferred-solution explanation](#choosing-preferred-solution) distinguish operator choice from the fixed learning objective. See the [industrial result](#figure-3), [STEP settings](#figure-5), [policy suggestion](#figure-13), [MCTS result](#figure-14), [completed planar controls](#figure-16) and [prepared face/drill controls](#figure-17). The manual-only exercise also identified missing acquisition information, a mismatched import label, reference/new-model ambiguity and discount formatting. | Concrete instructions, screenshots and documented walkthrough results are provided. The scope of each UI observation remains explicit. Independent human comprehension has not been measured. |
+| **9 — Documentation is difficult to understand or follow.** | Follow [installation](#installation), the [industrial steps](#industrial-workflow), [STEP preparation](#step-workflow), [what training means](#training-overview) and [training in five steps](#training-steps). The [rules/learning table](#rules-and-learning) and [preferred-solution explanation](#choosing-preferred-solution) distinguish industrial preference learning from synthetic operator choice under a fixed reward. See the [industrial result](#figure-3), [STEP settings](#figure-5), [policy suggestion](#figure-13), [MCTS result](#figure-14), [completed planar controls](#figure-16) and [prepared face/drill controls](#figure-17). The manual-only exercise also identified missing acquisition information, a mismatched import label, reference/new-model ambiguity and discount formatting. | Concrete instructions, screenshots and documented walkthrough results are provided. The scope of each UI observation remains explicit. Independent human comprehension has not been measured. |
 | **10 — Validation examples and outcomes are insufficiently visible in Git.** | See the [repository example-index screenshot](#figure-15), [family-by-family validation examples](#validation-examples), [measured new-recording results](#measured-training-results) and [dated follow-up outcomes](#followup-20261021), including reset/restore and fresh-model browser checks. The [public example index](../examples/README.md) and [validation guide](VALIDATION_GUIDE.md) provide the repository entry points. Fresh runs reproduced reference checkpoints/training outputs; the original/corrected cylindrical command result remains recorded above. | Repository examples and reproducible outcomes are demonstrated for the listed routes. Their presence is not a pass for every advertised UI family, held-out model quality or manufacturing validation. |
 | **11 — It is unclear what the system can be used for and where its boundaries lie.** | Read the [function/scope map](#scope), [stage-by-stage capability matrix](#figure-2), [supported STEP input boundaries](#step-input-boundaries) and [knowledge/model contracts](#knowledge-boundaries). The [rejection example](#failure-recovery), [adaptive stock/face limits](#adaptive-stock-faces), [case-specific completion](#figure-16) and [checkpoint-rejection recovery](#checkpoint-recovery) show why importing, inspecting, machining and completing are separate claims. | Boundaries are documented and selected positive/rejection cases observed. Arbitrary STEP machining, general knowledge activation and industrial learned-policy quality remain outside the demonstrated scope. |
 | **12 — Another user cannot execute the system without developer support.** | The [fresh-install commands](#installation), [replay-before-training recipe](#replay-and-training), [actual model reload and use](#load-and-use-model), [replay controls and recorded-state example](#step-replay), and [failure recovery instructions](#failure-recovery) give executable steps and observed outcomes. The newly recorded episode produced a checkpoint, a [completed policy suggestion](#figure-13) and a [completed bounded MCTS suggestion](#figure-14). The [actual downloaded recording also restored to completion](#recording-restoration). The [dated follow-up](#followup-20261021) adds selected planar, prepared-operation and fresh regional/cylindrical-model checks, including [recovery after an incompatible checkpoint](#checkpoint-recovery). Prerequisite selection, acquisition assistance and the separate Windows repair remain disclosed. | The documented walkthrough demonstrates execution for the tested scenarios. The original guide needed the supplied public repository URL, and the Windows defect needed a code repair. The corrected `262c5c9` release has separate affected-route checks. A complete catalogue walkthrough and an unassisted human trial remain separate requirements; neither is claimed from selected checks. |
@@ -427,12 +613,12 @@ The concerns below are paraphrased to keep the response tied to observable evide
 | --- | --- | --- |
 | What is the GYM and what does it do? | [Function map](#scope), [industrial workflow](#industrial-workflow), [capability matrix](#figure-2) | A stateful material-removal environment with checked actions, shared stock and replay. Supported stages depend on the selected family. |
 | What is the RL training pipeline? | [What training means](#training-overview), [training in five steps](#training-steps), [record decisions](#record-decisions), [replay and train](#replay-and-training), [measured results](#measured-training-results), [load/use model](#load-and-use-model), [restore recording](#recording-restoration) | Actual decisions were downloaded, replayed and trained locally; the resulting checkpoint was reloaded for policy/MCTS suggestions; the actual recording restored to completion. Browser recording and local weight training are separate operations. |
-| Is training rule guided, and can I choose a preferred solution? | [Rules, demonstrations and learning](#rules-and-learning), [preferred solutions and the A/B example](#choosing-preferred-solution) | Checks constrain action availability; you choose the demonstrated actions; the trainer updates action values using a fixed reward. There is no pairwise preference label, free-text intent input or configurable surface-quality/tool-life learning objective. Demonstration does not guarantee imitation or improved recommendations. |
-| Is the planning policy learned or greedy? | [Industrial baseline explanation](#industrial-workflow), [learning and model use](#operator-learning), [family-specific training](#validation-examples) | Industrial classic uses a staged greedy baseline. Mixed uses a compatible learned checkpoint; MCTS searches bounded choices using its model. Their roles are separate, and changed weights do not establish improved policy quality. |
+| Is training rule guided, and can I choose a preferred solution? | [Industrial rules and feedback](#industrial-learning), [synthetic A/B explanation](#choosing-preferred-solution) | Industrial learning accepts explicit complete-sequence and case-scoped turning/milling preferences, fits a reward and fine-tunes action values. Synthetic demonstrations keep their fixed reward. Neither can relax hard checks or invent surface-quality/tool-life measurements. |
+| Is the planning policy learned or greedy? | [Industrial baseline explanation](#industrial-workflow), [learning and model use](#operator-learning), [family-specific training](#validation-examples) | Industrial offers a rule baseline plus separate preference-fine-tuned policy and model-guided MCTS. Mixed keeps its compatible learned checkpoint and fixed reward. Their roles are separate, and changed weights do not establish improved policy quality. |
 | How much knowledge is formalized? | [Knowledge contracts and limits](#knowledge-boundaries) | Executable input/state/tool/action/model/replay constraints. General company-rule authoring, review, qualification and activation are unavailable. |
 | Can it handle any case, or only demonstrations? | [STEP input boundaries](#step-input-boundaries), [adaptive stock limits](#adaptive-stock-faces), [rejection/recovery](#failure-recovery) | Supplied cases and declared supported profiles can be exercised. Arbitrary STEP machining and automatic learned policies for a new industrial part are not established. |
 | What must be installed or supplied? | [Installation and dependencies](#installation), [STEP settings](#step-workflow), [family inputs](#validation-examples) | Browser/network for hosted use; Node 24 and Python 3.12 plus declared packages for local build/training; compatible input/setup/model files for the selected route. No Master implementation checkout is required. |
-| What is the delivered Module 3/version extent? | [Exact tested source identity](#verification-identity), [function map](#scope), [family outcomes](#validation-examples), [remaining evidence](#evidence-status) | The reviewed delivery is this single repository at the recorded revision, with candidate repairs identified separately. Regional v3 and cylindrical configuration 3 have the listed local results; those profile names do not imply universal feature or industrial coverage. All 23 advertised browser families are not claimed passed by this walkthrough. |
+| What is the delivered Module 3/version extent? | [Exact tested source identity](#verification-identity), [function map](#scope), [family outcomes](#validation-examples), [remaining evidence](#evidence-status) | The reviewed delivery is this single repository at the recorded revision, with candidate repairs identified separately. Regional v3 and cylindrical configuration 3 have the listed local results; those profile names do not imply universal feature or industrial coverage. Historical 23-family observations and the new F24 two-case route retain separate results; complete current-family browser coverage is not inferred. |
 
 <a id="evidence-status"></a>
 

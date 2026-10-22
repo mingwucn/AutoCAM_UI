@@ -1,0 +1,46 @@
+{
+  "schema": "industrial-checkpoint-1",
+  "case": {
+    "scene_id": "industrial_00289",
+    "raw_sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
+    "raw_size_bytes": 4476422,
+    "dataset_sha256": "346791e658beff3b48e81672418dd4434039377fdab5e0266fceabff064b44aa",
+    "action_catalogue_sha256": "c41bf500c893096f91380091c6978c2ba280d3b13cbfd6d8a5e945809cffa0e9"
+  },
+  "feature_version": "industrial-removal-process-2",
+  "reward_version": "industrial-pairwise-logistic-1",
+  "features": [
+    "removed_fraction",
+    "turning_removed_fraction",
+    "milling_removed_fraction",
+    "negative_reach_removed_fraction",
+    "negative_switch_removed_fraction",
+    "remaining_removed_fraction",
+    "completion"
+  ],
+  "dimensions": 7,
+  "reward_weights": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "q_weights": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "gamma": 0.95,
+  "training": {
+    "kind": "initial_removal_model",
+    "feedback_id": null,
+    "updates": 0
+  }
+}

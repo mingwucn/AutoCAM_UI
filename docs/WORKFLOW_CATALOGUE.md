@@ -1,11 +1,16 @@
 # Workflow catalogue: inputs, controls and acceptance
 
-This manual maps all 23 families in the [capability registry](../config/module3-capabilities.json)
+This manual maps all 24 current families in the [capability registry](../config/module3-capabilities.json)
 to user tasks. The scope is the advertised functions of `mingwucn/AutoCAM_UI`.
 Read [installation](INSTALLATION.md) first and save the served `release.json`.
 The [capability table](CAPABILITIES.md) states the supported stages; the
 [verification status](VERIFICATION_STATUS.md) identifies actual executed checks.
 An entry below is an instruction, not a claim that a person has completed it.
+
+The new [two-case industrial learning route](#industrial-preference-learning)
+is the 24th family; the previous 23-family verification records retain their
+original scope. Begin with its [record/train/use guide](INDUSTRIAL_LEARNING_QUICKSTART.md)
+for industrial learning. Synthetic and adaptive routes below remain available.
 
 Paths below are relative to the repository root. File pickers use the local
 source checkout, not a path typed into the web page. Do not exchange same-named
@@ -161,6 +166,11 @@ Compare **Play greedy baseline** without calling it a learned policy. Repeat an
 exhausted action: it must not invent progress. Target/holding samples remain.
 Zero sampled excess is not tolerance, physical accessibility or qualification.
 Inputs/results: [industrial example](../examples/industrial-00350/README.md).
+
+The manual sampled-stock checks above remain regression references. Learning
+for the two exact pinned 00350 and 00289 cases is the separate F24 route;
+remaining catalogue cases retain their original manual/baseline controls without
+a compatible local industrial trainer.
 Browser scenario source: [browser.cjs](../tests/browser.cjs).
 
 ### F02 — Classic STEP B-Rep (`classic-step-brep`)
@@ -538,6 +548,42 @@ are not assessed. A model/training workflow is not supplied for this comparison;
 do not infer one from the shared indexed interface. Reference:
 [prepared-comparison.test.mjs](../tests/prepared-comparison.test.mjs).
 
+<a id="industrial-00350-learning"></a>
+<a id="industrial-preference-learning"></a>
+
+### F24 — Industrial rules, preferences and RL (`industrial-preference-learning`)
+
+Select **Industrial · 3-29-00350** or **Industrial · 3-29-00289**. The latter is
+the catalogue-based working choice for the second case. Follow the
+[industrial learning quickstart](INDUSTRIAL_LEARNING_QUICKSTART.md) to generate a
+baseline, retain a complete alternative and label a preferred whole sequence
+or a preferred action kind (turning/milling). Each accepted baseline action has
+its own state and reason. The rules are software ordering heuristics;
+action availability, stock, target and holding checks remain mandatory.
+
+Download the feedback bundle. Acquire the original datasets with
+`node scripts/fetch-industrial-learning-data.mjs --case all`, then run
+`node scripts/train-industrial-episode.mjs --feedback FILE --expected-sha256 HASH --output NEW-DIR`.
+The trainer replays exact-case inputs, fits a bounded reward from pairwise
+preferences and fine-tunes Q weights using demonstrations and simulator
+exploration. Keep `feedback.json`, `initial-checkpoint.json`, `checkpoint.json`
+and `training-report.json` together. Separate case models reject across cases.
+
+Load the emitted checkpoint. Compare policy before/after feedback and bounded
+model-guided MCTS from the same accepted stock. Suggestions/search do not commit
+stock; preview and explicit Apply accept one current eligible action. Cancel,
+reset, case/history/model replacement invalidate stale computations. Invalid
+imports preserve previous accepted stock/history/model. Whole-sequence labels
+require complete replayed alternatives; action-kind labels remain case/state
+scoped. A chosen demonstration alone is not a preference label.
+
+Report the baseline, initial model, fine-tuned model and search under the same
+conditions for each case. Changed weights alone are not a feedback effect;
+show changed choices and unchanged recommendations. The F01 00350 residuals
+remain a geometric regression reference. Neither case proves machining-time,
+quality, tool-life, manufacturing qualification or cross-case generalization.
+Synthetic routes keep their existing contracts and remain available.
+
 ## Evidence and unresolved steps
 
 The sources linked above describe test scope; their existence is not a passed
@@ -557,3 +603,7 @@ families. These boundaries must remain visible in the acceptance record.
 Use [the acceptance checklist](ACCEPTANCE_CHECKLIST.md) to record every family,
 including subcases and failed/assisted attempts. No automated check substitutes
 for an independent user's observation. Video and slides are deferred.
+
+F24 is a new extension. Its instructions and capability metadata are not a
+completed verification result; retain its actual input/model identities and
+local/browser/hosted outcomes separately from the earlier 23-family records.

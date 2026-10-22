@@ -2,20 +2,20 @@
 
 This checklist records whether the delivered scenarios can be completed using
 the package alone. It is not an approval record until a named acceptance owner
-makes that decision. Agent-run tests do not substitute for an independent user.
+makes that decision. Software tests do not substitute for an independent user.
 
 Record: participant, date, candidate commit/build identity, operating system,
 browser, starting environment, input/model versions and any assistance received.
 
 Use the [workflow catalogue](WORKFLOW_CATALOGUE.md) for exact inputs, controls,
-expected observations and limits. A1–A8 are assessment themes; the F01–F23 matrix
+expected observations and limits. A1–A8 are assessment themes; the F01–F24 matrix
 below defines the complete advertised family denominator. One family does not
 stand in for another, and a description of an unavailable stage is not a positive
 execution test. The source, platform, subcase and tested stages must stay explicit.
 
 | Scenario | User task | Evidence for a pass |
 | --- | --- | --- |
-| A1 — Find scope | Start at README/UI, identify version and choose the correct route | User distinguishes industrial baseline, synthetic learning and supported STEP stages, including unavailable functions |
+| A1 — Find scope | Start at README/UI, identify version and choose the correct route | User distinguishes industrial rules/preferences/RL, synthetic learning and supported STEP stages, including unavailable functions |
 | A2 — Install | Use a fresh candidate copy and the published installation commands | Only declared dependencies used; release build and local page work; logs retained |
 | A3 — Industrial | Reset, perform the three 00350 cuts, switch process and replay | Expected sampled residuals match, protected material remains, and the user correctly interprets zero sampled excess |
 | A4 — Supplied learning | Train A/B, load a compatible result and request policy/MCTS | Verified outputs; same-state comparison; user understands unchanged recommendations are not a claimed improvement |
@@ -61,6 +61,7 @@ or unavailable dependency is not an unassisted pass.
 | F21 cylindrical-policy | v1 recorded and self-play, v2 and v3; newly trained compatible models, read-only MCTS/preview, explicit Apply, wrong-version rejection and F20 diagnostics/retention controls | A7, A8 | not assessed |
 | F22 inspection | Legacy and tool-recording bundle imports, Previous/Next/Play, cells/sections/layers, recorded-tool pose/sweep, display exports, producer-reported replay distinction, malformed-file preservation | A6, A8 | not assessed |
 | F23 equivalent-groove | Both indexing-cost scenarios, time/geometry interpretation, indexed preview/Apply/download/reset; deliberate new episode on scenario change | A6, A8 | not assessed |
+| F24 industrial-preference-learning | Both 00350 and 00289: generate rule baseline, complete alternatives, sequence/action-kind feedback export, local fine-tuning, initial/updated case-model comparison, MCTS, preview/Apply and failed-import/cancellation recovery | A3, A5, A7, A8 | not assessed |
 
 For every live family, exercise the shared catalogue procedures that its UI
 offers: inspect without mutation, explicit checked execution, wrong-family or

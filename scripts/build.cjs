@@ -10,6 +10,7 @@ fs.mkdirSync(path.join(out,'assets'),{recursive:true});
 require('./accepted-stock-assets.cjs')({source,out:path.join(out,'assets'),minify:!development});
 esbuild.buildSync({entryPoints:[path.join(source,'view.js')],bundle:true,minify:true,format:'iife',target:'es2020',outfile:path.join(out,'assets/view.js'),legalComments:'eof',nodePaths:[path.join(root,'node_modules')]});
 esbuild.buildSync({entryPoints:[path.join(source,'app.jsx')],bundle:true,minify:!development,format:'iife',target:'es2020',jsx:'automatic',define:{'process.env.NODE_ENV':JSON.stringify(development?'development':'production')},outfile:path.join(out,'assets/app.js'),legalComments:'eof',sourcemap:false,nodePaths:[path.join(root,'node_modules')]});
+esbuild.buildSync({entryPoints:[path.join(source,'industrial-learning-worker.mjs')],bundle:true,minify:!development,format:'esm',target:'es2022',outfile:path.join(out,'assets/industrial-learning-worker.js'),legalComments:'eof'});
 fs.copyFileSync(path.join(source,'model.js'),path.join(out,'assets/model.js'));
 fs.writeFileSync(path.join(out,'assets/style.css'),['style.css','adaptive-tools.css'].map(name=>fs.readFileSync(path.join(source,name),'utf8')).join('\n'));
 for(const name of ['three','react','react-dom'])fs.copyFileSync(path.join(root,'node_modules',name,'LICENSE'),path.join(out,'assets',name.toUpperCase()+'-LICENSE.txt'));

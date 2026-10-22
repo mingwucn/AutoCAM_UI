@@ -9,7 +9,8 @@ Candidate verification and independent user acceptance are separate steps.
 
 | Workflow | Input and purpose | Available functions and limits |
 | --- | --- | --- |
-| Industrial sampled GYM | Pinned prepared cases, including 3-29-00350 | Manual turning/milling, one shared stock, a staged greedy baseline and replay. Volumes are sampled estimates. This route does not train an industrial policy. |
+| Industrial rules, preferences and RL | Exact pinned sampled 3-29-00350 and 3-29-00289 datasets | Shared-stock manual actions; action-by-action rule baseline; explicit whole-sequence and case-scoped turning/milling preferences; local reward learning and RL; separate case models; policy/MCTS suggestions, preview and explicit Apply. Follow the [industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md). |
+| Other classic sampled GYM cases | Other pinned prepared catalogue cases | Manual turning/milling, one shared stock, staged greedy baselines and replay. These cases have no compatible industrial learning route. All volumes are sampled estimates. |
 | Classic STEP import | A local STEP solid that the browser importer accepts, plus the selected engine and stock/setup settings | OpenCascade B-Rep cuts or sampled voxel turning/milling, depending on the selected mode. Import acceptance does not establish machining feasibility or support in the separate adaptive workflow. |
 | Synthetic mixed learning | The compatible turning, transfer, indexing, face-milling and drilling task | Record/replay actions, train locally, load a compatible 34-weight model, request policy or bounded MCTS suggestions, preview and explicitly accept an action. Costs are synthetic. |
 | Recorded task-5/task-6 learning | Compatible remaining-stock or cleared-holder browser episodes | Standalone launchers and examples for separate training/model families. Platform and browser checks are recorded independently. These checkpoints are incompatible with mixed-learning models. |
@@ -37,9 +38,11 @@ documentation does not override a rejection.
 - **Checked action:** the recorded checks passed within their stated geometry,
   tool, setup and motion scope. Unassessed properties remain unassessed.
 
-General arbitrary STEP machining, an industrial trained planning policy,
+General arbitrary STEP machining, a policy qualified for other industrial parts,
 qualified manufacturing plans, NC generation and machine execution are not
-established by this package.
+established by this package. The industrial learner is confined to the two pinned cases. Preference feedback
+can change the learned objective and selected choices; improvement or
+generalization needs an evaluation against the declared objective.
 
 ## Complete repository scope and component interfaces
 
@@ -52,8 +55,8 @@ other Master research programmes are not implicitly part of this release.
 | Material-removal GYM | Pinned case or supported imported STEP; current stock, checked actions and history | Classic sampled and B-Rep engines, plus family-specific adaptive sessions; manual and supported staged greedy operation |
 | Adaptive preparation and inspection | Supported STEP/profile/settings or an exact prepared task/stock pair; prepared case, original-face and constraint views | Pinned CAD/runtime packages selected in `site.config.json`; stages and restrictions remain profile-specific |
 | Recording and replay | Checked session decisions and exact initial context; versioned episode/transition downloads and compatible restoration | Browser session adapters preserve task, state, setup and tool identities; a valid recording is not automatically trainable by every trainer |
-| Local learning pipeline | Compatible recorded episode or cylindrical configuration/state/model tuple; replay, training record and checkpoint | The four launchers under `python/`, packaged owner source and pinned dependencies; see the training-family inventory |
-| Agent / model search | Compatible checkpoint, accepted state and search settings; suggested or explicitly executed checked action | Family-specific policy and bounded MCTS interfaces; industrial greedy and learned synthetic routes are distinct |
+| Local learning pipeline | Compatible recorded episode or cylindrical configuration/state/model tuple; replay, training record and checkpoint | The two industrial cases use `scripts/train-industrial-episode.mjs` with Node.js 24 and the existing JS GYM; the four Python launchers retain their separate families and dependencies |
+| Policy and model search | Compatible checkpoint, accepted state and search settings; suggested or explicitly executed checked action | Family-specific policy and bounded MCTS interfaces; the industrial staged greedy baseline, industrial learned scores and synthetic learning routes remain distinct |
 | Knowledge and constraints | Exact input/action/tool/setup/model/evidence contracts; allowed action or explicit rejection/unresolved result | Executable checks in the GYM and preserved runtime owners; see the allowed/blocked examples in knowledge scope |
 
 The GYM does not provide a general rule-authoring, human rule-review, company
@@ -70,4 +73,7 @@ their own evidence; a test for one family does not establish another.
 See [the functional contract](FUNCTIONAL_CONTRACT.md) for observable behavior and
 [training families](TRAINING_FAMILIES.md) for available and unavailable trainers.
 The candidate must retain its verification record and record independent human
-acceptance explicitly; neither is inferred from documentation or agent output.
+acceptance explicitly; neither is inferred from documentation or automated checks.
+Industrial learning verification is separate from the previously verified
+three-action manual sequence. Consult its guide and retained results before
+claiming a platform or hosted-release pass.

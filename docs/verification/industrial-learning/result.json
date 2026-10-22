@@ -1,0 +1,1252 @@
+{
+  "schema": "industrial-browser-public-summary-1",
+  "status": "passed",
+  "date": "2026-10-23",
+  "scope": "Automated two-case UI feedback download, local preference/RL training, compatible model loading, policy/MCTS suggestion, preview and one explicit suggested Apply; full sequence comparisons use the same shared simulator.",
+  "independent_human_acceptance": false,
+  "manufacturing_qualification": false,
+  "source_receipt": {
+    "name": "INDUSTRIAL_BROWSER_QA.json",
+    "sha256": "801f33e3d99a7d8015912e30f5b79ae31d194cb949af02c564489c7da79840a1",
+    "size_bytes": 10508,
+    "relationship": "Sanitized selection from the passing browser03 receipt; absolute local/site paths omitted."
+  },
+  "tested_development_build": {
+    "execution_build_sha256": "4df320d80f4c52614388212c6314afb24aa5e7a05ac89d04d9539276a6aaec84",
+    "industrial_worker_sha256": "e11e83098ceff080efe6f57510aa835b9c1c8b5a40d91dd1fe09c7acef93b95d",
+    "browser": "Edge",
+    "final_production_build_identity": false,
+    "interpretation": "Exact development build used by this test. Later documentation/screenshots change the final release build identity; production-byte verification is separate."
+  },
+  "source_files": [
+    {
+      "path": "src/model.js",
+      "sha256": "238e088b3c8212461af2a59c11ecbf4bebba1ef2101374b50182965a0375e642"
+    },
+    {
+      "path": "src/industrial-learning.mjs",
+      "sha256": "d7b650395bce8bc40ed7356a19d5ca49444d0422fee7d682306485c02ace8e67"
+    },
+    {
+      "path": "src/app.jsx",
+      "sha256": "90ac2fdd66936b13b8fe6b8cd06491d605a5407a1182682a741211d786b06565"
+    },
+    {
+      "path": "src/industrial-learning-panel.jsx",
+      "sha256": "7534b604ba63e5298da981cacd6cd6336b8fb3f49598dbf1053180a7e6da6a25"
+    },
+    {
+      "path": "src/industrial-learning-worker.mjs",
+      "sha256": "f2c155513c2b6023cc3bddc39c90cc9d7a7284e69f6ef46f646a048d6b420543"
+    },
+    {
+      "path": "scripts/train-industrial-episode.mjs",
+      "sha256": "db9f9a473d18ff3abb7131be52dc80b76ca2104e0a2d723918cbd64a165a09cf"
+    }
+  ],
+  "page_errors": [],
+  "cases": [
+    {
+      "case_id": "industrial",
+      "preferred_kind": "turning",
+      "initial_stock": "5392562dc58e87739565cd52dd6a475d4d58d6e9ccc4b8c0c6c095013b198c5a",
+      "alternative_residuals": [
+        45982,
+        0
+      ],
+      "feedback_sha256": "81d7f4fbddf198d14132b0a6150cc3717aa08546d9863038dda2941b0fd4c2b9",
+      "checkpoint_sha256": "712fba3f52f519d795eb701fb81840df986445213cee38bbf73c2337a979d702",
+      "baseline_steps": 3,
+      "initial_policy_steps": 2,
+      "updated_policy_steps": 3,
+      "initial_mcts_steps": 2,
+      "initial_mcts_complete": true,
+      "initial_mcts_residual_mm3": 0,
+      "updated_mcts_steps": 8,
+      "updated_mcts_complete": true,
+      "updated_mcts_residual_mm3": 0,
+      "updated_mcts_rollout_budget": {
+        "max_actions": 32,
+        "simulations_per_action": 16,
+        "depth": 2,
+        "total_completed_simulations": 128,
+        "applied_actions": 8
+      },
+      "updated_mcts_stop_reason": "sampled_excess_exhausted",
+      "episode_returns_under_updated_model": {
+        "baseline": {
+          "episode_id": "4ec575605085c4d69955fa5d77415a99456e375f5f9975aeed3bd00c41501c50",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 1.9258969568293973,
+          "undiscounted_return": 1.9650155459435892,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "initial_policy": {
+          "episode_id": "a99e054086b370b492363b3bcc9da828cdf80d836b32d246316f8c105056d60f",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 0.9471944153300308,
+          "undiscounted_return": 0.9529628874034997,
+          "step_count": 2,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "updated_policy": {
+          "episode_id": "ddb5cb6d260a3324b2124e18a96bfe9c383d3da575367300cd3e9d0ef2761cc2",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 1.9258969568293973,
+          "undiscounted_return": 1.9650155459435892,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "initial_mcts": {
+          "episode_id": "54fe8db8db857c8c3baeff7b3141c8d056053f48965c5ee61834864591cdec16",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 0.8946852110370561,
+          "undiscounted_return": 0.90001,
+          "step_count": 2,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "updated_mcts": {
+          "episode_id": "349c53bb504f82709224e4d9478ee60cc79c3669aa44e6eadbe1ff73915d4d91",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 1.9249202214592238,
+          "undiscounted_return": 1.9653966195153854,
+          "step_count": 8,
+          "complete": true,
+          "residual_excess_mm3": 0
+        }
+      },
+      "initial_policy_ui": "Milling · From above (-Z) · 80 mm reach · policy action value (Q) 0.8817",
+      "updated_policy_ui": "Turning · Outside turning · 40 mm reach · policy action value (Q) 1.2162",
+      "initial_mcts_ui": "Milling · From above (-Z) · 160 mm reach · MCTS backed-up return 0.9941",
+      "updated_mcts_ui": "Turning · Outside turning · 40 mm reach · MCTS backed-up return 1.9029",
+      "initial_action_changed": true,
+      "mcts_action_changed": true,
+      "matched_experience_feedback_choice_changed": true,
+      "unchanged_baseline_prefixes": [
+        1,
+        2
+      ],
+      "search_budget": {
+        "simulations": 16,
+        "depth": 2,
+        "exploration": 1,
+        "completed": 16,
+        "expanded": 13,
+        "max_depth_reached": 2,
+        "eligible_root_actions": 136,
+        "expanded_root_actions": 4
+      },
+      "cancelled_search_preserved_stock": true,
+      "failed_import_preserved_model": true,
+      "protected_stock_preserved": true,
+      "dataset_identity": {
+        "scene_id": "industrial",
+        "raw_sha256": "f20d5673d8cfd9021604b6b80dda59384a7e65ef5ef45adc54162308ff53245a",
+        "raw_size_bytes": 8058296,
+        "dataset_sha256": "502c42851e1e31439a53684766a95c9549a556e06fd8b26ebc5d2649b0090663",
+        "action_catalogue_sha256": "ddc8cbabb498de5e17c60b84dd65cd4b1d3e089104c7c9a411e91c5677388d1c"
+      },
+      "comparison_receipt": {
+        "name": "industrial-comparison.json",
+        "sha256": "c229edab40f7b3aa318af51d0b904b4e4ae26beefa030a18bb914aadcfc2876d",
+        "size_bytes": 69478
+      },
+      "ui_suggested_apply_steps_verified": 1,
+      "sequence_scope": "Shared-core complete sequence replay/comparison; not all sequence steps were accepted through the UI.",
+      "sequences": {
+        "baseline": {
+          "episode_id": "4ec575605085c4d69955fa5d77415a99456e375f5f9975aeed3bd00c41501c50",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "alternative": {
+          "episode_id": "8823ab739448be0184375092619fccdf73570301b190f22fe2db8201ab3b79c5",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 2,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "initial_policy": {
+          "episode_id": "a99e054086b370b492363b3bcc9da828cdf80d836b32d246316f8c105056d60f",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 2,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "updated_policy": {
+          "episode_id": "ddb5cb6d260a3324b2124e18a96bfe9c383d3da575367300cd3e9d0ef2761cc2",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "initial_mcts": {
+          "episode_id": "54fe8db8db857c8c3baeff7b3141c8d056053f48965c5ee61834864591cdec16",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@160mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@160mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 2,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "updated_mcts": {
+          "episode_id": "349c53bb504f82709224e4d9478ee60cc79c3669aa44e6eadbe1ff73915d4d91",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+1@160mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+1_+0_+1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 8,
+            "removed_mm3": 388600,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        }
+      },
+      "baseline_prefix_choices": [
+        {
+          "baseline_prefix_length": 0,
+          "actions": [],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_-1@80mm"
+          },
+          "after": {
+            "process": "turning",
+            "action_id": "outside@40mm"
+          },
+          "changed": true
+        },
+        {
+          "baseline_prefix_length": 1,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            }
+          ],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_-1@80mm"
+          },
+          "after": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_-1@80mm"
+          },
+          "changed": false
+        },
+        {
+          "baseline_prefix_length": 2,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            }
+          ],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_+1@40mm"
+          },
+          "after": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_+1@40mm"
+          },
+          "changed": false
+        },
+        {
+          "baseline_prefix_length": 3,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@40mm"
+            }
+          ],
+          "before": null,
+          "after": null,
+          "changed": false
+        }
+      ],
+      "updated_mcts_searches": [
+        {
+          "prefix_length": 0,
+          "action": {
+            "process": "turning",
+            "action_id": "outside@40mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 13,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 136,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 1,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_-1@80mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 12,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 110,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 2,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_+1@20mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 76,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 3,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_-1_+1@80mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 24,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 4,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+1_+1@160mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 17,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 5,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_-1_+0_+1@80mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 7,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 6,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+1_+0_+1@80mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 5,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 7,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_+1@40mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 3,
+            "max_depth_reached": 1,
+            "eligible_root_actions": 3,
+            "expanded_root_actions": 3
+          }
+        }
+      ],
+      "training": {
+        "configuration": {
+          "alpha": 0.05,
+          "gamma": 0.95,
+          "clip": 1,
+          "epochs": 200,
+          "rewardEpochs": 200,
+          "rewardAlpha": 0.1,
+          "explorationEpisodes": 12,
+          "seed": 350289
+        },
+        "experience_transitions": 20,
+        "td_updates": 4000,
+        "actual_feedback_choice_changed": true,
+        "policy_choices": [
+          {
+            "actions": [],
+            "before": {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            "without_feedback": {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@160mm"
+            },
+            "after": {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            "changed": true,
+            "feedback_effect": true
+          },
+          {
+            "actions": [],
+            "before": {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@80mm"
+            },
+            "without_feedback": {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@160mm"
+            },
+            "after": {
+              "process": "turning",
+              "action_id": "outside@40mm"
+            },
+            "changed": true,
+            "feedback_effect": true
+          }
+        ],
+        "preferences_before": [
+          {
+            "kind": "sequence",
+            "label": {
+              "scope": "case",
+              "preferred_episode_id": "4ec575605085c4d69955fa5d77415a99456e375f5f9975aeed3bd00c41501c50",
+              "rejected_episode_id": "8823ab739448be0184375092619fccdf73570301b190f22fe2db8201ab3b79c5"
+            },
+            "preferred_probability": 0.49124053216924773
+          },
+          {
+            "kind": "action_kind",
+            "label": {
+              "scope": "case",
+              "actions": [],
+              "preferred_kind": "turning",
+              "rejected_kind": "milling"
+            },
+            "preferred_probability": 0.5
+          }
+        ],
+        "preferences_after": [
+          {
+            "kind": "sequence",
+            "label": {
+              "scope": "case",
+              "preferred_episode_id": "4ec575605085c4d69955fa5d77415a99456e375f5f9975aeed3bd00c41501c50",
+              "rejected_episode_id": "8823ab739448be0184375092619fccdf73570301b190f22fe2db8201ab3b79c5"
+            },
+            "preferred_probability": 0.7268506963690577
+          },
+          {
+            "kind": "action_kind",
+            "label": {
+              "scope": "case",
+              "actions": [],
+              "preferred_kind": "turning",
+              "rejected_kind": "milling"
+            },
+            "preferred_probability": 0.9789490008903378
+          }
+        ]
+      },
+      "screenshots": {
+        "baseline": {
+          "path": "../../images/module3/industrial-00350-baseline.png",
+          "sha256": "ed40f988e845391c0337cd6b47b8386b101bf776e09cd14f23a93528df14ad5f",
+          "size_bytes": 29501,
+          "content": "Actual tested application UI crop."
+        },
+        "feedback": {
+          "path": "../../images/module3/industrial-00350-feedback.png",
+          "sha256": "4a3c6180b986a6ea2145ffa5bb0952eb2c01ecc34ab7f036f7db6a0115c06578",
+          "size_bytes": 38338,
+          "content": "Actual tested application UI crop."
+        },
+        "training": {
+          "path": "../../images/module3/industrial-00350-training.png",
+          "sha256": "3e4d758072df7af1c5fca6deff1400845015f7715f5214c925555146425a4b7a",
+          "size_bytes": 60481,
+          "content": "Local projection of saved training-report.json; not application UI."
+        },
+        "model_loaded": {
+          "path": "../../images/module3/industrial-00350-model-loaded.png",
+          "sha256": "1ed65623dd11d9849c33c92a6363b6c3d48004cc9d9fd58f7ee18a5a8cdfdd7d",
+          "size_bytes": 25921,
+          "content": "Actual tested application UI crop."
+        },
+        "search": {
+          "path": "../../images/module3/industrial-00350-search.png",
+          "sha256": "091efd8d89c93bc84cec7ffab8177331ee672bb4090d92d43e44b6869373a49b",
+          "size_bytes": 32479,
+          "content": "Actual tested application UI crop."
+        },
+        "applied": {
+          "path": "../../images/module3/industrial-00350-applied.png",
+          "sha256": "d00deefa8ef675421107163af524c6092a28369c2e816119de83aad27944d464",
+          "size_bytes": 76179,
+          "content": "Actual tested application UI crop."
+        }
+      }
+    },
+    {
+      "case_id": "industrial_00289",
+      "preferred_kind": "turning",
+      "initial_stock": "299b8ce9bc8369c596f04fe621d3f2a0220c5b37249e42a4425965d72cb2981e",
+      "alternative_residuals": [
+        703,
+        52,
+        0
+      ],
+      "feedback_sha256": "bf19f03265166878fae46fe19776b73d9779dc3baaaf02eb773199a98e5db867",
+      "checkpoint_sha256": "b30270b21083d825373b7840a3a1d848d463e1c4fca98d03026b20ccd673f4c0",
+      "baseline_steps": 3,
+      "initial_policy_steps": 3,
+      "updated_policy_steps": 3,
+      "initial_mcts_steps": 3,
+      "initial_mcts_complete": true,
+      "initial_mcts_residual_mm3": 0,
+      "updated_mcts_steps": 6,
+      "updated_mcts_complete": true,
+      "updated_mcts_residual_mm3": 0,
+      "updated_mcts_rollout_budget": {
+        "max_actions": 32,
+        "simulations_per_action": 16,
+        "depth": 2,
+        "total_completed_simulations": 96,
+        "applied_actions": 6
+      },
+      "updated_mcts_stop_reason": "sampled_excess_exhausted",
+      "episode_returns_under_updated_model": {
+        "baseline": {
+          "episode_id": "be70352f28b7d362e4f9bd4ab6da3ca3b804e86065fd44c5e61dec1f8748edd5",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 4.368131303861607,
+          "undiscounted_return": 4.370791178198733,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "initial_policy": {
+          "episode_id": "82491fc698166e3b1a33d5823995fb542ad3f858f7e68bae4dbb5a9383d243a3",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 0.9007284186612621,
+          "undiscounted_return": 0.902371254422896,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "updated_policy": {
+          "episode_id": "f4894b4e0846fdaf7ce6ded85370f6cf8e4bcc1ca11877198f6a2ad3b158335e",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 4.369006983360085,
+          "undiscounted_return": 4.371769716067681,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "initial_mcts": {
+          "episode_id": "d11b0c95c5a84734bf528297229c4567060f032b80d20ad94c2d0328a45eaa07",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 0.9007284186612621,
+          "undiscounted_return": 0.902371254422896,
+          "step_count": 3,
+          "complete": true,
+          "residual_excess_mm3": 0
+        },
+        "updated_mcts": {
+          "episode_id": "3ccfcee1070790cc754a586a4fd811b9da2ebebdfef8287cfd98b7f4ea96ea11",
+          "feature_version": "industrial-removal-process-2",
+          "gamma": 0.95,
+          "discounted_return": 4.3688595050349734,
+          "undiscounted_return": 4.371741445951901,
+          "step_count": 6,
+          "complete": true,
+          "residual_excess_mm3": 0
+        }
+      },
+      "initial_policy_ui": "Milling · From right (-X) · 80 mm reach · policy action value (Q) 0.9685",
+      "updated_policy_ui": "Turning · Outside turning · 20 mm reach · policy action value (Q) 4.3607",
+      "initial_mcts_ui": "Milling · From right (-X) · 80 mm reach · MCTS backed-up return 0.9978",
+      "updated_mcts_ui": "Turning · Outside turning · 20 mm reach · MCTS backed-up return 4.3658",
+      "initial_action_changed": true,
+      "mcts_action_changed": true,
+      "matched_experience_feedback_choice_changed": true,
+      "unchanged_baseline_prefixes": [
+        2
+      ],
+      "search_budget": {
+        "simulations": 16,
+        "depth": 2,
+        "exploration": 1,
+        "completed": 16,
+        "expanded": 12,
+        "max_depth_reached": 2,
+        "eligible_root_actions": 136,
+        "expanded_root_actions": 4
+      },
+      "cancelled_search_preserved_stock": true,
+      "failed_import_preserved_model": true,
+      "protected_stock_preserved": true,
+      "dataset_identity": {
+        "scene_id": "industrial_00289",
+        "raw_sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
+        "raw_size_bytes": 4476422,
+        "dataset_sha256": "346791e658beff3b48e81672418dd4434039377fdab5e0266fceabff064b44aa",
+        "action_catalogue_sha256": "c41bf500c893096f91380091c6978c2ba280d3b13cbfd6d8a5e945809cffa0e9"
+      },
+      "comparison_receipt": {
+        "name": "industrial_00289-comparison.json",
+        "sha256": "46893e25358dd3911319cd47c2ac01cafb02502afb23c06b0451900e6f6a2aa1",
+        "size_bytes": 68877
+      },
+      "ui_suggested_apply_steps_verified": 1,
+      "sequence_scope": "Shared-core complete sequence replay/comparison; not all sequence steps were accepted through the UI.",
+      "sequences": {
+        "baseline": {
+          "episode_id": "be70352f28b7d362e4f9bd4ab6da3ca3b804e86065fd44c5e61dec1f8748edd5",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "alternative": {
+          "episode_id": "7f3b059566a6a8200871602bb04e988d1606d50753e54f4064ed9dedb71a6112",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "initial_policy": {
+          "episode_id": "82491fc698166e3b1a33d5823995fb542ad3f858f7e68bae4dbb5a9383d243a3",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "updated_policy": {
+          "episode_id": "f4894b4e0846fdaf7ce6ded85370f6cf8e4bcc1ca11877198f6a2ad3b158335e",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "initial_mcts": {
+          "episode_id": "d11b0c95c5a84734bf528297229c4567060f032b80d20ad94c2d0328a45eaa07",
+          "actions": [
+            {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 3,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        },
+        "updated_mcts": {
+          "episode_id": "3ccfcee1070790cc754a586a4fd811b9da2ebebdfef8287cfd98b7f4ea96ea11",
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@10mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_-1@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+0_+1@20mm"
+            }
+          ],
+          "complete": true,
+          "summary": {
+            "step_count": 6,
+            "removed_mm3": 22327,
+            "residual_excess_mm3": 0,
+            "terminal_reason": "excess_exhausted"
+          }
+        }
+      },
+      "baseline_prefix_choices": [
+        {
+          "baseline_prefix_length": 0,
+          "actions": [],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_-1_+0_+0@80mm"
+          },
+          "after": {
+            "process": "turning",
+            "action_id": "outside@20mm"
+          },
+          "changed": true
+        },
+        {
+          "baseline_prefix_length": 1,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            }
+          ],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_+0_-1_+0@40mm"
+          },
+          "after": {
+            "process": "milling",
+            "action_id": "mill_+0_-1_+0@20mm"
+          },
+          "changed": true
+        },
+        {
+          "baseline_prefix_length": 2,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@40mm"
+            }
+          ],
+          "before": {
+            "process": "milling",
+            "action_id": "mill_+0_+1_+0@20mm"
+          },
+          "after": {
+            "process": "milling",
+            "action_id": "mill_+0_+1_+0@20mm"
+          },
+          "changed": false
+        },
+        {
+          "baseline_prefix_length": 3,
+          "actions": [
+            {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_-1_+0@40mm"
+            },
+            {
+              "process": "milling",
+              "action_id": "mill_+0_+1_+0@20mm"
+            }
+          ],
+          "before": null,
+          "after": null,
+          "changed": false
+        }
+      ],
+      "updated_mcts_searches": [
+        {
+          "prefix_length": 0,
+          "action": {
+            "process": "turning",
+            "action_id": "outside@20mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 12,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 136,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 1,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_-1_+0@20mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 12,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 76,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 2,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+1_+0@10mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 57,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 3,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_-1_+0_+0@80mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 32,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 4,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_-1@20mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 6,
+            "max_depth_reached": 2,
+            "eligible_root_actions": 21,
+            "expanded_root_actions": 4
+          }
+        },
+        {
+          "prefix_length": 5,
+          "action": {
+            "process": "milling",
+            "action_id": "mill_+0_+0_+1@20mm"
+          },
+          "budget": {
+            "simulations": 16,
+            "depth": 2,
+            "exploration": 1,
+            "completed": 16,
+            "expanded": 4,
+            "max_depth_reached": 1,
+            "eligible_root_actions": 7,
+            "expanded_root_actions": 4
+          }
+        }
+      ],
+      "training": {
+        "configuration": {
+          "alpha": 0.05,
+          "gamma": 0.95,
+          "clip": 1,
+          "epochs": 200,
+          "rewardEpochs": 200,
+          "rewardAlpha": 0.1,
+          "explorationEpisodes": 12,
+          "seed": 350289
+        },
+        "experience_transitions": 25,
+        "td_updates": 5000,
+        "actual_feedback_choice_changed": true,
+        "policy_choices": [
+          {
+            "actions": [],
+            "before": {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            "without_feedback": {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            "after": {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            "changed": true,
+            "feedback_effect": true
+          },
+          {
+            "actions": [],
+            "before": {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            "without_feedback": {
+              "process": "milling",
+              "action_id": "mill_-1_+0_+0@80mm"
+            },
+            "after": {
+              "process": "turning",
+              "action_id": "outside@20mm"
+            },
+            "changed": true,
+            "feedback_effect": true
+          }
+        ],
+        "preferences_before": [
+          {
+            "kind": "sequence",
+            "label": {
+              "scope": "case",
+              "preferred_episode_id": "be70352f28b7d362e4f9bd4ab6da3ca3b804e86065fd44c5e61dec1f8748edd5",
+              "rejected_episode_id": "7f3b059566a6a8200871602bb04e988d1606d50753e54f4064ed9dedb71a6112"
+            },
+            "preferred_probability": 0.4997266762488402
+          },
+          {
+            "kind": "action_kind",
+            "label": {
+              "scope": "case",
+              "actions": [],
+              "preferred_kind": "turning",
+              "rejected_kind": "milling"
+            },
+            "preferred_probability": 0.5
+          }
+        ],
+        "preferences_after": [
+          {
+            "kind": "sequence",
+            "label": {
+              "scope": "case",
+              "preferred_episode_id": "be70352f28b7d362e4f9bd4ab6da3ca3b804e86065fd44c5e61dec1f8748edd5",
+              "rejected_episode_id": "7f3b059566a6a8200871602bb04e988d1606d50753e54f4064ed9dedb71a6112"
+            },
+            "preferred_probability": 0.9697459152346202
+          },
+          {
+            "kind": "action_kind",
+            "label": {
+              "scope": "case",
+              "actions": [],
+              "preferred_kind": "turning",
+              "rejected_kind": "milling"
+            },
+            "preferred_probability": 0.9725192980496946
+          }
+        ]
+      },
+      "screenshots": {
+        "baseline": {
+          "path": "../../images/module3/industrial-00289-baseline.png",
+          "sha256": "62b88e8c5b3816ac1a866a57bfd30b800736130bb24d4f555661d262374afd58",
+          "size_bytes": 28959,
+          "content": "Actual tested application UI crop."
+        },
+        "feedback": {
+          "path": "../../images/module3/industrial-00289-feedback.png",
+          "sha256": "dec19c7a99ebf0db64e3fa786acc14b02c7a85b7e8f0dc7981d88b3488d4cbaf",
+          "size_bytes": 38232,
+          "content": "Actual tested application UI crop."
+        },
+        "training": {
+          "path": "../../images/module3/industrial-00289-training.png",
+          "sha256": "8c03ad3170e931288101c527953aef0cef141a1357f1cc7cfcc62383677de545",
+          "size_bytes": 64155,
+          "content": "Local projection of saved training-report.json; not application UI."
+        },
+        "model_loaded": {
+          "path": "../../images/module3/industrial-00289-model-loaded.png",
+          "sha256": "1ed65623dd11d9849c33c92a6363b6c3d48004cc9d9fd58f7ee18a5a8cdfdd7d",
+          "size_bytes": 25921,
+          "content": "Actual tested application UI crop."
+        },
+        "search": {
+          "path": "../../images/module3/industrial-00289-search.png",
+          "sha256": "82dd46f1dda92b32ba951dccbeddfb9349748d0d1bc9da46c1015a2b7cffd73e",
+          "size_bytes": 32508,
+          "content": "Actual tested application UI crop."
+        },
+        "applied": {
+          "path": "../../images/module3/industrial-00289-applied.png",
+          "sha256": "86c5c1975b32aea3e081b971cff5a8f24d2b504a6ca845e3c48f3985581a43e3",
+          "size_bytes": 73860,
+          "content": "Actual tested application UI crop."
+        }
+      }
+    }
+  ]
+}

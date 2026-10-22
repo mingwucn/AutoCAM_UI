@@ -126,7 +126,8 @@ export class HttpProvider {
     }
     const data = validateCase(await readJSON(datasetUrl, signal, row.dataset), id);
     if (signal?.aborted) throw new DOMException('Request cancelled','AbortError');
-    const result = {data, figureBaseUrl: new URL('.',urlOf(row.preview.url,this.url)).href};
+    const result = {data, figureBaseUrl: new URL('.',urlOf(row.preview.url,this.url)).href,
+      provenance: Object.freeze({catalog_url:this.url,case_url:datasetUrl,case_sha256:row.dataset.sha256.toLowerCase()})};
     this.cache.set(id,result);
     return result;
   }

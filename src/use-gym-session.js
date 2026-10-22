@@ -16,7 +16,7 @@ function newSession(data, sceneId, requestedMode) {
   };
 }
 
-function reduceSession(data, state, event) {
+export function reduceSession(data, state, event) {
   switch (event.type) {
     case 'select': return newSession(data, event.sceneId ?? state.sceneId, event.mode);
     case 'process': {
@@ -30,6 +30,17 @@ function reduceSession(data, state, event) {
     case 'length': return {...state, lengthIndex: event.value, preview: true, replay: null};
     case 'view': return {...state, [event.key]: event.value};
     case 'apply': return {...state, actions: [...state.actions, event.action], preview: false};
+    case 'choose-action': {
+      const scene=data.scenes.find(s=>s.id===state.sceneId),row=scene.modes[event.action.process]?.actions.find(a=>a.id===event.action.action_id);
+      if(!row||!row.evaluation.available)return state;
+      return {...state,mode:event.action.process,direction:row.direction,lengthIndex:scene.lengths.indexOf(row.length),preview:true,replay:null};
+    }
+    case 'restore-industrial': {
+      const next=newSession(data,state.sceneId,'turning'),actions=event.actions.map(action=>({...action}));
+      if(!['industrial','industrial_00289'].includes(state.sceneId))return state;
+      const restored={...state,...next,actions,preview:false};
+      return actions.length?{...reduceSession(data,restored,{type:'choose-action',action:actions.at(-1)}),preview:false}:restored;
+    }
     case 'reset': return {...state, actions: [], preview: true, replay: null};
     case 'preview': return {...state, preview: true, replay: null};
     case 'replay-start': return {...state, replay: {actions: event.actions.slice(), index: 0, playing: false}};

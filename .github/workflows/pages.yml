@@ -56,6 +56,14 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:module3-workflow
       - run: npm run build:release
+      - run: npm run test:industrial-cancellation
+      - run: npm run test:industrial-browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: industrial-learning-browser-evidence
+          path: test-results/industrial-learning/
+          if-no-files-found: warn
       - run: npm run test:browser
       - run: npm run test:run-details
       - uses: actions/upload-artifact@v4

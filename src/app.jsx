@@ -4,6 +4,8 @@ import {useGymSession, formatNumber as fmt} from './use-gym-session.js';
 import {MaterialViews} from './material-views.jsx';
 import {DataSource} from './data-source.jsx';
 import {MATERIAL_LAYERS, allMaterialLayers} from './material-layers.js';
+import {IndustrialLearningPanel} from './industrial-learning-panel.jsx';
+import {industrialLearningSupported} from './industrial-case-supported.mjs';
 
 function Controls({session, sceneRef, catalog, onSelectCase}) {
   const {state, scene, directions, dispatch, live} = session;
@@ -110,7 +112,7 @@ function SequenceHistory({history,workflow}) {
   </div>;
 }
 
-export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase, initialMode, focusOnMount}) {
+export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase, initialMode, focusOnMount, provenance}) {
   const session = useGymSession(data, initialMode), viewRef = useRef(null), sceneRef = useRef(null), gymRef = useRef(null), version = useRef(0);
   const [webgl, setWebgl] = useState(false);
   const [layers, setLayers] = useState(allMaterialLayers);
@@ -153,12 +155,16 @@ export function GymApp({data, figureBaseUrl = 'figures/', catalog, onSelectCase,
       {catalog.cases.filter(s => s.industrial).map(s => <a key={s.id} href={'?case=' + s.id + '&process=turning#gym'} onClick={e => { e.preventDefault(); launch(s.id, 'turning'); }}>{s.title.split(' · ').at(-1)}</a>)}
       <span>Choose Milling or Turning below.</span>
     </nav>
+    <div className="gym-state">
     <p id="active-case" className="active-case" aria-live="polite">{scene.title} · {state.mode === 'milling' ? 'Milling' : 'Turning'} · {state.replay ? 'replaying recorded material' : 'live stock'}</p>
     <Controls session={session} sceneRef={sceneRef} catalog={catalog} onSelectCase={onSelectCase}/>
     <Legend layers={layers} setLayers={setLayers}/>
     <MaterialViews session={session} viewRef={viewRef} onWebGL={setWebgl} figureBaseUrl={figureBaseUrl} layers={layers}/>
     <ViewControls session={session} viewRef={viewRef} webgl={webgl}/>
-    <ActionBar session={session}/><Metrics session={session} data={data}/><SequenceHistory history={live.history} workflow={!!scene.workflow}/>
+    <ActionBar session={session}/><Metrics session={session} data={data}/>
+    </div>
+    <SequenceHistory history={live.history} workflow={!!scene.workflow}/>
+    {industrialLearningSupported(data,provenance)&&<IndustrialLearningPanel data={data} session={session}/>}
   </section>;
 }
 

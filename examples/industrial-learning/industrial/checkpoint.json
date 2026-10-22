@@ -1,0 +1,58 @@
+{
+  "schema": "industrial-checkpoint-1",
+  "case": {
+    "scene_id": "industrial",
+    "raw_sha256": "f20d5673d8cfd9021604b6b80dda59384a7e65ef5ef45adc54162308ff53245a",
+    "raw_size_bytes": 8058296,
+    "dataset_sha256": "502c42851e1e31439a53684766a95c9549a556e06fd8b26ebc5d2649b0090663",
+    "action_catalogue_sha256": "ddc8cbabb498de5e17c60b84dd65cd4b1d3e089104c7c9a411e91c5677388d1c"
+  },
+  "feature_version": "industrial-removal-process-2",
+  "reward_version": "industrial-pairwise-logistic-1",
+  "features": [
+    "removed_fraction",
+    "turning_removed_fraction",
+    "milling_removed_fraction",
+    "negative_reach_removed_fraction",
+    "negative_switch_removed_fraction",
+    "remaining_removed_fraction",
+    "completion"
+  ],
+  "dimensions": 7,
+  "reward_weights": [
+    1,
+    3.8395315254656723,
+    0,
+    0.09999000000000001,
+    0,
+    0,
+    0
+  ],
+  "q_weights": [
+    1.804411518779769,
+    2.0279467132318594,
+    -1.223535194452087,
+    0.06256920569845016,
+    0.1290383718721336,
+    0.8237457997654384,
+    0.01682176998326201
+  ],
+  "gamma": 0.95,
+  "training": {
+    "kind": "pairwise_reward_then_simulated_td_q",
+    "feedback_id": "e7eb990f6a54e4b8ecf2aaa432b63a1a8101e8b7dae00c900bfaa0d1b36de4ad",
+    "configuration": {
+      "alpha": 0.05,
+      "gamma": 0.95,
+      "clip": 1,
+      "epochs": 200,
+      "rewardEpochs": 200,
+      "rewardAlpha": 0.1,
+      "explorationEpisodes": 12,
+      "seed": 350289
+    },
+    "updates": 4000,
+    "experience_transitions": 20,
+    "explicit_preference_labels": 2
+  }
+}
