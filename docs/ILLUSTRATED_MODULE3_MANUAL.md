@@ -220,7 +220,7 @@ learning starts from normalized sampled removal and fits bounded preference
 terms. RL adjusts action values under that learned reward. MCTS then searches
 using the same simulator and model; search does not train the weights.
 
-The [industrial guide](INDUSTRIAL_LEARNING_QUICKSTART.md#3-acquire-exact-inputs-and-fine-tune-locally)
+The [industrial guide](INDUSTRIAL_LEARNING_QUICKSTART.md#industrial-local-training)
 contains PowerShell and Linux commands. Successful local output retains
 `feedback.json`, `initial-checkpoint.json`, `checkpoint.json` and
 `training-report.json`. Load 00350 results only into 00350 and 00289 results only

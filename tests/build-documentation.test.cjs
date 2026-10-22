@@ -102,3 +102,26 @@ test('portable output exceptions do not admit escapes, private files or missing 
     fs.rmSync(resolved,{recursive:true,force:true});
   }
 });
+
+
+test('industrial manual section links resolve to real anchors in emitted guide pages',()=>{
+  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'autocam-docs-industrial-')),out=path.join(temporary,'dist');
+  fs.mkdirSync(out);
+  try{
+    const root=path.resolve(__dirname,'..');
+    buildDocumentation({root,out,execution:{source_repository:{revision:'navigation-regression'},input_inventory_sha256:'fixture'}});
+    const manualPath=path.join(out,'docs/ILLUSTRATED_MODULE3_MANUAL.html'),html=fs.readFileSync(manualPath,'utf8');
+    const links=[...html.matchAll(/href="([^"]*(?:INDUSTRIAL_LEARNING_QUICKSTART|industrial-learning\/README)\.html#[^"]+)"/g)].map(match=>match[1]);
+    assert(links.length>=2,'The industrial workflow must link to its training section and measured example comparison');
+    for(const href of links){
+      const [relative,fragment]=href.split('#'),target=path.resolve(path.dirname(manualPath),relative);
+      assert(target.startsWith(out+path.sep));
+      const emitted=fs.readFileSync(target,'utf8');
+      assert(emitted.includes('id="'+decodeURIComponent(fragment)+'"'),'Missing emitted industrial guide anchor: '+href);
+    }
+  }finally{
+    const resolved=fs.realpathSync(temporary),base=fs.realpathSync(os.tmpdir());
+    if(path.dirname(resolved)!==base||!path.basename(resolved).startsWith('autocam-docs-industrial-'))throw Error('Unexpected cleanup target');
+    fs.rmSync(resolved,{recursive:true,force:true});
+  }
+});

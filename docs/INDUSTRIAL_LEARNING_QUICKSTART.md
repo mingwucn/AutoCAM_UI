@@ -74,6 +74,8 @@ The existing 00350 three-cut geometry reference remains useful: outside turning
 valid feedback alternative. Sampled zero excess is not a physical part-release
 or quality certificate.
 
+<a id="industrial-local-training"></a>
+
 ## 3. Acquire exact inputs and fine-tune locally
 
 Use Node.js 24 and the source checkout from [installation](INSTALLATION.md).

@@ -62,7 +62,7 @@ In the matching industrial case:
 3. Select your preferred whole sequence and **Add whole-sequence preference**.
    At initial stock, select turning or milling and **Add action-kind preference**.
 4. **Download industrial feedback**, then fine-tune that actual file using the
-   [local trainer](../../docs/INDUSTRIAL_LEARNING_QUICKSTART.md#3-acquire-exact-inputs-and-fine-tune-locally).
+   [local trainer](../../docs/INDUSTRIAL_LEARNING_QUICKSTART.md#industrial-local-training).
 5. At the same initial stock, compare **Use initial model** with **Load industrial
    model** for the new checkpoint. Request **Suggest industrial policy** for each.
 6. Compare **Search industrial MCTS** using **16 simulations**, **depth 2** and
@@ -76,6 +76,8 @@ and full-sequence differences, including unchanged recommendations. The local
 training report additionally compares preference-aware TD with matched-experience
 TD that omits preference fitting; this distinguishes a feedback choice effect
 from an update caused by TD training alone.
+
+<a id="recorded-example-comparison"></a>
 
 ## Recorded example comparison
 
