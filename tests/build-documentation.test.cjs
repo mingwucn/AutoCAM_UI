@@ -104,7 +104,7 @@ test('portable output exceptions do not admit escapes, private files or missing 
 });
 
 
-test('industrial manual section links resolve to real anchors in emitted guide pages',()=>{
+test('industrial manual and catalogue section links resolve to real anchors in emitted guide pages',()=>{
   const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'autocam-docs-industrial-')),out=path.join(temporary,'dist');
   fs.mkdirSync(out);
   try{
@@ -118,6 +118,11 @@ test('industrial manual section links resolve to real anchors in emitted guide p
       assert(target.startsWith(out+path.sep));
       const emitted=fs.readFileSync(target,'utf8');
       assert(emitted.includes('id="'+decodeURIComponent(fragment)+'"'),'Missing emitted industrial guide anchor: '+href);
+    }
+    const catalogue=fs.readFileSync(path.join(out,'docs/WORKFLOW_CATALOGUE.html'),'utf8');
+    for(const anchor of ['industrial-00350-learning','industrial-preference-learning']){
+      assert(catalogue.includes('<a id="'+anchor+'"></a>'),'Missing emitted catalogue anchor: '+anchor);
+      assert(!catalogue.includes('&lt;a id=&quot;'+anchor+'&quot;'),'Escaped catalogue anchor: '+anchor);
     }
   }finally{
     const resolved=fs.realpathSync(temporary),base=fs.realpathSync(os.tmpdir());

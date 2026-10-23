@@ -573,6 +573,7 @@ do not infer one from the shared indexed interface. Reference:
 [prepared-comparison.test.mjs](../tests/prepared-comparison.test.mjs).
 
 <a id="industrial-00350-learning"></a>
+
 <a id="industrial-preference-learning"></a>
 
 ### F24 — Industrial rules, preferences and RL (`industrial-preference-learning`)

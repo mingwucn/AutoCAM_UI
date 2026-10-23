@@ -24,6 +24,7 @@ recordings as authority for new behavior.
 | Preview, Apply, replay and loading could imply the same state change. | Current instructions distinguish read-only preview/replay, loading a saved alternative, and explicit replay-validated restoration of accepted decisions. |
 | Historical training screenshots could appear to demonstrate the repaired interface. | Original V10 captures and numerical results keep their frozen source identity. They are not relabelled as new drilling-display verification. |
 | Earlier verification tables could appear to verify the current successor. | Verification status separates the exact drilling milestone from retained platform and training receipts. Build provenance and production checks identify each later deployment. |
+| Two adjacent legacy catalogue anchors were escaped in the rendered guide, breaking its industrial-learning jump link. | Each anchor occupies its own paragraph, preserving both existing fragment names and making the section links work in the built documentation. |
 
 The review preserves internal `industrial-reach` names, dataset/model identities,
 all runtime source and pin bytes, historical screenshots and training downloads.
