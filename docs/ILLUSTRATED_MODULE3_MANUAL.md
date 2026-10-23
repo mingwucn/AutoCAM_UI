@@ -4,59 +4,75 @@
 
 <a id="industrial-reach-workflow"></a>
 
-## Latest 3-29-00350 workflow: process, direction and reach
+## Latest 3-29-00350 workflow: process, direction, reach and browser training
 
 Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)
-and keep the [illustrated reach walkthrough](../reach/guide/index.html) beside it.
-Its screenshots cover the actual controls, Path 1, Path 2, greedy baseline,
-drilling/finishing, feature progress, complete stock and loaded-model search.
-The original three-cut turning/milling example below remains a separate earlier
-sampled case; its dataset and checkpoint do not apply to this reach workflow.
+and the [illustrated reach walkthrough](../reach/guide/index.html).
+The walkthrough includes detailed screenshots of the controls, baselines,
+preference, drilling/finishing, saved sequences, browser training and model
+comparison. The original three-cut turning/milling example later in this manual
+is a separate earlier sampled case with a different dataset and checkpoint.
 
-1. **Baseline.** Select **Path 1 — user plan** or **Greedy — maximum current
-   removal** in **Baseline and model → Record and replay**. Inspect the checked
-   plan without changing live stock. Preview each next action, then Apply.
-   Path 1 and greedy each complete in 11 positive reach decisions. Path 2 is the
-   preferred 13-decision alternative. The named seven/eight stages group these
-   decisions; they are not a count of tool changes. Drilling and final finishing
-   are explicit, with zero setup changes under continuous holding.
-2. **Preference feedback.** Compare the complete Path 1 and Path 2 recordings.
-   The named pair retains the requested **Path 2 preferred over Path 1** label.
-   For a new manual pair, save both complete recordings and explicitly add the
-   whole-sequence preference. Choose **Download training input**. A manually
-   captured baseline clears the old pair label.
-3. **Local training.** Use Node.js 24 from the repository root. Save the downloaded
-   feedback at `runs/reach-feedback.json`, hash its unchanged bytes, and run:
+1. **Inspect original stock.** Choose process, engagement direction and tool
+   reach. The orange volume previews a possible cut. Apply accepts one eligible
+   positive decision; preview alone preserves accepted stock.
+2. **Inspect the baseline.** In **Baseline and model → Record and replay**, select
+   **Path 1 — user plan** and **Load selected baseline**. Use **Show baseline** to
+   inspect its replay, or preview each next decision and Apply. Its seven named
+   stages group 11 positive reach decisions, including drilling and finishing.
+3. **Inspect the preferred alternative.** Path 2 has eight stages and 13 positive
+   decisions. Compare it with Path 1. The named pair saves **Path 2 preferred
+   over Path 1**. For your own pair, save complete baseline and alternative
+   recordings, then choose **Add whole-sequence preference** explicitly.
+4. **Check saved feedback.** After saving **Path 2 preferred over Path 1**, select
+   **Greedy — maximum current removal** and **Load selected baseline** before
+   export or training. This adds the third saved sequence while keeping Path 1
+   as the preference anchor. Read **Saved feedback** and **Saved input**. Capturing
+   a manual baseline or alternative clears the old sequence label. Unsaved live
+   actions are excluded from training. Choose **Download training input** to
+   retain the exact checked sequences and labels used for this run.
+5. **Train locally.** In **Train from saved sequences**, keep **Starting model →
+   Initial model** for a before/after comparison, then click **Train model**.
+   Training runs locally in your browser; sequences and preferences are not
+   uploaded. Progress shows each stage's own completed/total count. **Cancel
+   training** stops the run while preserving the previous model, stock and
+   saved feedback.
+6. **Save the new checkpoint.** Successful completion checks and automatically
+   loads **Browser-trained model**. Read **Last completed training** for actual
+   TD updates and saved labels. Choose **Download loaded checkpoint** and
+   **Download training report**. Keep both with the exact training input.
+7. **Reload the saved result.** Use **Load industrial model** to select that new
+   checkpoint and confirm compatibility. Loading preserves accepted stock. The
+   optional [Node.js reproduction recipe](../reach/guide/index.html#node-training)
+   uses the same simulator and exact dataset; it is not required for browser
+   training.
+8. **Run the initial policy.** Reset stock, choose **Use initial model**, then
+   **Suggest industrial policy**. At every decision choose **Preview suggested
+   action**, inspect it and explicitly Apply. Save the complete actual sequence.
+9. **Run trained policy and MCTS.** Reset stock and reload the new checkpoint for
+   each trained rollout. Repeat policy guidance, then compare with **Search
+   industrial MCTS** using 16 simulations, depth 3 and exploration 1. Suggestions
+   and search preserve accepted stock until Apply.
+10. **Compare the results.** Retain Path 1, Path 2, **Greedy — maximum current
+    removal**, initial policy, trained policy and trained MCTS. Compare actual
+    decision count/order, sampled residual, finishing checks and setup changes.
+    Reset to the same original stock before every rollout. Greedy preserves the
+    Path 1 anchor for the saved Path 2 preference.
 
-   ```powershell
-   $feedbackHash = (Get-FileHash -Algorithm SHA256 -LiteralPath runs/reach-feedback.json).Hash.ToLowerInvariant()
-   node prototypes/industrial-reach/scripts/train-industrial-setup-episode.mjs --feedback runs/reach-feedback.json --expected-sha256 $feedbackHash --dataset prototypes/industrial-reach/examples/industrial-reach/00350/case.json --output runs/reach-trained-00350
-   ```
+Path 1, Path 2 and Greedy reach zero sampled residual and the listed feature
+checks, with zero setup changes under the declared continuous holding assumption.
+Stage counts group decisions; they do not count tool changes. Record fresh
+training and policy/MCTS results from the new checkpoint: their counts depend
+on the saved input. A different ranking or more decisions does not demonstrate
+better machining or exact imitation of Path 2.
 
-   Choose a new output directory for every run. Inspect `training-report.json`,
-   `comparison.json`, and the replayed initial/trained policies. The trainer fits
-   the preference reward and performs simulated TD learning with the same hard
-   material and phase checks as the app.
-4. **Load the checkpoint.** Reset stock, then use **Load industrial model** to
-   choose the new `checkpoint.json`. An older finite-path or original three-cut
-   checkpoint is incompatible. Loading preserves accepted stock.
-5. **Compare policy and MCTS.** Start each comparison from original stock.
-   Use **Use initial model**, then **Suggest industrial policy** for the initial
-   comparator. Load the trained model and repeat. For the recorded MCTS
-   comparison choose 16 simulations and depth 3. Each suggestion is read-only:
-   **Preview suggested action**, inspect it, then explicitly Apply. Save the
-   complete actual decisions and compare the residual, finishing checks and
-   number/order of decisions against the baseline.
-
-The supplied labelled run used 140 simulated cutting transitions and 28,000 TD
-updates. Initial policy/greedy use 11 decisions, trained policy 20 and trained
-MCTS 18; each reaches zero sampled residual and the listed feature checks.
-Preference ranking changed, but the learned runs use more decisions and do not
-exactly imitate Path 2. These results do not demonstrate machining efficiency.
-The [illustrated walkthrough](../reach/guide/index.html#local-training) includes
-the executable training recipe, downloadable examples and geometry limits.
-The [00289 case](../index.html?case=industrial_00289#gym) retains its existing main
-application workflow and greedy baseline.
+The [illustrated walkthrough](../reach/guide/index.html#local-training) provides
+training screenshots, relative example downloads and geometry limits. Its
+supplied historical labelled run used 140 simulated cutting transitions and
+28,000 TD updates: initial policy/greedy used 11 decisions, trained policy 20
+and trained MCTS 18. These historical metrics do not describe a newly trained
+browser checkpoint. The [00289 case](../index.html?case=industrial_00289#gym)
+retains its existing main application workflow and greedy baseline.
 
 <a id="verification-identity"></a>
 

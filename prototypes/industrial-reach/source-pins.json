@@ -1,8 +1,26 @@
 {
   "schema": "industrial-reach-publication-source-1",
-  "scope": "Exact local v8 runtime, UI and training closure; packaging entry and guide are separately versioned. No manufacturing qualification.",
+  "scope": "Exact retained reach runtime, UI and training closure with verified v9 browser-training inputs; packaging entry and guide are separately versioned. No manufacturing qualification.",
   "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
   "files": [
+    {
+      "path": "examples/industrial-reach/00289/case.json",
+      "sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
+      "size_bytes": 4476422,
+      "role": "unchanged_secondary_case"
+    },
+    {
+      "path": "examples/industrial-reach/00350/case.json",
+      "sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
+      "size_bytes": 13150593,
+      "role": "exact_reach_dataset"
+    },
+    {
+      "path": "scripts/train-industrial-setup-episode.mjs",
+      "sha256": "b60e402f957a245b924f15941807af7aa46b67b83609b2b621bef4cfc4797c54",
+      "size_bytes": 8316,
+      "role": "unchanged_prototype_trainer"
+    },
     {
       "path": "src/adaptive-inspection-volumes.mjs",
       "sha256": "6a559a1913472d9ec36ad3fdf566b9f42a0c46f10d17996dc3307c4b80de2ee3",
@@ -68,6 +86,12 @@
       "sha256": "38056f5bab0b7ff988b14991821b168563bcc594c8af63a9daf4a8e94df90e1d",
       "size_bytes": 3289,
       "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-browser-training.mjs",
+      "sha256": "0b47978bb0004ff73a1a6cec491afcc20afb207b5ddfade9f3752be3a001d204",
+      "size_bytes": 2095,
+      "role": "verified_browser_training_v9_source"
     },
     {
       "path": "src/industrial-engagement-controls.mjs",
@@ -137,15 +161,15 @@
     },
     {
       "path": "src/industrial-setup-learning-worker.mjs",
-      "sha256": "158a19e5a0f1036dfa9f50cb3dd8fed07816dc2fd9e461c0942bcdbf04f1b140",
-      "size_bytes": 2350,
-      "role": "unchanged_prototype_source"
+      "sha256": "8580f88c3ad60e219f3ba4e61ec759a6c8f3ec570bf6228ae3b7a605b76bdcd6",
+      "size_bytes": 3167,
+      "role": "verified_browser_training_v9_source"
     },
     {
       "path": "src/industrial-setup-learning.mjs",
-      "sha256": "1152f06a636e33c68547997087fa69b64aa19a5f4bef23c2ed21ea9d5046100d",
-      "size_bytes": 35462,
-      "role": "unchanged_prototype_source"
+      "sha256": "8595c4fcc3f5580d8ebf87bba1c336596679b95a7e26c13477026fb1baac2581",
+      "size_bytes": 36726,
+      "role": "verified_browser_training_v9_source"
     },
     {
       "path": "src/industrial-setup-model.mjs",
@@ -155,9 +179,9 @@
     },
     {
       "path": "src/industrial-setup-panel.jsx",
-      "sha256": "0e10311b6ee2b80512248a5c2d03fa3a7f342462d925d1f3adaf89c20741ad18",
-      "size_bytes": 18775,
-      "role": "unchanged_prototype_source"
+      "sha256": "de48ad5cfb515089d101dbc0f878c2cd8c0aea4209c98db60531b1fb49e79080",
+      "size_bytes": 22253,
+      "role": "verified_browser_training_v9_source"
     },
     {
       "path": "src/industrial-setup-pins.mjs",
@@ -230,24 +254,12 @@
       "sha256": "49adbad554cdee352284627e1e40f3851f6f13bc12394044fdd93fb613e748b5",
       "size_bytes": 49303,
       "role": "unchanged_prototype_source"
-    },
-    {
-      "path": "scripts/train-industrial-setup-episode.mjs",
-      "sha256": "b60e402f957a245b924f15941807af7aa46b67b83609b2b621bef4cfc4797c54",
-      "size_bytes": 8316,
-      "role": "unchanged_prototype_trainer"
-    },
-    {
-      "path": "examples/industrial-reach/00350/case.json",
-      "sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
-      "size_bytes": 13150593,
-      "role": "exact_reach_dataset"
-    },
-    {
-      "path": "examples/industrial-reach/00289/case.json",
-      "sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
-      "size_bytes": 4476422,
-      "role": "unchanged_secondary_case"
     }
-  ]
+  ],
+  "historical_runtime": {
+    "path": "source-pins-v8.json",
+    "sha256": "457c924ff5b3ea12d4a5f0ad0b49b9e9fa0f6a09d303621af329c04051822d65",
+    "role": "Pre-browser-training v8 runtime and unchanged example training output identity"
+  },
+  "browser_training_revision": "verified-v9"
 }

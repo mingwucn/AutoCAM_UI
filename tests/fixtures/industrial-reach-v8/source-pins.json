@@ -1,0 +1,43 @@
+{
+  "schema": "industrial-reach-v8-test-fixture-1",
+  "origin_manifest_sha256": "457c924ff5b3ea12d4a5f0ad0b49b9e9fa0f6a09d303621af329c04051822d65",
+  "purpose": "Frozen arithmetic comparator for browser-training progress instrumentation.",
+  "files": [
+    {
+      "path": "src/industrial-finite-pins.mjs",
+      "sha256": "239a0ef21fe0901cb1dbc6f7d816cffffc843e1a16d8cce80ba114527789403e"
+    },
+    {
+      "path": "src/industrial-millturn-rule.mjs",
+      "sha256": "ee769871d111cfabb7d4919d40a807174cf9b6ae00e0c36526841704d1097c8d"
+    },
+    {
+      "path": "src/industrial-paths-pins.mjs",
+      "sha256": "a48ddda704934e6f6e68c9b7187e10713ee187dcc6045063238d463078d22c92"
+    },
+    {
+      "path": "src/industrial-reach-pins.mjs",
+      "sha256": "e243ffcd81f10e0b8c3dac3d7f046e711631f099ebee3110a695c5db4cf0fee2"
+    },
+    {
+      "path": "src/industrial-setup-learning.mjs",
+      "sha256": "1152f06a636e33c68547997087fa69b64aa19a5f4bef23c2ed21ea9d5046100d"
+    },
+    {
+      "path": "src/industrial-setup-model.mjs",
+      "sha256": "0c42573c7cdb3a0b6689972c2befc8e61c878b049da756b6d0831bf5cc61b7ca"
+    },
+    {
+      "path": "src/industrial-setup-pins.mjs",
+      "sha256": "8558de5548ee207dea70a3cbcf84264b6592de665e03413eb514dbb81367ef0b"
+    },
+    {
+      "path": "src/industrial-setup-registry.mjs",
+      "sha256": "f9d4edff2cc49dfb3b753ab032266e6cd779afd909ec107a84ddf9009d084ca9"
+    },
+    {
+      "path": "src/industrial-setup-rule.mjs",
+      "sha256": "d54345d678188875ad8dec243917fffc10ecf1122832000c1b415367f67748d1"
+    }
+  ]
+}

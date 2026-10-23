@@ -16,6 +16,9 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 
 test('retained reach source and exact case pins match the published closure',()=>{
   const pins=JSON.parse(fs.readFileSync(path.join(prototype,'source-pins.json')));
+  assert.equal(pins.files.length,42);
+  assert.equal(pins.browser_training_revision,'verified-v9');
+  assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_runtime.path))),pins.historical_runtime.sha256);
   for(const row of pins.files){const bytes=fs.readFileSync(path.join(prototype,row.path));assert.equal(bytes.length,row.size_bytes,row.path);assert.equal(sha(bytes),row.sha256,row.path);}
   const catalog=JSON.parse(fs.readFileSync(path.join(prototype,'catalog.json')));
   for(const row of catalog.cases){const relative=row.id==='industrial_reach_00350'?'00350':'00289',bytes=fs.readFileSync(path.join(prototype,'examples/industrial-reach',relative,'case.json'));assert.equal(bytes.length,row.dataset.size_bytes);assert.equal(sha(bytes),row.dataset.sha256);}
@@ -55,8 +58,10 @@ test('reach build is portable, captured in provenance and retains exact download
       }
       assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:\\/i.test(html));
     }
-    assert.equal((fs.readFileSync(path.join(out,'reach/guide/index.html'),'utf8').match(/<img /g)||[]).length,8);
+    assert.equal((fs.readFileSync(path.join(out,'reach/guide/index.html'),'utf8').match(/<img /g)||[]).length,10);
     const bundle=fs.readFileSync(path.join(out,'reach/assets/app.js'),'utf8');assert(bundle.includes('industrial-setup-learning-worker.js'));
+    for(const text of ['Train model','Cancel training','Browser-trained model','Download training report','Training runs locally in your browser. Your sequences and preferences are not uploaded.'])assert(bundle.includes(text),text);
+    assert.deepEqual(fs.readFileSync(path.join(out,'reach/source-pins-v8.json')),fs.readFileSync(path.join(prototype,'source-pins-v8.json')));
     const checked=await checkDocumentation(root);assert.deepEqual(checked.errors,[]);
     assert.equal(resolveDocumentationLink(root,'README.md','reach/index.html').target,path.join(prototype,'index.html'));
     assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../reach/guide/index.html#local-training').target,path.join(prototype,'guide/index.html'));
