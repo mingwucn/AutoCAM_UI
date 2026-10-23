@@ -4,6 +4,9 @@ const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 function buildIndustrialReach({root,out,development=false,execution}){
   const source=path.join(root,'prototypes/industrial-reach'),destination=path.join(out,'reach');
   const pins=JSON.parse(fs.readFileSync(path.join(source,'source-pins.json')));
+  for(const row of [pins.historical_runtime,pins.historical_browser_training,pins.historical_random_experience]){
+    if(!row||!/^source-pins-v\d+\.json$/.test(row.path)||sha(fs.readFileSync(path.join(source,row.path)))!==row.sha256)throw Error('Reach historical source closure differs from its pin.');
+  }
   for(const row of pins.files){
     if(!/^(src|scripts|examples)\/[a-zA-Z0-9_./-]+$/.test(row.path)||row.path.split('/').includes('..'))throw Error('Invalid reach source path.');
     const bytes=fs.readFileSync(path.join(source,row.path));
@@ -21,13 +24,13 @@ function buildIndustrialReach({root,out,development=false,execution}){
     if(!stat.isFile()||stat.isSymbolicLink())throw Error('Regular reach release input required: '+relative);
     const result=path.join(destination,target);fs.mkdirSync(path.dirname(result),{recursive:true});fs.copyFileSync(file,result);
   };
-  copy('index.html');copy('catalog.json','data/catalog.json');copy('source-pins.json');copy('source-pins-v8.json');copy('source-pins-v9.json');
+  copy('index.html');copy('catalog.json','data/catalog.json');copy('source-pins.json');copy('source-pins-v8.json');copy('source-pins-v9.json');copy('source-pins-v10.json');
   for(const id of ['00350','00289'])copy('examples/industrial-reach/'+id+'/case.json','data/'+id+'/case.json');
   for(const name of fs.readdirSync(path.join(source,'examples/industrial-reach/00350')).sort())if(name!=='case.json')copy('examples/industrial-reach/00350/'+name,'downloads/'+name);
   copy('guide/index.html');
   for(const name of fs.readdirSync(path.join(source,'guide/assets')).sort())copy('guide/assets/'+name);
   const inputs=execution.inputs.filter(row=>row.path.startsWith('industrial_reach_prototype/'));
   if(!inputs.length)throw Error('Reach release inputs must be captured in build provenance.');
-  fs.writeFileSync(path.join(destination,'source-provenance.json'),JSON.stringify({schema:'industrial-reach-release-1',source_repository:execution.source_repository,root_input_inventory_sha256:execution.input_inventory_sha256,inputs,runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins.json'))),historical_runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v8.json'))),historical_browser_training_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v9.json'))),manufacturing_qualified:false},null,2)+'\n');
+  fs.writeFileSync(path.join(destination,'source-provenance.json'),JSON.stringify({schema:'industrial-reach-release-1',source_repository:execution.source_repository,root_input_inventory_sha256:execution.input_inventory_sha256,inputs,runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins.json'))),historical_runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v8.json'))),historical_browser_training_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v9.json'))),historical_recording_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v10.json'))),manufacturing_qualified:false},null,2)+'\n');
 }
 module.exports={buildIndustrialReach};

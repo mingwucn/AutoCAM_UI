@@ -83,6 +83,13 @@ export function SetupLearningPanel({data,state,dispatch}){
   };
   const eligibleKinds=useMemo(()=>eligibleSetupProcesses(state.accepted),[state.accepted]);
   const prefix=baseline&&state.commands.every((command,i)=>commandEqual(command,baseline.commands[i])),next=prefix&&baseline.commands[state.commands.length];
+  const baselineNextHelp=busy?'A computation is running. Wait for it to finish or cancel before previewing a baseline action.':
+    state.replay?'Replay is read-only. Return to accepted stock or use Preview next action above.':
+    obs.terminated?'This machining run has ended. Reset stock to start again.':
+    !baseline?'Load a baseline to preview its next action.':
+    !prefix?'Accepted actions differ from this baseline. Use Preview next action above for a valid next action.':
+    !next?'This baseline has no further actions. Use Preview next action above to check the current stock.':
+    'Preview the next baseline action, then use Apply to accept it.';
   const identical=baseline&&alternative&&baseline.commands.length===alternative.commands.length&&baseline.commands.every((c,i)=>commandEqual(c,alternative.commands[i]));
   const canCompare=baseline?.complete&&alternative?.complete&&!identical;
   const baselinePlan=named&&baseline?matchingPath(scene,baseline.commands,scene.workflow.plan_presentations.baseline_program_id):null;
@@ -112,6 +119,7 @@ export function SetupLearningPanel({data,state,dispatch}){
         <button disabled={busy||!!state.replay||!next||obs.terminated} onClick={()=>dispatch({type:'choose-command',command:next})}>Preview next baseline action</button>
         <button disabled={busy||!baseline} onClick={()=>downloadSetupJSON(baseline,'industrial-00350-setup-baseline.json')}>Download baseline</button>
       </div>
+      <p data-testid="industrial-baseline-next-help" aria-live="polite">{baselineNextHelp}</p>
       {baseline&&<><p data-testid="industrial-baseline-state">{baselineTitle} · {baseline.complete?'sampled complete':'draft'} · {baselinePlan?baselinePlan.stages.length+' main stages · ':''}{baseline.final_observation.step_count} {reach?'reach decisions':'cuts'} · {named?baseline.final_observation.setup_event_count+' setup changes':baseline.events.length+' events'}{reach?' · residual '+fmt(baseline.final_observation.final_residual_mm3)+' mm³':''}</p>{baselinePlan?<PathOutline scene={scene} plan={baselinePlan} events={baseline.events} completedCount={baseline.commands.length} acceptedOnly testId="industrial-baseline"/>:<ol data-testid="industrial-baseline" className="industrial-baseline">{baseline.events.map((event,i)=><li key={i}><strong>{commandTitle(scene,event.command)}</strong><span>{event.command.type==='setup_change'?'Setup event · no material removed':fmt(event.removed_mm3)+' mm³ removed'} · final residual {fmt(event.final_residual_after_voxels*scene.geometry.cell_volume_mm3)} mm³</span></li>)}</ol>}</>}
       <div className="action-row">
         <button disabled={busy||!!state.replay||!state.commands.length} onClick={()=>record(episode=>{downloadSetupJSON(episode,'industrial-00350-setup-decisions.json');setMessage('Replay-checked commands and events downloaded.');})}>Download industrial decisions</button>

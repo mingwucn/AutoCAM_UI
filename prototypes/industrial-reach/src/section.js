@@ -1,6 +1,7 @@
 import {formatNumber as fmt} from './use-gym-session.js';
 import {visibleMaterialLabels} from './material-layers.js';
 import {isSetupScene} from './industrial-setup-registry.mjs';
+import {reachDrillingEnvelope,reachDrillingSection} from './industrial-reach-drilling-view.mjs';
 
 export function sectionDescription(gym,s){
   const m=gym.scene.geometry, fixed=Math.max(0,Math.min(m.shape[s.axis]-1,Math.floor((s.station-m.origin_mm[s.axis])/m.pitch_mm)));
@@ -95,6 +96,22 @@ export function drawSection(canvas,gym,id,phase,s,layers){
     }ctx.stroke();
     ctx.strokeStyle='#9bacb4';ctx.setLineDash([5,4]);ctx.strokeRect(ox,oy,nx*scale,ny*scale);ctx.setLineDash([]);
     const a=gym.actions.get(id);
+    if(phase==='action'&&gym.mode==='drilling'&&gym.scene.id==='industrial_reach_00350'){
+      const envelope=reachDrillingEnvelope(gym.scene,a),sampledSection={axis:s.axis,station:m.origin_mm[s.axis]+(fixed+.5)*m.pitch_mm};
+      const pixel=point=>[ox+(point[other[0]]-m.origin_mm[other[0]])/m.pitch_mm*scale,oy+(ny-(point[other[1]]-m.origin_mm[other[1]])/m.pitch_mm)*scale];
+      for(const source of [false,true]){
+        const shape=reachDrillingSection(envelope,sampledSection,{source});if(!shape)continue;
+        ctx.strokeStyle=source?'#183442':'#b16a0f';ctx.lineWidth=source?1.5:1;ctx.setLineDash(source?[3,3]:[6,4]);ctx.beginPath();
+        if(shape.type==='circle'){
+          const point=pixel(shape.centre);ctx.arc(...point,shape.radiusMm/m.pitch_mm*scale,0,Math.PI*2);ctx.stroke();
+          ctx.beginPath();ctx.moveTo(point[0]-5,point[1]);ctx.lineTo(point[0]+5,point[1]);ctx.moveTo(point[0],point[1]-5);ctx.lineTo(point[0],point[1]+5);
+        }else{
+          shape.points.forEach((point,index)=>{const p=pixel(point);if(index)ctx.lineTo(...p);else ctx.moveTo(...p);});ctx.closePath();ctx.stroke();
+          ctx.beginPath();ctx.moveTo(...pixel(shape.axisPoints[0]));ctx.lineTo(...pixel(shape.axisPoints[1]));
+        }
+        ctx.stroke();ctx.setLineDash([]);
+      }
+    }
     const feature=a?.evaluation.reference?.centre_paths_mm;
     if(phase==='action'&&feature&&gym.scene.id!=='industrial_reach_00350'){
       if(isSetupScene(gym.scene.id)&&a.sweep)drawSetupSweepSection(ctx,gym,a,s,other,scale/m.pitch_mm,ox,oy,ny);

@@ -10,6 +10,7 @@ import {visibleMaterialLabels} from './material-layers.js';
 import {rationalPrismMesh} from './adaptive-rational-view.mjs';
 import {drawSetupTool,drawSetupOverlays} from './industrial-setup-preview.mjs';
 import {isSetupScene} from './industrial-setup-registry.mjs';
+import {reachDrillingEnvelope,reachDrillingGuidePaths} from './industrial-reach-drilling-view.mjs';
 
 const C=['#ffffff','#087f8c','#526079','#f5a544','#9d8ac7','#8dc9e8','#dde7eb'];
 
@@ -126,7 +127,16 @@ export class View {
       for(const [u,v] of [[0,0],[1,0],[1,1],[0,1],[0,0]]){const p=lo.slice();p[axis]=section.station;p[other[0]]+=u*span[other[0]];p[other[1]]+=v*span[other[1]];corners.push(p);}
       this.line(corners,'#eb6870',true);
     }
-    if(gym.scene.id==='industrial_reach_00350')return;
+    if(gym.scene.id==='industrial_reach_00350'){
+      const envelope=showAction&&reachDrillingEnvelope(gym.scene,action);
+      for(const path of reachDrillingGuidePaths(envelope)){
+        const source=path.role==='source-bore-outline',line=this.line(path.points,source?'#183442':'#b16a0f',true);
+        line.userData={setupPreviewRole:path.role,logicalEnvelope:true,holeId:envelope.holeId,
+          sourceDepthMm:envelope.sourceDepthMm,reachMm:envelope.reachMm,entry:envelope.entry,tip:envelope.tip,displayClipped:envelope.displayClipped};
+        line.material.depthTest=false;line.renderOrder=6;
+      }
+      return;
+    }
     if(isSetupScene(gym.scene.id)&&action?.evaluation.reference?.geometry_kind==='finite_cutter_sweep'){
       if(showAction)drawSetupTool(this,action.evaluation.reference);
       return;

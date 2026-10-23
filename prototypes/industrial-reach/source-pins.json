@@ -1,6 +1,6 @@
 {
   "schema": "industrial-reach-publication-source-1",
-  "scope": "Exact retained reach runtime, UI and training closure with verified v10 random-experience and inference-comparison inputs; packaging entry and guide are separately versioned. No manufacturing qualification.",
+  "scope": "Exact Reach runtime and UI with drilling display and next-action corrections; unchanged verified v10 training, case and model inputs. Historical recording closure retained separately. No manufacturing qualification.",
   "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
   "files": [
     {
@@ -137,9 +137,15 @@
     },
     {
       "path": "src/industrial-reach-controls.mjs",
-      "sha256": "79213670ca27a098ed2d1232ddc30be1d04424e6b61a29b79bc45f9c4200e79a",
-      "size_bytes": 1912,
-      "role": "unchanged_prototype_source"
+      "sha256": "a5b39cd46bf85f9f9de218a2eed0ee98c0be91847d0f243154357a51362eae65",
+      "size_bytes": 3508,
+      "role": "drilling_display_and_next_action_v11_source"
+    },
+    {
+      "path": "src/industrial-reach-drilling-view.mjs",
+      "sha256": "79407dbefb35890dedd2e61fcaabe0ad92fda908892dafd81696e09f7e5f3bd4",
+      "size_bytes": 5071,
+      "role": "source_derived_logical_bore_display_v11"
     },
     {
       "path": "src/industrial-reach-pins.mjs",
@@ -149,9 +155,9 @@
     },
     {
       "path": "src/industrial-setup-app.jsx",
-      "sha256": "b170f564115776a2288e46e71d2144c21c42a7a5899c629eb4b831d9f41de304",
-      "size_bytes": 21013,
-      "role": "unchanged_prototype_source"
+      "sha256": "65e955ab4b07a438469625488b619fe5aa753beae5366ce1370051227b82049e",
+      "size_bytes": 22412,
+      "role": "drilling_display_and_next_action_v11_source"
     },
     {
       "path": "src/industrial-setup-client.mjs",
@@ -179,9 +185,9 @@
     },
     {
       "path": "src/industrial-setup-panel.jsx",
-      "sha256": "cbdd52bb11523272691e88d39b01f1e63394c4df12938c78ad5f2314107328e2",
-      "size_bytes": 28501,
-      "role": "verified_random_experience_v10_source"
+      "sha256": "f08be5d197fb98a19799338a00813de97f31d72d5c8925a74f53092e6d08af4e",
+      "size_bytes": 29266,
+      "role": "drilling_display_and_next_action_v11_source"
     },
     {
       "path": "src/industrial-setup-pins.mjs",
@@ -215,9 +221,9 @@
     },
     {
       "path": "src/industrial-setup-session.mjs",
-      "sha256": "944c12090537b8336fcd5a270416290f84c6a1f322b6b65a4f49ec74a0b203f0",
-      "size_bytes": 7593,
-      "role": "unchanged_prototype_source"
+      "sha256": "7b4dace607adfce3cbf26ea5ce59205aa8bf9144a5b000771761c11207c16579",
+      "size_bytes": 8599,
+      "role": "drilling_display_and_next_action_v11_source"
     },
     {
       "path": "src/material-layers.js",
@@ -233,15 +239,15 @@
     },
     {
       "path": "src/section.js",
-      "sha256": "b1c4653a5314f11079cf4559010f3d3aac847505a21a73a828c027222de07991",
-      "size_bytes": 12724,
-      "role": "unchanged_prototype_source"
+      "sha256": "474f4469ba43e3280785c8073db53164354d09acd59f133c8aa9d3ecb7b27fd4",
+      "size_bytes": 14133,
+      "role": "drilling_display_and_next_action_v11_source"
     },
     {
       "path": "src/style.css",
-      "sha256": "13b99948130462c3a6327d5584cbbf654ba9f4a1431d3f2ec085cb9be21e5ab0",
-      "size_bytes": 14920,
-      "role": "unchanged_prototype_source"
+      "sha256": "740220da924ddbee6e6aac0778b1864f05a1e2912fea0853881697703a045ad4",
+      "size_bytes": 15121,
+      "role": "drilling_display_and_next_action_v11_source"
     },
     {
       "path": "src/use-gym-session.js",
@@ -251,9 +257,9 @@
     },
     {
       "path": "src/view.js",
-      "sha256": "49adbad554cdee352284627e1e40f3851f6f13bc12394044fdd93fb613e748b5",
-      "size_bytes": 49303,
-      "role": "unchanged_prototype_source"
+      "sha256": "a6f85662deed3508c1a28f0e15468436d349482e14a50595e265d2b7b17b19dd",
+      "size_bytes": 49989,
+      "role": "drilling_display_and_next_action_v11_source"
     }
   ],
   "historical_runtime": {
@@ -266,5 +272,11 @@
     "path": "source-pins-v9.json",
     "sha256": "46fcd11ce252f18aeabe38e952fef2155f6ff11a6d7968bf33dd0ec5d00d1718",
     "role": "Verified browser Train control before random experience and inference comparison"
+  },
+  "display_revision": "drilling-display-and-next-action-v11",
+  "historical_random_experience": {
+    "path": "source-pins-v10.json",
+    "sha256": "d16e53ee9c11e9207fa06d487c942961d71ffbd65b73024ad344fd33939311fd",
+    "role": "Exact source closure of the original v10 workflow recordings, random experience and inference comparison"
   }
 }

@@ -4,6 +4,8 @@
 
 <a id="industrial-reach-workflow"></a>
 
+Current drilling controls: **Preview next action** selects an eligible cut from your accepted stock without applying it. **Show bore section** centres the linked views on the source bore. During sequence replay, use **Return to my stock** or **Return to stock and preview next action** to resume. Loading an alternative preserves stock; **Restore industrial decisions** explicitly adopts a checked recording. A complete restored run has no further cuts. See the [current drilling and sequence controls](../reach/guide/index.html#drilling-controls). The screenshots below retain their original v10 recording identity.
+
 ## Latest 3-29-00350 workflow: baseline, random experience, training and inference
 
 Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)

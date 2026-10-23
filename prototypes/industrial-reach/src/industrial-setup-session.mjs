@@ -1,7 +1,8 @@
 import {SetupGym} from './industrial-setup-model.mjs';
 import {isSetupScene} from './industrial-setup-registry.mjs';
-import {resolveReachAction} from './industrial-reach-controls.mjs';
+import {resolveReachAction,nextExecutableReachCommand} from './industrial-reach-controls.mjs';
 import {hasNamedPaths,hasReachControls,pathPlan,pathProgram} from './industrial-path-presentation.mjs';
+import {reachDrillingEnvelope} from './industrial-reach-drilling-view.mjs';
 
 export const SETUP_SCENE='industrial_setup_00350';
 export function setupSceneId(data){
@@ -21,10 +22,14 @@ export function commandDefinition(scene,command){
   return command?.type==='cut'?scene.modes[command.process]?.actions.find(a=>a.id===command.action_id):null;
 }
 export function setupActionTitle(scene,action){
+  const bore=reachDrillingEnvelope(scene,action);
+  if(bore)return 'Drilling · '+bore.holeId+' · Ø'+bore.diameterMm+' mm · source bore depth '+bore.sourceDepthMm+' mm';
   return hasNamedPaths(scene)&&action?.evaluation.reference.operation_id==='old_cap_facing'?'Stock-end cleanup':action?.label||'Choose an operation';
 }
 export function commandTitle(scene,command){
-  return command?.type==='setup_change'?(hasNamedPaths(scene)?'Unsupported setup change':'Change setup: opposed X jaws'):setupActionTitle(scene,commandDefinition(scene,command));
+  if(command?.type==='setup_change')return hasNamedPaths(scene)?'Unsupported setup change':'Change setup: opposed X jaws';
+  const action=commandDefinition(scene,command),title=setupActionTitle(scene,action),bore=reachDrillingEnvelope(scene,action);
+  return bore?title+' · modeled reach '+bore.reachMm+' mm':title;
 }
 export function firstCut(scene,mode){return {type:'cut',process:mode,action_id:scene.modes[mode].actions[0].id};}
 export function replaySetupCommands(data,commands){
@@ -36,7 +41,7 @@ export function createSetupSession(data,mode){
   const gym=new SetupGym(data,setupSceneId(data)),scene=gym.scene;
   const initialProcess=scene.modes[mode]?mode:scene.workflow.default_process,planId=hasNamedPaths(scene)?scene.workflow.plan_presentations.default_program_id:null;
   const planned=planId?pathProgram(scene,planId).commands[0]:null,selection=planned?.process===initialProcess?structuredClone(planned):firstCut(scene,initialProcess);
-  return {accepted:gym,commands:[],selection,preview:true,replay:null,error:'',sectionAxis:1,sectionPercent:50,cutaway:true,contacts:!hasNamedPaths(scene),jaws:!hasNamedPaths(scene),closure:false,...(planId?{planId}:{})};
+  return {accepted:gym,commands:[],selection,preview:true,replay:null,error:'',sectionAxis:hasReachControls(scene)?0:1,sectionPercent:50,cutaway:true,contacts:!hasNamedPaths(scene),jaws:!hasNamedPaths(scene),closure:false,...(planId?{planId}:{})};
 }
 // Accepted state is replaced only after the central atomic command gate passes.
 // Selecting a process/tool never calls setMode on the accepted simulator.
@@ -67,7 +72,12 @@ export function reduceSetupSession(data,state,event){
         return {...state,accepted,commands,selection:commands.at(-1)||firstCut(scene,scene.workflow.default_process),preview:false,replay:null,error:''};
       }
       case 'reset':return {...createSetupSession(data),contacts:state.contacts,jaws:state.jaws,closure:state.closure,...(state.planId?{planId:state.planId}:{})};
-      case 'preview':return {...state,preview:true,replay:null,error:''};
+      case 'preview': {
+        if(!hasReachControls(scene))return {...state,preview:true,replay:null,error:''};
+        const selection=nextExecutableReachCommand(state.accepted,{selection:state.selection,commands:state.commands,programId:state.planId});
+        const observation=state.accepted.observation(),error=selection||observation.terminated?'':observation.truncated?'The accepted event limit has been reached. Reset stock or load an earlier sequence.':'No executable next action is available for the current stock.';
+        return {...state,...(selection?{selection}:{}),preview:!!selection,replay:null,error};
+      }
       case 'view':return {...state,[event.key]:event.value};
       case 'replay-start': {
         const commands=structuredClone(event.commands);replaySetupCommands(data,commands);
