@@ -11,6 +11,11 @@ tested, published and accepted.
 
 ## Start here
 
+For the latest 00350 process/direction/reach workflow with explicit drilling and
+finishing, open the [reach application](reach/index.html?case=industrial_reach_00350)
+and its [illustrated workflow](reach/guide/index.html). This isolated prototype
+has its own exact dataset and checkpoint; the original routes remain available.
+
 Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
 application screenshots, step-by-step workflows and linked responses to
 reviewer comments 9–12.

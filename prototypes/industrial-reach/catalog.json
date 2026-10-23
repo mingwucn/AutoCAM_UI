@@ -1,0 +1,46 @@
+{
+  "schema": "shadow-gym-catalog-1",
+  "qualified": false,
+  "release": "industrial-reach-v8",
+  "cases": [
+    {
+      "dataset": {
+        "url": "00350/case.json",
+        "sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
+        "size_bytes": 13150593
+      },
+      "id": "industrial_reach_00350",
+      "industrial": true,
+      "preview": {
+        "sha256": "7576b1ab839a5d9f2fa2acd2ab55a1728fd47e05950afb7984434c11c61ef473",
+        "size_bytes": 161227,
+        "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/figures/08_real_part.png"
+      },
+      "processes": [
+        "turning",
+        "milling",
+        "drilling"
+      ],
+      "title": "Industrial \u00b7 3-29-00350"
+    },
+    {
+      "dataset": {
+        "sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
+        "size_bytes": 4476422,
+        "url": "00289/case.json"
+      },
+      "id": "industrial_00289",
+      "industrial": true,
+      "preview": {
+        "sha256": "87970f2e87b7692bda0f71bb15592adc9619d2d9042a970f19f7d1e46edde3fa",
+        "size_bytes": 143298,
+        "url": "https://raw.githubusercontent.com/mingwucn/AutoCAM_Data/a2965f894440d202fad749be9a8ef1205a25d50d/releases/v1/figures/11_00289_geometry.png"
+      },
+      "processes": [
+        "milling",
+        "turning"
+      ],
+      "title": "Industrial \u00b7 3-29-00289"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema": "industrial-setup-policy-comparison-1",
+  "baseline": {
+    "label": "Path 1",
+    "episode_id": "411accd7e9a9a48dc89cbe5d11d4aa9c0fee78927b3d4b8347273d2f959f579a",
+    "complete": true,
+    "events": 11,
+    "cuts": 11,
+    "setups": 0,
+    "final_residual_voxels": 0,
+    "terminal_reason": "complete"
+  },
+  "preferred_reference": {
+    "label": "Path 2",
+    "episode_id": "85bef0b403a2a57e5acd4e26e1e115ad66e0d74913413d1bfa6429296d1cde2d",
+    "complete": true,
+    "events": 13,
+    "cuts": 13,
+    "setups": 0,
+    "final_residual_voxels": 0,
+    "terminal_reason": "complete"
+  },
+  "greedy_baseline": {
+    "label": "Greedy",
+    "episode_id": "3948707945b4923be5aa88562dbde23cd0680e282165ba9b5a8f535bfd08b73d",
+    "complete": true,
+    "events": 11,
+    "cuts": 11,
+    "setups": 0,
+    "final_residual_voxels": 0,
+    "terminal_reason": "complete"
+  },
+  "initial": {
+    "episode_id": "7be3e1f51ee89fabca0a16cb7b32ae6a90ead4f31493451456ac40b342a39f81",
+    "complete": true,
+    "events": 11,
+    "cuts": 11,
+    "setups": 0,
+    "final_residual_voxels": 0,
+    "terminal_reason": "complete"
+  },
+  "trained": {
+    "episode_id": "0eb9de3b5022e45633d94cb908fad3a17b6af4463b8fd34609ce109763badde6",
+    "complete": true,
+    "events": 20,
+    "cuts": 20,
+    "setups": 0,
+    "final_residual_voxels": 0,
+    "terminal_reason": "complete"
+  },
+  "commands_changed": true,
+  "explicit_preference_labels": 1,
+  "interpretation": "Actual complete or incomplete simulated rollouts; sequence change alone is not improvement."
+}

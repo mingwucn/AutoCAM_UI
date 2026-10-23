@@ -2,6 +2,85 @@
 
 **Draft · 23 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
+<a id="industrial-reach-workflow"></a>
+
+## Latest 3-29-00350 workflow: reach, random experience and browser training
+
+Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)
+and the [illustrated reach walkthrough](../reach/guide/index.html).
+Follow two trainings from the same Initial model: A uses the saved baseline pair,
+Greedy and explicit preference; B adds seeded random experience. Keep each run's
+actual downloads. The original three-cut example later in this manual uses a
+separate earlier sampled case, dataset and checkpoint.
+
+1. **Inspect original stock.** Choose process, engagement direction and tool
+   reach. Orange material previews a possible cut. Apply accepts one eligible
+   positive decision; preview alone preserves accepted stock.
+2. **Inspect the baseline.** In **Baseline and model → Record and replay**, select
+   **Path 1 — user plan** and **Load selected baseline**. Use **Show baseline** to
+   inspect its replay, or preview each next decision and Apply. Its seven named
+   stages group 11 positive decisions, including drilling and finishing.
+3. **Save the preference.** Compare the complete 13-decision Path 2 alternative
+   with Path 1. Keep **Path 2 preferred over Path 1**. For your own pair, save both
+   complete recordings and explicitly **Add whole-sequence preference**.
+4. **Save Run A input.** Select **Greedy — maximum current removal** and **Load
+   selected baseline**. This adds a third saved sequence while retaining Path 1
+   as the preference anchor. Check **Saved feedback** and **Saved input**, then
+   **Download training input** into a Run A folder. Unsaved live actions are
+   excluded; manually replacing either recording clears its old sequence label.
+5. **Train Run A locally.** In **Train from saved sequences**, keep **Starting
+   model → Initial model**, then **Train model**. Training runs in your browser;
+   sequences and preferences are not uploaded. Read each stage's own count.
+   **Cancel training** preserves the previous model, stock and saved feedback.
+   On success the checked **Browser-trained model** loads automatically.
+6. **Retain Run A results.** Download the training report, loaded checkpoint,
+   before checkpoint and after checkpoint. Choose **Compare before / after**,
+   inspect the five full rollout rows and identical-state decisions, then
+   **Download comparison** before starting the next run.
+7. **Generate Run B experience.** Keep the three saved episodes and labels
+   unchanged. Set **Random seed** to 350289 and **Generate random sequence**.
+   Read its actual cuts, residual and complete/partial status. **Show random
+   sequence** and **Download random sequence** inspect and retain it. Generation
+   saves separate experience from original stock, preserves live stock and adds
+   no preference. Check four saved episodes with the same labels, then download
+   Run B's training input into a separate folder.
+8. **Train Run B from the same Initial model.** Keep **Starting model → Initial
+   model** again and choose **Train model**. Retain this run's report, loaded
+   checkpoint, before checkpoint and after checkpoint. Continuing Run A's model
+   would change the starting point and would not isolate the added experience.
+9. **Run inference and inspect changed choices.** Choose **Compare before /
+   after** for Run B. Its six rows compare Path 1, Greedy, Path 2, random
+   experience, before policy and after policy from identical original stock.
+   **Choices at identical stock states** shows each model's next process,
+   direction and reach at prefixes of the before policy, with changed and
+   unchanged choices. Download the comparison. This view compares Initial to
+   Run B; compare the saved Run A and Run B policy results separately when
+   assessing the effect of adding random experience.
+10. **Reload and compare MCTS.** Use **Load industrial model** to select Run B's
+    new after checkpoint. Reset stock for each manual rollout. Choose **Suggest
+    industrial policy** or **Search industrial MCTS** (16 simulations, depth 3,
+    exploration 1). **Preview suggested action**, inspect it, then explicitly
+    Apply at each decision. Retain actual decisions, residual, finishing checks
+    and setup changes. Loading, suggestions and search preserve stock.
+
+Path 1, Path 2 and Greedy reach zero sampled residual and listed feature checks,
+with zero setup changes under the declared continuous holding assumption. Their
+stage counts group decisions; they do not count tool changes. Record fresh Run A,
+Run B and MCTS results from their exact checkpoints. Changed choices or more
+cuts do not demonstrate better machining or exact imitation of Path 2.
+
+The [illustrated walkthrough](../reach/guide/index.html#local-training) includes
+relative screenshots/downloads, the controlled two-run recipe and geometry limits.
+Its captures illustrate earlier verified controls; fresh recorded metrics must
+come from the new runs. The supplied historical labelled example used 140
+simulated cutting transitions and 28,000 TD updates, with initial/greedy 11,
+trained policy 20 and trained MCTS 18 decisions. Those metrics do not describe
+new Run A or Run B checkpoints. An optional
+[Node.js reproduction recipe](../reach/guide/index.html#node-training) uses the
+same simulator and exact dataset. The
+[00289 case](../index.html?case=industrial_00289#gym) retains its existing main
+application and greedy baseline.
+
 <a id="verification-identity"></a>
 
 The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The Windows training-packaging repair and earlier documentation corrections were subsequently published as source `262c5c9b537b25dcd87cf845a9128f4a2353ab37`; its hosted files and affected workflows were checked separately. Preparation-recovery and physical-tool-label corrections are present in verified published source `f287dbf89865ad0d94453abfe9c88fe8f1d64be7`. Build-record loading and mixed-learning recovery captions were corrected in verified published source `39ce5d725e43bd894ac7071866ee770e1d4aa6cd`. This edition also documents the indexed-restore acknowledgement distinction in source `5e55041b6458c4e9cd6bf34e4cccf9608abc4b12`. Later observations identify their version below; match downloaded run details to the executing release. Detailed execution records are retained separately from this product manual; later checks do not change the original public result.

@@ -1,0 +1,265 @@
+{
+  "schema": "industrial-reach-publication-source-1",
+  "scope": "Exact retained reach runtime, UI and training closure with verified v9 browser-training inputs; packaging entry and guide are separately versioned. No manufacturing qualification.",
+  "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
+  "files": [
+    {
+      "path": "examples/industrial-reach/00289/case.json",
+      "sha256": "0f375401f5cfe0e19e00aed12e235810ec8f54e928fb5c774fc8ffbdcea0dbb0",
+      "size_bytes": 4476422,
+      "role": "unchanged_secondary_case"
+    },
+    {
+      "path": "examples/industrial-reach/00350/case.json",
+      "sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
+      "size_bytes": 13150593,
+      "role": "exact_reach_dataset"
+    },
+    {
+      "path": "scripts/train-industrial-setup-episode.mjs",
+      "sha256": "b60e402f957a245b924f15941807af7aa46b67b83609b2b621bef4cfc4797c54",
+      "size_bytes": 8316,
+      "role": "unchanged_prototype_trainer"
+    },
+    {
+      "path": "src/adaptive-inspection-volumes.mjs",
+      "sha256": "6a559a1913472d9ec36ad3fdf566b9f42a0c46f10d17996dc3307c4b80de2ee3",
+      "size_bytes": 3249,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-json.mjs",
+      "sha256": "c8854ace9e30ea95af22d84c8ada6e68e0ca87dc9018416d17e94fb7487e469d",
+      "size_bytes": 3359,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-profile-view.mjs",
+      "sha256": "666be6563c680e90ca40a31fbeae6f0476f62ae9c9087f990c45f2d6549c2453",
+      "size_bytes": 3267,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-provider.mjs",
+      "sha256": "f924c31f869da69adfff45a80e02f722867f91f815933a6ae3beaaec81361478",
+      "size_bytes": 55942,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-rational-view.mjs",
+      "sha256": "d44993f3deb78d085ac43c331d0cf90ba2cc0ba0c8b3b56bb766b83d6d6883fd",
+      "size_bytes": 2080,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-scope.mjs",
+      "sha256": "4d0019f8611f97c526cc56ff2b602a12f42aafa48d6c6704aac8439d7e2aa72c",
+      "size_bytes": 6144,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-tools.css",
+      "sha256": "2f60121fdccb0e75e4d452aaf0da13aa1fcac91d254cb910bad196db91c5b91c",
+      "size_bytes": 4222,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/adaptive-turning-view.mjs",
+      "sha256": "1690cc9263d394c1648e582c1fb98ad485d3b8c4d5efa19262c83f472b6b13ba",
+      "size_bytes": 4480,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/cad-face-picking.mjs",
+      "sha256": "1132d43c77666b3211c96d69d0c81787b074038ee14332c337f75f7f7ee777dc",
+      "size_bytes": 540,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/face-tool-mesh.mjs",
+      "sha256": "8685749c3173a3a1d48d36a0771bf46cac42ba5cefd0acce875ed1bf8d372060",
+      "size_bytes": 1152,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/face-tool-preview.mjs",
+      "sha256": "38056f5bab0b7ff988b14991821b168563bcc594c8af63a9daf4a8e94df90e1d",
+      "size_bytes": 3289,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-browser-training.mjs",
+      "sha256": "0b47978bb0004ff73a1a6cec491afcc20afb207b5ddfade9f3752be3a001d204",
+      "size_bytes": 2095,
+      "role": "verified_browser_training_v9_source"
+    },
+    {
+      "path": "src/industrial-engagement-controls.mjs",
+      "sha256": "4ac9efaf6779552c0d84c995a50fa55e10640ed1a826e27f1d0974ef9feb6a90",
+      "size_bytes": 2962,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-finite-pins.mjs",
+      "sha256": "239a0ef21fe0901cb1dbc6f7d816cffffc843e1a16d8cce80ba114527789403e",
+      "size_bytes": 1769,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-learning-client.mjs",
+      "sha256": "b37be9bb5d1895471277701c0565e9ea94971f78e17a179e0beccf68870cdda1",
+      "size_bytes": 1744,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-millturn-rule.mjs",
+      "sha256": "ee769871d111cfabb7d4919d40a807174cf9b6ae00e0c36526841704d1097c8d",
+      "size_bytes": 1508,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-path-plan.jsx",
+      "sha256": "851ce47519dfd9453ca0e993734220f364cf846854b74d4b1d2d9d98c8cd6a6f",
+      "size_bytes": 2337,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-path-presentation.mjs",
+      "sha256": "f4ee8d1d748f8bfd6428a369cf67fc745d0d3ff881ac1bb70de16cb664c75b90",
+      "size_bytes": 6501,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-paths-pins.mjs",
+      "sha256": "a48ddda704934e6f6e68c9b7187e10713ee187dcc6045063238d463078d22c92",
+      "size_bytes": 1759,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-reach-controls.mjs",
+      "sha256": "79213670ca27a098ed2d1232ddc30be1d04424e6b61a29b79bc45f9c4200e79a",
+      "size_bytes": 1912,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-reach-pins.mjs",
+      "sha256": "e243ffcd81f10e0b8c3dac3d7f046e711631f099ebee3110a695c5db4cf0fee2",
+      "size_bytes": 1799,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-app.jsx",
+      "sha256": "b170f564115776a2288e46e71d2144c21c42a7a5899c629eb4b831d9f41de304",
+      "size_bytes": 21013,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-client.mjs",
+      "sha256": "4bb02d21c9e03a92a6c7a611631671688a640af61f26c4fce5ceddff92400f3a",
+      "size_bytes": 398,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-learning-worker.mjs",
+      "sha256": "8580f88c3ad60e219f3ba4e61ec759a6c8f3ec570bf6228ae3b7a605b76bdcd6",
+      "size_bytes": 3167,
+      "role": "verified_browser_training_v9_source"
+    },
+    {
+      "path": "src/industrial-setup-learning.mjs",
+      "sha256": "8595c4fcc3f5580d8ebf87bba1c336596679b95a7e26c13477026fb1baac2581",
+      "size_bytes": 36726,
+      "role": "verified_browser_training_v9_source"
+    },
+    {
+      "path": "src/industrial-setup-model.mjs",
+      "sha256": "0c42573c7cdb3a0b6689972c2befc8e61c878b049da756b6d0831bf5cc61b7ca",
+      "size_bytes": 41632,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-panel.jsx",
+      "sha256": "de48ad5cfb515089d101dbc0f878c2cd8c0aea4209c98db60531b1fb49e79080",
+      "size_bytes": 22253,
+      "role": "verified_browser_training_v9_source"
+    },
+    {
+      "path": "src/industrial-setup-pins.mjs",
+      "sha256": "8558de5548ee207dea70a3cbcf84264b6592de665e03413eb514dbb81367ef0b",
+      "size_bytes": 1769,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-preview.mjs",
+      "sha256": "1c44cbfee19a31c6e10088ea9b8fdd64ac80a2f3a090af69c85b57ab8c7b7553",
+      "size_bytes": 8512,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-provider.mjs",
+      "sha256": "e03ccd4846d69dc347bbfd9899c97b671d3cc4aa8dba35aa472377f4369e979a",
+      "size_bytes": 4434,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-registry.mjs",
+      "sha256": "f9d4edff2cc49dfb3b753ab032266e6cd779afd909ec107a84ddf9009d084ca9",
+      "size_bytes": 771,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-rule.mjs",
+      "sha256": "d54345d678188875ad8dec243917fffc10ecf1122832000c1b415367f67748d1",
+      "size_bytes": 1541,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/industrial-setup-session.mjs",
+      "sha256": "944c12090537b8336fcd5a270416290f84c6a1f322b6b65a4f49ec74a0b203f0",
+      "size_bytes": 7593,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/material-layers.js",
+      "sha256": "030478a95c494a14920023f7d9d2b2131466d931c13967050e12eee2b849a134",
+      "size_bytes": 954,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/material-views.jsx",
+      "sha256": "51c4cf3c032bb42c77042124aee02f574a1a1632932c82fe4272037c48da7148",
+      "size_bytes": 3183,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/section.js",
+      "sha256": "b1c4653a5314f11079cf4559010f3d3aac847505a21a73a828c027222de07991",
+      "size_bytes": 12724,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/style.css",
+      "sha256": "13b99948130462c3a6327d5584cbbf654ba9f4a1431d3f2ec085cb9be21e5ab0",
+      "size_bytes": 14920,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/use-gym-session.js",
+      "sha256": "645f7faa91e2c36126e03c23b54ede7c02c79e3558fde429cafa50e6a5c261ab",
+      "size_bytes": 11783,
+      "role": "unchanged_prototype_source"
+    },
+    {
+      "path": "src/view.js",
+      "sha256": "49adbad554cdee352284627e1e40f3851f6f13bc12394044fdd93fb613e748b5",
+      "size_bytes": 49303,
+      "role": "unchanged_prototype_source"
+    }
+  ],
+  "historical_runtime": {
+    "path": "source-pins-v8.json",
+    "sha256": "457c924ff5b3ea12d4a5f0ad0b49b9e9fa0f6a09d303621af329c04051822d65",
+    "role": "Pre-browser-training v8 runtime and unchanged example training output identity"
+  },
+  "browser_training_revision": "verified-v9"
+}

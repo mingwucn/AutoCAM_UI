@@ -38,6 +38,7 @@ if(!embed){
 }
 const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 if(!embed)require('./build-documentation.cjs').buildDocumentation({root,out,execution:executionBuild.record});
+if(!embed)require('./build-industrial-reach.cjs').buildIndustrialReach({root,out,development,execution:executionBuild.record});
 fs.writeFileSync(path.join(out,'execution-build.json'),executionBuild.finalize());
 const files=[],manifestPath=path.join(out,'build-manifest.json');
 function walk(dir){for(const name of fs.readdirSync(dir).sort()){const p=path.join(dir,name);if(fs.statSync(p).isDirectory())walk(p);else if(p!==manifestPath)files.push({path:path.relative(out,p).replaceAll('\\','/'),sha256:sha(p),size_bytes:fs.statSync(p).size});}}

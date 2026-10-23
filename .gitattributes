@@ -22,3 +22,11 @@ python/** -text
 docs/** -text
 config/** -text
 examples/** -text
+prototypes/industrial-reach/** -text whitespace=cr-at-eol
+
+# Verified browser-training inputs and parity fixtures retain original CRLF bytes.
+tests/fixtures/industrial-reach-v8/src/** whitespace=cr-at-eol
+tests/industrial-reach-browser-training-ui.test.mjs whitespace=cr-at-eol
+tests/industrial-reach-training-worker.test.mjs whitespace=cr-at-eol
+tests/industrial-reach-random-comparison.test.mjs whitespace=cr-at-eol
+tests/industrial-reach-random-ui.test.mjs whitespace=cr-at-eol
