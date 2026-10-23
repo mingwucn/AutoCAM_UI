@@ -1,0 +1,95 @@
+{
+  "claim": "Controlled browser trainings A and B differ only by one saved random episode; actual policy and MCTS decisions are compared separately from complete rollouts.",
+  "audience": "technical-generalist",
+  "visual_form": "table",
+  "metric": {
+    "name": "Accepted cuts in a complete rollout",
+    "unit": "cuts",
+    "direction": "lower",
+    "aggregation": "One rollout per listed sequence or policy; one repeated B MCTS rollout.",
+    "denominator": "Identical original 3-29-00350 sampled stock and simulator gates.",
+    "precision_decimals": 0,
+    "scale": "linear"
+  },
+  "secondary_metric": {
+    "name": "Final excess outside target",
+    "unit": "mm3",
+    "direction": "toward_zero",
+    "scale": "linear"
+  },
+  "data_source": {
+    "path_or_identifier": "comparison-projection.json",
+    "immutable_fields": [
+      "controlled_A_B",
+      "control_A",
+      "browser_B",
+      "random_experience",
+      "summaries",
+      "first_decision_comparison",
+      "same_state_policy_summary",
+      "budget"
+    ],
+    "checksum": "76f7c4edf4aac299c4c8c27ca6869af49078d91229899e16550bfb3cf1201203",
+    "notes": "Whitelisted actual controlled browser A/B record; projected JSON checksum binds this identifier. Source comparison receipt SHA-256: b4023ab294b680bfd92a452b75978b70ce04e02ee2dcb065fa6bd05d8e399c32. Raw-file and canonical-model hashes stay distinct; absolute local paths are excluded."
+  },
+  "focal_series": null,
+  "required_baselines": [
+    "Path 1 baseline",
+    "Greedy baseline",
+    "Path 2 preferred reference",
+    "Seeded random experience",
+    "Initial policy",
+    "Control A policy (3 episodes)"
+  ],
+  "series_order": [
+    "Path 1 baseline",
+    "Greedy baseline",
+    "Path 2 preferred reference",
+    "Seeded random experience",
+    "Initial policy",
+    "Control A policy (3 episodes)",
+    "Random B policy (4 episodes)",
+    "Random B MCTS"
+  ],
+  "ordering_rationale": "baseline_to_focal",
+  "uncertainty": {
+    "available": false,
+    "type": "none",
+    "sample_or_seed_count": 1,
+    "note": "Single controlled pair, one random seed, one rollout per condition; no multi-seed estimate or general efficiency claim."
+  },
+  "target": {
+    "medium": "web",
+    "width": 1265,
+    "height": 712,
+    "unit": "px",
+    "minimum_text_size_pt": 10.5,
+    "background": "white"
+  },
+  "table_rules": {
+    "show_actual_values": true,
+    "show_deltas": false,
+    "delta_is_subordinate": true,
+    "numeric_alignment": "right",
+    "best_value_emphasis": "none",
+    "missing_symbol": "—"
+  },
+  "selected_reference_ids": [
+    "OAI-VIS-004",
+    "OAI-VIS-005",
+    "OAI-VIS-021",
+    "OAI-VIS-025",
+    "OAI-VIS-032"
+  ],
+  "output_formats": [
+    "html"
+  ],
+  "caption_requirements": [
+    "task",
+    "sample",
+    "uncertainty",
+    "exclusions",
+    "metric_direction"
+  ],
+  "exceptions": []
+}

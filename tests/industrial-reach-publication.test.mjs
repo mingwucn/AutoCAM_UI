@@ -59,7 +59,28 @@ test('reach build is portable, captured in provenance and retains exact download
       }
       assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:\\/i.test(html));
     }
-    assert.equal((fs.readFileSync(path.join(out,'reach/guide/index.html'),'utf8').match(/<img /g)||[]).length,12);
+    const recording=JSON.parse(fs.readFileSync(path.join(prototype,'examples/industrial-reach/00350/fresh-recording-index.json')));
+    assert.equal(recording.schema,'industrial-reach-fresh-recording-index-1');
+    assert.equal(recording.source_pins_sha256,sha(fs.readFileSync(path.join(prototype,'source-pins.json'))));
+    assert.equal(new Set(recording.captures.map(row=>row.step)).size,10);
+    const guide=fs.readFileSync(path.join(out,'reach/guide/index.html'),'utf8');
+    const sources=[...guide.matchAll(/<img src="([^"]+)"/g)].map(match=>match[1]);
+    assert.deepEqual(sources,recording.captures.map(row=>'assets/'+row.guide_file));
+    for(const row of recording.captures){
+      assert.match(row.capture_file,/^[a-zA-Z0-9_.-]+\.(?:jpg|png)$/);
+      assert.equal(row.manual_file,'docs/images/industrial-reach/'+row.capture_file);
+      const image=fs.readFileSync(path.join(out,'reach/guide/assets',row.guide_file));
+      assert.equal(sha(image),row.sha256,row.capture_file);assert.equal(image.length,row.size_bytes);
+      assert.deepEqual(image,fs.readFileSync(path.join(root,row.manual_file)));
+      assert(guide.includes('href="assets/'+row.guide_file+'"'),'full-size image link: '+row.capture_file);
+      assert.deepEqual([row.width,row.height],row.kind==='derived_numerical_record_capture'?[1280,720]:[1265,712]);
+    }
+    for(const row of recording.downloads){
+      assert.match(row.file,/^fresh-[a-zA-Z0-9_.-]+\.json$/);
+      const bytes=fs.readFileSync(path.join(out,'reach/downloads',row.file));
+      assert.equal(sha(bytes),row.sha256,row.file);assert.equal(bytes.length,row.size_bytes);
+      assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:[\\/]|file:\//i.test(bytes.toString()));
+    }
     const bundle=fs.readFileSync(path.join(out,'reach/assets/app.js'),'utf8');assert(bundle.includes('industrial-setup-learning-worker.js'));
     for(const text of ['Train model','Cancel training','Browser-trained model','Download training report','Training runs locally in your browser. Your sequences and preferences are not uploaded.','Generate random sequence','Compare before / after','Choices at identical stock states','Download before checkpoint','Download after checkpoint'])assert(bundle.includes(text),text);
     assert.deepEqual(fs.readFileSync(path.join(out,'reach/source-pins-v8.json')),fs.readFileSync(path.join(prototype,'source-pins-v8.json')));

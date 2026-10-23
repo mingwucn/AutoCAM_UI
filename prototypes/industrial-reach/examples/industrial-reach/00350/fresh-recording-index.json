@@ -1,0 +1,667 @@
+{
+  "schema": "industrial-reach-fresh-recording-index-1",
+  "recorded_date": "2026-10-23",
+  "recorded_runtime_release": "ecd66f46936a24bd44c7b86259ed69dffcc57179",
+  "source_pins_sha256": "d16e53ee9c11e9207fa06d487c942961d71ffbd65b73024ad344fd33939311fd",
+  "case_id": "industrial_reach_00350",
+  "capture_semantics": "Untouched browser viewport captures: live app 1265 by 712; separately labelled derived numerical records 1280 by 720.",
+  "captures": [
+    {
+      "capture_file": "01-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/01-original-stock.jpg",
+      "guide_file": "fresh-01-original-stock.jpg",
+      "step": 1,
+      "kind": "live_app_capture",
+      "sha256": "fda8d6318b620dac49cd20d776444cf6b3d2049c00cc4a3e68b85dfb5c96067e",
+      "size_bytes": 50524,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "02c-original-stock-material.jpg",
+      "manual_file": "docs/images/industrial-reach/02c-original-stock-material.jpg",
+      "guide_file": "fresh-02c-original-stock-material.jpg",
+      "step": 1,
+      "kind": "live_app_capture",
+      "sha256": "70ba467948410856b5ab0d488034748dc32955e20179de80445816889707b5c0",
+      "size_bytes": 55183,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "03-path1-after-turning.jpg",
+      "manual_file": "docs/images/industrial-reach/03-path1-after-turning.jpg",
+      "guide_file": "fresh-03-path1-after-turning.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "3279c6c0a79c6ec81f2cdd888ec8b6c9218b82b87b1eeff5dc6f99e1bb95ee01",
+      "size_bytes": 50128,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "04-path1-after-top.jpg",
+      "manual_file": "docs/images/industrial-reach/04-path1-after-top.jpg",
+      "guide_file": "fresh-04-path1-after-top.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "79867f60d25806fbc04bbefa95bdbee1eb88235b7ab0c28ec07f0e9007178157",
+      "size_bytes": 51021,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "05-path1-after-three-bulk.jpg",
+      "manual_file": "docs/images/industrial-reach/05-path1-after-three-bulk.jpg",
+      "guide_file": "fresh-05-path1-after-three-bulk.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "57909a452adccc2b488653cfd3dc238052d68ae36e9b6584520dc7d354988899",
+      "size_bytes": 50674,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "07b-path1-after-drilling-confirmed.jpg",
+      "manual_file": "docs/images/industrial-reach/07b-path1-after-drilling-confirmed.jpg",
+      "guide_file": "fresh-07b-path1-after-drilling-confirmed.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "322a11dd359450e5d42dc1ea1f2e66a9aedb4c22882bd84a2748c9386e740418",
+      "size_bytes": 50447,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "08-path1-deep-top.jpg",
+      "manual_file": "docs/images/industrial-reach/08-path1-deep-top.jpg",
+      "guide_file": "fresh-08-path1-deep-top.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "e7690061c3cb890c306fa99228690565fe5b14fe52fdaf7f478c6b90669f2f3e",
+      "size_bytes": 50655,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "09-path1-deep-bottom.jpg",
+      "manual_file": "docs/images/industrial-reach/09-path1-deep-bottom.jpg",
+      "guide_file": "fresh-09-path1-deep-bottom.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "b9efb088045ae0413029cf252e210667cb32ffc5de276da5326fa9ac78efbc00",
+      "size_bytes": 50636,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "10-path1-after-cleanup.jpg",
+      "manual_file": "docs/images/industrial-reach/10-path1-after-cleanup.jpg",
+      "guide_file": "fresh-10-path1-after-cleanup.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "fd51b028a04404beac325f2deed03df73c6250f377b37163053af54741b98b14",
+      "size_bytes": 50095,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "11-path1-finish-top.jpg",
+      "manual_file": "docs/images/industrial-reach/11-path1-finish-top.jpg",
+      "guide_file": "fresh-11-path1-finish-top.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "5e0c9ba3c8a792c8a5fb2172d4872fbb44fe33b45e43eaa8dbecb58cb1f70955",
+      "size_bytes": 49520,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "12-path1-finish-bottom.jpg",
+      "manual_file": "docs/images/industrial-reach/12-path1-finish-bottom.jpg",
+      "guide_file": "fresh-12-path1-finish-bottom.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "1a94c4fc709e45e6b490dc80d3e754444141c4fbaf787b4692012221ae14a1e6",
+      "size_bytes": 48868,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "13-path1-finish-side.jpg",
+      "manual_file": "docs/images/industrial-reach/13-path1-finish-side.jpg",
+      "guide_file": "fresh-13-path1-finish-side.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "951554bfcba65a3a2fbafb62042b05145fb326bc7c9206ac2125ca6d61f29e74",
+      "size_bytes": 48695,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "14-path1-complete.jpg",
+      "manual_file": "docs/images/industrial-reach/14-path1-complete.jpg",
+      "guide_file": "fresh-14-path1-complete.jpg",
+      "step": 2,
+      "kind": "live_app_capture",
+      "sha256": "7e400c9fee5e36648aabe61a3742358603d814ba4dec4eab7629d1edcc66f9db",
+      "size_bytes": 49193,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "15d-path1-feature-checks-middle.jpg",
+      "manual_file": "docs/images/industrial-reach/15d-path1-feature-checks-middle.jpg",
+      "guide_file": "fresh-15d-path1-feature-checks-middle.jpg",
+      "step": 3,
+      "kind": "live_app_capture",
+      "sha256": "d0ce90eaf2d44cc4dc1c6d743d571c925880ae7e92d9379a6c3cfe669383e6bf",
+      "size_bytes": 77504,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "15c-path1-feature-checks-lower-confirmed.jpg",
+      "manual_file": "docs/images/industrial-reach/15c-path1-feature-checks-lower-confirmed.jpg",
+      "guide_file": "fresh-15c-path1-feature-checks-lower-confirmed.jpg",
+      "step": 3,
+      "kind": "live_app_capture",
+      "sha256": "0fc9a4b59c382f8e10960e7dcf0249365bad6c5477756920c9dfc12278cdd7de",
+      "size_bytes": 61749,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "16a-preference-cleared.jpg",
+      "manual_file": "docs/images/industrial-reach/16a-preference-cleared.jpg",
+      "guide_file": "fresh-16a-preference-cleared.jpg",
+      "step": 4,
+      "kind": "live_app_capture",
+      "sha256": "a8b38be8a9e61d9336cea4cfa16388d3507420e0c1a650d5f94f2320eac5681c",
+      "size_bytes": 47782,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "16c-path2-preference-confirmed.jpg",
+      "manual_file": "docs/images/industrial-reach/16c-path2-preference-confirmed.jpg",
+      "guide_file": "fresh-16c-path2-preference-confirmed.jpg",
+      "step": 4,
+      "kind": "live_app_capture",
+      "sha256": "c0fe23dabf1963bb99be9d60ca8b541a35677fa380c03b0a962e44e3585cca84",
+      "size_bytes": 47101,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "17-control-a-training-input.jpg",
+      "manual_file": "docs/images/industrial-reach/17-control-a-training-input.jpg",
+      "guide_file": "fresh-17-control-a-training-input.jpg",
+      "step": 4,
+      "kind": "live_app_capture",
+      "sha256": "7db64e298e2572cec0d63853d74bbb95a132ae22826baa8d7256e05220b370c8",
+      "size_bytes": 56501,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "18c-control-a-simulated-experience.jpg",
+      "manual_file": "docs/images/industrial-reach/18c-control-a-simulated-experience.jpg",
+      "guide_file": "fresh-18c-control-a-simulated-experience.jpg",
+      "step": 5,
+      "kind": "live_app_capture",
+      "sha256": "392aeee34dc6f70845881de5376e0dd711adb8df2c59f7737810fe8728adb711",
+      "size_bytes": 54235,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "19-control-a-training-complete.jpg",
+      "manual_file": "docs/images/industrial-reach/19-control-a-training-complete.jpg",
+      "guide_file": "fresh-19-control-a-training-complete.jpg",
+      "step": 5,
+      "kind": "live_app_capture",
+      "sha256": "3239288c2eff5601e578cd4eab50d8a9a1f11daa5dec0a768d6c8f357e7c9f9a",
+      "size_bytes": 59586,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "19b-control-a-five-row-comparison.jpg",
+      "manual_file": "docs/images/industrial-reach/19b-control-a-five-row-comparison.jpg",
+      "guide_file": "fresh-19b-control-a-five-row-comparison.jpg",
+      "step": 5,
+      "kind": "live_app_capture",
+      "sha256": "b1b9408d79ff04c51cf6608e7264063f3d6b2823a3a02aa458d918c8b9bae12b",
+      "size_bytes": 59987,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "25-random-experience-saved.jpg",
+      "manual_file": "docs/images/industrial-reach/25-random-experience-saved.jpg",
+      "guide_file": "fresh-25-random-experience-saved.jpg",
+      "step": 6,
+      "kind": "live_app_capture",
+      "sha256": "e5de1bbc1dac624e473a062229966db7d8fe7957296fa5db8416fa4e65a9fe2f",
+      "size_bytes": 50919,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "26a-random-replay-start.jpg",
+      "manual_file": "docs/images/industrial-reach/26a-random-replay-start.jpg",
+      "guide_file": "fresh-26a-random-replay-start.jpg",
+      "step": 6,
+      "kind": "live_app_capture",
+      "sha256": "af03dde1186030cda601e0c1831f5d3a7f7270a92a9764bcd7db3814a504df3c",
+      "size_bytes": 49203,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "26b-random-replay-middle.jpg",
+      "manual_file": "docs/images/industrial-reach/26b-random-replay-middle.jpg",
+      "guide_file": "fresh-26b-random-replay-middle.jpg",
+      "step": 6,
+      "kind": "live_app_capture",
+      "sha256": "111c790c97b706c03e6b1ab379a99204409f8987e86d6d5fc47940be81e07a32",
+      "size_bytes": 48879,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "26c-random-replay-complete.jpg",
+      "manual_file": "docs/images/industrial-reach/26c-random-replay-complete.jpg",
+      "guide_file": "fresh-26c-random-replay-complete.jpg",
+      "step": 6,
+      "kind": "live_app_capture",
+      "sha256": "f220b647026ddf2d193e2cf53620e0176fea1f1bee57e181bbc68c03e922967a",
+      "size_bytes": 47477,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "27-random-b-training-input.jpg",
+      "manual_file": "docs/images/industrial-reach/27-random-b-training-input.jpg",
+      "guide_file": "fresh-27-random-b-training-input.jpg",
+      "step": 6,
+      "kind": "live_app_capture",
+      "sha256": "f23cbcffe15053a158e8061603365287f715916077500ee98ddd3e88d127355d",
+      "size_bytes": 51592,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "28b-random-b-training-progress.jpg",
+      "manual_file": "docs/images/industrial-reach/28b-random-b-training-progress.jpg",
+      "guide_file": "fresh-28b-random-b-training-progress.jpg",
+      "step": 7,
+      "kind": "live_app_capture",
+      "sha256": "4b2fa63d6d4d3af434aa6ab50a641671d478e962de6590724bc19bf3282b1cd5",
+      "size_bytes": 57538,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "29-random-b-training-complete.jpg",
+      "manual_file": "docs/images/industrial-reach/29-random-b-training-complete.jpg",
+      "guide_file": "fresh-29-random-b-training-complete.jpg",
+      "step": 7,
+      "kind": "live_app_capture",
+      "sha256": "f822caac170b65676c8aa03f771e517884e7ce3a13af79a3f4ae78fcf8e46f02",
+      "size_bytes": 59717,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "30b-random-b-all-six-rows.jpg",
+      "manual_file": "docs/images/industrial-reach/30b-random-b-all-six-rows.jpg",
+      "guide_file": "fresh-30b-random-b-all-six-rows.jpg",
+      "step": 8,
+      "kind": "live_app_capture",
+      "sha256": "e1cfe0f84f99e0f9f2c94e5e468d24d6fdaf49329ad48a8473440a971c33ed1b",
+      "size_bytes": 47720,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "31a-initial-b-same-state-choices.jpg",
+      "manual_file": "docs/images/industrial-reach/31a-initial-b-same-state-choices.jpg",
+      "guide_file": "fresh-31a-initial-b-same-state-choices.jpg",
+      "step": 8,
+      "kind": "live_app_capture",
+      "sha256": "b574c9dcb8856d331d783d43cd4a8b843a69636b96c2771b47d1ff662a0d74bb",
+      "size_bytes": 50809,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "31b-initial-b-same-state-choices-lower.jpg",
+      "manual_file": "docs/images/industrial-reach/31b-initial-b-same-state-choices-lower.jpg",
+      "guide_file": "fresh-31b-initial-b-same-state-choices-lower.jpg",
+      "step": 8,
+      "kind": "live_app_capture",
+      "sha256": "2a2c02e0b573cb2c7162b57e722a6ec6fc411adce2c7d1f06032c6ca8aa148ca",
+      "size_bytes": 56224,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "20-initial-policy-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/20-initial-policy-original-stock.jpg",
+      "guide_file": "fresh-20-initial-policy-original-stock.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "80b64b066e36192b02b9021f53c30c0a23125404734f51ddb69319a438cb9f06",
+      "size_bytes": 38236,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "22-control-a-checkpoint-reloaded.jpg",
+      "manual_file": "docs/images/industrial-reach/22-control-a-checkpoint-reloaded.jpg",
+      "guide_file": "fresh-22-control-a-checkpoint-reloaded.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "3f2e087fb84e5bcf32d519ceb5bcbb6710d8e5aa4c4b18ef9406d7c2b5549c41",
+      "size_bytes": 44794,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "22b-control-a-policy-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/22b-control-a-policy-original-stock.jpg",
+      "guide_file": "fresh-22b-control-a-policy-original-stock.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "096d43613f4f28afd4ead3793eb2b424dc524bad31233f87399c74e1b870a559",
+      "size_bytes": 38775,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "32-random-b-policy-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/32-random-b-policy-original-stock.jpg",
+      "guide_file": "fresh-32-random-b-policy-original-stock.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "26892c6e6fdcb83a6d48a2a87d8656e20d02c704d50fd16a823f8efe9f5bdfee",
+      "size_bytes": 39189,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "34a-control-a-policy-preview-20mm.jpg",
+      "manual_file": "docs/images/industrial-reach/34a-control-a-policy-preview-20mm.jpg",
+      "guide_file": "fresh-34a-control-a-policy-preview-20mm.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "db38886243aac578fdadb6c4bb02ee9d946bba7a6691652cfb12d9077b0a46ab",
+      "size_bytes": 50321,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "32b-random-b-policy-preview-5mm.jpg",
+      "manual_file": "docs/images/industrial-reach/32b-random-b-policy-preview-5mm.jpg",
+      "guide_file": "fresh-32b-random-b-policy-preview-5mm.jpg",
+      "step": 9,
+      "kind": "live_app_capture",
+      "sha256": "da6332c27882fca714bcdc24a15270e488d9715448bfcaae210e6cbd20eb5f92",
+      "size_bytes": 49974,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "21-initial-mcts-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/21-initial-mcts-original-stock.jpg",
+      "guide_file": "fresh-21-initial-mcts-original-stock.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "396675771aea87d424fbf699db4cb409e7e7aac68d59b98599ffa5719830c053",
+      "size_bytes": 38307,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "21b-initial-mcts-preview-reach.jpg",
+      "manual_file": "docs/images/industrial-reach/21b-initial-mcts-preview-reach.jpg",
+      "guide_file": "fresh-21b-initial-mcts-preview-reach.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "2f683c0cdbc0a18ef6044e1fd6a247d49564595a8f3dafff7170dc6cbab7286c",
+      "size_bytes": 50599,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "23-control-a-mcts-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/23-control-a-mcts-original-stock.jpg",
+      "guide_file": "fresh-23-control-a-mcts-original-stock.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "610e6e48b12a1aa629c499b8637cf1b759f55c0b7c156bfd30bfc174ee0e3b0a",
+      "size_bytes": 38869,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "33-random-b-mcts-original-stock.jpg",
+      "manual_file": "docs/images/industrial-reach/33-random-b-mcts-original-stock.jpg",
+      "guide_file": "fresh-33-random-b-mcts-original-stock.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "55fa55ee5d0da695a61ebb0da0094c97eb0514e127c1ed995935963c8ccf9749",
+      "size_bytes": 39245,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "35-random-b-policy-checked-restore-24cuts.jpg",
+      "manual_file": "docs/images/industrial-reach/35-random-b-policy-checked-restore-24cuts.jpg",
+      "guide_file": "fresh-35-random-b-policy-checked-restore-24cuts.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "af58a6afbb2b617fb2e2b08939cf7066c9b03c8a5cf206e4241f57f0b357efcc",
+      "size_bytes": 45180,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "36-random-b-mcts-checked-restore-20cuts.jpg",
+      "manual_file": "docs/images/industrial-reach/36-random-b-mcts-checked-restore-20cuts.jpg",
+      "guide_file": "fresh-36-random-b-mcts-checked-restore-20cuts.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "43ebc8f7098d7608a253f7eb79c8b8473ccc7ef0ac7d8d5c7c5b5c8578b5aae3",
+      "size_bytes": 45163,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "36b-random-b-mcts-complete-material.jpg",
+      "manual_file": "docs/images/industrial-reach/36b-random-b-mcts-complete-material.jpg",
+      "guide_file": "fresh-36b-random-b-mcts-complete-material.jpg",
+      "step": 10,
+      "kind": "live_app_capture",
+      "sha256": "00dccff5ac526959d09da23f8fceddf258c7c436ffe9cb5491d3f38c005f7fff",
+      "size_bytes": 47552,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "capture_file": "37-derived-eight-row-comparison.jpg",
+      "manual_file": "docs/images/industrial-reach/37-derived-eight-row-comparison.jpg",
+      "guide_file": "fresh-37-derived-eight-row-comparison.jpg",
+      "step": 10,
+      "kind": "derived_numerical_record_capture",
+      "sha256": "1e73cb81118889a0a8cb401451d51cc9978fa64296b745c4ec94ce6ee52bd963",
+      "size_bytes": 105884,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture_file": "38b-derived-first-policy-top.jpg",
+      "manual_file": "docs/images/industrial-reach/38b-derived-first-policy-top.jpg",
+      "guide_file": "fresh-38b-derived-first-policy-top.jpg",
+      "step": 10,
+      "kind": "derived_numerical_record_capture",
+      "sha256": "fbc7a835fb1ed584db3fefbe0bdb488cd170a7250265b394ba257c2fd402e11b",
+      "size_bytes": 89574,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture_file": "39c-derived-first-mcts-confirmed.jpg",
+      "manual_file": "docs/images/industrial-reach/39c-derived-first-mcts-confirmed.jpg",
+      "guide_file": "fresh-39c-derived-first-mcts-confirmed.jpg",
+      "step": 10,
+      "kind": "derived_numerical_record_capture",
+      "sha256": "22354356fc07df939c810e7fe8da3176e2a40261ece847d8345076502f0ed203",
+      "size_bytes": 83741,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "capture_file": "40-derived-random-experience-effect.jpg",
+      "manual_file": "docs/images/industrial-reach/40-derived-random-experience-effect.jpg",
+      "guide_file": "fresh-40-derived-random-experience-effect.jpg",
+      "step": 10,
+      "kind": "derived_numerical_record_capture",
+      "sha256": "fee6e564056325f0d3be24e5342f1b906e7ee23b7fb6639724b90321baaf87a2",
+      "size_bytes": 104493,
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "downloads": [
+    {
+      "file": "fresh-actual-manual-path1.json",
+      "kind": "browser_download",
+      "sha256": "6f603ad9c07456c6af44346d02eaca3a78623e61e824a6af0e4487d9b26e7446",
+      "size_bytes": 39528
+    },
+    {
+      "file": "fresh-control-a-before-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "size_bytes": 3502
+    },
+    {
+      "file": "fresh-control-a-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "75b68a5e5fb0b42d128b2b3864f7816f12aec03e37c48b0e433320c9fbb849bb",
+      "size_bytes": 4260
+    },
+    {
+      "file": "fresh-control-a-feedback.json",
+      "kind": "browser_download",
+      "sha256": "4c229682a8b8f67829602e33a545745815e25ef2b0457c1f1853d71c827a68dd",
+      "size_bytes": 136551
+    },
+    {
+      "file": "fresh-control-a-inference-comparison.json",
+      "kind": "browser_download",
+      "sha256": "64cea63ef7f9cf1cd40cac843df06dd930984fd8f5150aed8b147f90b46a6e76",
+      "size_bytes": 253720
+    },
+    {
+      "file": "fresh-control-a-loaded-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "75b68a5e5fb0b42d128b2b3864f7816f12aec03e37c48b0e433320c9fbb849bb",
+      "size_bytes": 4260
+    },
+    {
+      "file": "fresh-control-a-training-report.json",
+      "kind": "browser_download",
+      "sha256": "da7215ccb3830ba6b265378a60d932a56c8f617630c105ae9b5f173740057168",
+      "size_bytes": 9885
+    },
+    {
+      "file": "fresh-controlled-comparison-projection.json",
+      "kind": "derived_numerical_projection",
+      "sha256": "76f7c4edf4aac299c4c8c27ca6869af49078d91229899e16550bfb3cf1201203",
+      "size_bytes": 13047
+    },
+    {
+      "file": "fresh-random-b-before-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "size_bytes": 3502
+    },
+    {
+      "file": "fresh-random-b-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "size_bytes": 4256
+    },
+    {
+      "file": "fresh-random-b-feedback.json",
+      "kind": "browser_download",
+      "sha256": "25d42e8c9e8f6d8bb6e072c9529b9a05d68db67565874dcb958efbaca06e427e",
+      "size_bytes": 187711
+    },
+    {
+      "file": "fresh-random-b-inference-comparison.json",
+      "kind": "browser_download",
+      "sha256": "381471dadb1fd8ffbd1ff43920f78148b0781ad93c0ae600157d1e9e953beb1b",
+      "size_bytes": 313726
+    },
+    {
+      "file": "fresh-random-b-loaded-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "size_bytes": 4256
+    },
+    {
+      "file": "fresh-random-B-mcts-episode.json",
+      "kind": "checked_numerical_episode",
+      "sha256": "5c44a08a6bf5901766723a87f64f1b9eac3c8a8b7c9e95253c36c7086cda92dc",
+      "size_bytes": 52230
+    },
+    {
+      "file": "fresh-random-b-mcts-restored-export.json",
+      "kind": "browser_download",
+      "sha256": "a4e3a3520f9b0e92aef47dbec8bc193d52fa96683521332f527c8d881286d718",
+      "size_bytes": 51873
+    },
+    {
+      "file": "fresh-random-b-policy-restored-export.json",
+      "kind": "browser_download",
+      "sha256": "e45474afe57edc726ab79379b0caaf7ebda0c787108bee2561b9dc0e1ccb1880",
+      "size_bytes": 57340
+    },
+    {
+      "file": "fresh-random-b-policy.json",
+      "kind": "checked_numerical_episode",
+      "sha256": "307a1b86b1b9fbbdf0ba7a988f57886f4897b010dbdcccb1b84df1f74a307608",
+      "size_bytes": 57554
+    },
+    {
+      "file": "fresh-random-b-reloaded-checkpoint.json",
+      "kind": "browser_download",
+      "sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "size_bytes": 4256
+    },
+    {
+      "file": "fresh-random-b-training-report.json",
+      "kind": "browser_download",
+      "sha256": "c023a4f5ec30807e705b2da0610199863443bc7d6a183cc36d1f5ad25071a85f",
+      "size_bytes": 9889
+    },
+    {
+      "file": "fresh-random-episode-seed350289.json",
+      "kind": "browser_download",
+      "sha256": "38f1fd61deeca53bce763e28f4982aab83320deea4e3b21534538431bb354298",
+      "size_bytes": 46643
+    },
+    {
+      "file": "fresh-saved-path1-baseline.json",
+      "kind": "browser_download",
+      "sha256": "0c9643d8a8388a7c77aa8ca4b975e4b586314696d541e8f1f6715ec30281ec0a",
+      "size_bytes": 39774
+    }
+  ],
+  "geometry_scope": "Sampled reach model and listed feature envelopes; independent human acceptance unperformed; manufacturing qualification false."
+}

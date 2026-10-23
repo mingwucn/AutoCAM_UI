@@ -1,0 +1,55 @@
+{
+  "schema": "reach-random-ab-projection-manifest-1",
+  "source_comparison_sha256": "b4023ab294b680bfd92a452b75978b70ce04e02ee2dcb065fa6bd05d8e399c32",
+  "generator_sha256": "8bae5b63b2014c35bfbebe24bd550a5e4d0b75d64272c1d57be38a88e974925e",
+  "files": [
+    {
+      "path": "comparison.html",
+      "sha256": "855c31c5a30fde7bfbbdcafc071b44f7461c08362049f9a5d0776d41582a246f",
+      "size_bytes": 5510
+    },
+    {
+      "path": "first-policy-decisions.html",
+      "sha256": "fb8d9faefab914e3314c737640481208b409cb5dbb7dd5e05b174a97b287b9d4",
+      "size_bytes": 4748
+    },
+    {
+      "path": "first-mcts-decisions.html",
+      "sha256": "167a72e8833a4c74d54a4712406762d036ffb76d422b6cf451198c985fc326ef",
+      "size_bytes": 4320
+    },
+    {
+      "path": "random-experience-effect.html",
+      "sha256": "d8c8f16baa83025a3d3e9d91d0c0b5ac7e90882dd9bab4a5d47f96f73f599981",
+      "size_bytes": 4740
+    },
+    {
+      "path": "provenance.html",
+      "sha256": "02f42329b973e93de9b502a6f47b1700305a36faea399df302ab64669473baf8",
+      "size_bytes": 4494
+    },
+    {
+      "path": "comparison-projection.json",
+      "sha256": "76f7c4edf4aac299c4c8c27ca6869af49078d91229899e16550bfb3cf1201203",
+      "size_bytes": 13047
+    },
+    {
+      "path": "visual-spec.json",
+      "sha256": "0db24d652da4b8b8e1aaca82b24b065e0f51c4d6434d9c07b692eb1f892167ca",
+      "size_bytes": 2852
+    }
+  ],
+  "relative_links_only": true,
+  "absolute_source_paths_excluded": true,
+  "source_unchanged": true,
+  "visual_qa": {
+    "status": "pending",
+    "required": [
+      "1265x712 final-size inspection",
+      "grayscale inspection",
+      "clipping/overflow check",
+      "actual source-value check"
+    ],
+    "note": "Generation success is not final visual approval."
+  }
+}

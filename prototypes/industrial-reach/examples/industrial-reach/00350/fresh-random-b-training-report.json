@@ -1,0 +1,361 @@
+{
+  "schema": "industrial-learning-report-setup-1",
+  "configuration": {
+    "alpha": 0.05,
+    "gamma": 0.95,
+    "clip": 1,
+    "epochs": 200,
+    "rewardEpochs": 200,
+    "rewardAlpha": 0.1,
+    "explorationEpisodes": 12,
+    "seed": 350289
+  },
+  "feedback_id": "b5d0c57e549b306738d77b5b1bfd7f20dbd8df1563231272e42f0b4fe9f83fc3",
+  "experience_transitions": 155,
+  "cut_transitions": 155,
+  "setup_transitions": 0,
+  "setup_rewards": [],
+  "td_updates": 31000,
+  "mean_absolute_clipped_td": 0.0413591549560437,
+  "explicit_preference_labels": 1,
+  "preferences_before": [
+    {
+      "kind": "sequence",
+      "label": {
+        "scope": "case",
+        "preferred_episode_id": "85bef0b403a2a57e5acd4e26e1e115ad66e0d74913413d1bfa6429296d1cde2d",
+        "rejected_episode_id": "411accd7e9a9a48dc89cbe5d11d4aa9c0fee78927b3d4b8347273d2f959f579a"
+      },
+      "preferred_probability": 0.4944606822665341,
+      "reward_margin": -0.02215817750010407
+    }
+  ],
+  "preferences_after": [
+    {
+      "kind": "sequence",
+      "label": {
+        "scope": "case",
+        "preferred_episode_id": "85bef0b403a2a57e5acd4e26e1e115ad66e0d74913413d1bfa6429296d1cde2d",
+        "rejected_episode_id": "411accd7e9a9a48dc89cbe5d11d4aa9c0fee78927b3d4b8347273d2f959f579a"
+      },
+      "preferred_probability": 0.7278745985900608,
+      "reward_margin": 0.983865784027595
+    }
+  ],
+  "policy_choices": [
+    {
+      "commands": [],
+      "before": {
+        "type": "cut",
+        "process": "turning",
+        "action_id": "turning/turning/outside@40mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "turning",
+        "action_id": "turning/turning/outside@20mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "turning",
+        "action_id": "turning/turning/face_positive@5mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+      },
+      "changed": true,
+      "feedback_effect": false
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_x@20mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_x@5mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_pos_x@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_z@20mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_z@20mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_z@20mm"
+      },
+      "changed": false,
+      "feedback_effect": false
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_pos_x@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_pos_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "drilling",
+          "action_id": "drilling/drilling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "deep_features/milling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "deep_features/milling/reach_pos_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "old_cap_facing/milling/reach_neg_y@5mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_pos_z@40mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_pos_z@40mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_rear_oblique@20mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_z@20mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_pos_z@20mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "bulk_milling/milling/reach_neg_x@80mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_pos_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "drilling",
+          "action_id": "drilling/drilling/reach_neg_z@80mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "deep_features/milling/reach_neg_z@80mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "deep_features/milling/reach_neg_z@80mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "deep_features/milling/reach_pos_z@40mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    },
+    {
+      "commands": [
+        {
+          "type": "cut",
+          "process": "turning",
+          "action_id": "turning/turning/outside@40mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "bulk_milling/milling/reach_pos_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "drilling",
+          "action_id": "drilling/drilling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "deep_features/milling/reach_neg_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "deep_features/milling/reach_pos_z@80mm"
+        },
+        {
+          "type": "cut",
+          "process": "milling",
+          "action_id": "old_cap_facing/milling/reach_neg_y@5mm"
+        }
+      ],
+      "before": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_pos_z@40mm"
+      },
+      "without_feedback": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_pos_z@40mm"
+      },
+      "after": {
+        "type": "cut",
+        "process": "milling",
+        "action_id": "profile_finishing/milling/reach_rear_oblique@20mm"
+      },
+      "changed": true,
+      "feedback_effect": true
+    }
+  ],
+  "actual_feedback_choice_changed": true,
+  "interpretation": "Replay-verified simulated TD-Q and explicit-label reward fitting. Setup is a zero-reward event. Changed weights alone prove neither improvement nor physical conformance."
+}
