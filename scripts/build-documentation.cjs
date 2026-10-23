@@ -16,11 +16,14 @@ function resolveDocumentationLink(root, relative, href) {
   const label = path.relative(root, target).replaceAll('\\', '/');
   if (!label || label === '..' || label.startsWith('../') || path.isAbsolute(label))
     throw Error('Linked source escapes release root: ' + href);
-  const runtime = label === 'index.html', generated = label === 'release.json';
+  const runtime = ['index.html','reach/index.html','reach/guide/index.html'].includes(label), generated = label === 'release.json';
   const linkedSource = /^(?:tests|scripts|python|core)\//.test(label);
   if (!runtime && !generated && !linkedSource && !/^(?:docs\/|examples\/|config\/|README\.(?:md|html)$)/.test(label))
     throw Error('Undeclared linked source: ' + label);
-  return {target, label, runtime, generated, linkedSource};
+  // These two generated routes have explicit repository-owned input files.
+  // Keep their public hrefs while checking the real source during docs QA.
+  const runtimeInput = label === 'reach/index.html' ? 'index.html' : label === 'reach/guide/index.html' ? 'guide/index.html' : null;
+  return {target: runtimeInput ? path.join(root, 'prototypes/industrial-reach', runtimeInput) : target, label, runtime, generated, linkedSource};
 }
 
 // This builds only repository-owned Markdown. It never renders uploaded input.

@@ -2,6 +2,62 @@
 
 **Draft · 23 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
+<a id="industrial-reach-workflow"></a>
+
+## Latest 3-29-00350 workflow: process, direction and reach
+
+Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)
+and keep the [illustrated reach walkthrough](../reach/guide/index.html) beside it.
+Its screenshots cover the actual controls, Path 1, Path 2, greedy baseline,
+drilling/finishing, feature progress, complete stock and loaded-model search.
+The original three-cut turning/milling example below remains a separate earlier
+sampled case; its dataset and checkpoint do not apply to this reach workflow.
+
+1. **Baseline.** Select **Path 1 — user plan** or **Greedy — maximum current
+   removal** in **Baseline and model → Record and replay**. Inspect the checked
+   plan without changing live stock. Preview each next action, then Apply.
+   Path 1 and greedy each complete in 11 positive reach decisions. Path 2 is the
+   preferred 13-decision alternative. The named seven/eight stages group these
+   decisions; they are not a count of tool changes. Drilling and final finishing
+   are explicit, with zero setup changes under continuous holding.
+2. **Preference feedback.** Compare the complete Path 1 and Path 2 recordings.
+   The named pair retains the requested **Path 2 preferred over Path 1** label.
+   For a new manual pair, save both complete recordings and explicitly add the
+   whole-sequence preference. Choose **Download training input**. A manually
+   captured baseline clears the old pair label.
+3. **Local training.** Use Node.js 24 from the repository root. Save the downloaded
+   feedback at `runs/reach-feedback.json`, hash its unchanged bytes, and run:
+
+   ```powershell
+   $feedbackHash = (Get-FileHash -Algorithm SHA256 -LiteralPath runs/reach-feedback.json).Hash.ToLowerInvariant()
+   node prototypes/industrial-reach/scripts/train-industrial-setup-episode.mjs --feedback runs/reach-feedback.json --expected-sha256 $feedbackHash --dataset prototypes/industrial-reach/examples/industrial-reach/00350/case.json --output runs/reach-trained-00350
+   ```
+
+   Choose a new output directory for every run. Inspect `training-report.json`,
+   `comparison.json`, and the replayed initial/trained policies. The trainer fits
+   the preference reward and performs simulated TD learning with the same hard
+   material and phase checks as the app.
+4. **Load the checkpoint.** Reset stock, then use **Load industrial model** to
+   choose the new `checkpoint.json`. An older finite-path or original three-cut
+   checkpoint is incompatible. Loading preserves accepted stock.
+5. **Compare policy and MCTS.** Start each comparison from original stock.
+   Use **Use initial model**, then **Suggest industrial policy** for the initial
+   comparator. Load the trained model and repeat. For the recorded MCTS
+   comparison choose 16 simulations and depth 3. Each suggestion is read-only:
+   **Preview suggested action**, inspect it, then explicitly Apply. Save the
+   complete actual decisions and compare the residual, finishing checks and
+   number/order of decisions against the baseline.
+
+The supplied labelled run used 140 simulated cutting transitions and 28,000 TD
+updates. Initial policy/greedy use 11 decisions, trained policy 20 and trained
+MCTS 18; each reaches zero sampled residual and the listed feature checks.
+Preference ranking changed, but the learned runs use more decisions and do not
+exactly imitate Path 2. These results do not demonstrate machining efficiency.
+The [illustrated walkthrough](../reach/guide/index.html#local-training) includes
+the executable training recipe, downloadable examples and geometry limits.
+The [00289 case](../index.html?case=industrial_00289#gym) retains its existing main
+application workflow and greedy baseline.
+
 <a id="verification-identity"></a>
 
 The initial walkthrough used public source `c602567afb005777315ee6ecdd3696ffafb26dd6`. The Windows training-packaging repair and earlier documentation corrections were subsequently published as source `262c5c9b537b25dcd87cf845a9128f4a2353ab37`; its hosted files and affected workflows were checked separately. Preparation-recovery and physical-tool-label corrections are present in verified published source `f287dbf89865ad0d94453abfe9c88fe8f1d64be7`. Build-record loading and mixed-learning recovery captions were corrected in verified published source `39ce5d725e43bd894ac7071866ee770e1d4aa6cd`. This edition also documents the indexed-restore acknowledgement distinction in source `5e55041b6458c4e9cd6bf34e4cccf9608abc4b12`. Later observations identify their version below; match downloaded run details to the executing release. Detailed execution records are retained separately from this product manual; later checks do not change the original public result.
