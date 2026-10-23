@@ -1,7 +1,9 @@
 # B-Rep core (in development)
 
 Controlled by parent task CODE-SGYM-008 and the accepted B-Rep replacement
-specification. This directory is not connected to the published gym yet.
+specification. The shipped classic STEP upload connects this shared core to the
+browser. That bounded integration does not complete the open geometry and
+release-acceptance gates below or adopt later paused Master experiments.
 
 `Material` owns remaining/protected shapes and revision-checked transactions.
 Preview computes candidate shapes and verifies mass conservation and protection;
@@ -78,8 +80,8 @@ This two-action 00350 probe does not complete the industrial acceptance surface.
 Local industrial assets
 and the ignored manifest have not yet been packaged for clean-clone CI.
 
-The persistent worker/client and Three.js mesh-buffer renderer are implemented
-but not yet wired into the published gym. Client lifecycle tests verify that
+The persistent worker/client and Three.js mesh-buffer renderer are connected
+to the classic STEP upload flow described below. Client lifecycle tests verify that
 old worker replies cannot replace the committed checkpoint after cancellation.
 
 The upload UI now connects the persistent worker to the B-Rep view. Run
