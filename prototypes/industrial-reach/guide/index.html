@@ -1,46 +1,511 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reach shadow prototype — quick guide</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3-29-00350 — recorded baseline, training and inference walkthrough</title>
 <style>:root{color-scheme:light}*{box-sizing:border-box}body{font:16px/1.6 system-ui,sans-serif;color:#183248;background:#f5f8fa;max-width:1120px;margin:32px auto;padding:0 24px}main{background:white;padding:28px 34px;border:1px solid #dce6ec;border-radius:12px}h1{font-size:32px;line-height:1.2;margin:0 0 16px}h2{font-size:23px;margin:32px 0 12px}h3{font-size:18px}a{color:#1266a3}nav{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}nav a{background:#eaf3fa;padding:9px 14px;border:1px solid #b9d0e1;border-radius:6px;text-decoration:none}li{margin:7px 0}figure{margin:20px 0}img{display:block;width:100%;height:auto;border:1px solid #dce6ec;border-radius:6px}figcaption{font-size:14px;color:#486477;padding:8px 2px}.note,.finish{padding:14px 18px;background:#edf5fb;border-left:4px solid #2573a9}.finish{background:#fff5d9;border-color:#b67b13}table{width:100%;border-collapse:collapse;margin:16px 0}th,td{padding:9px 10px;border-bottom:1px solid #d8e3eb;text-align:left;vertical-align:top}th{background:#edf4f8}.small{font-size:14px}.grid{display:block}details{margin:18px 0;border:1px solid #dce6ec;padding:12px 16px}summary{cursor:pointer;font-weight:600}pre{overflow:auto;background:#edf4f8;padding:14px;font-size:13px}code{overflow-wrap:anywhere}@media(max-width:700px){body{padding:0 10px}main{padding:20px 16px}.grid{grid-template-columns:1fr}}@media print{body{background:white;max-width:none;margin:0}main{border:0;padding:0}figure{break-inside:avoid}nav{display:none}}</style></head><body><main>
-<h1>Process, direction and tool reach</h1>
+<h1>3-29-00350: recorded baseline, training and inference walkthrough</h1>
 <p>A running prototype for comparing sampled machining decisions. Choose a process, an engagement direction and a reach preset; inspect the orange material, then apply the decision.</p>
 <nav aria-label="Open industrial cases"><a href="../index.html?case=industrial_reach_00350#gym">Open 3-29-00350</a><a href="../../index.html?case=industrial_00289#gym">Open 3-29-00289</a></nav>
-<h2>1. Preview, then remove material</h2>
-<ol><li>Select <strong>Turning</strong>, <strong>Milling</strong> or <strong>Drilling</strong>.</li><li>Select <strong>Engagement direction</strong>. Top, bottom and sides refer to the source-coordinate approach axes.</li><li>Move <strong>Tool reach</strong> to one of 5, 10, 20, 40, 80 or 160 mm. This is the modeled penetration limit from the stock reference, not cutter-body length.</li><li>Inspect the orange volume and <strong>Would remove</strong>. Preview preserves the accepted stock. Click <strong>Apply to 3-29-00350</strong> for an eligible positive decision.</li></ol>
-<p>One Apply records one phase/process/direction/reach decision. The common phase order keeps drilling, deep features, cleanup and final profiling explicit. A blocked or zero-removal preview cannot be applied.</p>
-<figure><img src="assets/controls-and-removal.png" alt="Process, engagement direction and tool reach controls above orange removal preview"><figcaption>Changing reach changes the sampled removal. Geometry controls appear before the plan outline; there is no face-component selector or CAM-motion display.</figcaption></figure>
-<h2>2. Choose a baseline</h2>
-<p>In <strong>Baseline and model → Record and replay</strong>, choose <strong>Path 1 — user plan</strong> or <strong>Greedy — maximum current removal</strong>. Loading either baseline preserves your live stock. <strong>Show baseline</strong> opens a replay; <strong>Preview next baseline action</strong> prepares its next matching decision for manual Apply.</p>
-<table><thead><tr><th>Sequence</th><th>Role</th><th>Main stages</th><th>Recorded decisions</th><th>Final sampled residual</th></tr></thead><tbody><tr><td>Path 1</td><td>User baseline</td><td>7 intended stages</td><td>11</td><td>0 mm³</td></tr><tr><td>Greedy</td><td>Computed maximum-current-removal baseline</td><td>Computed from eligible actions</td><td>11</td><td>0 mm³</td></tr><tr><td>Path 2</td><td>Preferred alternative</td><td>8 stages, including bottom milling</td><td>13</td><td>0 mm³</td></tr></tbody></table>
-<p>Stage counts and recorded decisions differ. Path 1’s side stage has <strong>No additional removal</strong> after long-reach top and bottom milling, so it records no fake zero-removal action. Stock-end cleanup is an auxiliary positive cut. All three sequences use <strong>0 setup changes</strong> under the declared continuous mill-turn holding assumption.</p>
-<p class="note">Longest-reach turning → top → bottom removes bulk stock in three decisions, but leaves <strong>95,403.75 mm³</strong>. Drilling, deep features, stock-end cleanup and final profiling are still required.</p>
-<div class="grid"><figure><img src="assets/path1-plan.png" alt="Path1 seven-stage outline with zero-effect side stage"><figcaption>Path 1 is the default user baseline. Expand a stage to inspect its actual reach decisions.</figcaption></figure><figure><img src="assets/path2-plan.png" alt="Path2 eight-stage outline including both side approaches and bottom milling"><figcaption>Path 2 retains side-first ordering and bottom milling. Selecting a plan previews its sequence without replacing live stock.</figcaption></figure></div>
-<figure><img src="assets/greedy-baseline.png" alt="Greedy baseline selection showing actual decisions and residual"><figcaption>Greedy is computed separately. Selecting it does not replace the saved Path 2-over-Path 1 preference with a different pair.</figcaption></figure>
-<h2>3. Drill the bore and finish the secondary features</h2>
-<p>The Ø24 bore has an explicit <strong>Drilling</strong> phase. Deep-slot and lower-relief milling follow. <strong>Final profiling — finishing pass</strong> records nine source-feature checks: the external R3 rounds, lower-slot R0.8 blend, two bore chamfers, upper-pocket R0.4 blend, upper-step R10 transition, two rear side bevels and rear bottom bevel.</p>
-<div class="finish"><strong>Look for the Finishing pass badge.</strong> In this reach model, four final-direction decisions cover the nine finishing checks. Nine checks do not mean nine separately accepted decisions.</div>
-<figure><img src="assets/finishing-preview.png" alt="Finishing pass badge and orange final profiling removal"><figcaption>The selected finishing decision shows its badge and would remove 911.75 mm³. The displayed section may not intersect each finishing region. No cutter or CAM path is inferred from the reach envelope.</figcaption></figure>
-<p>The <strong>Feature progress</strong> table shows feature, process, engagement direction, compatible reach presets, remaining volume and status. These are recorded <em>contributing</em> envelopes, not minimum physical tool requirements or a complete machining recipe. For example, later milling envelopes may intersect the bore region; the plan still requires the explicit drilling phase. Finishing rows use their designated finishing actions.</p>
-<figure><img src="assets/feature-table.png" alt="Twelve-feature progress table with process, direction, reach, remaining volume and finishing status"><figcaption>All 12 features remain visible. A final pass can still be pending even when the sampled remaining volume reaches zero.</figcaption></figure>
-<h2>4. Record and restore your own sequence</h2>
-<ol><li>Apply decisions manually. The history records the exact accepted actions and their removed volumes.</li><li>Choose <strong>Use current sequence as baseline</strong>. An incomplete sequence is saved as a draft; a complete sequence is saved as sampled complete.</li><li>Choose <strong>Download baseline</strong> or <strong>Download industrial decisions</strong> to save the checked JSON.</li><li><strong>Reset stock</strong> restores the original material. <strong>Restore industrial decisions</strong> checks the file and reproduces its accepted state. Replay inspection preserves your own live stock.</li></ol>
-<p>Capturing a manual baseline clears saved sequence-preference labels. Record a complete alternative and explicitly add a comparison before exporting new training input. The named Path 1/Path 2 pair loads with the requested Path 2 preference.</p>
-<figure><img src="assets/complete.png" alt="Complete part with zero sampled final-target residual and11reach decisions"><figcaption>Verified Path 1 end state: 11 positive decisions, zero sampled residual, all listed feature checks complete and zero setup changes.</figcaption></figure>
-<h2 id="local-training">5. Train locally and isolate the effect of random experience</h2>
-<p>Use two trainings from the same <strong>Initial model</strong>. Run A uses the three saved baseline/alternative episodes and explicit preference. Run B uses those same inputs plus one seeded random episode. Keep the files from both runs; this lets you distinguish the effect of adding experience from the effect of training itself.</p>
-<h3>Run A: saved baselines and preference</h3>
-<ol><li>Keep the complete Path 1 and Path 2 recordings and explicitly save <strong>Path 2 preferred over Path 1</strong>. Then select <strong>Greedy — maximum current removal</strong> and <strong>Load selected baseline</strong>. Path 1 remains the anchor for the saved preference. Check that <strong>Saved input</strong> includes the three saved sequences and the intended labels. Current unsaved actions are excluded.</li><li>Choose <strong>Download training input</strong> and save it in a folder for Run A.</li><li>Under <strong>Train from saved sequences</strong>, keep <strong>Starting model → Initial model</strong>, then click <strong>Train model</strong>. Training runs locally in your browser. Your sequences and preferences are not uploaded. Each stage shows its own completed/total count, without an estimated overall percentage.</li><li>On successful completion, the checked result loads as <strong>Browser-trained model</strong>. Retain <strong>Download training report</strong>, <strong>Download loaded checkpoint</strong>, <strong>Download before checkpoint</strong> and <strong>Download after checkpoint</strong> in the Run A folder. Read the actual update and label counts.</li><li>Choose <strong>Compare before / after</strong>, inspect its full rollouts and same-state decisions, and <strong>Download comparison</strong> for Run A before starting Run B.</li></ol>
-<p><strong>Cancel training</strong> stops an active run. A cancelled or failed run preserves the previous loaded model, saved feedback and accepted stock. Browser records should be downloaded before refresh.</p>
-<figure><img src="assets/training-progress.png" alt="Actual browser training progress with saved input counts, starting-model choice and Cancel training"><figcaption>Earlier verified browser training capture illustrating stage progress. Saved input determines each new run's actual counts.</figcaption></figure>
-<figure><img src="assets/training-complete.png" alt="Completed browser training with checked model automatically loaded and report download"><figcaption>Earlier verified training completion. The new model is checked and loaded automatically; retain each run's own downloads.</figcaption></figure>
-<h3 id="random-experience">Run B: add saved random experience</h3>
-<ol><li>Keep Run A's three saved sequences and explicit preference unchanged. Enter <strong>Random seed</strong> 350289 and choose <strong>Generate random sequence</strong>.</li><li>Read the actual cut count, sampled residual and complete/partial status. <strong>Show random sequence</strong> opens its checked replay; <strong>Download random sequence</strong> retains it. Generation starts from original stock and saves separate training experience without changing accepted stock or adding a preference label.</li><li>Check that <strong>Saved input</strong> now has the same three episodes plus the random episode, with the same labels. Download this new training input into a separate Run B folder.</li><li>Keep <strong>Starting model → Initial model</strong> again, then <strong>Train model</strong>. Continuing from Run A would change the starting point and would not isolate the added experience.</li><li>Save Run B's actual report, loaded checkpoint, before checkpoint and after checkpoint. Choose <strong>Compare before / after</strong> and download its comparison. Keep both runs' files and distinguish Run A's trained model from Run B's trained model.</li></ol>
-<figure><img src="assets/random-sequence.png" alt="Seeded random sequence saved separately as training experience with checked result"><figcaption>Earlier verified random-generation capture. The random episode is experience, not a preferred sequence. Record each fresh run's actual result.</figcaption></figure>
-<h2 id="inference-comparison">6. Inspect inference differences, then run policy and MCTS</h2>
-<p><strong>Compare before / after</strong> uses the exact checkpoints and random episode from the last successful training. Later model loads or new random generation do not change that saved pair. Its six Run B rows replay Path 1, Greedy, Path 2, random experience, before policy and after policy from identical original stock. Run A has five rows because it contains no random episode. Use <strong>Show sequence</strong> to inspect a rollout and <strong>Download comparison</strong> to retain it.</p>
-<p>Under <strong>Choices at identical stock states</strong>, each row applies both models to the same accepted prefix of the before-training policy. Compare process, engagement direction and reach, including unchanged choices. These rows isolate the next decision; they are not a step-by-step alignment of two divergent full rollouts.</p>
-<figure><img src="assets/inference-comparison.png" alt="Full rollout inference comparison and choices at identical stock states"><figcaption>Earlier verified v10 comparison view. Each training has its own exact checkpoint pair. In Run B this view compares Initial with Run B; compare the saved Run A and Run B policy results separately to assess added random experience.</figcaption></figure>
-<p>For a saved checkpoint round trip, choose the new Run B <strong>Download after checkpoint</strong> file with <strong>Load industrial model</strong>. Loading preserves accepted stock and checks compatibility. Reset stock before manually running policy or MCTS. Choose <strong>Suggest industrial policy</strong> or <strong>Search industrial MCTS</strong>, then <strong>Preview suggested action</strong>, inspect the orange volume and explicitly Apply. For the recorded MCTS comparison use 16 simulations, depth 3 and exploration 1. Search and suggestions preserve accepted stock until Apply.</p>
-<p>Retain actual decision count/order, sampled residual, finishing checks and setup changes. Compare Run A and Run B from their shared initial stock and starting model. A changed choice or more decisions does not demonstrate better machining. The displayed before/after pair for Run B is Initial → Run B, not Run A → Run B.</p>
+<h2 id="fresh-recording">Fresh recorded workflow — 23 October 2026</h2><p>Open the <a href="../index.html?case=industrial_reach_00350#gym">00350 reach application</a>
+and the <a href="../../docs/ILLUSTRATED_MODULE3_MANUAL.html#industrial-reach-workflow">Module 3 manual</a>.
+These screenshots record the local workflow after publication of the verified
+random-experience update on 23 October 2026. Every image opens its untouched
+capture for full-size reading. Live app captures are 1265 × 712; the separately
+labelled derived numerical records are 1280 × 720.</p>
+<p>Use two trainings from the same <strong>Initial model</strong> to examine the effect of adding
+random experience. Run A uses three saved reference episodes and one explicit
+Path 2-over-Path 1 preference. Run B adds one seeded random episode. Keep each
+run&#39;s exact input, checkpoint, report and comparison; continuing Run A&#39;s weights
+would change the starting point. Training and inference use the same sampled
+simulator and its hard material gates.</p>
+<h3>1. Inspect original stock and preview the first cut</h3>
+<p>Choose <strong>Turning</strong>, <strong>Outside turning</strong>, and <strong>Tool reach 40 mm</strong>. The controls
+describe process, source-coordinate engagement direction and modeled penetration
+limit. Orange material is the current cut preview. Preview alone preserves
+accepted stock; <strong>Apply to 3-29-00350</strong> accepts an eligible positive decision.
+The linked section and 3D view describe the same material state.</p>
+<p><a href="assets/fresh-01-original-stock.jpg"><img src="assets/fresh-01-original-stock.jpg" alt="Original 00350 stock with turning and 40 mm reach controls"></a></p>
+<p><em>Step 1 — Original stock and explicit process, engagement direction and tool-reach controls. Continuous holding is the declared setup assumption.</em></p>
+<p><a href="assets/fresh-02c-original-stock-material.jpg"><img src="assets/fresh-02c-original-stock-material.jpg" alt="Orange turning preview in the original stock and linked section"></a></p>
+<p><em>Step 1 — The orange turning preview is visible before Apply. Rotation, cutaway and section controls change the view.</em></p>
+<h3>2. Apply and record all 11 Path 1 decisions</h3>
+<p>In <strong>Baseline and model → Record and replay</strong>, select <strong>Path 1 — user plan</strong> and
+<strong>Load selected baseline</strong>. Inspect its seven main stages. Use <strong>Preview next
+baseline action</strong>, inspect the process/direction/reach and positive removal, then
+<strong>Apply</strong>. Repeat for all 11 decisions below. The recording accepted these 11
+decisions through the live controls; the saved named reference episode is a
+separate training input.</p>
+<table>
+<thead>
+<tr>
+<th>Apply</th>
+<th>Process / phase</th>
+<th>Engagement direction</th>
+<th align="right">Reach (mm)</th>
+<th align="right">Just removed (mm³)</th>
+<th align="right">Sampled residual (mm³)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Turning</td>
+<td>Outside</td>
+<td align="right">40</td>
+<td align="right">108,282.5</td>
+<td align="right">308,279.25</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bulk milling</td>
+<td>Top · toward −Z</td>
+<td align="right">80</td>
+<td align="right">186,679.75</td>
+<td align="right">121,599.5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bulk milling</td>
+<td>Bottom · toward +Z</td>
+<td align="right">80</td>
+<td align="right">26,195.75</td>
+<td align="right">95,403.75</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Drilling</td>
+<td>Top · toward −Z</td>
+<td align="right">80</td>
+<td align="right">10,373</td>
+<td align="right">85,030.75</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Deep-feature milling</td>
+<td>Top · toward −Z</td>
+<td align="right">80</td>
+<td align="right">32,920</td>
+<td align="right">52,110.75</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Deep-feature milling</td>
+<td>Bottom · toward +Z</td>
+<td align="right">80</td>
+<td align="right">25,774</td>
+<td align="right">26,336.75</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Stock-end cleanup</td>
+<td>Stock end · toward −Y</td>
+<td align="right">5</td>
+<td align="right">23,300</td>
+<td align="right">3,036.75</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Final profiling</td>
+<td>Top · toward −Z</td>
+<td align="right">80</td>
+<td align="right">911.75</td>
+<td align="right">2,125</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Final profiling</td>
+<td>Bottom · toward +Z</td>
+<td align="right">80</td>
+<td align="right">1,839</td>
+<td align="right">286</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Final profiling</td>
+<td>Side from +X · toward −X</td>
+<td align="right">80</td>
+<td align="right">224</td>
+<td align="right">62</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Final profiling</td>
+<td>Inclined · toward −Y and +Z</td>
+<td align="right">20</td>
+<td align="right">62</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+<p>Three bulk decisions leave <strong>95,403.75 mm³</strong> sampled residual. The bore therefore
+still requires <strong>Drilling</strong>, followed by the deep-feature passes, a positive
+stock-end cleanup and four final-profiling decisions. The side stage has no
+additional removal after this top/bottom bulk ordering and adds no zero-removal
+event. Main stages group decisions; they do not count tool changes.</p>
+<p><a href="assets/fresh-03-path1-after-turning.jpg"><img src="assets/fresh-03-path1-after-turning.jpg" alt="Path 1 after Apply 1: Turning"></a></p>
+<p><em>Apply 1 — Turning, outside, 40 mm reach. Accepted removal 108,282.5 mm³; sampled residual 308,279.25 mm³.</em></p>
+<p><a href="assets/fresh-04-path1-after-top.jpg"><img src="assets/fresh-04-path1-after-top.jpg" alt="Path 1 after Apply 2: Bulk milling"></a></p>
+<p><em>Apply 2 — Bulk milling, top · toward −z, 80 mm reach. Accepted removal 186,679.75 mm³; sampled residual 121,599.5 mm³.</em></p>
+<p><a href="assets/fresh-05-path1-after-three-bulk.jpg"><img src="assets/fresh-05-path1-after-three-bulk.jpg" alt="Path 1 after Apply 3: Bulk milling"></a></p>
+<p><em>Apply 3 — Bulk milling, bottom · toward +z, 80 mm reach. Accepted removal 26,195.75 mm³; sampled residual 95,403.75 mm³.</em></p>
+<p><a href="assets/fresh-07b-path1-after-drilling-confirmed.jpg"><img src="assets/fresh-07b-path1-after-drilling-confirmed.jpg" alt="Path 1 after Apply 4: Drilling"></a></p>
+<p><em>Apply 4 — Drilling, top · toward −z, 80 mm reach. Accepted removal 10,373 mm³; sampled residual 85,030.75 mm³.</em></p>
+<p><a href="assets/fresh-08-path1-deep-top.jpg"><img src="assets/fresh-08-path1-deep-top.jpg" alt="Path 1 after Apply 5: Deep-feature milling"></a></p>
+<p><em>Apply 5 — Deep-feature milling, top · toward −z, 80 mm reach. Accepted removal 32,920 mm³; sampled residual 52,110.75 mm³.</em></p>
+<p><a href="assets/fresh-09-path1-deep-bottom.jpg"><img src="assets/fresh-09-path1-deep-bottom.jpg" alt="Path 1 after Apply 6: Deep-feature milling"></a></p>
+<p><em>Apply 6 — Deep-feature milling, bottom · toward +z, 80 mm reach. Accepted removal 25,774 mm³; sampled residual 26,336.75 mm³.</em></p>
+<p><a href="assets/fresh-10-path1-after-cleanup.jpg"><img src="assets/fresh-10-path1-after-cleanup.jpg" alt="Path 1 after Apply 7: Stock-end cleanup"></a></p>
+<p><em>Apply 7 — Stock-end cleanup, stock end · toward −y, 5 mm reach. Accepted removal 23,300 mm³; sampled residual 3,036.75 mm³.</em></p>
+<p><a href="assets/fresh-11-path1-finish-top.jpg"><img src="assets/fresh-11-path1-finish-top.jpg" alt="Path 1 after Apply 8: Final profiling"></a></p>
+<p><em>Apply 8 — Final profiling, top · toward −z, 80 mm reach. Accepted removal 911.75 mm³; sampled residual 2,125 mm³.</em></p>
+<p><a href="assets/fresh-12-path1-finish-bottom.jpg"><img src="assets/fresh-12-path1-finish-bottom.jpg" alt="Path 1 after Apply 9: Final profiling"></a></p>
+<p><em>Apply 9 — Final profiling, bottom · toward +z, 80 mm reach. Accepted removal 1,839 mm³; sampled residual 286 mm³.</em></p>
+<p><a href="assets/fresh-13-path1-finish-side.jpg"><img src="assets/fresh-13-path1-finish-side.jpg" alt="Path 1 after Apply 10: Final profiling"></a></p>
+<p><em>Apply 10 — Final profiling, side from +x · toward −x, 80 mm reach. Accepted removal 224 mm³; sampled residual 62 mm³.</em></p>
+<p><a href="assets/fresh-14-path1-complete.jpg"><img src="assets/fresh-14-path1-complete.jpg" alt="Path 1 after Apply 11: Final profiling"></a></p>
+<p><em>Apply 11 — Final profiling, inclined · toward −y and +z, 20 mm reach. Accepted removal 62 mm³; sampled residual 0 mm³.</em></p>
+<h3>3. Check completion and retain the manual recording</h3>
+<p>After Apply 11, the app reports <strong>0 mm³ sampled final-target residual</strong>, <strong>11
+reach decisions</strong>, <strong>0 setup changes</strong>, and <strong>Sampled target and listed feature
+checks complete</strong>. Expand <strong>Feature progress</strong> to inspect all 12 listed features.
+The nine finishing rows require their designated final passes. Four accepted
+final-profiling decisions cover those nine checks.</p>
+<p>Choose <strong>Download industrial decisions</strong> to retain the actual manual episode.
+<strong>Download baseline</strong> retains the named Path 1 reference separately. Use
+<strong>Reset stock</strong> and <strong>Restore industrial decisions</strong> to check a saved episode.
+Manual unsaved history is excluded from training. <strong>Use current sequence as
+baseline</strong> saves it explicitly and clears previous sequence labels; add the
+intended preference again after replacing either recording.</p>
+<p><a href="assets/fresh-15d-path1-feature-checks-middle.jpg"><img src="assets/fresh-15d-path1-feature-checks-middle.jpg" alt="Completed upper and middle feature checks including bore and finishing rows"></a></p>
+<p><em>Step 3 — Bore, deep slot, relief and upper/middle finishing checks after the actual 11-Apply baseline.</em></p>
+<p><a href="assets/fresh-15c-path1-feature-checks-lower-confirmed.jpg"><img src="assets/fresh-15c-path1-feature-checks-lower-confirmed.jpg" alt="Completed lower feature checks including rear bevels"></a></p>
+<p><em>Step 3 — Remaining lower finishing checks show Final pass recorded. Compatible reach presets are contributing modeled envelopes, not minimum physical tool requirements.</em></p>
+<h3>4. Save an explicit preference, then include Greedy</h3>
+<p>Compare <strong>Path 2 — Preferred</strong> with Path 1. Path 2 has eight main stages and 13
+positive decisions, including bottom milling. The recording first chose <strong>Clear
+preference labels</strong>, then selected <strong>Path 2</strong> and clicked <strong>Add whole-sequence
+preference</strong>. Confirm <strong>Saved feedback: 1 sequence label(s), 0 action-kind
+label(s)</strong> and <strong>Path 2 preferred over Path 1</strong>.</p>
+<p><a href="assets/fresh-16a-preference-cleared.jpg"><img src="assets/fresh-16a-preference-cleared.jpg" alt="Saved preference labels cleared to zero"></a></p>
+<p><em>Step 4 — Clearing the labels establishes the explicit starting point before adding the intended whole-sequence preference.</em></p>
+<p><a href="assets/fresh-16c-path2-preference-confirmed.jpg"><img src="assets/fresh-16c-path2-preference-confirmed.jpg" alt="One explicit Path 2 preferred over Path 1 sequence label saved"></a></p>
+<p><em>Step 4 — The saved label compares the two complete named sequences. No action-kind preference was added.</em></p>
+<p>Select <strong>Greedy — maximum current removal</strong> and <strong>Load selected baseline</strong> after
+saving the label. Path 1 remains the preference anchor. <strong>Saved input</strong> now shows
+<strong>3 complete sequences, 35 recorded decisions, 1 sequence label and 0 action-kind
+labels</strong>: Path 1 (11), Greedy (11) and Path 2 (13). Choose <strong>Download training
+input</strong> and retain it as Run A&#39;s exact input.</p>
+<p><a href="assets/fresh-17-control-a-training-input.jpg"><img src="assets/fresh-17-control-a-training-input.jpg" alt="Run A input with three saved episodes, 35 decisions and one sequence label"></a></p>
+<p><em>Step 4 — Run A includes three saved reference episodes. The manually applied history remains independent and unsaved actions are excluded.</em></p>
+<p><a id="local-training"></a></p>
+<h3>5. Train Run A in the browser and retain its result</h3>
+<p>In <strong>Train from saved sequences</strong>, keep <strong>Starting model → Initial model</strong>, then
+choose <strong>Train model</strong>. Computation runs locally in the browser; sequences and
+preferences are not uploaded. The progress text reports each stage&#39;s own count.
+<strong>Cancel training</strong> preserves the previous model, accepted stock and feedback.
+Browser records should be downloaded before refresh.</p>
+<p><a href="assets/fresh-18c-control-a-simulated-experience.jpg"><img src="assets/fresh-18c-control-a-simulated-experience.jpg" alt="Actual Run A simulated-experience collection with Cancel training available"></a></p>
+<p><em>Step 5 — Actual browser training in progress: collecting simulated experience 7 / 15. This is a stage count, not an overall percentage.</em></p>
+<p>On success, the checked <strong>Browser-trained model</strong> loads automatically. Retain
+<strong>Download training report</strong>, <strong>Download loaded checkpoint</strong>, <strong>Download before
+checkpoint</strong> and <strong>Download after checkpoint</strong>. The Run A report records <strong>140
+simulated cutting transitions</strong>, <strong>28,000 TD updates</strong> and <strong>1 explicit preference
+label</strong>, using 200 reward epochs, 200 TD epochs, 12 exploration episodes and seed
+350289. The fitted preference probability changes from <strong>0.49446 to 0.72787</strong>;
+that probability is a model output, not measured machining quality.</p>
+<p><a href="assets/fresh-19-control-a-training-complete.jpg"><img src="assets/fresh-19-control-a-training-complete.jpg" alt="Run A completed training with 28000 TD updates and one saved preference"></a></p>
+<p><em>Step 5 — Completed Run A training. The downloaded loaded checkpoint is byte-identical to this run’s downloaded after checkpoint.</em></p>
+<p>Choose <strong>Compare before / after</strong> and <strong>Download comparison</strong> before Run B.
+Run A&#39;s checked full rollouts are Path 1 <strong>11</strong>, Greedy <strong>11</strong>, Path 2 <strong>13</strong>,
+Initial policy <strong>11</strong> and trained A policy <strong>20</strong> decisions. All five reach zero
+sampled residual. At the 11 identical prefixes of the Initial policy, A changes
+<strong>7</strong> next choices and retains <strong>4</strong>. These checked rollouts are numerical
+inference results; the 11 baseline Apply clicks above are the separately recorded
+manual execution. More cuts and changed choices do not establish better machining.</p>
+<p><a href="assets/fresh-19b-control-a-five-row-comparison.jpg"><img src="assets/fresh-19b-control-a-five-row-comparison.jpg" alt="Run A before and after inference comparison controls and table"></a></p>
+<p><em>Step 5 — Run A comparison uses its retained Initial/after pair and no random episode. Download the comparison before the next training replaces this pair.</em></p>
+<p><a id="random-experience"></a></p>
+<h3>6. Generate, inspect and save the random episode</h3>
+<p>Keep Run A&#39;s three saved episodes and the explicit label unchanged. Set <strong>Random
+seed</strong> to <strong>350289</strong>, then <strong>Generate random sequence</strong>. This run saved a
+<strong>16-cut</strong>, <strong>sampled-complete</strong> episode with <strong>0 mm³ sampled residual</strong>. Random
+generation starts from original stock and accepts eligible positive actions. It
+preserves live stock and adds no preference label.</p>
+<p><a href="assets/fresh-25-random-experience-saved.jpg"><img src="assets/fresh-25-random-experience-saved.jpg" alt="Seed 350289 random experience saved with 16 cuts and zero sampled residual"></a></p>
+<p><em>Step 6 — The actual generated random episode is saved separately. The Path 2-over-Path 1 preference remains intact.</em></p>
+<p>Choose <strong>Show random sequence</strong>. Use <strong>Next</strong> to inspect the saved 0 / 16,
+8 / 16 and 16 / 16 event states. Apply stays disabled in this read-only replay.
+Choose <strong>Return to my stock</strong> to return to accepted stock. The recording returned
+to zero accepted live cuts before starting Run B. <strong>Download random sequence</strong>
+retains the exact generated experience.</p>
+<p><a href="assets/fresh-26a-random-replay-start.jpg"><img src="assets/fresh-26a-random-replay-start.jpg" alt="Checked random episode replay at 0 of 16 events"></a></p>
+<p><em>Step 6 — Read-only random replay at 0 / 16 events. The displayed replay history does not replace the independent accepted live stock.</em></p>
+<p><a href="assets/fresh-26b-random-replay-middle.jpg"><img src="assets/fresh-26b-random-replay-middle.jpg" alt="Checked random episode replay at 8 of 16 events"></a></p>
+<p><em>Step 6 — Read-only random replay at 8 / 16 events. The displayed replay history does not replace the independent accepted live stock.</em></p>
+<p><a href="assets/fresh-26c-random-replay-complete.jpg"><img src="assets/fresh-26c-random-replay-complete.jpg" alt="Checked random episode replay at 16 of 16 events"></a></p>
+<p><em>Step 6 — Read-only random replay at 16 / 16 events. The displayed replay history does not replace the independent accepted live stock.</em></p>
+<p>Check <strong>Saved input: 4 complete sequences, 51 recorded decisions, 1 sequence
+label, 0 action-kind labels</strong>. Choose <strong>Download training input</strong> into a separate
+Run B folder. Its first three episodes and both preference arrays are unchanged
+from Run A; the fourth episode is the exact saved random sequence.</p>
+<p><a href="assets/fresh-27-random-b-training-input.jpg"><img src="assets/fresh-27-random-b-training-input.jpg" alt="Run B input with four episodes, 51 decisions, one sequence label and Initial model selected"></a></p>
+<p><em>Step 6 — Run B adds 16 random decisions to the same 35 saved reference decisions. The last completed-training count still describes Run A before the new Train click.</em></p>
+<h3>7. Train Run B from the same Initial model</h3>
+<p>Keep <strong>Starting model → Initial model</strong> again and choose <strong>Train model</strong>. The
+same starting checkpoint and configuration are used for both runs. This makes
+the saved random episode the input difference; continuing Run A&#39;s weights would
+change the starting point.</p>
+<p><a href="assets/fresh-28b-random-b-training-progress.jpg"><img src="assets/fresh-28b-random-b-training-progress.jpg" alt="Actual Run B browser training collecting simulated experience with four saved episodes"></a></p>
+<p><em>Step 7 — Actual Run B progress: collecting simulated experience 6 / 16. The retained 28,000 count below it belongs to the previously completed Run A.</em></p>
+<p>Run B completed with <strong>155 simulated cutting transitions</strong>, <strong>31,000 TD
+updates</strong> and <strong>1 explicit preference label</strong>. Its configuration remains 200
+reward epochs, 200 TD epochs, 12 exploration episodes and seed 350289. The saved
+reference/random decisions and the total simulated training transitions are
+different counts. Its fitted preference probability is <strong>0.49446 → 0.72787</strong>,
+the same fitted pair as Run A.</p>
+<p>Retain <strong>Download training report</strong>, <strong>Download loaded checkpoint</strong>, <strong>Download
+before checkpoint</strong> and <strong>Download after checkpoint</strong>. The checked browser model
+loads automatically. Run B&#39;s before-checkpoint download is byte-identical to Run
+A&#39;s before checkpoint; Run B&#39;s loaded-checkpoint download is byte-identical to
+its after checkpoint. The raw downloads are linked below with their hashes.</p>
+<p><a href="assets/fresh-29-random-b-training-complete.jpg"><img src="assets/fresh-29-random-b-training-complete.jpg" alt="Completed Run B browser training with 31000 TD updates"></a></p>
+<p><em>Step 7 — Actual Run B completion and its own before/after download pair. The saved random episode belongs to this completed training snapshot.</em></p>
+<p><a id="inference-comparison"></a></p>
+<h3>8. Run inference and inspect identical-state choices</h3>
+<p>Choose <strong>Compare before / after</strong>, then <strong>Download comparison</strong> for Run B. Its
+six checked full rollouts start from identical original stock: Path 1 <strong>11</strong>,
+Greedy <strong>11</strong>, Path 2 <strong>13</strong>, saved random experience <strong>16</strong>, Initial policy
+<strong>11</strong>, and trained B policy <strong>24</strong> cuts. Every row is sampled complete with
+<strong>0 mm³ residual</strong>. The pair belongs to the last successful training and includes
+seed 350289; later model loads or new generation do not replace this pair.</p>
+<p><a href="assets/fresh-30b-random-b-all-six-rows.jpg"><img src="assets/fresh-30b-random-b-all-six-rows.jpg" alt="All six actual Run B inference rows with 11, 11, 13, 16, 11 and 24 cuts"></a></p>
+<p><em>Step 8 — Actual built-in Initial → B comparison. This table contains neither control A nor MCTS.</em></p>
+<p>Under <strong>Choices at identical stock states</strong>, the same accepted prefixes of the
+Initial policy are supplied to both models. The Run B view reports <strong>7 changed
+and 4 unchanged choices</strong> across 11 states. At original stock the Initial model
+chooses outside turning at 40 mm; B chooses facing toward the positive axis at
+5 mm. Later unchanged rows remain visible. These probes compare next commands
+at the same stock; they do not align two divergent full sequences step by step.</p>
+<p><a href="assets/fresh-31a-initial-b-same-state-choices.jpg"><img src="assets/fresh-31a-initial-b-same-state-choices.jpg" alt="Initial and B next commands at the same original stock"></a></p>
+<p><em>Step 8 — Original-stock policy choices differ in turning mode and reach. This is Initial versus B; a separate controlled A/B comparison isolates the added random episode.</em></p>
+<p><a href="assets/fresh-31b-initial-b-same-state-choices-lower.jpg"><img src="assets/fresh-31b-initial-b-same-state-choices-lower.jpg" alt="Lower identical-state policy rows including unchanged choices"></a></p>
+<p><em>Step 8 — Both changed and unchanged next decisions are retained, including unchanged bottom milling, stock-end cleanup and the final inclined pass.</em></p>
+<p>Run A and Run B both change seven of these Initial-policy choices, but equal
+aggregate counts do not establish identical commands. Assess the added random
+experience using the separately retained A/B checkpoints and identical-state
+comparison, alongside the complete A/B rollouts. More cuts and changed decisions
+are observed behavior, without a machining-efficiency claim.</p>
+<h3>9. Reload exact checkpoints and compare their next policy choice</h3>
+<p>Reset stock before each model probe. Choose <strong>Use initial model</strong>, then
+<strong>Suggest industrial policy</strong>. Load the actual Run A after checkpoint with
+<strong>Load industrial model</strong> and confirm <strong>compatible checkpoint</strong>. Repeat with
+Run B&#39;s downloaded after checkpoint. Loading and suggestions preserve stock;
+this recording kept <strong>0 accepted cuts</strong> for these original-stock probes.</p>
+<p><a href="assets/fresh-20-initial-policy-original-stock.jpg"><img src="assets/fresh-20-initial-policy-original-stock.jpg" alt="Initial policy suggestion from original stock"></a></p>
+<p><em>Step 9 — Initial-model policy suggestion at original stock. A suggestion is separate from an accepted cut.</em></p>
+<p><a href="assets/fresh-22-control-a-checkpoint-reloaded.jpg"><img src="assets/fresh-22-control-a-checkpoint-reloaded.jpg" alt="Actual downloaded Run A checkpoint reloaded and checked compatible"></a></p>
+<p><em>Step 9 — Run A checkpoint selected through Load industrial model and acknowledged as compatible.</em></p>
+<p><a href="assets/fresh-22b-control-a-policy-original-stock.jpg"><img src="assets/fresh-22b-control-a-policy-original-stock.jpg" alt="Run A policy suggestion using the reloaded compatible checkpoint"></a></p>
+<p><em>Step 9 — The actual reloaded A checkpoint supplies the policy suggestion. The displayed estimated value is a model score, not machining time.</em></p>
+<p><a href="assets/fresh-32-random-b-policy-original-stock.jpg"><img src="assets/fresh-32-random-b-policy-original-stock.jpg" alt="Run B policy suggestion using the reloaded random-b checkpoint"></a></p>
+<p><em>Step 9 — The actual reloaded B checkpoint suggests Facing toward +axis at the same original stock.</em></p>
+<p>Choose <strong>Preview suggested action</strong> to expose process, engagement direction and
+reach. The matched original-stock views below show A&#39;s <strong>outside turning at
+20 mm</strong> and B&#39;s <strong>facing toward +axis at 5 mm</strong>. Both have zero accepted cuts.
+These are two separate raw captures, and each preview preserves accepted stock.</p>
+<p><a href="assets/fresh-34a-control-a-policy-preview-20mm.jpg"><img src="assets/fresh-34a-control-a-policy-preview-20mm.jpg" alt="Run A policy preview with outside turning and 20 mm reach at zero accepted cuts"></a></p>
+<p><em>Step 9 — Actual A policy preview at original stock: Outside turning, 20 mm. No Apply was performed for this probe.</em></p>
+<p><a href="assets/fresh-32b-random-b-policy-preview-5mm.jpg"><img src="assets/fresh-32b-random-b-policy-preview-5mm.jpg" alt="Run B policy preview with facing toward positive axis and 5 mm reach at zero accepted cuts"></a></p>
+<p><em>Step 9 — Actual B policy preview at the same original stock: Facing toward +axis, 5 mm. No Apply was performed for this probe.</em></p>
+<p>Choose <strong>Download loaded checkpoint</strong> after reloading B. Its raw bytes match the
+original B after-checkpoint download, retaining the trained model through the
+file round trip. <strong>Apply</strong> remains a separate explicit decision after inspection.</p>
+<h3>10. Compare MCTS, checked full rollouts and the random effect</h3>
+<p>Reset stock and load the intended exact checkpoint before each search. Choose
+<strong>MCTS simulations → 16</strong> and <strong>Search depth → 3</strong>, then <strong>Search industrial
+MCTS</strong>. The recorded comparison uses exploration 1. Search and <strong>Preview
+suggested action</strong> preserve accepted stock; Apply remains explicit. These three
+live searches inspect the same original stock and empty accepted history.</p>
+<p><a href="assets/fresh-21-initial-mcts-original-stock.jpg"><img src="assets/fresh-21-initial-mcts-original-stock.jpg" alt="Initial-model MCTS search at original stock with 16 simulations and depth 3"></a></p>
+<p><em>Step 10 — Actual Initial-model search with the declared 16/depth-3 budget. This is a first-decision probe, not a complete Initial MCTS rollout.</em></p>
+<p><a href="assets/fresh-21b-initial-mcts-preview-reach.jpg"><img src="assets/fresh-21b-initial-mcts-preview-reach.jpg" alt="Initial MCTS preview outside turning at 160 mm without accepting a cut"></a></p>
+<p><em>Step 10 — Preview exposes the Initial MCTS suggestion: outside turning at 160 mm. Accepted cuts remain zero.</em></p>
+<p><a href="assets/fresh-23-control-a-mcts-original-stock.jpg"><img src="assets/fresh-23-control-a-mcts-original-stock.jpg" alt="Run A MCTS suggestion from its reloaded checkpoint at original stock"></a></p>
+<p><em>Step 10 — Actual A-model search at the same stock and budget. Its exact checked next command is outside turning at 40 mm.</em></p>
+<p><a href="assets/fresh-33-random-b-mcts-original-stock.jpg"><img src="assets/fresh-33-random-b-mcts-original-stock.jpg" alt="Run B MCTS suggestion from its reloaded checkpoint at original stock"></a></p>
+<p><em>Step 10 — Actual B-model search at the same stock and budget. Its exact checked next command is facing toward +axis at 5 mm.</em></p>
+<p>For a full policy rollout, the numerical check repeatedly used the exact browser
+checkpoint through the same simulator and positive-removal gates. For full B
+MCTS it repeated the <strong>16 simulations / depth 3 / exploration 1</strong> search after
+each accepted command. These complete numerical episodes were then selected
+with <strong>Restore industrial decisions</strong> in the live app. The following captures
+show checked restores of <strong>24 policy cuts</strong> and <strong>20 MCTS cuts</strong>; they do not
+represent 24 or 20 separate browser Apply clicks. The earlier Path 1 record did
+use 11 individual browser Apply clicks.</p>
+<p><a href="assets/fresh-35-random-b-policy-checked-restore-24cuts.jpg"><img src="assets/fresh-35-random-b-policy-checked-restore-24cuts.jpg" alt="Checked UI restore of the complete 24-cut B policy numerical episode"></a></p>
+<p><em>Step 10 — Checked B-policy restore: 24 cuts, zero sampled residual and zero setup events. The app accepted the independently generated full episode.</em></p>
+<p><a href="assets/fresh-36-random-b-mcts-checked-restore-20cuts.jpg"><img src="assets/fresh-36-random-b-mcts-checked-restore-20cuts.jpg" alt="Checked UI restore of the complete 20-cut B MCTS numerical episode"></a></p>
+<p><em>Step 10 — Checked B-MCTS restore: 20 cuts, zero sampled residual and zero setup events. This is separate from the original-stock MCTS suggestion probe.</em></p>
+<p><a href="assets/fresh-36b-random-b-mcts-complete-material.jpg"><img src="assets/fresh-36b-random-b-mcts-complete-material.jpg" alt="Remaining material after the checked complete B MCTS episode restore"></a></p>
+<p><em>Step 10 — Material view and linked section after the complete checked B-MCTS restore. The final state satisfies this sampled model and its listed checks.</em></p>
+<h4>What changed when random experience was added</h4>
+<p>The controlled numerical comparison verifies that B minus the exact saved random
+episode equals A, including episode order and unchanged preference arrays. Both
+trainings use the same Initial checkpoint and configuration. The fitted
+preference reward weights are also identical; the added random episode supplies
+additional simulated experience without becoming a preferred sequence.</p>
+<p>Across identical stock states, A and B differ at <strong>1 of 11 Initial-policy
+prefixes</strong> (10 unchanged) and <strong>2 of 20 A-policy prefixes</strong> (18 unchanged). At
+original stock, A policy chooses outside turning <strong>20 mm</strong>, while B chooses
+facing toward +axis <strong>5 mm</strong>. MCTS chooses outside turning <strong>160 mm</strong> for Initial,
+outside turning <strong>40 mm</strong> for A, and facing toward +axis <strong>5 mm</strong> for B at the
+same search budget. The complete A/B policies use <strong>20 / 24 cuts</strong>, and complete
+B MCTS uses <strong>20</strong>. Only B has a complete repeated-MCTS rollout in this record;
+Initial/A MCTS are first-decision probes.</p>
+<p>The four captures below are <strong>derived numerical records</strong>, rendered from the
+checked actual browser-model comparison. They are not app panels. Their
+1280 × 720 viewport captures are retained untouched, with readable tables and
+relative links to the portable source records in the guide.</p>
+<p><a href="assets/fresh-37-derived-eight-row-comparison.jpg"><img src="assets/fresh-37-derived-eight-row-comparison.jpg" alt="Derived eight-row complete rollout comparison from actual browser checkpoints"></a></p>
+<p><em>Derived result — Eight complete rollouts: Path 1, Greedy, Path 2, seeded random, Initial policy, A policy, B policy and B MCTS. Every row has zero sampled residual, zero target loss, 12/12 feature checks, 9/9 positive finishing checks and zero setup changes.</em></p>
+<p><a href="assets/fresh-38b-derived-first-policy-top.jpg"><img src="assets/fresh-38b-derived-first-policy-top.jpg" alt="Derived exact policy first-decision comparison at identical original stock"></a></p>
+<p><em>Derived result — Reference and policy first commands at identical original stock. A and B choose different turning modes and reaches.</em></p>
+<p><a href="assets/fresh-39c-derived-first-mcts-confirmed.jpg"><img src="assets/fresh-39c-derived-first-mcts-confirmed.jpg" alt="Derived exact MCTS first-decision comparison at identical original stock"></a></p>
+<p><em>Derived result — MCTS next commands under the same 16/depth-3/exploration-1 budget: Initial 160 mm, A 40 mm, B facing 5 mm. Initial and A are probes only.</em></p>
+<p><a href="assets/fresh-40-derived-random-experience-effect.jpg"><img src="assets/fresh-40-derived-random-experience-effect.jpg" alt="Derived controlled A versus B training and identical-state change counts"></a></p>
+<p><em>Derived result — Adding one seed-350289 episode changes selected inference decisions while most checked same-state choices remain unchanged. This is one controlled pair and one seed, without a general improvement claim.</em></p>
+<p>More cuts, changed choices or higher model scores do not establish better
+machining. Stage counts group accepted reach decisions, not physical tool
+changes. The declared continuous mill-turn holding assumption produces zero
+setup changes; fixture contacts and rotary kinematics are not simulated.</p>
+<p>The <a href="index.html#fresh-downloads">fresh downloads and portable numerical pages</a>
+retain the actual browser inputs/outputs, checked numerical episodes and path-free
+comparison. Raw file SHA-256 values identify downloaded bytes; canonical model
+digests identify parsed model content and are labelled separately. The
+<a href="index.html#node-training">optional Node.js recipe</a> reproduces
+training separately; both recorded A/B trainings above used the browser button.
+The <a href="../../index.html?case=industrial_00289#gym">00289 case</a> retains its existing
+application and greedy baseline.</p>
+<p>Completion means zero sampled residual and the listed feature-envelope checks
+in the 0.5 mm reach model. It does not establish continuous surface conformance:
+the inherited 0.01 mm facing standoff leaves a documented 46.642447547 mm³
+continuous remnant below the sampling representation. Physical cutter diameter,
+holder clearance, machine motion, CAM path and measured manufacturing efficiency
+are outside this model.</p>
+<h3 id="fresh-downloads">Fresh recording downloads</h3><p>Browser downloads are retained unchanged. Checked numerical episodes and the path-free derived comparison are labelled separately. File SHA-256 values identify raw bytes; canonical model digests inside comparisons use a separate identity.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Record type</th>
+<th>Raw SHA-256</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="../downloads/fresh-actual-manual-path1.json">actual-manual-path1.json</a></td>
+<td>Browser download</td>
+<td><code>6f603ad9c07456c6af44346d02eaca3a78623e61e824a6af0e4487d9b26e7446</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-before-checkpoint.json">control-a-before-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-checkpoint.json">control-a-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>75b68a5e5fb0b42d128b2b3864f7816f12aec03e37c48b0e433320c9fbb849bb</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-feedback.json">control-a-feedback.json</a></td>
+<td>Browser download</td>
+<td><code>4c229682a8b8f67829602e33a545745815e25ef2b0457c1f1853d71c827a68dd</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-inference-comparison.json">control-a-inference-comparison.json</a></td>
+<td>Browser download</td>
+<td><code>64cea63ef7f9cf1cd40cac843df06dd930984fd8f5150aed8b147f90b46a6e76</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-loaded-checkpoint.json">control-a-loaded-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>75b68a5e5fb0b42d128b2b3864f7816f12aec03e37c48b0e433320c9fbb849bb</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-control-a-training-report.json">control-a-training-report.json</a></td>
+<td>Browser download</td>
+<td><code>da7215ccb3830ba6b265378a60d932a56c8f617630c105ae9b5f173740057168</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-controlled-comparison-projection.json">controlled-comparison-projection.json</a></td>
+<td>Derived numerical record</td>
+<td><code>76f7c4edf4aac299c4c8c27ca6869af49078d91229899e16550bfb3cf1201203</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-B-mcts-episode.json">random-B-mcts-episode.json</a></td>
+<td>Checked numerical episode</td>
+<td><code>5c44a08a6bf5901766723a87f64f1b9eac3c8a8b7c9e95253c36c7086cda92dc</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-before-checkpoint.json">random-b-before-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-checkpoint.json">random-b-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-feedback.json">random-b-feedback.json</a></td>
+<td>Browser download</td>
+<td><code>25d42e8c9e8f6d8bb6e072c9529b9a05d68db67565874dcb958efbaca06e427e</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-inference-comparison.json">random-b-inference-comparison.json</a></td>
+<td>Browser download</td>
+<td><code>381471dadb1fd8ffbd1ff43920f78148b0781ad93c0ae600157d1e9e953beb1b</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-loaded-checkpoint.json">random-b-loaded-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-mcts-restored-export.json">random-b-mcts-restored-export.json</a></td>
+<td>Browser download</td>
+<td><code>a4e3a3520f9b0e92aef47dbec8bc193d52fa96683521332f527c8d881286d718</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-policy-restored-export.json">random-b-policy-restored-export.json</a></td>
+<td>Browser download</td>
+<td><code>e45474afe57edc726ab79379b0caaf7ebda0c787108bee2561b9dc0e1ccb1880</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-policy.json">random-b-policy.json</a></td>
+<td>Checked numerical episode</td>
+<td><code>307a1b86b1b9fbbdf0ba7a988f57886f4897b010dbdcccb1b84df1f74a307608</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-reloaded-checkpoint.json">random-b-reloaded-checkpoint.json</a></td>
+<td>Browser download</td>
+<td><code>79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-b-training-report.json">random-b-training-report.json</a></td>
+<td>Browser download</td>
+<td><code>c023a4f5ec30807e705b2da0610199863443bc7d6a183cc36d1f5ad25071a85f</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-random-episode-seed350289.json">random-episode-seed350289.json</a></td>
+<td>Browser download</td>
+<td><code>38f1fd61deeca53bce763e28f4982aab83320deea4e3b21534538431bb354298</code></td>
+</tr>
+<tr>
+<td><a href="../downloads/fresh-saved-path1-baseline.json">saved-path1-baseline.json</a></td>
+<td>Browser download</td>
+<td><code>0c9643d8a8388a7c77aa8ca4b975e4b586314696d541e8f1f6715ec30281ec0a</code></td>
+</tr>
+</tbody></table>
+<p><a href="../downloads/fresh-recording-index.json">Recording file index</a> — capture dimensions, exact image/download hashes and the recorded runtime identity.</p>
+<p>Portable derived numerical pages: <a href="assets/comparison.html">Complete rollouts</a> · <a href="assets/first-policy-decisions.html">First policy choices</a> · <a href="assets/first-mcts-decisions.html">First MCTS choices</a> · <a href="assets/random-experience-effect.html">Added random experience</a> · <a href="assets/provenance.html">Source identities</a> · <a href="assets/comparison-projection.json">Portable JSON</a>. These pages project the checked recorded outputs; they do not run training.</p>
+
 <h2 id="node-training">Optional: reproduce training with Node.js 24</h2>
 <p>For a terminal reproduction, use a checkout of this repository. From its root, put the unchanged downloaded feedback at <code>runs/reach-feedback.json</code>. Compute its hash and choose a new output directory:</p>
 <pre>node --version
@@ -50,8 +515,8 @@ node prototypes/industrial-reach/scripts/train-industrial-setup-episode.mjs --fe
 <h2>Historical supplied checkpoint and model guidance</h2>
 <div id="model-delivery"><p><a href="../downloads/checkpoint.json" download>Download the trained reach checkpoint</a> · <a href="../downloads/initial-checkpoint.json" download>Initial checkpoint</a> · <a href="../downloads/feedback.json" download>Exact training input</a> · <a href="../downloads/training-report.json" download>Training report</a></p><p>This supplied example predates the browser Train button. Download the trained checkpoint, then choose it with <strong>Load industrial model</strong>. This checkpoint was trained on the exact reach action set using the saved Path 2-over-Path 1 comparison and 28,000 simulated TD updates. The actual browser checked its import, unchanged export and read-only suggestions. Older finite-path checkpoints are rejected.</p><table><thead><tr><th>Historical measured rollout</th><th>Decisions</th><th>Final sampled residual</th></tr></thead><tbody><tr><td>Initial policy / Greedy baseline</td><td>11 / 11</td><td>0 mm³</td></tr><tr><td>Trained policy</td><td>20</td><td>0 mm³</td></tr><tr><td>Trained-model MCTS, 16 simulations and depth 3 per decision</td><td>18</td><td>0 mm³</td></tr></tbody></table><p>The trained behavior changes, but uses more decisions than the initial and Greedy policies. Neither learned rollout exactly replays Path 2. These results do not establish greater machining efficiency. <a href="../downloads/comparison.json" download>Download the policy comparison</a>.</p></div>
 <p>In <strong>Model guidance</strong>, load a compatible checkpoint, then choose <strong>Suggest industrial policy</strong> or <strong>Search industrial MCTS</strong>. A suggestion preserves accepted stock. Click <strong>Preview suggested action</strong>, inspect it, then Apply. Cancel stops the computation while preserving stock and saved records.</p>
-<figure><img src="assets/model-guidance.png" alt="Loaded compatible reach checkpoint and real-worker MCTS suggestion"><figcaption>Actual loaded checkpoint, retained Path 2-over-Path 1 preference and a real MCTS suggestion. This screenshot uses the lighter 8-simulation, depth-2 setting; suggestions still require Preview and Apply.</figcaption></figure><h2>3-29-00289</h2>
+<h2>3-29-00289</h2>
 <p>The second case link opens the existing main application. It retains its process, engagement direction and usable tool-reach controls plus its greedy baseline. Its checked baseline replay reaches zero sampled residual.</p>
 <details><summary>Prototype geometry and completion limits</summary><p>The material state uses a 0.5 mm grid for 3-29-00350. Bulk milling uses sampled protected-front shadows and reach. Deep-feature and finishing decisions use checked source-feature envelopes. The model does not simulate a physical cutter diameter, holder, machine motion or detailed CAM path.</p><p>Continuous holding is a declared assumption. Changing approach direction does not create a reclamping event. Fixture contacts and rotary kinematics are not modelled. Stock-end cleanup remains a positive removal decision; material is never deleted by a setup label.</p><p>Zero sampled residual and listed feature checks establish completion only within this model. They do not establish continuous surface conformance. The inherited facing envelope uses a 0.01 mm standoff and leaves a documented 46.642447547 mm³ continuous remnant below the sampling representation.</p></details>
-<p class="small">Screenshots are from the running reach prototype. The training captures document the verified browser Train update; the supplied example metrics identify the earlier saved training input. Video is deferred.</p>
+<p class="small">Screenshots above are untouched captures from the fresh recorded workflow. The supplied historical checkpoint is labelled separately. Video is deferred.</p>
 </main></body></html>

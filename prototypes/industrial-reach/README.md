@@ -13,6 +13,12 @@ Run the normal repository build. The release contains `reach/index.html`, the
 illustrated `reach/guide/index.html`, exact case data and example downloads.
 All navigation and screenshot links in the illustrated guide are relative.
 
+The [fresh recorded walkthrough](guide/index.html#fresh-recording) includes
+untouched live screenshots, the two actual browser trainings, model file round
+trips, checked policy/MCTS episode restores and separately labelled derived
+numerical tables. Its [downloads](guide/index.html#fresh-downloads) retain the
+raw browser files, path-free comparison and a file inventory with exact hashes.
+
 ## Browser training
 
 In **Train from saved sequences**, check the saved sequences and explicit

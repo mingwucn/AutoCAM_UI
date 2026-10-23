@@ -4,82 +4,441 @@
 
 <a id="industrial-reach-workflow"></a>
 
-## Latest 3-29-00350 workflow: reach, random experience and browser training
+## Latest 3-29-00350 workflow: baseline, random experience, training and inference
 
 Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)
-and the [illustrated reach walkthrough](../reach/guide/index.html).
-Follow two trainings from the same Initial model: A uses the saved baseline pair,
-Greedy and explicit preference; B adds seeded random experience. Keep each run's
-actual downloads. The original three-cut example later in this manual uses a
-separate earlier sampled case, dataset and checkpoint.
+and the [illustrated reach walkthrough](../reach/guide/index.html#fresh-recording).
+These screenshots record the local workflow after publication of the verified
+random-experience update on 23 October 2026. Every image opens its untouched
+capture for full-size reading. Live app captures are 1265 × 712; the separately
+labelled derived numerical records are 1280 × 720.
 
-1. **Inspect original stock.** Choose process, engagement direction and tool
-   reach. Orange material previews a possible cut. Apply accepts one eligible
-   positive decision; preview alone preserves accepted stock.
-2. **Inspect the baseline.** In **Baseline and model → Record and replay**, select
-   **Path 1 — user plan** and **Load selected baseline**. Use **Show baseline** to
-   inspect its replay, or preview each next decision and Apply. Its seven named
-   stages group 11 positive decisions, including drilling and finishing.
-3. **Save the preference.** Compare the complete 13-decision Path 2 alternative
-   with Path 1. Keep **Path 2 preferred over Path 1**. For your own pair, save both
-   complete recordings and explicitly **Add whole-sequence preference**.
-4. **Save Run A input.** Select **Greedy — maximum current removal** and **Load
-   selected baseline**. This adds a third saved sequence while retaining Path 1
-   as the preference anchor. Check **Saved feedback** and **Saved input**, then
-   **Download training input** into a Run A folder. Unsaved live actions are
-   excluded; manually replacing either recording clears its old sequence label.
-5. **Train Run A locally.** In **Train from saved sequences**, keep **Starting
-   model → Initial model**, then **Train model**. Training runs in your browser;
-   sequences and preferences are not uploaded. Read each stage's own count.
-   **Cancel training** preserves the previous model, stock and saved feedback.
-   On success the checked **Browser-trained model** loads automatically.
-6. **Retain Run A results.** Download the training report, loaded checkpoint,
-   before checkpoint and after checkpoint. Choose **Compare before / after**,
-   inspect the five full rollout rows and identical-state decisions, then
-   **Download comparison** before starting the next run.
-7. **Generate Run B experience.** Keep the three saved episodes and labels
-   unchanged. Set **Random seed** to 350289 and **Generate random sequence**.
-   Read its actual cuts, residual and complete/partial status. **Show random
-   sequence** and **Download random sequence** inspect and retain it. Generation
-   saves separate experience from original stock, preserves live stock and adds
-   no preference. Check four saved episodes with the same labels, then download
-   Run B's training input into a separate folder.
-8. **Train Run B from the same Initial model.** Keep **Starting model → Initial
-   model** again and choose **Train model**. Retain this run's report, loaded
-   checkpoint, before checkpoint and after checkpoint. Continuing Run A's model
-   would change the starting point and would not isolate the added experience.
-9. **Run inference and inspect changed choices.** Choose **Compare before /
-   after** for Run B. Its six rows compare Path 1, Greedy, Path 2, random
-   experience, before policy and after policy from identical original stock.
-   **Choices at identical stock states** shows each model's next process,
-   direction and reach at prefixes of the before policy, with changed and
-   unchanged choices. Download the comparison. This view compares Initial to
-   Run B; compare the saved Run A and Run B policy results separately when
-   assessing the effect of adding random experience.
-10. **Reload and compare MCTS.** Use **Load industrial model** to select Run B's
-    new after checkpoint. Reset stock for each manual rollout. Choose **Suggest
-    industrial policy** or **Search industrial MCTS** (16 simulations, depth 3,
-    exploration 1). **Preview suggested action**, inspect it, then explicitly
-    Apply at each decision. Retain actual decisions, residual, finishing checks
-    and setup changes. Loading, suggestions and search preserve stock.
+Use two trainings from the same **Initial model** to examine the effect of adding
+random experience. Run A uses three saved reference episodes and one explicit
+Path 2-over-Path 1 preference. Run B adds one seeded random episode. Keep each
+run's exact input, checkpoint, report and comparison; continuing Run A's weights
+would change the starting point. Training and inference use the same sampled
+simulator and its hard material gates.
 
-Path 1, Path 2 and Greedy reach zero sampled residual and listed feature checks,
-with zero setup changes under the declared continuous holding assumption. Their
-stage counts group decisions; they do not count tool changes. Record fresh Run A,
-Run B and MCTS results from their exact checkpoints. Changed choices or more
-cuts do not demonstrate better machining or exact imitation of Path 2.
+### 1. Inspect original stock and preview the first cut
 
-The [illustrated walkthrough](../reach/guide/index.html#local-training) includes
-relative screenshots/downloads, the controlled two-run recipe and geometry limits.
-Its captures illustrate earlier verified controls; fresh recorded metrics must
-come from the new runs. The supplied historical labelled example used 140
-simulated cutting transitions and 28,000 TD updates, with initial/greedy 11,
-trained policy 20 and trained MCTS 18 decisions. Those metrics do not describe
-new Run A or Run B checkpoints. An optional
-[Node.js reproduction recipe](../reach/guide/index.html#node-training) uses the
-same simulator and exact dataset. The
-[00289 case](../index.html?case=industrial_00289#gym) retains its existing main
+Choose **Turning**, **Outside turning**, and **Tool reach 40 mm**. The controls
+describe process, source-coordinate engagement direction and modeled penetration
+limit. Orange material is the current cut preview. Preview alone preserves
+accepted stock; **Apply to 3-29-00350** accepts an eligible positive decision.
+The linked section and 3D view describe the same material state.
+
+[![Original 00350 stock with turning and 40 mm reach controls](images/industrial-reach/01-original-stock.jpg)](images/industrial-reach/01-original-stock.jpg)
+
+*Step 1 — Original stock and explicit process, engagement direction and tool-reach controls. Continuous holding is the declared setup assumption.*
+
+[![Orange turning preview in the original stock and linked section](images/industrial-reach/02c-original-stock-material.jpg)](images/industrial-reach/02c-original-stock-material.jpg)
+
+*Step 1 — The orange turning preview is visible before Apply. Rotation, cutaway and section controls change the view.*
+
+### 2. Apply and record all 11 Path 1 decisions
+
+In **Baseline and model → Record and replay**, select **Path 1 — user plan** and
+**Load selected baseline**. Inspect its seven main stages. Use **Preview next
+baseline action**, inspect the process/direction/reach and positive removal, then
+**Apply**. Repeat for all 11 decisions below. The recording accepted these 11
+decisions through the live controls; the saved named reference episode is a
+separate training input.
+
+| Apply | Process / phase | Engagement direction | Reach (mm) | Just removed (mm³) | Sampled residual (mm³) |
+| --- | --- | --- | ---: | ---: | ---: |
+| 1 | Turning | Outside | 40 | 108,282.5 | 308,279.25 |
+| 2 | Bulk milling | Top · toward −Z | 80 | 186,679.75 | 121,599.5 |
+| 3 | Bulk milling | Bottom · toward +Z | 80 | 26,195.75 | 95,403.75 |
+| 4 | Drilling | Top · toward −Z | 80 | 10,373 | 85,030.75 |
+| 5 | Deep-feature milling | Top · toward −Z | 80 | 32,920 | 52,110.75 |
+| 6 | Deep-feature milling | Bottom · toward +Z | 80 | 25,774 | 26,336.75 |
+| 7 | Stock-end cleanup | Stock end · toward −Y | 5 | 23,300 | 3,036.75 |
+| 8 | Final profiling | Top · toward −Z | 80 | 911.75 | 2,125 |
+| 9 | Final profiling | Bottom · toward +Z | 80 | 1,839 | 286 |
+| 10 | Final profiling | Side from +X · toward −X | 80 | 224 | 62 |
+| 11 | Final profiling | Inclined · toward −Y and +Z | 20 | 62 | 0 |
+
+Three bulk decisions leave **95,403.75 mm³** sampled residual. The bore therefore
+still requires **Drilling**, followed by the deep-feature passes, a positive
+stock-end cleanup and four final-profiling decisions. The side stage has no
+additional removal after this top/bottom bulk ordering and adds no zero-removal
+event. Main stages group decisions; they do not count tool changes.
+
+[![Path 1 after Apply 1: Turning](images/industrial-reach/03-path1-after-turning.jpg)](images/industrial-reach/03-path1-after-turning.jpg)
+
+*Apply 1 — Turning, outside, 40 mm reach. Accepted removal 108,282.5 mm³; sampled residual 308,279.25 mm³.*
+
+[![Path 1 after Apply 2: Bulk milling](images/industrial-reach/04-path1-after-top.jpg)](images/industrial-reach/04-path1-after-top.jpg)
+
+*Apply 2 — Bulk milling, top · toward −z, 80 mm reach. Accepted removal 186,679.75 mm³; sampled residual 121,599.5 mm³.*
+
+[![Path 1 after Apply 3: Bulk milling](images/industrial-reach/05-path1-after-three-bulk.jpg)](images/industrial-reach/05-path1-after-three-bulk.jpg)
+
+*Apply 3 — Bulk milling, bottom · toward +z, 80 mm reach. Accepted removal 26,195.75 mm³; sampled residual 95,403.75 mm³.*
+
+[![Path 1 after Apply 4: Drilling](images/industrial-reach/07b-path1-after-drilling-confirmed.jpg)](images/industrial-reach/07b-path1-after-drilling-confirmed.jpg)
+
+*Apply 4 — Drilling, top · toward −z, 80 mm reach. Accepted removal 10,373 mm³; sampled residual 85,030.75 mm³.*
+
+[![Path 1 after Apply 5: Deep-feature milling](images/industrial-reach/08-path1-deep-top.jpg)](images/industrial-reach/08-path1-deep-top.jpg)
+
+*Apply 5 — Deep-feature milling, top · toward −z, 80 mm reach. Accepted removal 32,920 mm³; sampled residual 52,110.75 mm³.*
+
+[![Path 1 after Apply 6: Deep-feature milling](images/industrial-reach/09-path1-deep-bottom.jpg)](images/industrial-reach/09-path1-deep-bottom.jpg)
+
+*Apply 6 — Deep-feature milling, bottom · toward +z, 80 mm reach. Accepted removal 25,774 mm³; sampled residual 26,336.75 mm³.*
+
+[![Path 1 after Apply 7: Stock-end cleanup](images/industrial-reach/10-path1-after-cleanup.jpg)](images/industrial-reach/10-path1-after-cleanup.jpg)
+
+*Apply 7 — Stock-end cleanup, stock end · toward −y, 5 mm reach. Accepted removal 23,300 mm³; sampled residual 3,036.75 mm³.*
+
+[![Path 1 after Apply 8: Final profiling](images/industrial-reach/11-path1-finish-top.jpg)](images/industrial-reach/11-path1-finish-top.jpg)
+
+*Apply 8 — Final profiling, top · toward −z, 80 mm reach. Accepted removal 911.75 mm³; sampled residual 2,125 mm³.*
+
+[![Path 1 after Apply 9: Final profiling](images/industrial-reach/12-path1-finish-bottom.jpg)](images/industrial-reach/12-path1-finish-bottom.jpg)
+
+*Apply 9 — Final profiling, bottom · toward +z, 80 mm reach. Accepted removal 1,839 mm³; sampled residual 286 mm³.*
+
+[![Path 1 after Apply 10: Final profiling](images/industrial-reach/13-path1-finish-side.jpg)](images/industrial-reach/13-path1-finish-side.jpg)
+
+*Apply 10 — Final profiling, side from +x · toward −x, 80 mm reach. Accepted removal 224 mm³; sampled residual 62 mm³.*
+
+[![Path 1 after Apply 11: Final profiling](images/industrial-reach/14-path1-complete.jpg)](images/industrial-reach/14-path1-complete.jpg)
+
+*Apply 11 — Final profiling, inclined · toward −y and +z, 20 mm reach. Accepted removal 62 mm³; sampled residual 0 mm³.*
+
+### 3. Check completion and retain the manual recording
+
+After Apply 11, the app reports **0 mm³ sampled final-target residual**, **11
+reach decisions**, **0 setup changes**, and **Sampled target and listed feature
+checks complete**. Expand **Feature progress** to inspect all 12 listed features.
+The nine finishing rows require their designated final passes. Four accepted
+final-profiling decisions cover those nine checks.
+
+Choose **Download industrial decisions** to retain the actual manual episode.
+**Download baseline** retains the named Path 1 reference separately. Use
+**Reset stock** and **Restore industrial decisions** to check a saved episode.
+Manual unsaved history is excluded from training. **Use current sequence as
+baseline** saves it explicitly and clears previous sequence labels; add the
+intended preference again after replacing either recording.
+
+[![Completed upper and middle feature checks including bore and finishing rows](images/industrial-reach/15d-path1-feature-checks-middle.jpg)](images/industrial-reach/15d-path1-feature-checks-middle.jpg)
+
+*Step 3 — Bore, deep slot, relief and upper/middle finishing checks after the actual 11-Apply baseline.*
+
+[![Completed lower feature checks including rear bevels](images/industrial-reach/15c-path1-feature-checks-lower-confirmed.jpg)](images/industrial-reach/15c-path1-feature-checks-lower-confirmed.jpg)
+
+*Step 3 — Remaining lower finishing checks show Final pass recorded. Compatible reach presets are contributing modeled envelopes, not minimum physical tool requirements.*
+
+### 4. Save an explicit preference, then include Greedy
+
+Compare **Path 2 — Preferred** with Path 1. Path 2 has eight main stages and 13
+positive decisions, including bottom milling. The recording first chose **Clear
+preference labels**, then selected **Path 2** and clicked **Add whole-sequence
+preference**. Confirm **Saved feedback: 1 sequence label(s), 0 action-kind
+label(s)** and **Path 2 preferred over Path 1**.
+
+[![Saved preference labels cleared to zero](images/industrial-reach/16a-preference-cleared.jpg)](images/industrial-reach/16a-preference-cleared.jpg)
+
+*Step 4 — Clearing the labels establishes the explicit starting point before adding the intended whole-sequence preference.*
+
+[![One explicit Path 2 preferred over Path 1 sequence label saved](images/industrial-reach/16c-path2-preference-confirmed.jpg)](images/industrial-reach/16c-path2-preference-confirmed.jpg)
+
+*Step 4 — The saved label compares the two complete named sequences. No action-kind preference was added.*
+
+Select **Greedy — maximum current removal** and **Load selected baseline** after
+saving the label. Path 1 remains the preference anchor. **Saved input** now shows
+**3 complete sequences, 35 recorded decisions, 1 sequence label and 0 action-kind
+labels**: Path 1 (11), Greedy (11) and Path 2 (13). Choose **Download training
+input** and retain it as Run A's exact input.
+
+[![Run A input with three saved episodes, 35 decisions and one sequence label](images/industrial-reach/17-control-a-training-input.jpg)](images/industrial-reach/17-control-a-training-input.jpg)
+
+*Step 4 — Run A includes three saved reference episodes. The manually applied history remains independent and unsaved actions are excluded.*
+
+### 5. Train Run A in the browser and retain its result
+
+In **Train from saved sequences**, keep **Starting model → Initial model**, then
+choose **Train model**. Computation runs locally in the browser; sequences and
+preferences are not uploaded. The progress text reports each stage's own count.
+**Cancel training** preserves the previous model, accepted stock and feedback.
+Browser records should be downloaded before refresh.
+
+[![Actual Run A simulated-experience collection with Cancel training available](images/industrial-reach/18c-control-a-simulated-experience.jpg)](images/industrial-reach/18c-control-a-simulated-experience.jpg)
+
+*Step 5 — Actual browser training in progress: collecting simulated experience 7 / 15. This is a stage count, not an overall percentage.*
+
+On success, the checked **Browser-trained model** loads automatically. Retain
+**Download training report**, **Download loaded checkpoint**, **Download before
+checkpoint** and **Download after checkpoint**. The Run A report records **140
+simulated cutting transitions**, **28,000 TD updates** and **1 explicit preference
+label**, using 200 reward epochs, 200 TD epochs, 12 exploration episodes and seed
+350289. The fitted preference probability changes from **0.49446 to 0.72787**;
+that probability is a model output, not measured machining quality.
+
+[![Run A completed training with 28000 TD updates and one saved preference](images/industrial-reach/19-control-a-training-complete.jpg)](images/industrial-reach/19-control-a-training-complete.jpg)
+
+*Step 5 — Completed Run A training. The downloaded loaded checkpoint is byte-identical to this run’s downloaded after checkpoint.*
+
+Choose **Compare before / after** and **Download comparison** before Run B.
+Run A's checked full rollouts are Path 1 **11**, Greedy **11**, Path 2 **13**,
+Initial policy **11** and trained A policy **20** decisions. All five reach zero
+sampled residual. At the 11 identical prefixes of the Initial policy, A changes
+**7** next choices and retains **4**. These checked rollouts are numerical
+inference results; the 11 baseline Apply clicks above are the separately recorded
+manual execution. More cuts and changed choices do not establish better machining.
+
+[![Run A before and after inference comparison controls and table](images/industrial-reach/19b-control-a-five-row-comparison.jpg)](images/industrial-reach/19b-control-a-five-row-comparison.jpg)
+
+*Step 5 — Run A comparison uses its retained Initial/after pair and no random episode. Download the comparison before the next training replaces this pair.*
+
+### 6. Generate, inspect and save the random episode
+
+Keep Run A's three saved episodes and the explicit label unchanged. Set **Random
+seed** to **350289**, then **Generate random sequence**. This run saved a
+**16-cut**, **sampled-complete** episode with **0 mm³ sampled residual**. Random
+generation starts from original stock and accepts eligible positive actions. It
+preserves live stock and adds no preference label.
+
+[![Seed 350289 random experience saved with 16 cuts and zero sampled residual](images/industrial-reach/25-random-experience-saved.jpg)](images/industrial-reach/25-random-experience-saved.jpg)
+
+*Step 6 — The actual generated random episode is saved separately. The Path 2-over-Path 1 preference remains intact.*
+
+Choose **Show random sequence**. Use **Next** to inspect the saved 0 / 16,
+8 / 16 and 16 / 16 event states. Apply stays disabled in this read-only replay.
+Choose **Return to my stock** to return to accepted stock. The recording returned
+to zero accepted live cuts before starting Run B. **Download random sequence**
+retains the exact generated experience.
+
+[![Checked random episode replay at 0 of 16 events](images/industrial-reach/26a-random-replay-start.jpg)](images/industrial-reach/26a-random-replay-start.jpg)
+
+*Step 6 — Read-only random replay at 0 / 16 events. The displayed replay history does not replace the independent accepted live stock.*
+
+[![Checked random episode replay at 8 of 16 events](images/industrial-reach/26b-random-replay-middle.jpg)](images/industrial-reach/26b-random-replay-middle.jpg)
+
+*Step 6 — Read-only random replay at 8 / 16 events. The displayed replay history does not replace the independent accepted live stock.*
+
+[![Checked random episode replay at 16 of 16 events](images/industrial-reach/26c-random-replay-complete.jpg)](images/industrial-reach/26c-random-replay-complete.jpg)
+
+*Step 6 — Read-only random replay at 16 / 16 events. The displayed replay history does not replace the independent accepted live stock.*
+
+Check **Saved input: 4 complete sequences, 51 recorded decisions, 1 sequence
+label, 0 action-kind labels**. Choose **Download training input** into a separate
+Run B folder. Its first three episodes and both preference arrays are unchanged
+from Run A; the fourth episode is the exact saved random sequence.
+
+[![Run B input with four episodes, 51 decisions, one sequence label and Initial model selected](images/industrial-reach/27-random-b-training-input.jpg)](images/industrial-reach/27-random-b-training-input.jpg)
+
+*Step 6 — Run B adds 16 random decisions to the same 35 saved reference decisions. The last completed-training count still describes Run A before the new Train click.*
+
+### 7. Train Run B from the same Initial model
+
+Keep **Starting model → Initial model** again and choose **Train model**. The
+same starting checkpoint and configuration are used for both runs. This makes
+the saved random episode the input difference; continuing Run A's weights would
+change the starting point.
+
+[![Actual Run B browser training collecting simulated experience with four saved episodes](images/industrial-reach/28b-random-b-training-progress.jpg)](images/industrial-reach/28b-random-b-training-progress.jpg)
+
+*Step 7 — Actual Run B progress: collecting simulated experience 6 / 16. The retained 28,000 count below it belongs to the previously completed Run A.*
+
+Run B completed with **155 simulated cutting transitions**, **31,000 TD
+updates** and **1 explicit preference label**. Its configuration remains 200
+reward epochs, 200 TD epochs, 12 exploration episodes and seed 350289. The saved
+reference/random decisions and the total simulated training transitions are
+different counts. Its fitted preference probability is **0.49446 → 0.72787**,
+the same fitted pair as Run A.
+
+Retain **Download training report**, **Download loaded checkpoint**, **Download
+before checkpoint** and **Download after checkpoint**. The checked browser model
+loads automatically. Run B's before-checkpoint download is byte-identical to Run
+A's before checkpoint; Run B's loaded-checkpoint download is byte-identical to
+its after checkpoint. The raw downloads are linked below with their hashes.
+
+[![Completed Run B browser training with 31000 TD updates](images/industrial-reach/29-random-b-training-complete.jpg)](images/industrial-reach/29-random-b-training-complete.jpg)
+
+*Step 7 — Actual Run B completion and its own before/after download pair. The saved random episode belongs to this completed training snapshot.*
+
+### 8. Run inference and inspect identical-state choices
+
+Choose **Compare before / after**, then **Download comparison** for Run B. Its
+six checked full rollouts start from identical original stock: Path 1 **11**,
+Greedy **11**, Path 2 **13**, saved random experience **16**, Initial policy
+**11**, and trained B policy **24** cuts. Every row is sampled complete with
+**0 mm³ residual**. The pair belongs to the last successful training and includes
+seed 350289; later model loads or new generation do not replace this pair.
+
+[![All six actual Run B inference rows with 11, 11, 13, 16, 11 and 24 cuts](images/industrial-reach/30b-random-b-all-six-rows.jpg)](images/industrial-reach/30b-random-b-all-six-rows.jpg)
+
+*Step 8 — Actual built-in Initial → B comparison. This table contains neither control A nor MCTS.*
+
+Under **Choices at identical stock states**, the same accepted prefixes of the
+Initial policy are supplied to both models. The Run B view reports **7 changed
+and 4 unchanged choices** across 11 states. At original stock the Initial model
+chooses outside turning at 40 mm; B chooses facing toward the positive axis at
+5 mm. Later unchanged rows remain visible. These probes compare next commands
+at the same stock; they do not align two divergent full sequences step by step.
+
+[![Initial and B next commands at the same original stock](images/industrial-reach/31a-initial-b-same-state-choices.jpg)](images/industrial-reach/31a-initial-b-same-state-choices.jpg)
+
+*Step 8 — Original-stock policy choices differ in turning mode and reach. This is Initial versus B; a separate controlled A/B comparison isolates the added random episode.*
+
+[![Lower identical-state policy rows including unchanged choices](images/industrial-reach/31b-initial-b-same-state-choices-lower.jpg)](images/industrial-reach/31b-initial-b-same-state-choices-lower.jpg)
+
+*Step 8 — Both changed and unchanged next decisions are retained, including unchanged bottom milling, stock-end cleanup and the final inclined pass.*
+
+Run A and Run B both change seven of these Initial-policy choices, but equal
+aggregate counts do not establish identical commands. Assess the added random
+experience using the separately retained A/B checkpoints and identical-state
+comparison, alongside the complete A/B rollouts. More cuts and changed decisions
+are observed behavior, without a machining-efficiency claim.
+
+### 9. Reload exact checkpoints and compare their next policy choice
+
+Reset stock before each model probe. Choose **Use initial model**, then
+**Suggest industrial policy**. Load the actual Run A after checkpoint with
+**Load industrial model** and confirm **compatible checkpoint**. Repeat with
+Run B's downloaded after checkpoint. Loading and suggestions preserve stock;
+this recording kept **0 accepted cuts** for these original-stock probes.
+
+[![Initial policy suggestion from original stock](images/industrial-reach/20-initial-policy-original-stock.jpg)](images/industrial-reach/20-initial-policy-original-stock.jpg)
+
+*Step 9 — Initial-model policy suggestion at original stock. A suggestion is separate from an accepted cut.*
+
+[![Actual downloaded Run A checkpoint reloaded and checked compatible](images/industrial-reach/22-control-a-checkpoint-reloaded.jpg)](images/industrial-reach/22-control-a-checkpoint-reloaded.jpg)
+
+*Step 9 — Run A checkpoint selected through Load industrial model and acknowledged as compatible.*
+
+[![Run A policy suggestion using the reloaded compatible checkpoint](images/industrial-reach/22b-control-a-policy-original-stock.jpg)](images/industrial-reach/22b-control-a-policy-original-stock.jpg)
+
+*Step 9 — The actual reloaded A checkpoint supplies the policy suggestion. The displayed estimated value is a model score, not machining time.*
+
+[![Run B policy suggestion using the reloaded random-b checkpoint](images/industrial-reach/32-random-b-policy-original-stock.jpg)](images/industrial-reach/32-random-b-policy-original-stock.jpg)
+
+*Step 9 — The actual reloaded B checkpoint suggests Facing toward +axis at the same original stock.*
+
+Choose **Preview suggested action** to expose process, engagement direction and
+reach. The matched original-stock views below show A's **outside turning at
+20 mm** and B's **facing toward +axis at 5 mm**. Both have zero accepted cuts.
+These are two separate raw captures, and each preview preserves accepted stock.
+
+[![Run A policy preview with outside turning and 20 mm reach at zero accepted cuts](images/industrial-reach/34a-control-a-policy-preview-20mm.jpg)](images/industrial-reach/34a-control-a-policy-preview-20mm.jpg)
+
+*Step 9 — Actual A policy preview at original stock: Outside turning, 20 mm. No Apply was performed for this probe.*
+
+[![Run B policy preview with facing toward positive axis and 5 mm reach at zero accepted cuts](images/industrial-reach/32b-random-b-policy-preview-5mm.jpg)](images/industrial-reach/32b-random-b-policy-preview-5mm.jpg)
+
+*Step 9 — Actual B policy preview at the same original stock: Facing toward +axis, 5 mm. No Apply was performed for this probe.*
+
+Choose **Download loaded checkpoint** after reloading B. Its raw bytes match the
+original B after-checkpoint download, retaining the trained model through the
+file round trip. **Apply** remains a separate explicit decision after inspection.
+
+### 10. Compare MCTS, checked full rollouts and the random effect
+
+Reset stock and load the intended exact checkpoint before each search. Choose
+**MCTS simulations → 16** and **Search depth → 3**, then **Search industrial
+MCTS**. The recorded comparison uses exploration 1. Search and **Preview
+suggested action** preserve accepted stock; Apply remains explicit. These three
+live searches inspect the same original stock and empty accepted history.
+
+[![Initial-model MCTS search at original stock with 16 simulations and depth 3](images/industrial-reach/21-initial-mcts-original-stock.jpg)](images/industrial-reach/21-initial-mcts-original-stock.jpg)
+
+*Step 10 — Actual Initial-model search with the declared 16/depth-3 budget. This is a first-decision probe, not a complete Initial MCTS rollout.*
+
+[![Initial MCTS preview outside turning at 160 mm without accepting a cut](images/industrial-reach/21b-initial-mcts-preview-reach.jpg)](images/industrial-reach/21b-initial-mcts-preview-reach.jpg)
+
+*Step 10 — Preview exposes the Initial MCTS suggestion: outside turning at 160 mm. Accepted cuts remain zero.*
+
+[![Run A MCTS suggestion from its reloaded checkpoint at original stock](images/industrial-reach/23-control-a-mcts-original-stock.jpg)](images/industrial-reach/23-control-a-mcts-original-stock.jpg)
+
+*Step 10 — Actual A-model search at the same stock and budget. Its exact checked next command is outside turning at 40 mm.*
+
+[![Run B MCTS suggestion from its reloaded checkpoint at original stock](images/industrial-reach/33-random-b-mcts-original-stock.jpg)](images/industrial-reach/33-random-b-mcts-original-stock.jpg)
+
+*Step 10 — Actual B-model search at the same stock and budget. Its exact checked next command is facing toward +axis at 5 mm.*
+
+For a full policy rollout, the numerical check repeatedly used the exact browser
+checkpoint through the same simulator and positive-removal gates. For full B
+MCTS it repeated the **16 simulations / depth 3 / exploration 1** search after
+each accepted command. These complete numerical episodes were then selected
+with **Restore industrial decisions** in the live app. The following captures
+show checked restores of **24 policy cuts** and **20 MCTS cuts**; they do not
+represent 24 or 20 separate browser Apply clicks. The earlier Path 1 record did
+use 11 individual browser Apply clicks.
+
+[![Checked UI restore of the complete 24-cut B policy numerical episode](images/industrial-reach/35-random-b-policy-checked-restore-24cuts.jpg)](images/industrial-reach/35-random-b-policy-checked-restore-24cuts.jpg)
+
+*Step 10 — Checked B-policy restore: 24 cuts, zero sampled residual and zero setup events. The app accepted the independently generated full episode.*
+
+[![Checked UI restore of the complete 20-cut B MCTS numerical episode](images/industrial-reach/36-random-b-mcts-checked-restore-20cuts.jpg)](images/industrial-reach/36-random-b-mcts-checked-restore-20cuts.jpg)
+
+*Step 10 — Checked B-MCTS restore: 20 cuts, zero sampled residual and zero setup events. This is separate from the original-stock MCTS suggestion probe.*
+
+[![Remaining material after the checked complete B MCTS episode restore](images/industrial-reach/36b-random-b-mcts-complete-material.jpg)](images/industrial-reach/36b-random-b-mcts-complete-material.jpg)
+
+*Step 10 — Material view and linked section after the complete checked B-MCTS restore. The final state satisfies this sampled model and its listed checks.*
+
+#### What changed when random experience was added
+
+The controlled numerical comparison verifies that B minus the exact saved random
+episode equals A, including episode order and unchanged preference arrays. Both
+trainings use the same Initial checkpoint and configuration. The fitted
+preference reward weights are also identical; the added random episode supplies
+additional simulated experience without becoming a preferred sequence.
+
+Across identical stock states, A and B differ at **1 of 11 Initial-policy
+prefixes** (10 unchanged) and **2 of 20 A-policy prefixes** (18 unchanged). At
+original stock, A policy chooses outside turning **20 mm**, while B chooses
+facing toward +axis **5 mm**. MCTS chooses outside turning **160 mm** for Initial,
+outside turning **40 mm** for A, and facing toward +axis **5 mm** for B at the
+same search budget. The complete A/B policies use **20 / 24 cuts**, and complete
+B MCTS uses **20**. Only B has a complete repeated-MCTS rollout in this record;
+Initial/A MCTS are first-decision probes.
+
+The four captures below are **derived numerical records**, rendered from the
+checked actual browser-model comparison. They are not app panels. Their
+1280 × 720 viewport captures are retained untouched, with readable tables and
+relative links to the portable source records in the guide.
+
+[![Derived eight-row complete rollout comparison from actual browser checkpoints](images/industrial-reach/37-derived-eight-row-comparison.jpg)](images/industrial-reach/37-derived-eight-row-comparison.jpg)
+
+*Derived result — Eight complete rollouts: Path 1, Greedy, Path 2, seeded random, Initial policy, A policy, B policy and B MCTS. Every row has zero sampled residual, zero target loss, 12/12 feature checks, 9/9 positive finishing checks and zero setup changes.*
+
+[![Derived exact policy first-decision comparison at identical original stock](images/industrial-reach/38b-derived-first-policy-top.jpg)](images/industrial-reach/38b-derived-first-policy-top.jpg)
+
+*Derived result — Reference and policy first commands at identical original stock. A and B choose different turning modes and reaches.*
+
+[![Derived exact MCTS first-decision comparison at identical original stock](images/industrial-reach/39c-derived-first-mcts-confirmed.jpg)](images/industrial-reach/39c-derived-first-mcts-confirmed.jpg)
+
+*Derived result — MCTS next commands under the same 16/depth-3/exploration-1 budget: Initial 160 mm, A 40 mm, B facing 5 mm. Initial and A are probes only.*
+
+[![Derived controlled A versus B training and identical-state change counts](images/industrial-reach/40-derived-random-experience-effect.jpg)](images/industrial-reach/40-derived-random-experience-effect.jpg)
+
+*Derived result — Adding one seed-350289 episode changes selected inference decisions while most checked same-state choices remain unchanged. This is one controlled pair and one seed, without a general improvement claim.*
+
+More cuts, changed choices or higher model scores do not establish better
+machining. Stage counts group accepted reach decisions, not physical tool
+changes. The declared continuous mill-turn holding assumption produces zero
+setup changes; fixture contacts and rotary kinematics are not simulated.
+
+The [fresh downloads and portable numerical pages](../reach/guide/index.html#fresh-downloads)
+retain the actual browser inputs/outputs, checked numerical episodes and path-free
+comparison. Raw file SHA-256 values identify downloaded bytes; canonical model
+digests identify parsed model content and are labelled separately. The
+[optional Node.js recipe](../reach/guide/index.html#node-training) reproduces
+training separately; both recorded A/B trainings above used the browser button.
+The [00289 case](../index.html?case=industrial_00289#gym) retains its existing
 application and greedy baseline.
+
+Completion means zero sampled residual and the listed feature-envelope checks
+in the 0.5 mm reach model. It does not establish continuous surface conformance:
+the inherited 0.01 mm facing standoff leaves a documented 46.642447547 mm³
+continuous remnant below the sampling representation. Physical cutter diameter,
+holder clearance, machine motion, CAM path and measured manufacturing efficiency
+are outside this model.
 
 <a id="verification-identity"></a>
 
@@ -354,6 +713,12 @@ The [verification status](VERIFICATION_STATUS.md) keeps this new route separate
 from historical three-cut, synthetic and platform results.
 
 <a id="industrial-browser-walkthrough"></a>
+
+For the current 00350 reach/random-experience workflow, go to the
+[recorded walkthrough](#industrial-reach-workflow) or its
+[detailed illustrated guide](../reach/guide/index.html#fresh-recording).
+This older section covers the separate earlier three-cut sampled dataset.
+
 
 #### Actual browser feedback, training and first Apply
 

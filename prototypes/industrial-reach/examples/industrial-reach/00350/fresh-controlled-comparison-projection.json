@@ -1,0 +1,413 @@
+{
+  "schema": "reach-random-ab-portable-projection-1",
+  "source_comparison_sha256": "b4023ab294b680bfd92a452b75978b70ce04e02ee2dcb065fa6bd05d8e399c32",
+  "source_schema": "reach-fresh-random-ab-walkthrough-comparison-1",
+  "source_pins_sha256": "d16e53ee9c11e9207fa06d487c942961d71ffbd65b73024ad344fd33939311fd",
+  "case_id": "industrial_reach_00350",
+  "controlled_A_B": true,
+  "input_conditions": {
+    "same_initial_model": true,
+    "same_configuration": true,
+    "B_minus_random_exactly_A": true,
+    "preferences_unchanged": true,
+    "reward_weights_unchanged": true
+  },
+  "control_A": {
+    "model_origin": "actual_browser_download",
+    "feedback_raw_sha256": "4c229682a8b8f67829602e33a545745815e25ef2b0457c1f1853d71c827a68dd",
+    "checkpoint": {
+      "raw_file_sha256": "75b68a5e5fb0b42d128b2b3864f7816f12aec03e37c48b0e433320c9fbb849bb",
+      "canonical_model_sha256": "015dd5eb2fdacb46bf6f7cbab0af8addee20531dbf6b334334f3387d66af98ea"
+    },
+    "starting_checkpoint": {
+      "raw_file_sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "canonical_model_sha256": "2b5a99de41c30cbfb63fac7687aa2d931e1520e04f24210bb3e875284fe614eb"
+    },
+    "report_raw_sha256": "da7215ccb3830ba6b265378a60d932a56c8f617630c105ae9b5f173740057168",
+    "training": {
+      "schema": "industrial-learning-report-setup-1",
+      "feedback_id": "7197a7ee1300169da7b00dce5c1fc3fc53acc88a951b9347c754111779635c14",
+      "configuration": {
+        "alpha": 0.05,
+        "gamma": 0.95,
+        "clip": 1,
+        "epochs": 200,
+        "rewardEpochs": 200,
+        "rewardAlpha": 0.1,
+        "explorationEpisodes": 12,
+        "seed": 350289
+      },
+      "experience_transitions": 140,
+      "td_updates": 28000,
+      "explicit_preference_labels": 1,
+      "preferences_before": [
+        {
+          "kind": "sequence",
+          "preferred_probability": 0.4944606822665341
+        }
+      ],
+      "preferences_after": [
+        {
+          "kind": "sequence",
+          "preferred_probability": 0.7278745985900608
+        }
+      ]
+    },
+    "actual_UI_comparison_verified": true
+  },
+  "browser_B": {
+    "model_origin": "actual_browser_download",
+    "feedback_raw_sha256": "25d42e8c9e8f6d8bb6e072c9529b9a05d68db67565874dcb958efbaca06e427e",
+    "checkpoint": {
+      "raw_file_sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "canonical_model_sha256": "7e16f0a089558c1b749c982a0375a350f4b0e12fdc1e8a32c26e95fb819f4415"
+    },
+    "starting_checkpoint": {
+      "raw_file_sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "canonical_model_sha256": "2b5a99de41c30cbfb63fac7687aa2d931e1520e04f24210bb3e875284fe614eb"
+    },
+    "report_raw_sha256": "c023a4f5ec30807e705b2da0610199863443bc7d6a183cc36d1f5ad25071a85f",
+    "training": {
+      "schema": "industrial-learning-report-setup-1",
+      "feedback_id": "b5d0c57e549b306738d77b5b1bfd7f20dbd8df1563231272e42f0b4fe9f83fc3",
+      "configuration": {
+        "alpha": 0.05,
+        "gamma": 0.95,
+        "clip": 1,
+        "epochs": 200,
+        "rewardEpochs": 200,
+        "rewardAlpha": 0.1,
+        "explorationEpisodes": 12,
+        "seed": 350289
+      },
+      "experience_transitions": 155,
+      "td_updates": 31000,
+      "explicit_preference_labels": 1,
+      "preferences_before": [
+        {
+          "kind": "sequence",
+          "preferred_probability": 0.4944606822665341
+        }
+      ],
+      "preferences_after": [
+        {
+          "kind": "sequence",
+          "preferred_probability": 0.7278745985900608
+        }
+      ]
+    },
+    "actual_UI_comparison_verified": true
+  },
+  "random": {
+    "episode_id": "dad0380e16d29e19611e9fafaf6804a40da87e722df0a6dfcd05491dab3bbcba",
+    "raw_file_sha256": "38f1fd61deeca53bce763e28f4982aab83320deea4e3b21534538431bb354298",
+    "seed": 350289,
+    "max_events": 257,
+    "adds_preference": false,
+    "reproduced_exactly": true
+  },
+  "budget": {
+    "simulations": 16,
+    "depth": 3,
+    "exploration": 1
+  },
+  "summaries": [
+    {
+      "label": "Path 1 baseline",
+      "episode_id": "411accd7e9a9a48dc89cbe5d11d4aa9c0fee78927b3d4b8347273d2f959f579a",
+      "complete": true,
+      "decisions": 11,
+      "cuts": 11,
+      "events": 11,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Greedy baseline",
+      "episode_id": "3948707945b4923be5aa88562dbde23cd0680e282165ba9b5a8f535bfd08b73d",
+      "complete": true,
+      "decisions": 11,
+      "cuts": 11,
+      "events": 11,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Path 2 preferred reference",
+      "episode_id": "85bef0b403a2a57e5acd4e26e1e115ad66e0d74913413d1bfa6429296d1cde2d",
+      "complete": true,
+      "decisions": 13,
+      "cuts": 13,
+      "events": 13,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Seeded random experience",
+      "episode_id": "dad0380e16d29e19611e9fafaf6804a40da87e722df0a6dfcd05491dab3bbcba",
+      "complete": true,
+      "decisions": 16,
+      "cuts": 16,
+      "events": 16,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Initial policy",
+      "episode_id": "7be3e1f51ee89fabca0a16cb7b32ae6a90ead4f31493451456ac40b342a39f81",
+      "complete": true,
+      "decisions": 11,
+      "cuts": 11,
+      "events": 11,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Control A policy (3 episodes)",
+      "episode_id": "836e456bed7f8e49598aab7636315662f8a8cf420709646937cfabffeee5dcd8",
+      "complete": true,
+      "decisions": 20,
+      "cuts": 20,
+      "events": 20,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Random B policy (4 episodes)",
+      "episode_id": "c068307e428e77e4264f6ea53a0aa39da1ce49328b64848b040898443276ef19",
+      "complete": true,
+      "decisions": 24,
+      "cuts": 24,
+      "events": 24,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    },
+    {
+      "label": "Random B MCTS",
+      "episode_id": "e6e49c3b53d125dd5177888e05869bcd487063348d4a17d9f8f2e834e9e59a89",
+      "complete": true,
+      "decisions": 20,
+      "cuts": 20,
+      "events": 20,
+      "setups": 0,
+      "residual_voxels": 0,
+      "target_missing_voxels": 0,
+      "feature_checks_complete": 12,
+      "positive_final_profiles": 9,
+      "residual_mm3": 0
+    }
+  ],
+  "first_decisions": {
+    "same_initial_state": true,
+    "state_sha256": "93cf72981bbec7b0a77c7df14a7b5135bbec153a2f27b511594b7e87999a82ec",
+    "policies": [
+      {
+        "label": "Path 1 baseline",
+        "role": "Reference command",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@40mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 40
+        }
+      },
+      {
+        "label": "Greedy baseline",
+        "role": "Reference command",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@40mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 40
+        }
+      },
+      {
+        "label": "Initial policy",
+        "role": "Same-stock next-command probe",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@40mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 40
+        }
+      },
+      {
+        "label": "Control A policy · 3 episodes",
+        "role": "Same-stock next-command probe",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@20mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 20
+        }
+      },
+      {
+        "label": "Random B policy · 4 episodes",
+        "role": "Same-stock next-command probe",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/face_positive@5mm"
+          },
+          "process": "turning",
+          "engagement_direction": "face_positive",
+          "engagement_label": "Facing toward +axis",
+          "reach_mm": 5
+        }
+      }
+    ],
+    "mcts": [
+      {
+        "label": "Initial model",
+        "role": "Original-stock probe only; no full rollout",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@160mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 160
+        },
+        "budget": {
+          "simulations": 16,
+          "depth": 3,
+          "exploration": 1,
+          "depth_unit": "accepted_reach_actions",
+          "completed": 16,
+          "expanded": 16,
+          "max_depth_reached": 3,
+          "max_cut_depth_reached": 3,
+          "eligible_root_commands": 12,
+          "expanded_root_commands": 4
+        }
+      },
+      {
+        "label": "Control A · 3 episodes",
+        "role": "Original-stock probe only; no full rollout",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/outside@40mm"
+          },
+          "process": "turning",
+          "engagement_direction": "outside",
+          "engagement_label": "Outside turning",
+          "reach_mm": 40
+        },
+        "budget": {
+          "simulations": 16,
+          "depth": 3,
+          "exploration": 1,
+          "depth_unit": "accepted_reach_actions",
+          "completed": 16,
+          "expanded": 16,
+          "max_depth_reached": 3,
+          "max_cut_depth_reached": 3,
+          "eligible_root_commands": 12,
+          "expanded_root_commands": 4
+        }
+      },
+      {
+        "label": "Random B · 4 episodes",
+        "role": "Exact command used in B trace decision 1",
+        "choice": {
+          "command": {
+            "type": "cut",
+            "process": "turning",
+            "action_id": "turning/turning/face_positive@5mm"
+          },
+          "process": "turning",
+          "engagement_direction": "face_positive",
+          "engagement_label": "Facing toward +axis",
+          "reach_mm": 5
+        },
+        "budget": {
+          "simulations": 16,
+          "depth": 3,
+          "exploration": 1,
+          "depth_unit": "accepted_reach_actions",
+          "completed": 16,
+          "expanded": 16,
+          "max_depth_reached": 3,
+          "max_cut_depth_reached": 3,
+          "eligible_root_commands": 12,
+          "expanded_root_commands": 4
+        }
+      }
+    ],
+    "changes": {
+      "initial_policy_vs_B": true,
+      "A_policy_vs_B": true,
+      "initial_MCTS_vs_B": true,
+      "A_MCTS_vs_B": true
+    }
+  },
+  "same_state_A_B": [
+    {
+      "label": "Initial-policy prefixes",
+      "count": 11,
+      "A_vs_B_changed": 1,
+      "A_vs_B_unchanged": 10
+    },
+    {
+      "label": "Control-A policy prefixes",
+      "count": 20,
+      "A_vs_B_changed": 2,
+      "A_vs_B_unchanged": 18
+    }
+  ],
+  "interpretation": "Derived numerical record from actual browser downloads. A and B share the exact Initial model, default configuration, three reference episodes and one explicit Path 2-over-Path 1 preference; B adds only the saved seeded random episode. First decisions and fixed-state choices are separate from full rollouts. One controlled pair and one random seed do not establish a general improvement. Sampled geometry only; manufacturing qualification is false."
+}

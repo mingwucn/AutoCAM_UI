@@ -13,8 +13,12 @@ tested, published and accepted.
 
 For the latest 00350 process/direction/reach workflow with explicit drilling and
 finishing, open the [reach application](reach/index.html?case=industrial_reach_00350)
-and its [illustrated workflow](reach/guide/index.html). This isolated prototype
-has its own exact dataset and checkpoint; the original routes remain available.
+and its [recorded illustrated workflow](reach/guide/index.html#fresh-recording).
+The walkthrough covers all 11 baseline Apply decisions, explicit preference,
+controlled training with added random experience, checkpoint reloading and
+measured policy/MCTS results, with exact downloads and full-size screenshots.
+This isolated prototype has its own exact dataset and checkpoint; the original
+routes remain available.
 
 Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
 application screenshots, step-by-step workflows and linked responses to
