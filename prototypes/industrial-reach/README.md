@@ -26,6 +26,16 @@ training report and exact training input before comparing fresh rollouts.
 Reset stock before each baseline, initial-policy, trained-policy or trained-MCTS
 rollout. Use **Load industrial model** to reload the downloaded result.
 
+For a controlled experience comparison, first train Run A from Initial using
+Path 1, Greedy, Path 2 and the explicit Path 2-over-Path 1 preference. Download
+its exact input, checkpoints, report and inference comparison. Then generate
+random seed 350289 as separate saved experience, preserve those labels, and
+train Run B from Initial again. Keep Run B downloads separately. Random
+generation does not add a preference. **Compare before / after** retains the
+exact model pair for each completed training; the same-state rows compare
+choices along the before policy. The Run B view compares Initial to Run B,
+while A-versus-B policy results isolate the added experience.
+
 ## Optional Node.js reproduction
 
 Use Node.js 24. From the repository root, save a fresh **Download training input**
@@ -51,7 +61,8 @@ imitation. This is sampled shadow planning, without physical cutter, fixture,
 machine-motion or continuous-surface qualification.
 
 `source-pins.json` identifies the 42 current runtime, trainer and dataset inputs,
-including the four verified browser-training v9 inputs. `source-pins-v8.json`
+including the four verified random-experience v10 inputs. `source-pins-v9.json`
+retains the browser Train version before random experience. `source-pins-v8.json`
 retains the earlier runtime identity used for the historical supplied example. Packaging entry, build hook and guide are separately versioned. The
 published training-report projection replaces its machine-specific dataset
 path with a relative path; model, feedback and case bytes remain unchanged.

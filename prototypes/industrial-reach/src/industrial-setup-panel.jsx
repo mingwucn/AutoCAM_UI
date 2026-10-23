@@ -1,15 +1,22 @@
 import {useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import {SetupLearningClient} from './industrial-setup-client.mjs';
-import {commandEqual,commandTitle,eligibleSetupProcesses} from './industrial-setup-session.mjs';
+import {commandEqual,commandTitle,commandDefinition,eligibleSetupProcesses} from './industrial-setup-session.mjs';
 import {formatNumber as fmt,processName} from './use-gym-session.js';
 import {hasNamedPaths,hasReachControls,matchingPath,validateNamedPathResult} from './industrial-path-presentation.mjs';
 import {PathOutline} from './industrial-path-plan.jsx';
-import {savedTrainingSummary,snapshotTrainingInput,trainingProgressMessage,checkTrainingResult} from './industrial-browser-training.mjs';
+import {savedTrainingSummary,snapshotTrainingInput,trainingProgressMessage,checkTrainingResult,randomSequenceSeed,inferenceProgressMessage,completedTrainingSnapshot,checkInferenceComparison} from './industrial-browser-training.mjs';
+import {engagementDirection} from './industrial-engagement-controls.mjs';
 
 export function downloadSetupJSON(value,name){
   const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 async function readJSON(file){if(!file||file.size>4*1024**2)throw Error('Choose a JSON file smaller than 4 MB.');return JSON.parse(await file.text());}
+function DecisionChoice({scene,command}){
+  if(!command)return <span>No executable decision</span>;
+  const action=commandDefinition(scene,command);
+  if(!action)return <span>{commandTitle(scene,command)}</span>;
+  return <span>{processName(command.process)}<br/>{engagementDirection(action,command.process).label}<br/>Tool reach: {fmt(action.length)} mm</span>;
+}
 
 export function SetupLearningPanel({data,state,dispatch}){
   const scene=data.scenes[0],named=hasNamedPaths(scene),reach=hasReachControls(scene),pairAuthorized=!reach||!!scene.workflow.authorized_sequence_preference,client=useMemo(()=>new SetupLearningClient(data),[data]),generation=useRef(0),mounted=useRef(true);
@@ -19,6 +26,7 @@ export function SetupLearningPanel({data,state,dispatch}){
   const [sequencePreferences,setSequencePreferences]=useState([]),[actionPreferences,setActionPreferences]=useState([]),[preferredSequence,setPreferredSequence]=useState('alternative'),[preferredKind,setPreferredKind]=useState('milling'),[rejectedKind,setRejectedKind]=useState('turning');
   const [alternativeSource,setAlternativeSource]=useState('manual'),[baselineChoice,setBaselineChoice]=useState('path1'),[namedAnchor,setNamedAnchor]=useState(null);
   const [startingModel,setStartingModel]=useState('initial'),[trainingActive,setTrainingActive]=useState(false),[trainingReport,setTrainingReport]=useState(null);
+  const [randomSeed,setRandomSeed]=useState('350289'),[randomEpisode,setRandomEpisode]=useState(null),[trainingSnapshot,setTrainingSnapshot]=useState(null),[comparison,setComparison]=useState(null);
   useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;generation.current++;client.cancel();};},[client]);
   useLayoutEffect(()=>{
     const sameClient=previousClient.current===client;previousClient.current=client;
@@ -32,7 +40,7 @@ export function SetupLearningPanel({data,state,dispatch}){
     const ticket=++generation.current;client.cancel();requestScope.current=scope;activeOperation.current=kind;setBusy(true);setTrainingActive(kind==='training');setSuggestion(null);
     const current=()=>mounted.current&&generation.current===ticket;
     const request=(command,payload={},progress)=>{if(!current())throw new DOMException('Cancelled','AbortError');return client.request(command,payload,progress);};
-    try{const result=await work(request,p=>{if(current())setMessage(kind==='training'?trainingProgressMessage(p):'Search: '+p.completed+' / '+p.total+' simulations.');});if(current())success(result);}
+    try{const result=await work(request,p=>{if(current())setMessage(kind==='training'?trainingProgressMessage(p):['random','comparison'].includes(kind)?inferenceProgressMessage(p):'Search: '+p.completed+' / '+p.total+' simulations.');});if(current())success(result);}
     catch(error){if(current())setMessage(error.message);}finally{if(current()){requestScope.current=null;activeOperation.current=null;setBusy(false);setTrainingActive(false);}}
   }
   function loadNamedPaths(){
@@ -46,18 +54,32 @@ export function SetupLearningPanel({data,state,dispatch}){
     perform(request=>request(choice==='greedy'?'greedy-baseline':'baseline'),episode=>{setBaseline(episode);setBaselineSource(choice==='greedy'?'greedy':'named');setMessage((choice==='greedy'?'Greedy baseline':'Path 1 baseline')+' checked · '+episode.commands.length+' reach decisions · '+(episode.complete?'sampled complete.':'remaining material recorded.'));},'case');
   }
   useEffect(()=>{if(reach)loadReachBaseline('path1');else if(named)loadNamedPaths();},[client]);
-  const obs=state.accepted.observation(),episodes=[namedAnchor,baseline,alternative].filter((e,i,all)=>e&&all.findIndex(x=>x?.id===e.id)===i);
+  const obs=state.accepted.observation(),episodes=[namedAnchor,baseline,alternative,randomEpisode].filter((e,i,all)=>e&&all.findIndex(x=>x?.id===e.id)===i);
   const payload=(sequences=sequencePreferences,actions=actionPreferences)=>({episodes,sequence_preferences:sequences,action_preferences:actions});
   const trainingSummary=savedTrainingSummary(episodes,sequencePreferences,actionPreferences);
   const trainSaved=()=>{
-    if(activeOperation.current==='training')return;
+    if(activeOperation.current)return;
     let input;try{input=snapshotTrainingInput({episodes,sequencePreferences,actionPreferences,startingModel,model});}catch(error){setMessage(error.message);return;}
+    const randomAtStart=structuredClone(randomEpisode);
     setMessage('Checking saved training inputs…');
     perform(async(request,onProgress)=>{
+      const beforeModel=input.initialModel||await request('initial');
       const result=checkTrainingResult(await request('train',input,onProgress));
       const validated=await request('model',{model:result.model});
-      return {...result,model:validated};
-    },result=>{setModel(result.model);setModelName('Browser-trained model');setTrainingReport(result.report);setMessage('Training complete. Model loaded · '+fmt(result.report.td_updates)+' TD updates · '+result.report.explicit_preference_labels+' saved preference label(s).');},'case','training');
+      return {...result,model:validated,snapshot:completedTrainingSnapshot(beforeModel,validated,randomAtStart)};
+    },result=>{setModel(result.model);setModelName('Browser-trained model');setTrainingReport(result.report);setTrainingSnapshot(result.snapshot);setComparison(null);setMessage('Training complete. Model loaded · '+fmt(result.report.td_updates)+' TD updates · '+result.report.explicit_preference_labels+' saved preference label(s).');},'case','training');
+  };
+  const generateRandom=()=>{
+    if(activeOperation.current)return;
+    let seed;try{seed=randomSequenceSeed(randomSeed);}catch(error){setMessage(error.message);return;}
+    setMessage('Generating and checking random experience…');
+    perform((request,onProgress)=>request('random-sequence',{seed},onProgress),episode=>{setRandomEpisode(episode);setMessage('Random sequence saved as training experience. Existing preference labels are unchanged.');},'case','random');
+  };
+  const compareModels=()=>{
+    if(activeOperation.current||!trainingSnapshot)return;
+    const snapshot=structuredClone(trainingSnapshot);
+    setMessage('Comparing the checkpoints from the last completed training…');
+    perform(async(request,onProgress)=>checkInferenceComparison(await request('compare-models',snapshot,onProgress),snapshot),result=>{setComparison(result);setMessage('Inference comparison ready. Rollouts start from original stock; decision choices use identical before-policy states.');},'case','comparison');
   };
   const eligibleKinds=useMemo(()=>eligibleSetupProcesses(state.accepted),[state.accepted]);
   const prefix=baseline&&state.commands.every((command,i)=>commandEqual(command,baseline.commands[i])),next=prefix&&baseline.commands[state.commands.length];
@@ -99,6 +121,11 @@ export function SetupLearningPanel({data,state,dispatch}){
       </div>
       <p data-testid="industrial-alternative">{alternative?(alternativeSource==='named'?'Path 2 — Preferred · 8 main stages · ':'Complete alternative: ')+alternative.final_observation.step_count+(reach?' reach decisions · ':' cuts · ')+(named?alternative.final_observation.setup_event_count+' setup changes':alternative.events.length+' events'):'No complete alternative saved.'}</p>
     </div>
+    {reach&&<div className="industrial-stage" aria-label="Random training experience"><h4>Random sequence</h4>
+      <p>Generate a reproducible sequence from original stock and save it as training experience. This adds no preference label.</p>
+      <div className="controls"><label>Random seed<input aria-label="Random seed" type="number" min="0" max="4294967295" step="1" value={randomSeed} disabled={busy} onChange={e=>setRandomSeed(e.target.value)}/></label><button disabled={busy} onClick={generateRandom}>Generate random sequence</button><button disabled={busy||!randomEpisode} onClick={()=>dispatch({type:'replay-start',commands:randomEpisode.commands})}>Show random sequence</button><button disabled={busy||!randomEpisode} onClick={()=>downloadSetupJSON(randomEpisode,'industrial-00350-random-sequence.json')}>Download random sequence</button></div>
+      {randomEpisode&&<p data-testid="random-sequence-result">Saved random experience · seed {randomEpisode.annotations.seed} · {randomEpisode.final_observation.step_count} cuts · residual {fmt(randomEpisode.final_observation.final_residual_mm3)} mm³ · {randomEpisode.complete?'sampled complete':'partial sequence'}.</p>}
+    </div>}
     <div className="industrial-stage"><h4>Feedback and training input</h4>
       <div className="controls"><label>Preferred whole sequence<select aria-label="Preferred whole sequence" value={preferredSequence} disabled={busy||!canCompare} onChange={e=>setPreferredSequence(e.target.value)}><option value="alternative">{alternativeSource==='named'?'Path 2':'My alternative'}</option><option value="baseline">{baselineSource==='named'?'Path 1':baselineSource==='greedy'?'Greedy baseline':'My baseline'}</option></select></label>
         <button disabled={busy||!canCompare} onClick={()=>{const preferred=preferredSequence==='baseline'?baseline:alternative,rejected=preferredSequence==='baseline'?alternative:baseline,labels=[{scope:'case',preferred_episode_id:preferred.id,rejected_episode_id:rejected.id}];perform(request=>request('bundle',payload(labels)),()=>{setSequencePreferences(labels);setMessage('Preference saved for these two complete recordings.');});}}>Add whole-sequence preference</button>
@@ -121,6 +148,14 @@ export function SetupLearningPanel({data,state,dispatch}){
       <p className="training-privacy" data-testid="training-privacy">Training runs locally in your browser. Your sequences and preferences are not uploaded.</p>
       {trainingActive&&<p role="status" aria-live="polite" data-testid="training-progress">{message}</p>}
       {trainingReport&&<p data-testid="training-result">Last completed training: {fmt(trainingReport.td_updates)} TD updates · {trainingReport.explicit_preference_labels} saved preference label(s).{trainingReport.explicit_preference_labels===0?' No human preference was learned from labels.':''}</p>}
+    </div>}
+    {reach&&<div className="industrial-stage" aria-label="Inference comparison"><h4>Compare before / after</h4>
+      <p>Compare the exact checkpoints from the last completed training, including its saved random experience when present. Later model loads or new random sequences do not change this pair.</p>
+      <div className="action-row"><button disabled={busy||!trainingSnapshot} onClick={compareModels}>Compare before / after</button><button disabled={busy||!trainingSnapshot} onClick={()=>downloadSetupJSON(trainingSnapshot.beforeModel,'industrial-00350-before-training.json')}>Download before checkpoint</button><button disabled={busy||!trainingSnapshot} onClick={()=>downloadSetupJSON(trainingSnapshot.afterModel,'industrial-00350-after-training.json')}>Download after checkpoint</button><button disabled={busy||!comparison} onClick={()=>downloadSetupJSON(comparison,'industrial-00350-inference-comparison.json')}>Download comparison</button></div>
+      {trainingSnapshot&&<p data-testid="comparison-training-pair">Last completed training · {trainingSnapshot.randomEpisode?'random seed '+trainingSnapshot.randomEpisode.annotations.seed+' included':'no random sequence included'}.</p>}
+      {comparison&&<><p>Full sequences from identical original stock. Decision counts may increase or decrease after training.</p><div style={{overflowX:'auto'}}><table data-testid="inference-comparison-rows"><thead><tr><th>Sequence</th><th>Cuts</th><th>Residual (mm³)</th><th>Status</th><th>Replay</th></tr></thead><tbody>{comparison.rows.map(row=><tr key={row.id} data-sequence={row.id}><th>{row.label}</th><td>{row.cut_count}</td><td>{fmt(row.final_residual_mm3)}</td><td>{row.complete?'Sampled complete':'Partial'}</td><td><button disabled={busy} aria-label={'Show sequence: '+row.label} onClick={()=>dispatch({type:'replay-start',commands:row.episode.commands})}>Show sequence</button></td></tr>)}</tbody></table></div>
+      <h4>Choices at identical stock states</h4><p>Each row uses the accepted prefix of the before-training policy. These are same-state next decisions, not step-by-step alignment of the two full sequences.</p><p data-testid="same-state-summary">{comparison.decisions.filter(d=>d.changed).length} changed · {comparison.decisions.filter(d=>!d.changed).length} unchanged choices.</p>
+      <div style={{overflowX:'auto'}}><table data-testid="inference-comparison-decisions"><thead><tr><th>Before-policy prefix</th><th>Before: process / direction / reach</th><th>After: process / direction / reach</th><th>Choice</th></tr></thead><tbody>{comparison.decisions.map(row=><tr key={row.prefix_length}><th title={'State SHA-256: '+row.state_sha256}>{row.prefix_length} accepted cuts</th><td><DecisionChoice scene={scene} command={row.before_command}/></td><td><DecisionChoice scene={scene} command={row.after_command}/></td><td>{row.changed?'Changed':'Unchanged'}</td></tr>)}</tbody></table></div></>}
     </div>}
     <div className="industrial-stage"><h4>Model guidance</h4><div className="action-row">
       <button disabled={busy} onClick={()=>perform(request=>request('initial'),value=>{setModel(value);setModelName('Initial model');setMessage('Initial model ready.');})}>Use initial model</button>

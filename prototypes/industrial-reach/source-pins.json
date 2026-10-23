@@ -1,6 +1,6 @@
 {
   "schema": "industrial-reach-publication-source-1",
-  "scope": "Exact retained reach runtime, UI and training closure with verified v9 browser-training inputs; packaging entry and guide are separately versioned. No manufacturing qualification.",
+  "scope": "Exact retained reach runtime, UI and training closure with verified v10 random-experience and inference-comparison inputs; packaging entry and guide are separately versioned. No manufacturing qualification.",
   "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
   "files": [
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "src/industrial-browser-training.mjs",
-      "sha256": "0b47978bb0004ff73a1a6cec491afcc20afb207b5ddfade9f3752be3a001d204",
-      "size_bytes": 2095,
-      "role": "verified_browser_training_v9_source"
+      "sha256": "6cd16c7a311fd7271216474e80de9840df05a8eeb22633ad801c4c4d5f663742",
+      "size_bytes": 4830,
+      "role": "verified_random_experience_v10_source"
     },
     {
       "path": "src/industrial-engagement-controls.mjs",
@@ -161,15 +161,15 @@
     },
     {
       "path": "src/industrial-setup-learning-worker.mjs",
-      "sha256": "8580f88c3ad60e219f3ba4e61ec759a6c8f3ec570bf6228ae3b7a605b76bdcd6",
-      "size_bytes": 3167,
-      "role": "verified_browser_training_v9_source"
+      "sha256": "ea5a4ed7ed3b602091c62304dc3d11c2cf4e5ffe92e20eb62488496500501873",
+      "size_bytes": 3489,
+      "role": "verified_random_experience_v10_source"
     },
     {
       "path": "src/industrial-setup-learning.mjs",
-      "sha256": "8595c4fcc3f5580d8ebf87bba1c336596679b95a7e26c13477026fb1baac2581",
-      "size_bytes": 36726,
-      "role": "verified_browser_training_v9_source"
+      "sha256": "1e361ed5fc8bbe2936b13777c22cc673aaf17c8f86f832ac981ca0c57ea32187",
+      "size_bytes": 42344,
+      "role": "verified_random_experience_v10_source"
     },
     {
       "path": "src/industrial-setup-model.mjs",
@@ -179,9 +179,9 @@
     },
     {
       "path": "src/industrial-setup-panel.jsx",
-      "sha256": "de48ad5cfb515089d101dbc0f878c2cd8c0aea4209c98db60531b1fb49e79080",
-      "size_bytes": 22253,
-      "role": "verified_browser_training_v9_source"
+      "sha256": "cbdd52bb11523272691e88d39b01f1e63394c4df12938c78ad5f2314107328e2",
+      "size_bytes": 28501,
+      "role": "verified_random_experience_v10_source"
     },
     {
       "path": "src/industrial-setup-pins.mjs",
@@ -261,5 +261,10 @@
     "sha256": "457c924ff5b3ea12d4a5f0ad0b49b9e9fa0f6a09d303621af329c04051822d65",
     "role": "Pre-browser-training v8 runtime and unchanged example training output identity"
   },
-  "browser_training_revision": "verified-v9"
+  "browser_training_revision": "verified-v10-random-experience",
+  "historical_browser_training": {
+    "path": "source-pins-v9.json",
+    "sha256": "46fcd11ce252f18aeabe38e952fef2155f6ff11a6d7968bf33dd0ec5d00d1718",
+    "role": "Verified browser Train control before random experience and inference comparison"
+  }
 }

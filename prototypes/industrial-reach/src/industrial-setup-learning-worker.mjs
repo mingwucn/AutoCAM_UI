@@ -4,16 +4,18 @@ const exact=(value,names)=>value&&typeof value==='object'&&Object.getPrototypeOf
 export async function handleSetupRequest(message,onProgress){
   if(!exact(message,['id','command','payload'])&&!exact(message,['id','command','payload','data']))throw Error('Unknown setup worker envelope fields.');
   const {command}=message;
-  // A training job owns its saved input snapshot before any asynchronous work.
-  const payload=command==='train'?structuredClone(message.payload):message.payload;
+  // Long jobs own their saved input snapshot before any asynchronous work.
+  const payload=['train','random-sequence','compare-models'].includes(command)?structuredClone(message.payload):message.payload;
   if(!Number.isSafeInteger(message.id)||message.id<1)throw Error('Invalid setup request ID.');
   if(Object.hasOwn(message,'data')){context=null;context=await core.createSetupContext(message.data);}
   if(!context)throw Error('The setup case is not ready.');
-  const fields={baseline:[],'greedy-baseline':[],'named-paths':[],initial:[],bundle:['episodes','sequence_preferences','action_preferences'],train:['episodes','sequence_preferences','action_preferences','initialModel'],record:['commands'],restore:['episode'],model:['model'],policy:['commands','model'],search:['commands','model','options']}[command];
+  const fields={baseline:[],'greedy-baseline':[],'named-paths':[],'random-sequence':['seed'],'compare-models':['beforeModel','afterModel','randomEpisode'],initial:[],bundle:['episodes','sequence_preferences','action_preferences'],train:['episodes','sequence_preferences','action_preferences','initialModel'],record:['commands'],restore:['episode'],model:['model'],policy:['commands','model'],search:['commands','model','options']}[command];
   if(!fields||!exact(payload,fields))throw Error('Unknown setup operation or typed payload fields.');
   if(command==='baseline')return core.generateBaseline(context);
   if(command==='greedy-baseline')return core.generateGreedyBaseline(context);
   if(command==='named-paths')return core.generateNamedPaths(context);
+  if(command==='random-sequence')return core.generateRandomSequence(context,payload,onProgress);
+  if(command==='compare-models')return core.compareModelSequences(context,payload,onProgress);
   if(command==='initial')return core.createInitialModel(context);
   if(command==='bundle')return core.makeFeedbackBundle(context,payload);
   if(command==='train'){

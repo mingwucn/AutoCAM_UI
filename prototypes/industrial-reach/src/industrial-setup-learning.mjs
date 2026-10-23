@@ -175,6 +175,66 @@ export async function generateModelSequence(context,model,{maxEvents=MAX_EVENTS}
   while(commands.length<maxEvents){const row=ranked(await candidates(context,gym),model)[0];if(!row)break;gym.executeCommand(row.command);commands.push(row.command);}
   return makeEpisode(context,commands,{annotations:{origin:'greedy_setup_q_policy',human_preference_labels:0,...(namedScene(context.scene.id)?{training_feedback_id:model.training.feedback_id,model_explicit_preference_labels:model.training.explicit_preference_labels??0}:{})}});
 }
+export async function generateRandomSequence(context,{seed,maxEvents=MAX_EVENTS}={},onProgress){
+  requireContext(context);check(context.scene.id===REACH_SCENE,'Random experience requires the exact reach case.');
+  check(Number.isInteger(seed)&&seed>=0&&seed<=4294967295,'Random seed must be an unsigned 32-bit integer.');
+  check(Number.isInteger(maxEvents)&&maxEvents>0&&maxEvents<=MAX_EVENTS,'Invalid random event bound.');
+  check(onProgress===undefined||typeof onProgress==='function','Invalid random progress callback.');
+  const gym=newGym(context),commands=[];let randomState=seed>>>0;
+  onProgress?.({phase:'random-generation',completed:0,total:maxEvents});
+  while(commands.length<maxEvents){
+    // Catalogue order is stable; every currently eligible positive cut participates.
+    const rows=(await candidates(context,gym)).filter(row=>row.command.type==='cut'&&row.evaluation.removed_voxels>0);if(!rows.length)break;
+    randomState=(Math.imul(1664525,randomState)+1013904223)>>>0;
+    const row=rows[Math.floor(randomState/4294967296*rows.length)];
+    gym.executeCommand(row.command);commands.push(row.command);
+    onProgress?.({phase:'random-generation',completed:commands.length,total:maxEvents});
+  }
+  const complete=gym.observation().complete;
+  const episode=await makeEpisode(context,commands,{annotations:{origin:'seeded_uniform_random_reach',seed,max_events:maxEvents,generator:'lcg32-uniform-eligible-catalogue-1',generation_stop_reason:complete?'complete':commands.length===maxEvents?'event_bound':'no_eligible_positive_cut',human_preference_labels:0}});
+  onProgress?.({phase:'complete',completed:1,total:1});return episode;
+}
+export async function compareModelSequences(context,input,onProgress){
+  requireContext(context);check(context.scene.id===REACH_SCENE,'Inference comparison requires the exact reach case.');
+  check(keys(input,['beforeModel','afterModel','randomEpisode']),'Unknown inference comparison fields.');
+  check(onProgress===undefined||typeof onProgress==='function','Invalid comparison progress callback.');
+  // Direct callers receive the same snapshot guarantee as the worker boundary.
+  const {beforeModel,afterModel,randomEpisode}=clone(input),validationTotal=randomEpisode===null?2:3;
+  onProgress?.({phase:'validating',completed:0,total:validationTotal});
+  validateCheckpoint(context,beforeModel);onProgress?.({phase:'validating',completed:1,total:validationTotal});
+  validateCheckpoint(context,afterModel);onProgress?.({phase:'validating',completed:2,total:validationTotal});
+  if(randomEpisode!==null){
+    await replayEpisode(context,randomEpisode);
+    const notes=randomEpisode.annotations;
+    check(notes?.origin==='seeded_uniform_random_reach'&&notes.generator==='lcg32-uniform-eligible-catalogue-1'&&notes.human_preference_labels===0,'Expected a recorded random experience episode.');
+    const regenerated=await generateRandomSequence(context,{seed:notes.seed,maxEvents:notes.max_events});
+    check(same(randomEpisode,regenerated),'Random episode does not reproduce its recorded seed and bound.');
+    onProgress?.({phase:'validating',completed:3,total:validationTotal});
+  }
+  const beforeHash=await sha256(beforeModel),afterHash=await sha256(afterModel),initialState=await stateIdentity(context,newGym(context)),rows=[],total=randomEpisode===null?5:6;
+  onProgress?.({phase:'rollouts',completed:0,total});
+  const add=(id,label,episode)=>{
+    check(episode.initial_state_sha256===initialState,'Comparison row did not start from the same original stock.');
+    const obs=episode.final_observation;
+    rows.push({id,label,episode,complete:episode.complete,event_count:episode.events.length,cut_count:obs.step_count,setup_event_count:obs.setup_event_count,final_residual_voxels:obs.final_residual_voxels,final_residual_mm3:obs.final_residual_mm3});
+    onProgress?.({phase:'rollouts',completed:rows.length,total});
+  };
+  const pair=await generateNamedPaths(context);add('path1','Path 1',pair.baseline);
+  add('greedy','Greedy',await generateGreedyBaseline(context));add('path2','Path 2',pair.preferred);
+  if(randomEpisode!==null)add('random','Random experience',randomEpisode);
+  const beforeEpisode=await generateModelSequence(context,beforeModel);add('before-policy','Before training policy',beforeEpisode);
+  add('after-policy','After training policy',await generateModelSequence(context,afterModel));
+  const gym=newGym(context),decisions=[];onProgress?.({phase:'decisions',completed:0,total:beforeEpisode.commands.length});
+  for(let prefix=0;prefix<beforeEpisode.commands.length;prefix++){
+    // Both rankings inspect the same accepted state and exact legal candidate rows.
+    const state=await stateIdentity(context,gym),eligible=await candidates(context,gym),before=ranked(eligible,beforeModel)[0]?.command??null,after=ranked(eligible,afterModel)[0]?.command??null;
+    check(state===beforeEpisode.events[prefix].state_sha256_before&&same(before,beforeEpisode.commands[prefix]),'Before-policy comparison prefix differs from its replay.');
+    decisions.push({prefix_length:prefix,state_sha256:state,before_command:clone(before),after_command:clone(after),changed:!same(before,after)});
+    gym.executeCommand(beforeEpisode.commands[prefix]);onProgress?.({phase:'decisions',completed:prefix+1,total:beforeEpisode.commands.length});
+  }
+  onProgress?.({phase:'complete',completed:1,total:1});
+  return {schema:'industrial-inference-comparison-1',case:clone(context.identity),initial_state_sha256:initialState,before_checkpoint_sha256:beforeHash,after_checkpoint_sha256:afterHash,random_episode_id:randomEpisode?.id??null,rows,decisions};
+}
 export async function makeFeedbackBundle(context,payload={}){
   check(payload&&typeof payload==='object'&&!Array.isArray(payload)&&Object.keys(payload).every(key=>['episodes','sequence_preferences','action_preferences'].includes(key)),'Unknown feedback input fields.');
   const {episodes=[],sequence_preferences=[],action_preferences=[]}=payload;

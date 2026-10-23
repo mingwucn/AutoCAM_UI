@@ -28,3 +28,5 @@ prototypes/industrial-reach/** -text whitespace=cr-at-eol
 tests/fixtures/industrial-reach-v8/src/** whitespace=cr-at-eol
 tests/industrial-reach-browser-training-ui.test.mjs whitespace=cr-at-eol
 tests/industrial-reach-training-worker.test.mjs whitespace=cr-at-eol
+tests/industrial-reach-random-comparison.test.mjs whitespace=cr-at-eol
+tests/industrial-reach-random-ui.test.mjs whitespace=cr-at-eol
