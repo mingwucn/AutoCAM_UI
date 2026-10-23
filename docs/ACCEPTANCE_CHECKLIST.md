@@ -9,7 +9,8 @@ browser, starting environment, input/model versions and any assistance received.
 
 Use the [workflow catalogue](WORKFLOW_CATALOGUE.md) for exact inputs, controls,
 expected observations and limits. A1–A8 are assessment themes; the F01–F24 matrix
-below defines the complete advertised family denominator. One family does not
+below defines the registered family denominator. The separate V2 workflow has
+its own assessment below. One family does not
 stand in for another, and a description of an unavailable stage is not a positive
 execution test. The source, platform, subcase and tested stages must stay explicit.
 
@@ -17,7 +18,7 @@ execution test. The source, platform, subcase and tested stages must stay explic
 | --- | --- | --- |
 | A1 — Find scope | Start at README/UI, identify version and choose the correct route | User distinguishes industrial rules/preferences/RL, synthetic learning and supported STEP stages, including unavailable functions |
 | A2 — Install | Use a fresh candidate copy and the published installation commands | Only declared dependencies used; release build and local page work; logs retained |
-| A3 — Industrial | Reset, perform the three 00350 cuts, switch process and replay | Expected sampled residuals match, protected material remains, and the user correctly interprets zero sampled excess |
+| A3 — Industrial | Assess the original three-cut 00350 route and the separate V2 workflow below | Expected sampled residuals match the selected dataset, protected material remains, and the user correctly interprets zero sampled excess |
 | A4 — Supplied learning | Train A/B, load a compatible result and request policy/MCTS | Verified outputs; same-state comparison; user understands unchanged recommendations are not a claimed improvement |
 | A5 — New recording | Record a new compatible episode, train and use its checkpoint | Input/replay/checkpoint/result chain retained; correct family and explicit state-changing action used |
 | A6 — STEP and recovery | Prepare classic and adaptive examples; try invalid input and cancellation | Accepted state preserved on failure; user distinguishes preparation, face inspection and machining; each profile/subcase below has a separate result |
@@ -28,6 +29,19 @@ For every attempt record elapsed time, exact failed step, actual/expected result
 receipt location and every intervention. Developer coaching makes that attempt
 a diagnostic run. Keep it, fix the blocker, and repeat the affected scenario
 with independent use; do not erase failed attempts.
+
+## V2 workflow — blank assessment
+
+**Reusable Results V2 — Module 3: not assessed by an independent user.** From
+the [V2 guide](../rrv2_module3/guide/index.html), complete Path 1 and an alternative;
+inspect drilling identity, bore section and short-reach explanation; continue
+using Preview/Apply after phase changes, replay, case navigation and partial
+restoration. Confirm preview/replay preserve stock, explicit restoration adopts
+only compatible recordings, complete stock has no further cut, and foreign
+recordings reject without mutation. Train from saved sequences/preferences,
+retain and reload the compatible checkpoint, and compare policy/MCTS with
+explicit Apply. Record actual evidence and assistance; the automated
+[drilling milestone](MILESTONES.md) does not fill this assessment.
 
 ## Family and function matrix — blank assessment
 

@@ -7,6 +7,10 @@ historical publishing workflow. For the remediation candidate use
 [verification status](VERIFICATION_STATUS.md). Historical test counts and
 publication statements below are not fresh candidate verification.
 
+The current separate [Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html)
+workflow has its own exact Reach dataset and model. Its drilling/display and
+Preview controls are described in that guide rather than in this V1 reference.
+
 Interactive React explorer for direction and finite tool reach in milling and
 axis-based turning. Five cases include simple shapes and parts 3-29-00350 and
 3-29-00289. The theme uses KU Leuven blue `#004070`.

@@ -4,12 +4,21 @@
 
 <a id="industrial-reach-workflow"></a>
 
-Current drilling controls: **Preview next action** selects an eligible cut from your accepted stock without applying it. **Show bore section** centres the linked views on the source bore. During sequence replay, use **Return to my stock** or **Return to stock and preview next action** to resume. Loading an alternative preserves stock; **Restore industrial decisions** explicitly adopts a checked recording. A complete restored run has no further cuts. See the [current drilling and sequence controls](../reach/guide/index.html#drilling-controls). The screenshots below retain their original v10 recording identity.
+The current public workflow is **Reusable Results V2 — Module 3**. Read the
+[important drilling milestone](MILESTONES.md) and
+[documentation consistency review](DOCUMENT_CONSISTENCY_REVIEW.md).
 
-## Latest 3-29-00350 workflow: baseline, random experience, training and inference
+Current drilling controls: **Preview next action** selects an eligible cut from your accepted stock without applying it. **Show bore section** centres the linked views on the source bore. During sequence replay, use **Return to my stock** or **Return to stock and preview next action** to resume. Loading an alternative preserves stock; **Restore industrial decisions** explicitly adopts a checked recording. A complete restored run has no further cuts. See the [current drilling and sequence controls](../rrv2_module3/guide/index.html#drilling-controls). The screenshots below retain their original [v10 recording identity](../rrv2_module3/source-pins-v10.json).
 
-Open the [00350 reach application](../reach/index.html?case=industrial_reach_00350#gym)
-and the [illustrated reach walkthrough](../reach/guide/index.html#fresh-recording).
+Source bore `00350-bore-z-24` is Ø24 mm and 23 mm deep. Modeled reach is measured
+from the original stock reference, so its value is distinct from source depth.
+The bore axis and cylinder are logical removal guides; physical tool and holder
+geometry are outside this workflow's model.
+
+## V2 recorded workflow: baseline, random experience, training and inference
+
+Open [Reusable Results V2 — Module 3](../rrv2_module3/index.html?case=industrial_reach_00350#gym)
+and the [recorded v10 walkthrough](../rrv2_module3/guide/index.html#fresh-recording).
 These screenshots record the local workflow after publication of the verified
 random-experience update on 23 October 2026. Every image opens its untouched
 capture for full-size reading. Live app captures are 1265 × 712; the separately
@@ -426,11 +435,11 @@ machining. Stage counts group accepted reach decisions, not physical tool
 changes. The declared continuous mill-turn holding assumption produces zero
 setup changes; fixture contacts and rotary kinematics are not simulated.
 
-The [fresh downloads and portable numerical pages](../reach/guide/index.html#fresh-downloads)
+The [recorded downloads and portable numerical pages](../rrv2_module3/guide/index.html#fresh-downloads)
 retain the actual browser inputs/outputs, checked numerical episodes and path-free
 comparison. Raw file SHA-256 values identify downloaded bytes; canonical model
 digests identify parsed model content and are labelled separately. The
-[optional Node.js recipe](../reach/guide/index.html#node-training) reproduces
+[optional Node.js recipe](../rrv2_module3/guide/index.html#node-training) reproduces
 training separately; both recorded A/B trainings above used the browser button.
 The [00289 case](../index.html?case=industrial_00289#gym) retains its existing
 application and greedy baseline.
@@ -454,7 +463,8 @@ GYM is the interactive environment: load a supported case, inspect material and 
 
 | Function | User input → output | Boundary |
 | --- | --- | --- |
-| Industrial rules, preferences and RL | Two pinned sampled cases + baseline/explicit feedback → learned reward, RL checkpoint and policy/MCTS suggestions | Separate 00350/00289 models; mandatory stock/holding/action checks; preview and explicit Apply |
+| Reusable Results V2 — Module 3 | Exact 00350 Reach case + phase-gated decisions and saved feedback → browser-trained model and policy/MCTS suggestions | Separate V2 dataset/model; explicit drilling and finishing; preview and Apply; see the current guide above |
+| Original industrial rules, preferences and RL | Two pinned sampled cases + baseline/explicit feedback → learned reward, RL checkpoint and policy/MCTS suggestions | Separate classic 00350/00289 models; mandatory stock/holding/action checks; preview and explicit Apply |
 | Other teaching GYM cases | Prepared case + action → changed shared stock, sequence and replay | Sampled geometry and supplied staged baselines; no compatible industrial learner |
 | Local STEP | STEP + engine/profile + stock/tool settings → prepared stock, inspection and eligible actions | Import, inspection and machining are separate stages; support depends on the chosen profile |
 | Mixed operator learning | Recorded turning/face/drill decisions + starting checkpoint → replay-verified learning and 34-weight checkpoint | Synthetic task; fixed reward; policy/MCTS suggestions require explicit preview and acceptance to execute |
@@ -464,7 +474,7 @@ GYM is the interactive environment: load a supported case, inspect material and 
 | Other model consumers | Compatible task-4, combined or indexed model → supported inference/search | No standalone trainer for these families is promised by this package |
 | Knowledge constraints | Exact schemas, state identities and geometric/model checks → accepted operation or stated rejection | No general company-rule authoring, review, qualification or activation service |
 
-The [public workflow catalogue](WORKFLOW_CATALOGUE.md) lists 24 current families and their exact inputs. F24 covers both industrial learning cases. Historical 23-family verification remains scoped to its original release; this manual does not mark every current browser route passed.
+The [public workflow catalogue](WORKFLOW_CATALOGUE.md) lists the 24 registry families and the separate V2 workflow. F24 covers both original industrial learning cases. Historical 23-family verification remains scoped to its original release; this manual does not mark every current browser route passed.
 
 <a id="figure-1"></a>
 
@@ -636,7 +646,10 @@ In the [task-5 remaining-stock workflow](RECORDED_TRAINING_QUICKSTART.md), the a
 
 <a id="industrial-learning"></a>
 
-### Main example: two industrial cases
+### Original root workflow: two industrial cases
+
+This section covers the classic root application. The current V2 browser-training
+example and its recorded A/B comparison appear [above](#industrial-reach-workflow).
 
 Use **3-29-00350** and **3-29-00289**, the catalogue-based working choice for the
 second case. Begin with the [industrial learning quickstart](INDUSTRIAL_LEARNING_QUICKSTART.md).
@@ -718,7 +731,7 @@ from historical three-cut, synthetic and platform results.
 
 For the current 00350 reach/random-experience workflow, go to the
 [recorded walkthrough](#industrial-reach-workflow) or its
-[detailed illustrated guide](../reach/guide/index.html#fresh-recording).
+[detailed illustrated guide](../rrv2_module3/guide/index.html#fresh-recording).
 This older section covers the separate earlier three-cut sampled dataset.
 
 

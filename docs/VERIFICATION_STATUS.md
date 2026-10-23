@@ -1,4 +1,16 @@
-# Candidate verification status
+# Verification status and retained records
+
+The current separate workflow is
+[Reusable Results V2 — Module 3](../rrv2_module3/index.html?case=industrial_reach_00350#gym).
+The [important drilling milestone](MILESTONES.md) records exact published source
+`d2add3f3b77b7f822a1c228fb47e0e31a06a07b0`, its successful production run and
+the observed software/browser checks. The
+[documentation consistency review](DOCUMENT_CONSISTENCY_REVIEW.md) records the
+subsequent public-address and documentation changes. Check served `release.json`
+for the executing source. Historical platform/training receipts below retain
+their original source and finite scope; they are not fresh V2 platform runs.
+
+## Historical candidate platform baseline
 
 The retained Windows and Linux clean-install software runs passed. The
 executable source tested in those runs is
@@ -17,7 +29,7 @@ The public integration is GitHub PR 19;
 read its checks for the exact tested head. The tables below retain their original
 source identities and do not claim every check was rerun after documentation changes.
 
-## Two-case industrial extension
+## Original two-case industrial extension
 
 The new F24 route covers pinned sampled 00350 and 00289, explicit complete-sequence
 and case-scoped turning/milling preferences, local reward learning and RL, and

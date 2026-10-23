@@ -5,7 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
-import {buildIndustrialReach} from '../scripts/build-industrial-reach.cjs';
+import {buildIndustrialReach,RRV2_ROUTE} from '../scripts/build-industrial-reach.cjs';
 import {captureBuildProvenance} from '../scripts/build-execution-provenance.cjs';
 import {checkDocumentation} from '../scripts/check-documentation.mjs';
 import {resolveDocumentationLink} from '../scripts/build-documentation.cjs';
@@ -45,7 +45,7 @@ test('actual reach programs and exported preference replay through the retained 
   const model=JSON.parse(fs.readFileSync(path.join(prototype,'examples/industrial-reach/00350/checkpoint.json')));core.validateCheckpoint(context,model);
 });
 
-test('reach build is portable, captured in provenance and retains exact download bytes',async()=>{
+test('Reusable Results V2 build is portable, captured in provenance and retains exact download bytes',async()=>{
   const out=fs.mkdtempSync(path.join(os.tmpdir(),'autocam-reach-release-'));
   try{
     const provenance=captureBuildProvenance({root,source:path.join(root,'src')});
@@ -53,13 +53,13 @@ test('reach build is portable, captured in provenance and retains exact download
     const record=JSON.parse(provenance.finalize());
     assert(record.inputs.some(row=>row.path==='industrial_reach_prototype/scripts/train-industrial-setup-episode.mjs'));
     assert(record.inputs.some(row=>row.path==='industrial_reach_prototype/examples/industrial-reach/00350/case.json'));
-    for(const name of ['checkpoint.json','feedback.json','training-report.json'])assert.deepEqual(fs.readFileSync(path.join(out,'reach/downloads',name)),fs.readFileSync(path.join(prototype,'examples/industrial-reach/00350',name)));
+    for(const name of ['checkpoint.json','feedback.json','training-report.json'])assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'downloads',name)),fs.readFileSync(path.join(prototype,'examples/industrial-reach/00350',name)));
     for(const relative of ['index.html','guide/index.html']){
-      const filename=path.join(out,'reach',relative),html=fs.readFileSync(filename,'utf8');
+      const filename=path.join(out,RRV2_ROUTE,relative),html=fs.readFileSync(filename,'utf8');
       for(const [,link] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
         assert(!/^(?:\/|[a-z]+:)/i.test(link),'non-relative reach link: '+link);
         const target=path.resolve(path.dirname(filename),link.split(/[?#]/)[0]);
-        if(!target.startsWith(path.join(out,'reach')+path.sep))continue;
+        if(!target.startsWith(path.join(out,RRV2_ROUTE)+path.sep))continue;
         assert(fs.existsSync(target),'missing reach link: '+link);
       }
       assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:\\/i.test(html));
@@ -68,13 +68,13 @@ test('reach build is portable, captured in provenance and retains exact download
     assert.equal(recording.schema,'industrial-reach-fresh-recording-index-1');
     assert.equal(recording.source_pins_sha256,sha(fs.readFileSync(path.join(prototype,'source-pins-v10.json'))));
     assert.equal(new Set(recording.captures.map(row=>row.step)).size,10);
-    const guide=fs.readFileSync(path.join(out,'reach/guide/index.html'),'utf8');
+    const guide=fs.readFileSync(path.join(out,RRV2_ROUTE,'guide/index.html'),'utf8');
     const sources=[...guide.matchAll(/<img src="([^"]+)"/g)].map(match=>match[1]);
     assert.deepEqual(sources,recording.captures.map(row=>'assets/'+row.guide_file));
     for(const row of recording.captures){
       assert.match(row.capture_file,/^[a-zA-Z0-9_.-]+\.(?:jpg|png)$/);
       assert.equal(row.manual_file,'docs/images/industrial-reach/'+row.capture_file);
-      const image=fs.readFileSync(path.join(out,'reach/guide/assets',row.guide_file));
+      const image=fs.readFileSync(path.join(out,RRV2_ROUTE,'guide/assets',row.guide_file));
       assert.equal(sha(image),row.sha256,row.capture_file);assert.equal(image.length,row.size_bytes);
       assert.deepEqual(image,fs.readFileSync(path.join(root,row.manual_file)));
       assert(guide.includes('href="assets/'+row.guide_file+'"'),'full-size image link: '+row.capture_file);
@@ -82,18 +82,20 @@ test('reach build is portable, captured in provenance and retains exact download
     }
     for(const row of recording.downloads){
       assert.match(row.file,/^fresh-[a-zA-Z0-9_.-]+\.json$/);
-      const bytes=fs.readFileSync(path.join(out,'reach/downloads',row.file));
+      const bytes=fs.readFileSync(path.join(out,RRV2_ROUTE,'downloads',row.file));
       assert.equal(sha(bytes),row.sha256,row.file);assert.equal(bytes.length,row.size_bytes);
       assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:[\\/]|file:\//i.test(bytes.toString()));
     }
-    const bundle=fs.readFileSync(path.join(out,'reach/assets/app.js'),'utf8');assert(bundle.includes('industrial-setup-learning-worker.js'));
+    const bundle=fs.readFileSync(path.join(out,RRV2_ROUTE,'assets/app.js'),'utf8');assert(bundle.includes('industrial-setup-learning-worker.js'));
     for(const text of ['Train model','Cancel training','Browser-trained model','Download training report','Training runs locally in your browser. Your sequences and preferences are not uploaded.','Generate random sequence','Compare before / after','Choices at identical stock states','Download before checkpoint','Download after checkpoint'])assert(bundle.includes(text),text);
-    assert.deepEqual(fs.readFileSync(path.join(out,'reach/source-pins-v8.json')),fs.readFileSync(path.join(prototype,'source-pins-v8.json')));
-    assert.deepEqual(fs.readFileSync(path.join(out,'reach/source-pins-v9.json')),fs.readFileSync(path.join(prototype,'source-pins-v9.json')));
-    assert.deepEqual(fs.readFileSync(path.join(out,'reach/source-pins-v10.json')),fs.readFileSync(path.join(prototype,'source-pins-v10.json')));
+    assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v8.json')),fs.readFileSync(path.join(prototype,'source-pins-v8.json')));
+    assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v9.json')),fs.readFileSync(path.join(prototype,'source-pins-v9.json')));
+    assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v10.json')),fs.readFileSync(path.join(prototype,'source-pins-v10.json')));
     const checked=await checkDocumentation(root);assert.deepEqual(checked.errors,[]);
     assert.equal(resolveDocumentationLink(root,'README.md','reach/index.html').target,path.join(prototype,'index.html'));
     assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../reach/guide/index.html#local-training').target,path.join(prototype,'guide/index.html'));
+    assert.equal(resolveDocumentationLink(root,'README.md','rrv2_module3/').target,path.join(prototype,'index.html'));
+    assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../rrv2_module3/guide/index.html#local-training').target,path.join(prototype,'guide/index.html'));
     assert.throws(()=>resolveDocumentationLink(root,'README.md','reach/missing.html'),/Undeclared linked source/);
   }finally{const actual=fs.realpathSync(out);assert.equal(path.dirname(actual),fs.realpathSync(os.tmpdir()));assert(path.basename(actual).startsWith('autocam-reach-release-'));fs.rmSync(actual,{recursive:true,force:true});}
 });

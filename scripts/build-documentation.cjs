@@ -16,13 +16,18 @@ function resolveDocumentationLink(root, relative, href) {
   const label = path.relative(root, target).replaceAll('\\', '/');
   if (!label || label === '..' || label.startsWith('../') || path.isAbsolute(label))
     throw Error('Linked source escapes release root: ' + href);
-  const runtime = ['index.html','reach/index.html','reach/guide/index.html'].includes(label), generated = label === 'release.json';
+  const runtimeInputs = {};
+  for(const route of ['rrv2_module3','reach']){
+    runtimeInputs[route]='index.html';runtimeInputs[route+'/guide']='guide/index.html';
+    for(const input of ['index.html','guide/index.html','source-pins.json','source-pins-v8.json','source-pins-v9.json','source-pins-v10.json'])runtimeInputs[route+'/'+input]=input;
+  }
+  const runtime = label === 'index.html' || Object.hasOwn(runtimeInputs,label), generated = label === 'release.json';
   const linkedSource = /^(?:tests|scripts|python|core)\//.test(label);
   if (!runtime && !generated && !linkedSource && !/^(?:docs\/|examples\/|config\/|README\.(?:md|html)$)/.test(label))
     throw Error('Undeclared linked source: ' + label);
-  // These two generated routes have explicit repository-owned input files.
+  // Canonical routes and their legacy aliases have explicit repository-owned inputs.
   // Keep their public hrefs while checking the real source during docs QA.
-  const runtimeInput = label === 'reach/index.html' ? 'index.html' : label === 'reach/guide/index.html' ? 'guide/index.html' : null;
+  const runtimeInput = runtimeInputs[label];
   return {target: runtimeInput ? path.join(root, 'prototypes/industrial-reach', runtimeInput) : target, label, runtime, generated, linkedSource};
 }
 

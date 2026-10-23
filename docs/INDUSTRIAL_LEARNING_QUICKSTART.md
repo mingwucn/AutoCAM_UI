@@ -1,4 +1,10 @@
-# Two industrial cases: rules, preferences, RL and MCTS
+# Original two-case workflow: rules, preferences, RL and MCTS
+
+This guide covers the original root application's `industrial` and
+`industrial_00289` cases. For the phase-gated 00350 workflow with drilling,
+finishing and local browser training, use
+[Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html).
+Its dataset, feedback and checkpoints are separate from this guide's family.
 
 Build a baseline sequence action by action, compare it with another complete
 sequence, and tell the learner which you prefer. You can also prefer turning or

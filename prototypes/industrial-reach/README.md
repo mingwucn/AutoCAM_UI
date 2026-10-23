@@ -1,4 +1,4 @@
-# Industrial 00350 reach workflow
+# Reusable Results V2 — Module 3
 
 This isolated prototype uses process, engagement direction and tool reach for
 one accepted material transition. Path 1 and a separate greedy sequence are
@@ -9,15 +9,26 @@ prototype assumption, with zero setup changes.
 The main application's original industrial and synthetic routes remain
 available. The 00289 link opens its existing main application route.
 
-Run the normal repository build. The release contains `reach/index.html`, the
-illustrated `reach/guide/index.html`, exact case data and example downloads.
+Run the normal repository build. The release contains `rrv2_module3/index.html`, the
+illustrated `rrv2_module3/guide/index.html`, exact case data and example downloads.
+The former `reach/` address remains compatible. Internal `industrial-reach`
+source, dataset and model identifiers are unchanged.
 All navigation and screenshot links in the illustrated guide are relative.
 
-The [fresh recorded walkthrough](guide/index.html#fresh-recording) includes
+The [recorded v10 walkthrough](guide/index.html#fresh-recording) includes
 untouched live screenshots, the two actual browser trainings, model file round
 trips, checked policy/MCTS episode restores and separately labelled derived
 numerical tables. Its [downloads](guide/index.html#fresh-downloads) retain the
 raw browser files, path-free comparison and a file inventory with exact hashes.
+
+Current controls are described [before the recording](guide/index.html#drilling-controls).
+**Preview next action** selects an executable cut from accepted stock without
+applying it. Apply requires positive removal and the current phase gates;
+short selected reaches remain visible with an explanation. Sequence replay and
+loading alternatives preserve accepted stock; **Restore industrial decisions**
+explicitly adopts a checked recording. The source bore is `00350-bore-z-24`,
+Ø24 mm and 23 mm deep; modeled reach is measured from the original stock
+reference. The logical bore guide does not model a physical cutter or holder.
 
 ## Browser training
 
@@ -66,8 +77,11 @@ changes; these results do not establish efficiency improvement or exact Path 2
 imitation. This is sampled shadow planning, without physical cutter, fixture,
 machine-motion or continuous-surface qualification.
 
-`source-pins.json` identifies the 42 current runtime, trainer and dataset inputs,
-including the four verified random-experience v10 inputs. `source-pins-v9.json`
+`source-pins.json` identifies the 43 current runtime, trainer and dataset inputs,
+with the v11 drilling display and next-action corrections. `source-pins-v10.json`
+retains the recording closure for the illustrated random-experience walkthrough;
+its screenshots and numerical records have not been rebound to the current UI.
+`source-pins-v9.json`
 retains the browser Train version before random experience. `source-pins-v8.json`
 retains the earlier runtime identity used for the historical supplied example. Packaging entry, build hook and guide are separately versioned. The
 published training-report projection replaces its machine-specific dataset

@@ -4,9 +4,10 @@ Use the exact family of the prepared task or downloaded episode. Browser model
 inference, a training API and a supported standalone command are separate
 capabilities. A bundled source module alone is not a usable training workflow.
 
-| Family | Browser behavior | Standalone local training in this candidate |
+| Family | Browser behavior | Local training route |
 | --- | --- | --- |
-| Industrial 00350 and 00289, exact pinned sampled cases | Rule baseline, complete-sequence and case-scoped turning/milling feedback; load matching case checkpoint; policy/MCTS suggest; Preview/Apply executes | Node.js 24, `scripts/train-industrial-episode.mjs --feedback ...`; pairwise reward learning then TD Q fine-tuning. [Industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md). No measured machining-time or quality objective. |
+| Reusable Results V2 — Module 3, exact `industrial_reach_00350` case | Phase-gated process/direction/reach, explicit drilling/finishing, saved sequences/preferences, compatible policy/MCTS and Preview/Apply | Local browser worker via **Train model**; optional Node.js 24 prototype trainer. [V2 training guide](../rrv2_module3/guide/index.html#fresh-recording). Separate exact dataset/model from the original industrial family; no measured machining-time or quality objective. |
+| Original industrial 00350 and 00289, exact pinned sampled cases | Rule baseline, complete-sequence and case-scoped turning/milling feedback; load matching case checkpoint; policy/MCTS suggest; Preview/Apply executes | Node.js 24, `scripts/train-industrial-episode.mjs --feedback ...`; pairwise reward learning then TD Q fine-tuning. [Industrial learning guide](INDUSTRIAL_LEARNING_QUICKSTART.md). No measured machining-time or quality objective. |
 | Other classic sampled cases and classic STEP | Manual actions and staged greedy baseline where supplied; no compatible industrial model interface | No standalone industrial trainer for these cases or newly uploaded parts |
 | Mixed synthetic learning | Load `adaptive-mixed-linear-q-1` (34 weights); policy/MCTS suggest; Preview/Accept executes | `python/train_operator_episode.py`; [mixed guide](OPERATOR_INPUT_QUICKSTART.md); A/B examples |
 | Task-5 remaining-stock | Compatible checkpoint-5; Run model / Run model + MCTS explicitly executes a checked choice | `python/train_recorded_remaining.py`; [recorded guide](RECORDED_TRAINING_QUICKSTART.md); manual/model-MCTS examples |
@@ -26,7 +27,9 @@ which cylindrical variants and training modes were actually exercised.
 
 ## Compatibility and starting weights
 
-- Industrial feedback, recordings and checkpoints bind one exact 00350 or 00289
+- Industrial feedback, recordings and checkpoints bind the exact workflow as
+  well as the case: V2 Reach and original 00350 are incompatible despite sharing
+  a part number. Original industrial inputs bind one exact 00350 or 00289
   dataset, action contract, feature order and reward version. Separate case models
   reject across cases and across every Python family below. Follow the
   [industrial contract](INDUSTRIAL_LEARNING_CONTRACT.md); retain feedback, episodes,

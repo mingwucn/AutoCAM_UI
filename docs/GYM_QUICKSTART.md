@@ -1,4 +1,15 @@
-# Industrial GYM: first run
+# Industrial GYM: choose a first run
+
+For **Reusable Results V2 — Module 3**, open the
+[V2 application](../rrv2_module3/index.html?case=industrial_reach_00350#gym)
+and [illustrated guide](../rrv2_module3/guide/index.html#drilling-controls).
+Load **Path 1 — user plan**, then preview and explicitly Apply each eligible
+decision. This 11-cut reference includes drilling and finishing; browser
+training uses its own compatible dataset and checkpoint.
+
+The instructions and three-cut numerical reference below describe the original
+root application, with case ID `industrial`. They do not describe V2's
+`industrial_reach_00350` case.
 
 Build and serve this checkout using [installation](INSTALLATION.md), then open
 `http://127.0.0.1:8080/?case=industrial&process=turning#gym`.
@@ -6,7 +17,7 @@ The existing [public demonstration](../index.html?case=industrial&process=turnin
 is a useful reference; check its displayed version before treating it as the
 candidate under test.
 
-## Apply three actions
+## Original application: apply three actions
 
 1. Select industrial **3-29-00350**. Inspect the target, holding region and
    remaining stock. If there is earlier history, choose **Reset stock**.

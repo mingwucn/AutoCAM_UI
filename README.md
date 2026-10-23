@@ -11,14 +11,17 @@ tested, published and accepted.
 
 ## Start here
 
-For the latest 00350 process/direction/reach workflow with explicit drilling and
-finishing, open the [reach application](reach/index.html?case=industrial_reach_00350)
-and its [recorded illustrated workflow](reach/guide/index.html#fresh-recording).
+Open [Reusable Results V2 — Module 3](rrv2_module3/index.html?case=industrial_reach_00350)
+for the current 00350 process/direction/reach workflow with explicit drilling and
+finishing, and its [illustrated workflow](rrv2_module3/guide/index.html#drilling-controls).
 The walkthrough covers all 11 baseline Apply decisions, explicit preference,
 controlled training with added random experience, checkpoint reloading and
 measured policy/MCTS results, with exact downloads and full-size screenshots.
-This isolated prototype has its own exact dataset and checkpoint; the original
-routes remain available.
+This isolated workflow has its own exact dataset and checkpoint; the original
+root workflows remain available. The recorded walkthrough retains its v10
+screenshots and numerical results. Read the [important drilling milestone](docs/MILESTONES.md)
+and [documentation consistency review](docs/DOCUMENT_CONSISTENCY_REVIEW.md) for
+the current display, controls and public address.
 
 Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
 application screenshots, step-by-step workflows and linked responses to
@@ -31,8 +34,9 @@ training, follow [public source acquisition and installation](docs/INSTALLATION.
 
 | What you want to do | Guide | Expected outcome |
 | --- | --- | --- |
-| Try the industrial 00350 example | [GYM quickstart](docs/GYM_QUICKSTART.md) | Three sampled cuts, shared stock and replay |
-| Fine-tune the two industrial cases with feedback | [Industrial learning](docs/INDUSTRIAL_LEARNING_QUICKSTART.md) | Rule baseline, sequence/action-kind preferences, learned reward, RL checkpoint and policy/MCTS comparison |
+| Use Reusable Results V2 — Module 3 | [V2 illustrated guide](rrv2_module3/guide/index.html) | Phase-gated 00350 cuts, explicit drilling/finishing, browser training and policy/MCTS |
+| Try the original industrial 00350 example | [GYM quickstart](docs/GYM_QUICKSTART.md) | Classic three-cut sequence, shared stock and replay |
+| Fine-tune the original two industrial cases with feedback | [Industrial learning](docs/INDUSTRIAL_LEARNING_QUICKSTART.md) | Classic rule baseline, sequence/action-kind preferences, learned reward, RL checkpoint and policy/MCTS comparison |
 | Record synthetic choices, train and use a model | [Operator learning](docs/OPERATOR_INPUT_QUICKSTART.md) | Separate fixed-reward synthetic workflow and compatible checkpoint |
 | Train task-5/task-6 decision downloads | [Recorded training](docs/RECORDED_TRAINING_QUICKSTART.md) | Separate family-compatible local training and model loading |
 | Prepare your own STEP input | [STEP examples](examples/step/README.md) | Supported-profile preparation/actions, or an explained rejection |
@@ -56,7 +60,8 @@ python -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
 On Linux use `python3.12` for the final command. Open
-`http://127.0.0.1:8080/?case=industrial&process=turning#gym`.
+`http://127.0.0.1:8080/rrv2_module3/?case=industrial_reach_00350#gym`
+for V2. The original application remains at the server root.
 The release build downloads pinned runtime/CAD assets; the classic catalogue
 also requires network access. See [installation](docs/INSTALLATION.md) for
 platform commands, source identity and local training dependencies.

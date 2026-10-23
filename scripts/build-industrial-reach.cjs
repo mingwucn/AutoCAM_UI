@@ -1,8 +1,32 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),esbuild=require('esbuild');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+const RRV2_ROUTE='rrv2_module3',LEGACY_REACH_ROUTE='reach';
+
+function compatibilityRedirect(relative){
+  const index=path.posix.basename(relative)==='index.html',canonical=RRV2_ROUTE+'/'+(index?relative.slice(0,-10):relative);
+  const target=path.posix.relative(path.posix.join(LEGACY_REACH_ROUTE,path.posix.dirname(relative)),canonical)+(index?'/':'');
+  const title='Reusable Results V2 — Module 3';
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><link rel="canonical" href="'+target+'"><noscript><meta http-equiv="refresh" content="0;url='+target+'"></noscript></head><body><p>This page has moved to <a href="'+target+'">'+title+'</a>.</p><script>(()=>{const current=new URL(window.location.href);if(!current.pathname.endsWith("/")&&!/\\.html$/i.test(current.pathname))current.pathname+="/";const target=new URL('+JSON.stringify(target)+',current);target.search=current.search;target.hash=current.hash;window.location.replace(target.href);})();</script></body></html>\n';
+}
+
+function buildReachCompatibility(destination,legacy){
+  function walk(directory,relative=''){
+    fs.mkdirSync(path.join(legacy,relative),{recursive:true});
+    for(const name of fs.readdirSync(directory).sort()){
+      const input=path.join(directory,name),label=relative?relative+'/'+name:name,stat=fs.lstatSync(input);
+      if(stat.isSymbolicLink())throw Error('Symlink in Reusable Results release output: '+label);
+      if(stat.isDirectory())walk(input,label);
+      else if(stat.isFile()){
+        const output=path.join(legacy,label);
+        if(label.endsWith('.html'))fs.writeFileSync(output,compatibilityRedirect(label));else fs.copyFileSync(input,output);
+      }else throw Error('Regular Reusable Results compatibility input required: '+label);
+    }
+  }
+  walk(destination);
+}
 
 function buildIndustrialReach({root,out,development=false,execution}){
-  const source=path.join(root,'prototypes/industrial-reach'),destination=path.join(out,'reach');
+  const source=path.join(root,'prototypes/industrial-reach'),destination=path.join(out,RRV2_ROUTE);
   const pins=JSON.parse(fs.readFileSync(path.join(source,'source-pins.json')));
   for(const row of [pins.historical_runtime,pins.historical_browser_training,pins.historical_random_experience]){
     if(!row||!/^source-pins-v\d+\.json$/.test(row.path)||sha(fs.readFileSync(path.join(source,row.path)))!==row.sha256)throw Error('Reach historical source closure differs from its pin.');
@@ -32,5 +56,6 @@ function buildIndustrialReach({root,out,development=false,execution}){
   const inputs=execution.inputs.filter(row=>row.path.startsWith('industrial_reach_prototype/'));
   if(!inputs.length)throw Error('Reach release inputs must be captured in build provenance.');
   fs.writeFileSync(path.join(destination,'source-provenance.json'),JSON.stringify({schema:'industrial-reach-release-1',source_repository:execution.source_repository,root_input_inventory_sha256:execution.input_inventory_sha256,inputs,runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins.json'))),historical_runtime_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v8.json'))),historical_browser_training_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v9.json'))),historical_recording_pins_sha256:sha(fs.readFileSync(path.join(source,'source-pins-v10.json'))),manufacturing_qualified:false},null,2)+'\n');
+  buildReachCompatibility(destination,path.join(out,LEGACY_REACH_ROUTE));
 }
-module.exports={buildIndustrialReach};
+module.exports={buildIndustrialReach,RRV2_ROUTE,LEGACY_REACH_ROUTE};

@@ -6,6 +6,9 @@ directories; choose a new output path for a new attempt.
 
 | Symptom | Check and recovery |
 | --- | --- |
+| V2 Apply is gray after selecting Drilling | Read the phase and removal status in [V2 controls](../rrv2_module3/guide/index.html#drilling-controls). Drilling requires the preparatory phase and positive removal; after the first three Path 1 cuts, 5–40 mm reaches stop above the bore while 80 mm reaches it. Keep an explicitly selected short reach to inspect its reason, or use Preview next action for an eligible choice. |
+| V2 Preview/Apply after switching cases or showing a sequence | Case navigation initializes that case. Show/replay and Load sequence alternative are read-only; Apply is blocked during replay. Use Return to my stock or Return to stock and preview next action. Preview evaluates accepted stock, not the displayed replay frame. Explicit Restore industrial decisions adopts compatible checked stock; a complete restored run has no next cut. |
+| Source bore depth differs from tool reach | The source bore is Ø24 mm and 23 mm deep. V2 reach measures penetration from the original stock reference, so an 80 mm modeled reach is not an 80 mm source bore. Show bore section restores an intersecting X view without changing stock. |
 | Repository access denied | Confirm the supplied repository URL, account and SSH access. A public hosted demo does not grant source-repository access. |
 | `npm` unavailable or incompatible | Install Node.js 24 with npm; reopen the terminal and check `node --version`. On Windows, `npm.cmd` may be used when a local PowerShell policy blocks `npm.ps1`; do not change machine-wide policy for this task. |
 | Runtime/CAD download or hash failure | Check network/proxy access and the exact pins in `site.config.json`. Keep the failed log. Do not substitute a newer release or disable the hash check. |

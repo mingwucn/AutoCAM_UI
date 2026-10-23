@@ -2,8 +2,9 @@
 
 ## Use the hosted application
 
-From the published or locally served documentation, open the
-[AutoCAM application](../index.html) in a current desktop browser. A repository
+From the published or locally served documentation, open
+[Reusable Results V2 — Module 3](../rrv2_module3/index.html?case=industrial_reach_00350#gym)
+or the [original AutoCAM application](../index.html) in a current desktop browser. A repository
 preview shows source files; use the project's deployment link to reach its website.
 Built-in cases need no local installation.
 Follow the [workflow catalogue](WORKFLOW_CATALOGUE.md) for their menu names and
@@ -19,7 +20,9 @@ so use this published revision when comparing a local run with the website.
 
 The source and committed examples belong to [this repository](../README.md).
 Copy its clone URL from the **Code** menu and obtain the current application
-base URL from the project's deployment link. Access requirements depend on the
+base URL from the project's deployment link. For the recipes below, use the site
+root ending in `AutoCAM_UI/`, without the `rrv2_module3/` workflow directory:
+the release manifest is at the site root. Access requirements depend on the
 repository host. Install Git, then choose the recipe for your platform. Each
 reads the served revision before cloning and checks out that exact revision.
 

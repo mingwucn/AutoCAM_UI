@@ -1,4 +1,10 @@
-# Two-case industrial learning contract
+# Original two-case industrial learning contract
+
+Scope: the original root application's `industrial` and `industrial_00289`
+cases. The separate `industrial_reach_00350` workflow in
+[Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html) has its own
+phase, action, recording and model contracts. Its checkpoints and feedback
+must not be substituted for this contract's inputs.
 
 This bounded software contract implements the 23 October 2026 two-case request.
 It supersedes the prospective one-case, fixed-removal-only design. The cases are

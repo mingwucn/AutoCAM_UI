@@ -73,7 +73,25 @@ V1's recorded reference counts were 592 unit tests and 13 release tests. The
 candidate may add checks; use its retained receipt rather than requiring the
 old count. These are software checks, not manufacturing validation.
 
-## Two-case industrial preference-learning checks
+## V2 drilling and session checks
+
+The separate [Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html)
+workflow has focused regressions included in the unit suite. To isolate them:
+
+```text
+node --test tests/industrial-reach-session.test.mjs tests/industrial-reach-drilling-view.test.mjs
+```
+
+These cover source-derived logical bore views and read-only selection against
+accepted stock, including phase changes, short reach, replay exit, case reset,
+partial/complete restoration and both named plans. They supplement the full
+suite and release checks; they do not rerun the historical Windows/Linux
+training matrix. Use the [milestone record](MILESTONES.md) for the drilling
+publication's actual software/browser verification. Check canonical
+`rrv2_module3/` navigation and old `reach/` bookmark compatibility separately
+when testing this address change.
+
+## Original two-case industrial preference-learning checks
 
 After building the release and acquiring the pinned inputs, run:
 

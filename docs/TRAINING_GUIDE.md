@@ -1,7 +1,14 @@
 # Choose the correct learning workflow
 
-Start with [industrial rules, preferences and RL](INDUSTRIAL_LEARNING_QUICKSTART.md)
-for the two pinned sampled cases, 3-29-00350 and 3-29-00289. Generate a rule
+For the current 00350 workflow, start with
+[Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html).
+Its **Train model** control trains locally from checked saved sequences and
+explicit preferences; download the input, report and checkpoint. Its optional
+Node.js reproduction is documented in that guide. Keep its exact dataset/model
+separate from the original industrial family.
+
+Use [original industrial rules, preferences and RL](INDUSTRIAL_LEARNING_QUICKSTART.md)
+for the classic two pinned sampled cases, 3-29-00350 and 3-29-00289. Generate a rule
 baseline, retain a complete alternative and label which whole sequence or action
 kind you prefer. Fine-tune locally with Node.js 24, load the matching case model,
 then preview and explicitly Apply a policy/MCTS suggestion.
@@ -10,7 +17,7 @@ Synthetic and adaptive trainers remain available in local Python with their own
 fixed reward and model contracts. A model only works with its compatible task,
 features and context. Industrial checkpoints are separate for each exact case.
 
-## What the industrial learning stages do
+## What the original industrial learning stages do
 
 | Stage | Input and purpose | What changes |
 | --- | --- | --- |
@@ -72,7 +79,8 @@ For the full illustrated explanation and exact five-step flow, read
 
 | Your downloaded episode | Local route | Browser use |
 | --- | --- | --- |
-| Industrial 00350 or 00289 feedback bundle, exact pinned case | [Industrial learning](INDUSTRIAL_LEARNING_QUICKSTART.md), Node.js 24 `scripts/train-industrial-episode.mjs --feedback ...` | Load the matching case model, request policy/MCTS, preview, then explicitly Apply |
+| V2 Reach training input, exact `industrial_reach_00350` case | [V2 browser training or optional Node.js recipe](../rrv2_module3/guide/index.html#node-training) | The checked browser-trained model loads automatically; compare policy/MCTS, preview, then explicitly Apply |
+| Original industrial 00350 or 00289 feedback bundle, exact pinned case | [Industrial learning](INDUSTRIAL_LEARNING_QUICKSTART.md), Node.js 24 `scripts/train-industrial-episode.mjs --feedback ...` | Load the matching case model, request policy/MCTS, preview, then explicitly Apply |
 | `adaptive-mixed-learning-episode-1` | [Mixed operator learning](OPERATOR_INPUT_QUICKSTART.md), `python/train_operator_episode.py` | Load learning model, request policy/MCTS suggestion, preview, then accept |
 | `adaptive-browser-episode-1` containing task-5 | [Recorded training](RECORDED_TRAINING_QUICKSTART.md), `python/train_recorded_remaining.py` | Load compatible task-5 weights; Run model / Run model + MCTS explicitly executes a checked choice |
 | `adaptive-browser-episode-1` containing task-6 | [Recorded training](RECORDED_TRAINING_QUICKSTART.md), same launcher with task dispatch | Load compatible task-6 weights; Run model / Run model + MCTS explicitly executes a checked choice |

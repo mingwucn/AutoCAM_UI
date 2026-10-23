@@ -1,21 +1,45 @@
 # Workflow catalogue: inputs, controls and acceptance
 
-This manual maps all 24 current families in the [capability registry](../config/module3-capabilities.json)
+This manual maps the 24 families in the [capability registry](../config/module3-capabilities.json)
 to user tasks. The scope is the advertised functions of `mingwucn/AutoCAM_UI`.
 Read [installation](INSTALLATION.md) first and save the served `release.json`.
 The [capability table](CAPABILITIES.md) states the supported stages; the
 [verification status](VERIFICATION_STATUS.md) identifies actual executed checks.
 An entry below is an instruction, not a claim that a person has completed it.
 
-The new [two-case industrial learning route](#industrial-preference-learning)
-is the 24th family; the previous 23-family verification records retain their
-original scope. Begin with its [record/train/use guide](INDUSTRIAL_LEARNING_QUICKSTART.md)
-for industrial learning. Synthetic and adaptive routes below remain available.
+The original [two-case industrial learning route](#industrial-preference-learning)
+is the 24th registry family; the previous 23-family verification records retain
+their original scope. The separate current V2 workflow is described below and
+is not an extra generated registry row. Synthetic and adaptive routes remain available.
 
 Paths below are relative to the repository root. File pickers use the local
 source checkout, not a path typed into the web page. Do not exchange same-named
 files between example directories. Downloaded recordings, preparation records,
 trained models and transition exports are different file types.
+
+## Reusable Results V2 — Module 3
+
+Open the [V2 application](../rrv2_module3/index.html?case=industrial_reach_00350#gym)
+and [illustrated guide](../rrv2_module3/guide/index.html). This exact 00350 Reach
+case uses process, engagement direction and modeled reach, with explicit
+drilling, stock-end cleanup and finishing phases. Path 1 and Greedy are separate
+baselines; Path 2 is the explicitly preferred complete alternative.
+
+Load a baseline, choose **Preview next action**, inspect the positive removal
+and then **Apply**. Preview follows the matching plan prefix or an eligible
+current-phase action; it never accepts a cut. Short reach and early drilling
+remain blocked with a reason. Source bore Ø24 mm/depth 23 mm and modeled reach
+from original stock are distinct; the cylinder is a logical removal guide.
+
+Show/replay and **Load sequence alternative** preserve accepted stock.
+**Restore industrial decisions** explicitly adopts a compatible checked
+recording. Return from replay to accepted stock before applying; Preview can
+do this explicitly. A complete restored run has no next cut. Use **Train model**
+for local browser training and retain its input, report and checkpoint;
+policy/MCTS suggestions still require explicit Apply. Original 00350/00289
+checkpoints cannot substitute for V2 models. The 00289 link opens its original
+root route. Read [milestones](MILESTONES.md) for observed verification;
+the illustrated v10 captures retain their frozen recording identity.
 
 ## Obtain the inputs
 
