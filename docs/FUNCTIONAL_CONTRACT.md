@@ -56,6 +56,29 @@ restore; complete stock has no further cut. Case changes initialize the selected
 case afresh. See [current controls](../rrv2_module3/guide/index.html#drilling-controls)
 and the [drilling milestone](MILESTONES.md).
 
+## V2 training and full-sequence inference
+
+**Train model** learns from a frozen copy of saved compatible sequences and
+explicit preferences. **Run inference and compare** uses the exact before/after
+checkpoint pair retained from the last completed training; later model loads
+do not replace that pair.
+
+**Run full-sequence inference** uses a frozen snapshot of the loaded compatible
+checkpoint, including an imported checkpoint without a new training session.
+Its successive simulated decisions start from original stock and use the same
+material and phase gates. It preserves accepted stock and saved feedback.
+The result identifies its model and lists every process, direction, reach and
+remaining volume, with finishing markers and actual complete/partial status.
+Cancellation or failure preserves the last successful result; stale and
+cross-case replies cannot replace it.
+
+**Replay inferred sequence** is read-only. **Download inferred sequence** exports
+the episode; **Download inferred sequence model**, inside **Model identity used
+for this result**, exports its frozen model. **Download loaded checkpoint**
+exports the currently loaded model. One-step policy/MCTS suggestions continue to
+use accepted stock and require explicit Apply for a material transition.
+See the [full-sequence workflow](../rrv2_module3/guide/index.html#full-sequence-inference).
+
 ## Learning families
 
 The original industrial learning route accepts the exact pinned sampled cases 3-29-00350

@@ -19,12 +19,18 @@ test('retained reach source and exact case pins match the published closure',()=
   assert.equal(pins.files.length,43);
   assert.equal(pins.browser_training_revision,'verified-v10-random-experience');
   assert.equal(pins.display_revision,'drilling-display-and-next-action-v11');
+  assert.equal(pins.inference_revision,'verified-full-sequence-inference-v11');
+  assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_drilling_display.path))),pins.historical_drilling_display.sha256);
+  const priorDisplay=JSON.parse(fs.readFileSync(path.join(prototype,pins.historical_drilling_display.path)));
+  const inferenceFiles=new Set(['src/industrial-browser-training.mjs','src/industrial-setup-learning-worker.mjs','src/industrial-setup-panel.jsx']);
+  assert.equal(priorDisplay.files.length,43);
+  for(const row of priorDisplay.files)if(!inferenceFiles.has(row.path))assert.deepEqual(pins.files.find(current=>current.path===row.path),row,'unchanged published drilling/material/training input: '+row.path);
   assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_runtime.path))),pins.historical_runtime.sha256);
   assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_browser_training.path))),pins.historical_browser_training.sha256);
   assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_random_experience.path))),pins.historical_random_experience.sha256);
   const recorded=JSON.parse(fs.readFileSync(path.join(prototype,pins.historical_random_experience.path)));
   const displayFiles=new Set(['src/industrial-reach-controls.mjs','src/industrial-setup-session.mjs','src/industrial-setup-app.jsx','src/industrial-setup-panel.jsx','src/view.js','src/section.js','src/style.css']);
-  for(const row of recorded.files)if(!displayFiles.has(row.path))assert.deepEqual(pins.files.find(current=>current.path===row.path),row,'unchanged material/training input: '+row.path);
+  for(const row of recorded.files)if(!displayFiles.has(row.path)&&!inferenceFiles.has(row.path))assert.deepEqual(pins.files.find(current=>current.path===row.path),row,'unchanged material/training input: '+row.path);
   for(const row of pins.files){const bytes=fs.readFileSync(path.join(prototype,row.path));assert.equal(bytes.length,row.size_bytes,row.path);assert.equal(sha(bytes),row.sha256,row.path);}
   const catalog=JSON.parse(fs.readFileSync(path.join(prototype,'catalog.json')));
   for(const row of catalog.cases){const relative=row.id==='industrial_reach_00350'?'00350':'00289',bytes=fs.readFileSync(path.join(prototype,'examples/industrial-reach',relative,'case.json'));assert.equal(bytes.length,row.dataset.size_bytes);assert.equal(sha(bytes),row.dataset.sha256);}
@@ -69,7 +75,7 @@ test('Reusable Results V2 build is portable, captured in provenance and retains 
     assert.equal(recording.source_pins_sha256,sha(fs.readFileSync(path.join(prototype,'source-pins-v10.json'))));
     assert.equal(new Set(recording.captures.map(row=>row.step)).size,10);
     const guide=fs.readFileSync(path.join(out,RRV2_ROUTE,'guide/index.html'),'utf8');
-    const sources=[...guide.matchAll(/<img src="([^"]+)"/g)].map(match=>match[1]);
+    const sources=[...guide.matchAll(/<img src="([^"]+)"/g)].map(match=>match[1]).filter(source=>source.startsWith('assets/fresh-'));
     assert.deepEqual(sources,recording.captures.map(row=>'assets/'+row.guide_file));
     for(const row of recording.captures){
       assert.match(row.capture_file,/^[a-zA-Z0-9_.-]+\.(?:jpg|png)$/);
@@ -87,10 +93,11 @@ test('Reusable Results V2 build is portable, captured in provenance and retains 
       assert(!/SBO_AutoCAM_Master|127\.0\.0\.1|[A-Z]:[\\/]|file:\//i.test(bytes.toString()));
     }
     const bundle=fs.readFileSync(path.join(out,RRV2_ROUTE,'assets/app.js'),'utf8');assert(bundle.includes('industrial-setup-learning-worker.js'));
-    for(const text of ['Train model','Cancel training','Browser-trained model','Download training report','Training runs locally in your browser. Your sequences and preferences are not uploaded.','Generate random sequence','Compare before / after','Choices at identical stock states','Download before checkpoint','Download after checkpoint'])assert(bundle.includes(text),text);
+    for(const text of ['Train model','Cancel training','Browser-trained model','Download training report','Training runs locally in your browser. Your sequences and preferences are not uploaded.','Generate random sequence','Run inference and compare','Run full-sequence inference','Download inferred sequence','Replay inferred sequence','Choices at identical stock states','Download before checkpoint','Download after checkpoint'])assert(bundle.includes(text),text);
     assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v8.json')),fs.readFileSync(path.join(prototype,'source-pins-v8.json')));
     assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v9.json')),fs.readFileSync(path.join(prototype,'source-pins-v9.json')));
     assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v10.json')),fs.readFileSync(path.join(prototype,'source-pins-v10.json')));
+    assert.deepEqual(fs.readFileSync(path.join(out,RRV2_ROUTE,'source-pins-v11.json')),fs.readFileSync(path.join(prototype,'source-pins-v11.json')));
     const checked=await checkDocumentation(root);assert.deepEqual(checked.errors,[]);
     assert.equal(resolveDocumentationLink(root,'README.md','reach/index.html').target,path.join(prototype,'index.html'));
     assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../reach/guide/index.html#local-training').target,path.join(prototype,'guide/index.html'));

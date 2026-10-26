@@ -1,5 +1,31 @@
 # Important milestones
 
+## 26 October 2026 — V2 full-sequence inference recorded locally
+
+The integrated **Reusable Results V2 — Module 3** UI now has **Run full-sequence
+inference**, separate from **Train model**, **Run inference and compare**, and
+one-step policy suggestions. It uses the loaded compatible checkpoint to
+generate successive actions from original stock without training again.
+
+Fresh local browser executions produced **11 cuts with Initial** and **24 cuts
+with the imported Run B checkpoint**, both sampled complete with zero sampled
+residual. The recording shows every action, the finishing markers, read-only
+replay at 12 and 24 events, and episode/model downloads. One accepted turning
+cut remained unchanged before and after inference. The [current workflow](ILLUSTRATED_MODULE3_MANUAL.md#full-sequence-inference)
+and [capture inventory](verification/full-sequence-inference/recording.json)
+retain 12 fresh screenshots and the raw downloads. The earlier 23 October
+training recording remains a separate historical record.
+
+The integrated candidate passed 51 focused checks with no failures or skips.
+These checks cover worker/model compatibility, frozen-model and original-stock
+behavior, replay/partial-result validation, and retained regression cases;
+the browser recording provides the visible workflow observations. These are
+pre-publication candidate checks; the deployed revision and its terminal
+production checks are identified separately by generated build provenance
+and the repository's Actions results.
+These local checks do not establish independent human acceptance or
+manufacturing qualification.
+
 ## 23 October 2026 — V2 Module 3 drilling and action recovery
 
 The project owner designated this delivery an **important milestone**: the

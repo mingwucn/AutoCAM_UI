@@ -73,13 +73,14 @@ V1's recorded reference counts were 592 unit tests and 13 release tests. The
 candidate may add checks; use its retained receipt rather than requiring the
 old count. These are software checks, not manufacturing validation.
 
-## V2 drilling and session checks
+## V2 drilling, session and full-sequence checks
 
 The separate [Reusable Results V2 — Module 3](../rrv2_module3/guide/index.html)
 workflow has focused regressions included in the unit suite. To isolate them:
 
 ```text
 node --test tests/industrial-reach-session.test.mjs tests/industrial-reach-drilling-view.test.mjs
+node --test tests/industrial-reach-full-sequence-worker.test.mjs tests/industrial-reach-full-sequence-ui.test.mjs
 ```
 
 These cover source-derived logical bore views and read-only selection against
@@ -90,6 +91,16 @@ training matrix. Use the [milestone record](MILESTONES.md) for the drilling
 publication's actual software/browser verification. Check canonical
 `rrv2_module3/` navigation and old `reach/` bookmark compatibility separately
 when testing this address change.
+
+The full-sequence worker checks cover strict compatible inputs, a frozen model,
+original-stock rollout, exact retained 11/24-cut episode parity, replay and partial
+results. The UI helper checks cover malformed/cross-case result rejection,
+progress text and panel compilation. Actual browser checks separately inspect
+the action rows and finishing markers, replay and sequence/model exports, and
+preservation of accepted stock/feedback when using an imported checkpoint without
+training. Cancellation/failure and stale/cross-case results retain their contract
+guards. Test definitions and these instructions are not a passing receipt;
+retain the exact source/build identity and results for the candidate checked.
 
 ## Original two-case industrial preference-learning checks
 

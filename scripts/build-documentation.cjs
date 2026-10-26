@@ -19,7 +19,7 @@ function resolveDocumentationLink(root, relative, href) {
   const runtimeInputs = {};
   for(const route of ['rrv2_module3','reach']){
     runtimeInputs[route]='index.html';runtimeInputs[route+'/guide']='guide/index.html';
-    for(const input of ['index.html','guide/index.html','source-pins.json','source-pins-v8.json','source-pins-v9.json','source-pins-v10.json'])runtimeInputs[route+'/'+input]=input;
+    for(const input of ['index.html','guide/index.html','source-pins.json','source-pins-v8.json','source-pins-v9.json','source-pins-v10.json','source-pins-v11.json'])runtimeInputs[route+'/'+input]=input;
   }
   const runtime = label === 'index.html' || Object.hasOwn(runtimeInputs,label), generated = label === 'release.json';
   const linkedSource = /^(?:tests|scripts|python|core)\//.test(label);

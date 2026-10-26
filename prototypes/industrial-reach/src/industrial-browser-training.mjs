@@ -28,7 +28,7 @@ export function randomSequenceSeed(value){
 }
 
 export function inferenceProgressMessage(progress){
-  const labels={'random-generation':'Generating random sequence',validating:'Checking comparison inputs',rollouts:'Comparing complete rollouts',decisions:'Comparing choices at identical states',complete:'Computation complete'};
+  const labels={'random-generation':'Generating random sequence',validating:'Checking inference inputs',rollout:'Running full-sequence inference',rollouts:'Comparing complete rollouts',decisions:'Comparing choices at identical states',complete:'Computation complete'};
   const label=labels[progress?.phase]||'Computing';
   return Number.isFinite(progress?.completed)&&Number.isFinite(progress?.total)&&progress.total>0?label+': '+progress.completed+' / '+progress.total+'.':label+'…';
 }
@@ -47,5 +47,11 @@ export function checkInferenceComparison(value,snapshot){
     if(!row.episode||!Array.isArray(row.episode.commands)||row.complete!==row.episode.complete||!Number.isSafeInteger(row.cut_count)||row.cut_count<0||row.event_count!==row.episode.commands.length||row.event_count!==row.cut_count+row.setup_event_count||!Number.isSafeInteger(row.final_residual_voxels)||row.final_residual_voxels<0||!Number.isFinite(row.final_residual_mm3)||row.final_residual_mm3<0)throw Error('Inference comparison returned inconsistent sequence metrics.');
   }
   for(const [i,decision] of value.decisions.entries())if(decision.prefix_length!==i||!hash(decision.state_sha256)||typeof decision.changed!=='boolean'||decision.changed===(JSON.stringify(decision.before_command)===JSON.stringify(decision.after_command)))throw Error('Inference comparison returned inconsistent same-state decisions.');
+  return value;
+}
+
+export function checkFullSequenceResult(value,sceneId){
+  const episode=value?.episode,obs=episode?.final_observation;
+  if(typeof value?.checkpoint_sha256!=='string'||!/^[a-f0-9]{64}$/.test(value.checkpoint_sha256)||episode?.schema!=='industrial-episode-setup-1'||episode.case?.scene_id!==sceneId||!Array.isArray(episode.commands)||!Array.isArray(episode.events)||episode.commands.length!==episode.events.length||typeof episode.complete!=='boolean'||!Number.isSafeInteger(obs?.step_count)||obs.step_count<0||!Number.isFinite(obs.final_residual_mm3)||obs.final_residual_mm3<0)throw Error('Full-sequence inference returned an inconsistent result.');
   return value;
 }

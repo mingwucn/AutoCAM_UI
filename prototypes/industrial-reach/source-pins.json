@@ -1,6 +1,6 @@
 {
   "schema": "industrial-reach-publication-source-1",
-  "scope": "Exact Reach runtime and UI with drilling display and next-action corrections; unchanged verified v10 training, case and model inputs. Historical recording closure retained separately. No manufacturing qualification.",
+  "scope": "Exact Reach runtime and UI with full-sequence inference integrated with the published drilling display and next-action corrections; unchanged training arithmetic, case/model identities and geometry. Historical source closures retained separately. No manufacturing qualification.",
   "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
   "files": [
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "src/industrial-browser-training.mjs",
-      "sha256": "6cd16c7a311fd7271216474e80de9840df05a8eeb22633ad801c4c4d5f663742",
-      "size_bytes": 4830,
-      "role": "verified_random_experience_v10_source"
+      "sha256": "bed3f17f6976154c6c5769b45fbd1fb274216a78d3c9b561599c68a32edfd534",
+      "size_bytes": 5539,
+      "role": "verified_full_sequence_inference_v11_source"
     },
     {
       "path": "src/industrial-engagement-controls.mjs",
@@ -167,9 +167,9 @@
     },
     {
       "path": "src/industrial-setup-learning-worker.mjs",
-      "sha256": "ea5a4ed7ed3b602091c62304dc3d11c2cf4e5ffe92e20eb62488496500501873",
-      "size_bytes": 3489,
-      "role": "verified_random_experience_v10_source"
+      "sha256": "33caf7854f2de94342ba5c8a5cf921be928877900c9260c1c1d2a146fedb2354",
+      "size_bytes": 4110,
+      "role": "verified_full_sequence_inference_v11_source"
     },
     {
       "path": "src/industrial-setup-learning.mjs",
@@ -185,9 +185,9 @@
     },
     {
       "path": "src/industrial-setup-panel.jsx",
-      "sha256": "f08be5d197fb98a19799338a00813de97f31d72d5c8925a74f53092e6d08af4e",
-      "size_bytes": 29266,
-      "role": "drilling_display_and_next_action_v11_source"
+      "sha256": "2f02dabd70315bb884564551ac7866d38a5255734e5e24af953d9bbb07df8011",
+      "size_bytes": 32223,
+      "role": "verified_full_sequence_inference_v11_with_published_display_fixes"
     },
     {
       "path": "src/industrial-setup-pins.mjs",
@@ -278,5 +278,11 @@
     "path": "source-pins-v10.json",
     "sha256": "d16e53ee9c11e9207fa06d487c942961d71ffbd65b73024ad344fd33939311fd",
     "role": "Exact source closure of the original v10 workflow recordings, random experience and inference comparison"
+  },
+  "inference_revision": "verified-full-sequence-inference-v11",
+  "historical_drilling_display": {
+    "path": "source-pins-v11.json",
+    "sha256": "f2ed52e17482b60a225d1f8ef65703d570d28f20a23b6ba420dbae79dc686886",
+    "role": "Published drilling display and next-action closure immediately before full-sequence inference integration"
   }
 }

@@ -2,6 +2,12 @@
 
 The current separate workflow is
 [Reusable Results V2 — Module 3](../rrv2_module3/index.html?case=industrial_reach_00350#gym).
+Its [full-sequence inference workflow](../rrv2_module3/guide/index.html#full-sequence-inference)
+uses a loaded compatible checkpoint without training, with all action rows,
+finishing markers, read-only replay and exact result downloads. This is separate
+from the retained before/after training comparison and one-step policy/MCTS
+suggestions. Fresh UI observations and historical training records keep their
+own source/model identities.
 The [important drilling milestone](MILESTONES.md) records exact published source
 `d2add3f3b77b7f822a1c228fb47e0e31a06a07b0`, its successful production run and
 the observed software/browser checks. The

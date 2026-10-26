@@ -1,6 +1,6 @@
 # AutoCAM Module 3 — illustrated user manual and verification record
 
-**Draft · 23 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
+**Draft · 26 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
 <a id="industrial-reach-workflow"></a>
 
@@ -14,6 +14,121 @@ Source bore `00350-bore-z-24` is Ø24 mm and 23 mm deep. Modeled reach is measur
 from the original stock reference, so its value is distinct from source depth.
 The bore axis and cylinder are logical removal guides; physical tool and holder
 geometry are outside this workflow's model.
+
+<a id="full-sequence-inference"></a>
+
+## Full-sequence inference — fresh screenshots, 26 October 2026
+
+Open [Reusable Results V2 — Module 3](../rrv2_module3/index.html?case=industrial_reach_00350#gym).
+This update adds **Run full-sequence inference** to **Model guidance**. The earlier
+[baseline → preference → random experience → Train model walkthrough](#fresh-training-workflow)
+remains below. Its baseline, policy and MCTS results retain their dated source identity.
+
+| Control | What it does | Starting material / model |
+| --- | --- | --- |
+| **Train model** | Fits weights from saved sequences and explicit labels; random experience is included when saved. | Selected training starting model; saved input only. |
+| **Suggest industrial policy** | Suggests one next action. Use Preview suggested action and Apply to accept it. | Current accepted stock; loaded compatible model. |
+| **Run full-sequence inference** | Generates successive policy actions and the complete action table without training. | Original stock; a snapshot of the loaded compatible model. |
+| **Run inference and compare** | Compares full rollouts and next choices for the last successful training's exact before/after pair. | Identical original stock and identical-state probes; retained training pair. |
+| **Search industrial MCTS** | Searches for one next command using the selected simulation count and depth. | Current accepted stock; loaded model. The dated walkthrough below retains the separate complete MCTS record. |
+
+### 1. Load a compatible model and run the whole sequence
+
+Choose **Use initial model**, or **Load industrial model** and select a compatible
+checkpoint. To reproduce the imported example, use the retained
+[Run B checkpoint](verification/full-sequence-inference/b-loaded-model.json)
+from the earlier seeded-random training. Loading it requires no new **Train model**
+click. Then choose **Run full-sequence inference**. While it runs, **Cancel industrial
+computation** preserves the previous completed result. A guard-limited rollout is
+reported as partial; check its remaining material rather than assuming completion.
+
+The fresh recording deliberately kept **one accepted turning cut** before both
+runs. Both inferred episodes nevertheless start from original stock. No training,
+new random generation or feedback edit occurred during these inference checks.
+
+[![Three distinct controls](images/industrial-reach/full-01-controls-initial.jpg)](images/industrial-reach/full-01-controls-initial.jpg)
+
+*Use initial model loads a compatible checkpoint. Run full-sequence inference is available without a completed training pair; Run inference and compare requires that pair.*
+
+[![Accepted stock retained for the check](images/industrial-reach/full-02-accepted-stock-before.jpg)](images/industrial-reach/full-02-accepted-stock-before.jpg)
+
+*One turning cut was accepted before inference: 308,279.25 mm³ sampled residual. Full inference still starts from original stock.*
+
+### 2. Inspect every decision and its frozen model identity
+
+The **Last inferred sequence** summary names the model used, cut count, residual
+and sampled completion. Each row lists **process, engagement direction, tool reach
+and remaining material**. **Finishing pass** badges identify the final profiling
+actions. Expand **Model identity used for this result** and use **Download inferred
+sequence model** to retain the exact model associated with that result. A later
+model load changes the current model, while the existing result keeps its own identity.
+
+Fresh Initial inference produced **11 cuts**; the imported Run B checkpoint produced
+**24 cuts**. Both reached **0 mm³ sampled residual**, with drilling, cleanup and four
+finishing decisions. More cuts do not establish better machining. The earlier
+controlled A/B comparison below isolates the added random episode; this new check
+demonstrates inference from those saved weights without retraining.
+
+[![Initial result generated by the new button](images/industrial-reach/full-04-initial-result.jpg)](images/industrial-reach/full-04-initial-result.jpg)
+
+*Initial model: 11 cuts, 0 mm³ sampled residual, sampled complete. This is a fresh button execution on 26 October.*
+
+[![Every Initial action and finishing pass](images/industrial-reach/full-05-initial-all-actions.jpg)](images/industrial-reach/full-05-initial-all-actions.jpg)
+
+*All 11 rows show process, engagement direction, reach and remaining material. Drilling is row 4; stock-end cleanup is row 7; finishing passes are rows 8–11.*
+
+[![Import a checkpoint without training again](images/industrial-reach/full-06-b-loaded-old-result.jpg)](images/industrial-reach/full-06-b-loaded-old-result.jpg)
+
+*The loaded checkpoint is now fresh-random-b-checkpoint.json. The previous result still names Initial model and retains its original model identity until inference is run again.*
+
+[![Fresh inference using the checkpoint trained with random experience](images/industrial-reach/full-07-b-result.jpg)](images/industrial-reach/full-07-b-result.jpg)
+
+*B completes in 24 cuts with 0 mm³ sampled residual. Model identity used for this result exposes the canonical checkpoint hash and Download inferred sequence model.*
+
+[![B actions 1–14](images/industrial-reach/full-08-b-actions-first.jpg)](images/industrial-reach/full-08-b-actions-first.jpg)
+
+*The imported policy starts with facing toward +axis at 5 mm reach. It differs from Initial outside turning at 40 mm. These are observed decisions, without an efficiency claim.*
+
+[![B remaining actions and finishing passes](images/industrial-reach/full-09-b-actions-finishing.jpg)](images/industrial-reach/full-09-b-actions-finishing.jpg)
+
+*Rows 12–24 overlap the preceding capture. Drilling is row 17, stock-end cleanup row 20 and the four finishing passes are rows 21–24. The final residual is zero.*
+
+### 3. Replay, download and return to accepted stock
+
+Choose **Replay inferred sequence**, then **Next** to inspect the checked event
+states. **Apply** remains disabled during replay. Choose **Return to my stock** to
+resume the independent accepted stock. **Download inferred sequence** retains the
+actual generated episode; **Download inferred sequence model** retains its model.
+**Download loaded checkpoint** describes the currently selected model, which can
+differ from a previous result's frozen model.
+
+[![Read-only replay at 12 / 24 events](images/industrial-reach/full-10-b-replay-middle.jpg)](images/industrial-reach/full-10-b-replay-middle.jpg)
+
+*Next advances the displayed episode. Apply is disabled; the midpoint residual is 105,530.5 mm³.*
+
+[![Linked views at the same replay event](images/industrial-reach/full-11-b-replay-material.jpg)](images/industrial-reach/full-11-b-replay-material.jpg)
+
+*The 3D material view and 2D section show the same event 12 / 24. View controls do not accept machining decisions.*
+
+[![Replay through completion](images/industrial-reach/full-12-b-replay-complete.jpg)](images/industrial-reach/full-12-b-replay-complete.jpg)
+
+*At 24 / 24 events the sampled residual is zero. The replay checks all 12 listed features and records the nine finishing checks.*
+
+[![Return to my stock](images/industrial-reach/full-13-accepted-stock-after.jpg)](images/industrial-reach/full-13-accepted-stock-after.jpg)
+
+*The original one-cut accepted stock returns with the same 308,279.25 mm³ residual. The retained before/after stock and training-input downloads are compared separately.*
+
+The fresh raw [Initial episode](verification/full-sequence-inference/initial-inferred-sequence.json),
+[B episode](verification/full-sequence-inference/b-inferred-sequence.json),
+[Initial result model](verification/full-sequence-inference/initial-result-model.json),
+[B result model](verification/full-sequence-inference/b-result-model.json) and
+[capture inventory](verification/full-sequence-inference/recording.json) are portable
+relative downloads. See the [verification record](verification/full-sequence-inference/README.md)
+for source identity, replay and before/after checks. Training comparison stays
+unavailable in this fresh page because no training pair was created here; importing
+a checkpoint alone does not recreate its training report.
+
+<a id="fresh-training-workflow"></a>
 
 ## V2 recorded workflow: baseline, random experience, training and inference
 
@@ -193,7 +308,7 @@ that probability is a model output, not measured machining quality.
 
 *Step 5 — Completed Run A training. The downloaded loaded checkpoint is byte-identical to this run’s downloaded after checkpoint.*
 
-Choose **Compare before / after** and **Download comparison** before Run B.
+Choose **Run inference and compare** (captioned **Compare before / after** in the dated v10 captures) and **Download comparison** before Run B.
 Run A's checked full rollouts are Path 1 **11**, Greedy **11**, Path 2 **13**,
 Initial policy **11** and trained A policy **20** decisions. All five reach zero
 sampled residual. At the 11 identical prefixes of the Initial policy, A changes
@@ -274,7 +389,7 @@ its after checkpoint. The raw downloads are linked below with their hashes.
 
 ### 8. Run inference and inspect identical-state choices
 
-Choose **Compare before / after**, then **Download comparison** for Run B. Its
+Choose **Run inference and compare** (captioned **Compare before / after** in the dated v10 captures), then **Download comparison** for Run B. Its
 six checked full rollouts start from identical original stock: Path 1 **11**,
 Greedy **11**, Path 2 **13**, saved random experience **16**, Initial policy
 **11**, and trained B policy **24** cuts. Every row is sampled complete with

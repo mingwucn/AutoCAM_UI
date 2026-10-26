@@ -40,7 +40,12 @@ restoration. Confirm preview/replay preserve stock, explicit restoration adopts
 only compatible recordings, complete stock has no further cut, and foreign
 recordings reject without mutation. Train from saved sequences/preferences,
 retain and reload the compatible checkpoint, and compare policy/MCTS with
-explicit Apply. Record actual evidence and assistance; the automated
+explicit Apply. Separately load a compatible checkpoint without training and
+choose **Run full-sequence inference**. Inspect all process/direction/reach and
+remaining-volume rows, completion and finishing markers; replay read-only and
+download the inferred sequence and the model used for that result. Confirm
+accepted stock and saved feedback remain unchanged, and distinguish this from
+the trained-pair **Run inference and compare**. Record actual evidence and assistance; the automated
 [drilling milestone](MILESTONES.md) does not fill this assessment.
 
 ## Family and function matrix — blank assessment

@@ -7,6 +7,13 @@ explicit preferences; download the input, report and checkpoint. Its optional
 Node.js reproduction is documented in that guide. Keep its exact dataset/model
 separate from the original industrial family.
 
+To use a checkpoint without training, choose **Use initial model** or **Load
+industrial model**, then **Run full-sequence inference**. It generates all
+successive decisions from original stock and retains its own model identity,
+episode and read-only replay. **Suggest industrial policy** proposes one next
+action at accepted stock. **Run inference and compare** uses the exact pair
+from the last completed training. Follow the [full-sequence steps](../rrv2_module3/guide/index.html#full-sequence-inference).
+
 Use [original industrial rules, preferences and RL](INDUSTRIAL_LEARNING_QUICKSTART.md)
 for the classic two pinned sampled cases, 3-29-00350 and 3-29-00289. Generate a rule
 baseline, retain a complete alternative and label which whole sequence or action
@@ -79,7 +86,7 @@ For the full illustrated explanation and exact five-step flow, read
 
 | Your downloaded episode | Local route | Browser use |
 | --- | --- | --- |
-| V2 Reach training input, exact `industrial_reach_00350` case | [V2 browser training or optional Node.js recipe](../rrv2_module3/guide/index.html#node-training) | The checked browser-trained model loads automatically; compare policy/MCTS, preview, then explicitly Apply |
+| V2 Reach training input, exact `industrial_reach_00350` case | [V2 browser training or optional Node.js recipe](../rrv2_module3/guide/index.html#node-training) | The checked trained model loads automatically; full-sequence inference/replay uses any loaded compatible checkpoint without training. One-step policy/MCTS suggestions require explicit Apply |
 | Original industrial 00350 or 00289 feedback bundle, exact pinned case | [Industrial learning](INDUSTRIAL_LEARNING_QUICKSTART.md), Node.js 24 `scripts/train-industrial-episode.mjs --feedback ...` | Load the matching case model, request policy/MCTS, preview, then explicitly Apply |
 | `adaptive-mixed-learning-episode-1` | [Mixed operator learning](OPERATOR_INPUT_QUICKSTART.md), `python/train_operator_episode.py` | Load learning model, request policy/MCTS suggestion, preview, then accept |
 | `adaptive-browser-episode-1` containing task-5 | [Recorded training](RECORDED_TRAINING_QUICKSTART.md), `python/train_recorded_remaining.py` | Load compatible task-5 weights; Run model / Run model + MCTS explicitly executes a checked choice |

@@ -1,0 +1,145 @@
+{
+  "schema": "industrial-full-inference-actual-download-review-1",
+  "status": "passed",
+  "observed_utc": "2026-10-26T01:21:57.981Z",
+  "runtime_pins_sha256": "0a3e630af73cf22395947f5632be4424dd047f58b8b484e73d25dd470a92ea86",
+  "downloaded_file_count": 11,
+  "downloaded_files": [
+    {
+      "file": "accepted-after.json",
+      "sha256": "0b857697fd16a779975309005265ac7e6763830eb8ffd03a0d704976d5fa3a65",
+      "size_bytes": 22872
+    },
+    {
+      "file": "accepted-before.json",
+      "sha256": "0b857697fd16a779975309005265ac7e6763830eb8ffd03a0d704976d5fa3a65",
+      "size_bytes": 22872
+    },
+    {
+      "file": "b-inferred-sequence.json",
+      "sha256": "307a1b86b1b9fbbdf0ba7a988f57886f4897b010dbdcccb1b84df1f74a307608",
+      "size_bytes": 57554
+    },
+    {
+      "file": "b-loaded-model.json",
+      "sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "size_bytes": 4256
+    },
+    {
+      "file": "b-result-model.json",
+      "sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "size_bytes": 4256
+    },
+    {
+      "file": "initial-inferred-sequence.json",
+      "sha256": "afe05ea84772dca7a129e95034fd4fb42b66834e00eefb1760f371755e181031",
+      "size_bytes": 39676
+    },
+    {
+      "file": "initial-model.json",
+      "sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "size_bytes": 3502
+    },
+    {
+      "file": "initial-result-model-after-b-load.json",
+      "sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "size_bytes": 3502
+    },
+    {
+      "file": "initial-result-model.json",
+      "sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "size_bytes": 3502
+    },
+    {
+      "file": "input-after.json",
+      "sha256": "fb131cff73291081d670756ee64881f737a7ecae9c0d0aaed013da7542dfe866",
+      "size_bytes": 92988
+    },
+    {
+      "file": "input-before.json",
+      "sha256": "fb131cff73291081d670756ee64881f737a7ecae9c0d0aaed013da7542dfe866",
+      "size_bytes": 92988
+    }
+  ],
+  "sequences": [
+    {
+      "label": "Initial",
+      "episode_file": "initial-inferred-sequence.json",
+      "episode_id": "7be3e1f51ee89fabca0a16cb7b32ae6a90ead4f31493451456ac40b342a39f81",
+      "canonical_checkpoint_sha256": "2b5a99de41c30cbfb63fac7687aa2d931e1520e04f24210bb3e875284fe614eb",
+      "raw_checkpoint_sha256": "a5bbcf50b0d3b4dec4bc575f275042cb6987013b10701708d4d4bd75560bb86e",
+      "cut_count": 11,
+      "complete": true,
+      "final_residual_mm3": 0,
+      "target_missing_voxels": 0,
+      "setup_event_count": 0,
+      "initial_state_sha256": "93cf72981bbec7b0a77c7df14a7b5135bbec153a2f27b511594b7e87999a82ec",
+      "finishing_action_rows": 4,
+      "positive_final_profile_feature_checks": 9,
+      "all_actions_positive": true,
+      "exact_same_model_regeneration": true,
+      "replay": {
+        "status": "passed",
+        "episode_id": "7be3e1f51ee89fabca0a16cb7b32ae6a90ead4f31493451456ac40b342a39f81",
+        "complete": true,
+        "cut_count": 11,
+        "event_count": 11,
+        "setup_event_count": 0
+      }
+    },
+    {
+      "label": "Imported B",
+      "episode_file": "b-inferred-sequence.json",
+      "episode_id": "c068307e428e77e4264f6ea53a0aa39da1ce49328b64848b040898443276ef19",
+      "canonical_checkpoint_sha256": "7e16f0a089558c1b749c982a0375a350f4b0e12fdc1e8a32c26e95fb819f4415",
+      "raw_checkpoint_sha256": "79acba200d5fbd1fe8939197451c7c48b2d0e18a23de7cb05772cbb39b16b3a4",
+      "cut_count": 24,
+      "complete": true,
+      "final_residual_mm3": 0,
+      "target_missing_voxels": 0,
+      "setup_event_count": 0,
+      "initial_state_sha256": "93cf72981bbec7b0a77c7df14a7b5135bbec153a2f27b511594b7e87999a82ec",
+      "finishing_action_rows": 4,
+      "positive_final_profile_feature_checks": 9,
+      "all_actions_positive": true,
+      "exact_same_model_regeneration": true,
+      "replay": {
+        "status": "passed",
+        "episode_id": "c068307e428e77e4264f6ea53a0aa39da1ce49328b64848b040898443276ef19",
+        "complete": true,
+        "cut_count": 24,
+        "event_count": 24,
+        "setup_event_count": 0
+      }
+    }
+  ],
+  "accepted_stock_and_commands_raw_bytes_equal": true,
+  "accepted_episode_replay": {
+    "status": "passed",
+    "episode_id": "27b434c861b7dbda55fb416ed99b0b2e595876bcf183bf1eb25ec9f7ecd1ae08",
+    "complete": false,
+    "cut_count": 1,
+    "event_count": 1,
+    "setup_event_count": 0
+  },
+  "accepted_live_cut_count": 1,
+  "accepted_live_residual_mm3": 308279.25,
+  "saved_feedback_raw_bytes_equal": true,
+  "saved_feedback_bundle_valid": true,
+  "saved_training": {
+    "saved_episodes": 2,
+    "saved_decisions": 24,
+    "explicit_preference_labels": 1
+  },
+  "initial_result_model_frozen_after_b_load": true,
+  "each_result_model_raw_bytes_equals_its_input": true,
+  "review_did_not_train": true,
+  "review_did_not_change_runtime_or_downloads": true,
+  "original_stock_shared": true,
+  "projection": {
+    "file": "action-rows.json",
+    "sha256": "d1a7e28d7438edb7a2ebfbbf560b4ff0e1b1ee85c3ebb8737f743d8b48c2883f",
+    "rows": 35
+  },
+  "manufacturing_qualified": false
+}

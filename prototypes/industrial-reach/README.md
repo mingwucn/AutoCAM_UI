@@ -30,6 +30,28 @@ explicitly adopts a checked recording. The source bore is `00350-bore-z-24`,
 Ø24 mm and 23 mm deep; modeled reach is measured from the original stock
 reference. The logical bore guide does not model a physical cutter or holder.
 
+## Run inference with a loaded model
+
+Choose **Use initial model** or **Load industrial model**, then **Run
+full-sequence inference**. It uses that compatible checkpoint to generate
+successive decisions from original stock; it requires no training session or
+stock reset. The result lists every process, engagement direction, reach and
+remaining volume, with **Finishing pass** markers and actual complete/partial
+status. Accepted stock and saved feedback remain unchanged.
+
+Use **Replay inferred sequence** for read-only inspection and **Download inferred
+sequence** to retain its episode. Expand **Model identity used for this result**
+to inspect the canonical checkpoint hash and **Download inferred sequence model**.
+This retains the model used for that result even after another checkpoint is
+loaded. **Download loaded checkpoint** instead exports the currently loaded model.
+Follow the [illustrated full-sequence steps](guide/index.html#full-sequence-inference).
+
+**Suggest industrial policy** proposes one next action at accepted stock;
+preview it and explicitly Apply to accept a cut. **Run inference and compare**
+compares the exact before/after pair retained from the last completed training.
+Later checkpoint loads do not replace that pair. Full-sequence inference uses
+the currently loaded model independently of that training comparison.
+
 ## Browser training
 
 In **Train from saved sequences**, check the saved sequences and explicit
@@ -40,18 +62,21 @@ model, accepted stock and saved feedback. A successful checked model loads
 automatically as **Browser-trained model**. Download its loaded checkpoint,
 training report and exact training input before comparing fresh rollouts.
 
-Reset stock before each baseline, initial-policy, trained-policy or trained-MCTS
-rollout. Use **Load industrial model** to reload the downloaded result.
+Use **Load industrial model** to reload the downloaded result. Full-sequence
+inference runs from original stock in its own simulation. For a manually applied
+baseline or policy/MCTS sequence, reset stock before starting the new sequence.
 
 For a controlled experience comparison, first train Run A from Initial using
 Path 1, Greedy, Path 2 and the explicit Path 2-over-Path 1 preference. Download
 its exact input, checkpoints, report and inference comparison. Then generate
 random seed 350289 as separate saved experience, preserve those labels, and
 train Run B from Initial again. Keep Run B downloads separately. Random
-generation does not add a preference. **Compare before / after** retains the
+generation does not add a preference. **Run inference and compare** retains the
 exact model pair for each completed training; the same-state rows compare
 choices along the before policy. The Run B view compares Initial to Run B,
 while A-versus-B policy results isolate the added experience.
+The dated v10 recording shows this control under its earlier caption,
+**Compare before / after**.
 
 ## Optional Node.js reproduction
 
@@ -78,7 +103,9 @@ imitation. This is sampled shadow planning, without physical cutter, fixture,
 machine-motion or continuous-surface qualification.
 
 `source-pins.json` identifies the 43 current runtime, trainer and dataset inputs,
-with the v11 drilling display and next-action corrections. `source-pins-v10.json`
+combining full-sequence inference with the published drilling display and
+next-action corrections. `source-pins-v11.json` retains that earlier display
+closure. `source-pins-v10.json`
 retains the recording closure for the illustrated random-experience walkthrough;
 its screenshots and numerical records have not been rebound to the current UI.
 `source-pins-v9.json`

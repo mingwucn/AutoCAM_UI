@@ -26,11 +26,35 @@ recordings as authority for new behavior.
 | Earlier verification tables could appear to verify the current successor. | Verification status separates the exact drilling milestone from retained platform and training receipts. Build provenance and production checks identify each later deployment. |
 | Two adjacent legacy catalogue anchors were escaped in the rendered guide, breaking its industrial-learning jump link. | Each anchor occupies its own paragraph, preserving both existing fragment names and making the section links work in the built documentation. |
 
-The review preserves internal `industrial-reach` names, dataset/model identities,
+The public-address review preserved internal `industrial-reach` names, dataset/model identities,
 all runtime source and pin bytes, historical screenshots and training downloads.
-It changes public navigation, documentation and publication packaging.
+It changed public navigation, documentation and publication packaging.
 
-## Verification and remaining scope
+## Full-sequence inference documentation — 26 October 2026
+
+The current V2 instructions distinguish three inference controls. **Suggest
+industrial policy** proposes one next action at accepted stock. **Run
+full-sequence inference** uses the loaded compatible model to generate successive
+actions from original stock without training. **Run inference and compare** uses
+the exact before/after pair retained from the last completed training.
+
+The full-sequence instructions cover every action row, finishing markers,
+complete/partial status, read-only replay and episode download. **Download
+inferred sequence model**, inside **Model identity used for this result**, retains
+the result's frozen model; **Download loaded checkpoint** exports the currently
+loaded model. The dated v10 screenshots retain their earlier **Compare before /
+after** caption and original numerical results. New UI captures are separate.
+
+The README, V2 introduction, scope, functional contract, workflow catalogue,
+training guides, troubleshooting and blank acceptance checklist use these same
+meanings. The [current steps](../rrv2_module3/guide/index.html#full-sequence-inference)
+and [validation guide](VALIDATION_GUIDE.md) identify the new workflow and its
+focused checks. Its exact source closure combines the inference UI with the
+published drilling/recovery fixes. The earlier address-change results below
+retain their own scope; fresh runtime, browser and deployment results are recorded
+separately. The F01–F24 generated registry denominator is unchanged.
+
+## Retained public-address verification and remaining scope
 
 Route checks cover canonical packaging, old root/guide/comparison HTML redirects
 under different repository prefixes, query/fragment preservation and identical
@@ -40,7 +64,7 @@ inspection. The deployment's exact commit and clean/dirty status are exposed in
 its generated build provenance; terminal production checks are available in
 [GitHub Actions](https://github.com/mingwucn/AutoCAM_UI/actions).
 
-Local verification passed 708 fixture-backed unit tests with zero failures,
+The public-address candidate's local verification passed 708 fixture-backed unit tests with zero failures,
 skips or cancellations, 13 release tests, 511 local links across 42
 documentation files, and integrity checks for 716 built files. Actual browser
 checks confirmed both old application/guide bookmarks preserve their queries
@@ -49,9 +73,9 @@ route remains separate, and drilling/replay recovery retains the milestone's
 observed material result. These checks identify the local candidate; production
 deployment and hosted verification remain separate delivery gates.
 
-This is the first, document-wise consistency pass for the public V2 Module 3
-surface. It does not claim a programme-wide normative-document review or a new
-training experiment. Historical numerical observations, independent user
+The public-address review was the first document-wise consistency pass for the
+public V2 Module 3 surface. It did not claim a programme-wide normative-document
+review or a new training experiment. Historical numerical observations, independent user
 acceptance and manufacturing qualification remain separate.
 
 Consulted public sources: [V2 source introduction](https://github.com/mingwucn/AutoCAM_UI/blob/main/prototypes/industrial-reach/README.md),

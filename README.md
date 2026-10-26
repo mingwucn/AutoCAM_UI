@@ -17,6 +17,10 @@ finishing, and its [illustrated workflow](rrv2_module3/guide/index.html#drilling
 The walkthrough covers all 11 baseline Apply decisions, explicit preference,
 controlled training with added random experience, checkpoint reloading and
 measured policy/MCTS results, with exact downloads and full-size screenshots.
+Use **Run full-sequence inference** with a loaded compatible checkpoint to
+generate every successive action from original stock, without training. Inspect
+the action list and finishing passes, replay it, and download the sequence and
+the model used. See the [full-sequence inference steps](rrv2_module3/guide/index.html#full-sequence-inference).
 This isolated workflow has its own exact dataset and checkpoint; the original
 root workflows remain available. The recorded walkthrough retains its v10
 screenshots and numerical results. Read the [important drilling milestone](docs/MILESTONES.md)
@@ -34,7 +38,7 @@ training, follow [public source acquisition and installation](docs/INSTALLATION.
 
 | What you want to do | Guide | Expected outcome |
 | --- | --- | --- |
-| Use Reusable Results V2 — Module 3 | [V2 illustrated guide](rrv2_module3/guide/index.html) | Phase-gated 00350 cuts, explicit drilling/finishing, browser training and policy/MCTS |
+| Use Reusable Results V2 — Module 3 | [V2 illustrated guide](rrv2_module3/guide/index.html) | Phase-gated 00350 cuts, explicit drilling/finishing, local training, loaded-model full-sequence inference and one-step policy/MCTS |
 | Try the original industrial 00350 example | [GYM quickstart](docs/GYM_QUICKSTART.md) | Classic three-cut sequence, shared stock and replay |
 | Fine-tune the original two industrial cases with feedback | [Industrial learning](docs/INDUSTRIAL_LEARNING_QUICKSTART.md) | Classic rule baseline, sequence/action-kind preferences, learned reward, RL checkpoint and policy/MCTS comparison |
 | Record synthetic choices, train and use a model | [Operator learning](docs/OPERATOR_INPUT_QUICKSTART.md) | Separate fixed-reward synthetic workflow and compatible checkpoint |

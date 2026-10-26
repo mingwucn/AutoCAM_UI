@@ -76,8 +76,8 @@ test('documentation resolves only declared canonical and compatibility applicati
   for(const route of [RRV2_ROUTE,LEGACY_REACH_ROUTE]){
     for(const entry of ['', '/', '/index.html'])assert.equal(resolveDocumentationLink(root,'README.md',route+entry+'?case=industrial_reach_00350#gym').target,path.join(root,'prototypes/industrial-reach/index.html'));
     for(const entry of ['/guide','/guide/','/guide/index.html'])assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../'+route+entry+'#fresh-recording').target,path.join(root,'prototypes/industrial-reach/guide/index.html'));
-    for(const pin of ['source-pins.json','source-pins-v8.json','source-pins-v9.json','source-pins-v10.json'])assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../'+route+'/'+pin).target,path.join(root,'prototypes/industrial-reach',pin));
+    for(const pin of ['source-pins.json','source-pins-v8.json','source-pins-v9.json','source-pins-v10.json','source-pins-v11.json'])assert.equal(resolveDocumentationLink(root,'docs/ILLUSTRATED_MODULE3_MANUAL.md','../'+route+'/'+pin).target,path.join(root,'prototypes/industrial-reach',pin));
     assert.throws(()=>resolveDocumentationLink(root,'README.md',route+'/missing.html'),/Undeclared linked source/);
-    assert.throws(()=>resolveDocumentationLink(root,'README.md',route+'/source-pins-v11.json'),/Undeclared linked source/);
+    assert.throws(()=>resolveDocumentationLink(root,'README.md',route+'/source-pins-v12.json'),/Undeclared linked source/);
   }
 });

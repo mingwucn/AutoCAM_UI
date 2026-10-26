@@ -1,0 +1,15 @@
+{
+  "schema": "industrial-reach-full-sequence-fixtures-1",
+  "files": [
+    {
+      "file": "after-checkpoint.json",
+      "sha256": "a6fb64150abaca809e69629da7b2c6690e12e119434c9b3f682d07eed436ea30",
+      "size_bytes": 4256
+    },
+    {
+      "file": "comparison.json",
+      "sha256": "c41f8ac7de43425b963bf39edb882331405901d0f7924e40c8d2743f7599960b",
+      "size_bytes": 313726
+    }
+  ]
+}

@@ -41,6 +41,16 @@ checkpoints cannot substitute for V2 models. The 00289 link opens its original
 root route. Read [milestones](MILESTONES.md) for observed verification;
 the illustrated v10 captures retain their frozen recording identity.
 
+For a complete loaded-model rollout, choose **Use initial model** or **Load
+industrial model**, then **Run full-sequence inference**. No training or stock
+reset is required: its own simulation starts from original stock. Inspect all
+action rows, remaining volume, finishing markers and complete/partial status.
+Use **Replay inferred sequence**, **Download inferred sequence**, and **Download
+inferred sequence model** under **Model identity used for this result**. Accepted
+stock and saved feedback remain unchanged. **Suggest industrial policy** still
+proposes one next action; **Run inference and compare** uses the retained model
+pair from the last completed training. Follow the [full-sequence steps](../rrv2_module3/guide/index.html#full-sequence-inference).
+
 ## Obtain the inputs
 
 The prepared case menu is available in the
