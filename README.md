@@ -27,9 +27,7 @@ screenshots and numerical results. Read the [important drilling milestone](docs/
 and [documentation consistency review](docs/DOCUMENT_CONSISTENCY_REVIEW.md) for
 the current display, controls and public address.
 
-Read the [illustrated Module 3 manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) for
-application screenshots, step-by-step workflows and linked responses to
-reviewer comments 9–12.
+Choose the [Module 3 user guide](docs/MODULE3_USER_GUIDE.md) for the operating workflow, or the [developer guide](docs/MODULE3_DEVELOPER_GUIDE.md) for setup, contracts and verification. The [full illustrated manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) retains the detailed screenshots, recorded results and responses to reviewer comments 9–12.
 
 Open the [application](index.html) from the published documentation to try
 built-in cases without a local installation. In a repository preview, use the
