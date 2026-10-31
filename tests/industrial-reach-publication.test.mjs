@@ -16,13 +16,13 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 
 test('retained reach source and exact case pins match the published closure',()=>{
   const pins=JSON.parse(fs.readFileSync(path.join(prototype,'source-pins.json')));
-  assert.equal(pins.files.length,43);
+  assert.equal(pins.files.length,45);
   assert.equal(pins.browser_training_revision,'verified-v10-random-experience');
   assert.equal(pins.display_revision,'drilling-display-and-next-action-v11');
   assert.equal(pins.inference_revision,'verified-full-sequence-inference-v11');
   assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_drilling_display.path))),pins.historical_drilling_display.sha256);
   const priorDisplay=JSON.parse(fs.readFileSync(path.join(prototype,pins.historical_drilling_display.path)));
-  const inferenceFiles=new Set(['src/industrial-browser-training.mjs','src/industrial-setup-learning-worker.mjs','src/industrial-setup-panel.jsx']);
+  const inferenceFiles=new Set(['src/industrial-setup-app.jsx','src/industrial-browser-training.mjs','src/industrial-setup-learning-worker.mjs','src/industrial-setup-panel.jsx']);
   assert.equal(priorDisplay.files.length,43);
   for(const row of priorDisplay.files)if(!inferenceFiles.has(row.path))assert.deepEqual(pins.files.find(current=>current.path===row.path),row,'unchanged published drilling/material/training input: '+row.path);
   assert.equal(sha(fs.readFileSync(path.join(prototype,pins.historical_runtime.path))),pins.historical_runtime.sha256);

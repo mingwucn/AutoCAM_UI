@@ -54,6 +54,7 @@ jobs:
       - run: node scripts/fetch-test-data.mjs
       - run: npm run test:parity
       - run: npx playwright install --with-deps chromium
+      - run: npm run test:geometry-browser
       - run: npm run test:module3-workflow
       - run: npm run build:release
       - run: npm run test:industrial-cancellation
