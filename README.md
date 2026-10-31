@@ -11,23 +11,27 @@ tested, published and accepted.
 
 ## Start here
 
-Open [Reusable Results V2 — Module 3](rrv2_module3/index.html?case=industrial_reach_00350)
-for the current 00350 process/direction/reach workflow with explicit drilling and
-finishing, and its [illustrated workflow](rrv2_module3/guide/index.html#drilling-controls).
-The walkthrough covers all 11 baseline Apply decisions, explicit preference,
-controlled training with added random experience, checkpoint reloading and
-measured policy/MCTS results, with exact downloads and full-size screenshots.
-Use **Run full-sequence inference** with a loaded compatible checkpoint to
-generate every successive action from original stock, without training. Inspect
-the action list and finishing passes, replay it, and download the sequence and
-the model used. See the [full-sequence inference steps](rrv2_module3/guide/index.html#full-sequence-inference).
-This isolated workflow has its own exact dataset and checkpoint; the original
-root workflows remain available. The recorded walkthrough retains its v10
-screenshots and numerical results. Read the [important drilling milestone](docs/MILESTONES.md)
-and [documentation consistency review](docs/DOCUMENT_CONSISTENCY_REVIEW.md) for
-the current display, controls and public address.
+**Using the app?** Start with the [user guide](docs/MODULE3_USER_GUIDE.md). It
+explains how to open the app, apply actions, save a sequence, give feedback and
+use a model. Then follow the [detailed screenshot walkthrough](docs/ILLUSTRATED_MODULE3_MANUAL.md#fresh-training-workflow)
+to reproduce the recorded example step by step.
 
-Choose the [Module 3 user guide](docs/MODULE3_USER_GUIDE.md) for the operating workflow, or the [developer guide](docs/MODULE3_DEVELOPER_GUIDE.md) for setup, contracts and verification. The [full illustrated manual](docs/ILLUSTRATED_MODULE3_MANUAL.md) retains the detailed screenshots, recorded results and responses to reviewer comments 9–12.
+**Developing or validating?** Start with the [developer guide](docs/MODULE3_DEVELOPER_GUIDE.md)
+for the source map, setup, contracts and checks. Read the user guide first to see
+the operator workflow.
+
+**Try it now:** open the [hosted Reusable Results V2 — Module 3 app](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym).
+The app runs in the browser; GitHub displays the source and documentation. A
+separate [hosted illustrated workflow](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/guide/)
+accompanies the app.
+
+The guides focus on V2 case 3-29-00350. Its recordings and checkpoints are
+specific to that workflow. The detailed manual also contains older root and
+synthetic examples; use their own guides and compatible models. Screenshots and
+results describe the dated versions identified in the manual, so current
+screens may differ. For current controls and status, read the [drilling milestone](docs/MILESTONES.md),
+[documentation consistency review](docs/DOCUMENT_CONSISTENCY_REVIEW.md) and
+[verification status](docs/VERIFICATION_STATUS.md).
 
 Open the [application](index.html) from the published documentation to try
 built-in cases without a local installation. In a repository preview, use the
@@ -36,7 +40,7 @@ training, follow [public source acquisition and installation](docs/INSTALLATION.
 
 | What you want to do | Guide | Expected outcome |
 | --- | --- | --- |
-| Use Reusable Results V2 — Module 3 | [V2 illustrated guide](rrv2_module3/guide/index.html) | Phase-gated 00350 cuts, explicit drilling/finishing, local training, loaded-model full-sequence inference and one-step policy/MCTS |
+| Use Reusable Results V2 — Module 3 | [V2 user guide](docs/MODULE3_USER_GUIDE.md) | Phase-gated 00350 cuts, explicit drilling/finishing, local training, loaded-model full-sequence inference and one-step policy/MCTS |
 | Try the original industrial 00350 example | [GYM quickstart](docs/GYM_QUICKSTART.md) | Classic three-cut sequence, shared stock and replay |
 | Fine-tune the original two industrial cases with feedback | [Industrial learning](docs/INDUSTRIAL_LEARNING_QUICKSTART.md) | Classic rule baseline, sequence/action-kind preferences, learned reward, RL checkpoint and policy/MCTS comparison |
 | Record synthetic choices, train and use a model | [Operator learning](docs/OPERATOR_INPUT_QUICKSTART.md) | Separate fixed-reward synthetic workflow and compatible checkpoint |

@@ -1,5 +1,7 @@
 # AutoCAM Module 3 — illustrated user manual and verification record
 
+**Where to start:** Use the [user guide](MODULE3_USER_GUIDE.md) for the operating sequence and the [developer guide](MODULE3_DEVELOPER_GUIDE.md) for setup and verification. This longer document preserves detailed, dated screenshots, results and reviewer responses. Start at the [V2 baseline and training walkthrough](#fresh-training-workflow) or [full-sequence inference](#full-sequence-inference). The [hosted app](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym) is separate from the source files displayed on GitHub.
+
 **Draft · 26 October 2026.** This document covers the single [AutoCAM_UI repository](../README.md) and its [hosted application](../index.html). It explains the workflow, the observed results and the remaining limits. It is not an independent human acceptance record or manufacturing approval. Video is deferred.
 
 <a id="industrial-reach-workflow"></a>

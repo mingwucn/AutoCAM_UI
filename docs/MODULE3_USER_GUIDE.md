@@ -1,12 +1,21 @@
 # Reusable Results V2 — Module 3: user guide
 
-This guide helps you explore the 3-29-00350 case, record a sequence, provide feedback and use a trained model. It describes the V2 workflow. For the complete recorded example, including every step and full-size screenshots, see the [illustrated walkthrough](ILLUSTRATED_MODULE3_MANUAL.md#fresh-training-workflow). For installation, implementation and verification, see the [developer guide](MODULE3_DEVELOPER_GUIDE.md).
+This guide is for people using the **Reusable Results V2 — Module 3** app with case 3-29-00350. It explains what to do in the browser. The hosted app needs no local installation.
+
+## How to use the documentation
+
+1. Open the [hosted application](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym) and keep this guide beside it. Follow sections 1–2 to inspect stock and record a baseline.
+2. Continue with sections 3–4 to provide feedback, train or use a compatible model. You can inspect and apply actions without training.
+3. For each recorded decision and training screen, follow the [detailed illustrated walkthrough](ILLUSTRATED_MODULE3_MANUAL.md#fresh-training-workflow). For full-sequence inference, use its [separate illustrated steps](ILLUSTRATED_MODULE3_MANUAL.md#full-sequence-inference).
+4. For installation, code, contracts or validation, use the [developer guide](MODULE3_DEVELOPER_GUIDE.md). For other cases, see section 5 below.
+
+The screenshots document dated example runs, so current screens may differ. Click a screenshot to see it at full size. For current controls, see the [drilling and sequence guide](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/guide/#drilling-controls).
 
 The app is a research demonstrator using sampled material. Its results are not an approved manufacturing plan. The modeled reach is not a physical tool or holder model.
 
 ## 1. Open the case and inspect the stock
 
-Open [Reusable Results V2 — Module 3](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym) from the hosted site. In GitHub, open the running site from the repository deployment link. Select the 3-29-00350 case and inspect the stock, target and holding material. Use **Reset stock** if you want to start again from the original stock.
+Open [Reusable Results V2 — Module 3](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym). Select the 3-29-00350 case and inspect the stock, target and holding material. Use **Reset stock** if you want to start again from the original stock.
 
 Choose **Turning**, **Outside turning** and **Tool reach 40 mm**. Preview the action: orange shows the proposed removal. Preview does not change accepted stock. When you are ready, select **Apply to 3-29-00350**.
 

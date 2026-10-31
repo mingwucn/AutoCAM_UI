@@ -1,12 +1,30 @@
 # Reusable Results V2 — Module 3: developer guide
 
-This guide is the technical entry point for developers working on the Module 3 delivery. For operating the application, including the illustrated baseline, feedback, training and inference flow, start with the [user guide](MODULE3_USER_GUIDE.md). The [original illustrated manual and verification record](ILLUSTRATED_MODULE3_MANUAL.md) preserves the full dated screenshots, measurements, source identities and reviewer responses.
+This guide is for developers, maintainers and reviewers of the Module 3 delivery. It maps the V2 workflow to source, setup and verification documents. For the operator's actions and screenshots, read the [user guide](MODULE3_USER_GUIDE.md).
+
+## Reading order
+
+1. **Understand the behavior:** follow the [user guide](MODULE3_USER_GUIDE.md), then the [recorded walkthrough](ILLUSTRATED_MODULE3_MANUAL.md#fresh-training-workflow) for exact steps and dated observations.
+2. **Choose the scope:** read the boundaries below and consult the [workflow catalogue](WORKFLOW_CATALOGUE.md) and [capabilities](CAPABILITIES.md).
+3. **Run or change the code:** use the source map and setup below; follow [installation](INSTALLATION.md) for platform-specific commands and revision pinning.
+4. **Check a result:** use [validation](VALIDATION_GUIDE.md), [verification status](VERIFICATION_STATUS.md) and the manual's [evidence record](ILLUSTRATED_MODULE3_MANUAL.md#evidence-and-draft-status). Match each observation to its revision and case.
+
+The [hosted app](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/?case=industrial_reach_00350#gym) and GitHub's default branch can be at different revisions. Use the served `release.json` as described in the installation guide when reproducing a deployed result.
 
 ## Scope and model boundaries
 
 The current V2 route is `rrv2_module3/` and uses the `industrial_reach_00350` case. It has separate phase, action, recording, feedback and model contracts. The classic root application has its own `industrial` and `industrial_00289` routes; the synthetic mixed route uses another fixed-reward model. Do not interchange their episodes or checkpoints. See the [V2 guide](https://mingwucn.github.io/AutoCAM_UI/rrv2_module3/guide/), [workflow catalogue](WORKFLOW_CATALOGUE.md), [capabilities](CAPABILITIES.md), and [original industrial contract](INDUSTRIAL_LEARNING_CONTRACT.md).
 
 This is a sampled research demonstrator. Preview, geometric gates and modeled reach do not qualify a physical machining plan or establish physical tool and holder clearance. The documentation and test results do not represent independent human acceptance.
+
+## Source map
+
+| Location | What to read there |
+| --- | --- |
+| `prototypes/industrial-reach/` | V2 source, recorded examples and illustrated workflow source; read its README in the checkout. |
+| [Industrial Reach build script](../scripts/build-industrial-reach.cjs) | Builds the V2 route into the release output. `rrv2_module3/` is a generated route, not a source directory at the repository root. |
+| [Module 3 scope](MODULE3_SCOPE.md) | Scope and links to the wider documentation. |
+| [Module 3 browser check](../tests/module3-workflow-browser.mjs) | An example of an automated check; select tests for the changed surface and report the actual result. |
 
 ## Source, setup and execution
 
