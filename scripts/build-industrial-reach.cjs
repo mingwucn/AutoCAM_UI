@@ -40,9 +40,10 @@ function buildIndustrialReach({root,out,development=false,execution}){
   const bundle=(entry,name,format,target)=>esbuild.buildSync({entryPoints:[path.join(source,entry)],bundle:true,minify:!development,format,target,outfile:path.join(destination,'assets',name),nodePaths:[path.join(root,'node_modules')],jsx:'automatic',define:{'process.env.NODE_ENV':JSON.stringify(development?'development':'production')},legalComments:'eof'});
   bundle('entry.jsx','app.js','iife','es2020');
   bundle('src/view.js','view.js','iife','es2020');
+  bundle('src/industrial-geometry-worker.mjs','industrial-geometry-worker.js','esm','es2020');
   bundle('src/industrial-setup-learning-worker.mjs','industrial-setup-learning-worker.js','esm','es2022');
   fs.writeFileSync(path.join(destination,'assets/style.css'),['src/style.css','src/adaptive-tools.css'].map(name=>fs.readFileSync(path.join(source,name),'utf8')).join('\n'));
-  for(const name of ['react','react-dom','three'])fs.copyFileSync(path.join(root,'node_modules',name,'LICENSE'),path.join(destination,'assets',name.toUpperCase()+'-LICENSE.txt'));
+  for(const name of ['react','react-dom','three','fflate'])fs.copyFileSync(path.join(root,'node_modules',name,'LICENSE'),path.join(destination,'assets',name.toUpperCase()+'-LICENSE.txt'));
   const copy=(relative,target=relative)=>{
     const file=path.join(source,relative),stat=fs.lstatSync(file);
     if(!stat.isFile()||stat.isSymbolicLink())throw Error('Regular reach release input required: '+relative);

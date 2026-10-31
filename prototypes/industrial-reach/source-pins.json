@@ -1,6 +1,6 @@
 {
   "schema": "industrial-reach-publication-source-1",
-  "scope": "Exact Reach runtime and UI with full-sequence inference integrated with the published drilling display and next-action corrections; unchanged training arithmetic, case/model identities and geometry. Historical source closures retained separately. No manufacturing qualification.",
+  "scope": "Reach runtime and UI with sampled intermediate STL geometry export and full-sequence inference; unchanged training arithmetic, case/model identities and simulation geometry. Historical source closures retained separately. No manufacturing qualification.",
   "original_dataset_raw_sha256": "9ee0c2b1342a2b6c742884378afabd8a337f18d74a913a3ada48d814222d12f6",
   "files": [
     {
@@ -155,9 +155,9 @@
     },
     {
       "path": "src/industrial-setup-app.jsx",
-      "sha256": "65e955ab4b07a438469625488b619fe5aa753beae5366ce1370051227b82049e",
-      "size_bytes": 22412,
-      "role": "drilling_display_and_next_action_v11_source"
+      "sha256": "61e841eeb021037173087be21e9a1e7466e0b54c4ac01ef5024d66c247f1bb54",
+      "size_bytes": 24154,
+      "role": "geometry_export_ui"
     },
     {
       "path": "src/industrial-setup-client.mjs",
@@ -260,6 +260,18 @@
       "sha256": "a6f85662deed3508c1a28f0e15468436d349482e14a50595e265d2b7b17b19dd",
       "size_bytes": 49989,
       "role": "drilling_display_and_next_action_v11_source"
+    },
+    {
+      "path": "src/industrial-geometry-export.mjs",
+      "sha256": "e9350e65239a22820d271faf4eac90e4d598feb3d8757e9e8605fda073372cf6",
+      "size_bytes": 4651,
+      "role": "sampled_geometry_export"
+    },
+    {
+      "path": "src/industrial-geometry-worker.mjs",
+      "sha256": "157e59faccd3b27b6f4119613c50f3cc221456f75123f3e95bc2d798d78aaf7f",
+      "size_bytes": 423,
+      "role": "sampled_geometry_export_worker"
     }
   ],
   "historical_runtime": {
